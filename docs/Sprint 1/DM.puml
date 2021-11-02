@@ -1,0 +1,38 @@
+@startuml
+
+class container{}
+class certificate{}
+class ship{}
+class shipData{}
+class port{}
+class wharehouse{}
+class crew{}
+class roles{}
+class employee{}
+class cargoManifest{}
+class truck{}
+
+ship-->shipData: has
+ship-->crew
+ship-->container
+ship--> port
+ship--> wharehouse
+
+container-->cargoManifest
+container-->port
+container-->wharehouse
+container-->certificate
+
+crew-->port
+crew-->wharehouse
+crew-->employee
+
+wharehouse-->truck
+
+port-->truck
+
+employee-->roles
+
+
+
+@enduml

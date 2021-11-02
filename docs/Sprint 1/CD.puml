@@ -1,0 +1,67 @@
+@startuml
+
+class container{
+-contNumber
+-ISOCode
+-checkDigit
+-maxWeightC
+-weightC
+-maxWeight
+-maxVol
+-repairRecomendation
+-certificate
+-refrigeration
+-
+}
+class certificate{}
+class ship{
+-MMSI
+-shipName
+-IMO
+-numberGenerator
+-generatorOutput
+-callSign
+-vesselType
+-length
+-width
+-capacity
+-draft
+}
+class shipData{}
+class port{}
+class wharehouse{}
+class crew{}
+class roles{}
+class employee{}
+class cargoManifest{
+-containerID
+-containerPosition
+-grossWeight
+-energy
+}
+class truck{}
+
+ship-->shipData
+ship-->crew
+ship-->container
+ship--> port
+ship--> wharehouse
+
+container-->cargoManifest
+container-->port
+container-->wharehouse
+container-->certificate
+
+crew-->port
+crew-->wharehouse
+crew-->employee
+
+wharehouse-->truck
+
+port-->truck
+
+employee-->roles
+
+
+
+@enduml
