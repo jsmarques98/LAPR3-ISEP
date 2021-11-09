@@ -30,7 +30,6 @@ public class Ship {
         this.draft = draft;
         this.cargo = cargo;
     }
-
     public int getMmsi() {
         return mmsi;
     }

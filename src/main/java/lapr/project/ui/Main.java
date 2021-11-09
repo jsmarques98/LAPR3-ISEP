@@ -3,7 +3,7 @@ package lapr.project.ui;
 import lapr.project.model.CalculatorExample;
 import lapr.project.model.Ship;
 //import lapr.project.model.ShipIMO;
-import lapr.project.model.ShipMmsi;
+import lapr.project.model.Ship;
 import lapr.project.utils.BST;
 import lapr.project.utils.CsvReader;
 
@@ -44,13 +44,13 @@ class Main {
             LOGGER.log(Level.INFO, String.valueOf(value));
         }
 
-       /* List<Ship> shipsRead = CsvReader.readCSV();
-        List<ShipMmsi> shipArray = shipsRead;
+        List<Ship> shipsRead = CsvReader.readCSV();
+        List<Ship> shipArray = shipsRead;
 
 
-        BST<ShipMmsi> shipBST = new BST<>();
+        /*BST<Ship> shipBST = new BST<>();
 
-        for (ShipMmsi s: shipArray) {
+        for (Ship s: shipArray) {
             shipBST.insert(s);
         }*/
 
@@ -64,8 +64,8 @@ class Main {
             ship2BST.insert(s);
         }*/
 
-/*
-        shipBST.printTree("\n");
+
+        /*shipBST.printTree("\n");
 
         int cont=0;
         for (Ship s: shipArray) {
@@ -76,4 +76,5 @@ class Main {
     }*/
     }
 }
+
 

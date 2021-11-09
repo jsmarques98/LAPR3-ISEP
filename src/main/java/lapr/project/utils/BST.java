@@ -241,7 +241,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
         }
     }
 
-    public Ship findImo(int imo) {
+    /*public Ship findImo(int imo) {
         int count = 0;
         Node<E> node = this.root();
         while(count < this.height() - 1) {
@@ -267,7 +267,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
             count++;
         }
         return (Ship) node.getElement();
-    }
+    }*/
 
     /*
      * Returns an iterable collection of elements of the tree, reported in in-order.
