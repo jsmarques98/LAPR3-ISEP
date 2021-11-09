@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
-public class Ship implements Comparable<Ship>{
+public class Ship {
 
     private final int mmsi;
     private ArrayList<DynamicShip> shipData;
@@ -51,24 +51,7 @@ public class Ship implements Comparable<Ship>{
         this.shipData.add(ship);
     }
 
-    @Override
-    public int compareTo(Ship o){
-        if (this.getMmsi() > o.getMmsi()) {
-            return 1;
-        } else if (this.getMmsi() < o.getMmsi()){
-            return -1;
-        } else {
-            return 0;
-        }
-    }
 
-    public boolean compareIMO(int imo){
-        return this.imo == imo;
-    }
-
-    public boolean compareCallSign(String callSign){
-        return this.callSign == callSign;
-    }
 
     @Override
     public String toString() {

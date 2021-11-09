@@ -3,12 +3,14 @@ package lapr.project.ui;
 import lapr.project.model.CalculatorExample;
 import lapr.project.model.Ship;
 //import lapr.project.model.ShipIMO;
+import lapr.project.model.ShipMmsi;
 import lapr.project.utils.BST;
 import lapr.project.utils.CsvReader;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,15 +44,15 @@ class Main {
             LOGGER.log(Level.INFO, String.valueOf(value));
         }
 
+       /* List<Ship> shipsRead = CsvReader.readCSV();
+        List<ShipMmsi> shipArray = shipsRead;
 
-        ArrayList<Ship> shipArray;
-        shipArray = CsvReader.readCSV();
 
-        BST<Ship> shipBST = new BST<>();
+        BST<ShipMmsi> shipBST = new BST<>();
 
-        for (Ship s: shipArray) {
+        for (ShipMmsi s: shipArray) {
             shipBST.insert(s);
-        }
+        }*/
 
 
         /*ArrayList<Ship> shipArray2;
@@ -62,7 +64,7 @@ class Main {
             ship2BST.insert(s);
         }*/
 
-
+/*
         shipBST.printTree("\n");
 
         int cont=0;
@@ -71,6 +73,7 @@ class Main {
             System.out.println(s.toString());
         }
         System.out.println(cont);
+    }*/
     }
 }
 
