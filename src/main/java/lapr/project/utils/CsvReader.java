@@ -56,9 +56,10 @@ public class CsvReader {
                 if (index == -1) { // se o barco não existir
                     int imo = cutImo(values[8]);
                     int cargo = fixCargo(values[14]);
+
                     Ship ship = new Ship(
                             Integer.parseInt(values[0]), // mmsi
-                            values[7], // name
+                            null, values[7], // name
                             imo, // imo
                             values[9], // callsign
                             Integer.parseInt(values[10]), // vessel

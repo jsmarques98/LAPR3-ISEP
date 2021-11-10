@@ -1,18 +1,24 @@
-/*package lapr.project.model;
+package lapr.project.model;
 
-*//*public class ShipCallSign extends Ship implements Comparable<ShipCallSign>{
-    public ShipCallSign(int mmsi, String vesselName, int imo, String callSign, int vesselType, double length, double width, double draft, double cargo) {
-        super(mmsi, vesselName, imo, callSign, vesselType, length, width, draft, cargo);
+public class ShipCallSign extends Ship implements Comparable<ShipCallSign>{
+
+    public ShipCallSign(Ship ship) {
+        super(ship.getMmsi(),
+                ship.getDynamicShip(),
+                ship.getVesselName(),
+                ship.getImo(),
+                ship.getCallSign(),
+                ship.getVesselType(),
+                ship.getLength(),
+                ship.getWidth(),
+                ship.getDraft(),
+                ship.getCargo());
     }
+
 
     @Override
     public int compareTo(ShipCallSign o){
-        if (this.getCallSign() > o.getCallSign()) {
-            return 1;
-        } else if (this.getCallSign() < o.getCallSign()){
-            return -1;
-        } else {
-            return 0;
+        return this.getCallSign().compareTo(o.getCallSign());
         }
     }
-}*/
+

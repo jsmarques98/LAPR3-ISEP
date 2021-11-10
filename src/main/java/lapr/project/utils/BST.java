@@ -228,46 +228,74 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
         }
     }
 
-    public void printTree(String prefix) {
-        this.printTree(this.root(), prefix);
+    public void printTreeMmsi(String prefix) {
+        this.printTreeMmsi(this.root(), prefix);
     }
 
-    public void printTree(Node<E> node, String prefix) {
+    public void printTreeImo(String prefix) {
+        this.printTreeImo(this.root(), prefix);
+    }
+
+    public void printTreeCallSign(String prefix) {
+        this.printTreeCallSign(this.root(), prefix);
+    }
+
+    public void printTreeMmsi(Node<E> node, String prefix) {
         if (node != null) {
             Ship ship = (Ship) node.getElement();
-            System.out.println(prefix + "MMSI: " + ship.getMmsi());
-            printTree(node.getLeft(), "left ");
-            printTree(node.getRight(), "right ");
+            System.out.println(prefix + "mmsi: " + ship.getMmsi());
+            printTreeMmsi(node.getLeft(), "left ");
+            printTreeMmsi(node.getRight(), "right ");
         }
     }
 
-    /*public Ship findImo(int imo) {
-        int count = 0;
-        Node<E> node = this.root();
-        while(count < this.height() - 1) {
-            Ship right = (Ship) node.getElement();
-            if (right.compareIMO(imo)) {
-                break;
-            }
-            node = node.getRight();
-            count++;
+
+    public void printTreeImo(Node<E> node, String prefix) {
+        if (node != null) {
+            Ship ship = (Ship) node.getElement();
+            System.out.println(prefix + "imo: " + ship.getImo());
+            printTreeImo(node.getLeft(), "left ");
+            printTreeImo(node.getRight(), "right ");
         }
-        return (Ship) node.getElement();
     }
 
-    public Ship findCallSign(String callSign) {
-        int count = 0;
-        Node<E> node = this.root();
-        while(count < this.height() - 1) {
-            Ship right = (Ship) node.getElement();
-            if (right.compareCallSign(callSign)) {
-                break;
-            }
-            node = node.getRight();
-            count++;
+
+    public void printTreeCallSign(Node<E> node, String prefix) {
+        if (node != null) {
+            Ship ship = (Ship) node.getElement();
+            System.out.println(prefix + "calSign: " + ship.getCallSign());
+            printTreeCallSign(node.getLeft(), "left ");
+            printTreeCallSign(node.getRight(), "right ");
         }
-        return (Ship) node.getElement();
-    }*/
+    }
+
+//    public Ship findImo(int imo) {
+//        int count = 0;
+//        Node<E> node = this.root();
+//        while(count < this.height() - 1) {
+//            Ship right = (Ship) node.getElement();
+//            if (right.compareImo(imo)) {
+//                break;
+//            }
+//            node = node.getRight();
+//            count++;
+//        }
+//        return (Ship) node.getElement();
+//    }
+//
+//    public Ship findCallSign(String callSign) {
+//        int count = 0;
+//        Node<E> node = this.root();
+//        while(count < this.height() - 1) {
+//            Ship right = (Ship) node.getElement();
+//            if (right.compareCallSign(callSign)) {
+//                break;
+//            }
+//            node = node.getRight();
+//            count++;
+//        }
+//        return (Ship) node.getElement();
+//    }
 
     /*
      * Returns an iterable collection of elements of the tree, reported in in-order.

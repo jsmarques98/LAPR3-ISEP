@@ -48,7 +48,7 @@ class Main {
         List<Ship> shipArray = shipsRead;
 
 
-        /*BST<Ship> shipBST = new BST<>();
+      /*  BST<Ship> shipBST = new BST<>();
 
         for (Ship s: shipArray) {
             shipBST.insert(s);

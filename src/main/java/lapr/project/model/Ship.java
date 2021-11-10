@@ -1,6 +1,5 @@
 package lapr.project.model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
@@ -18,7 +17,7 @@ public class Ship {
     private final double cargo;
 
 
-    public Ship(int mmsi, String vesselName, int imo, String callSign, int vesselType, double length, double width, double draft, double cargo) {
+    public Ship(int mmsi, ArrayList<DynamicShip> shipArray, String vesselName, int imo, String callSign, int vesselType, double length, double width, double draft, double cargo) {
         this.mmsi = mmsi;
         this.shipData = new ArrayList<>();
         this.vesselName = vesselName;
@@ -34,6 +33,10 @@ public class Ship {
         return mmsi;
     }
 
+    public ArrayList<DynamicShip> getDynamicShip(){
+        return shipData;
+    }
+
     public int getImo() {
         return imo;
     }
@@ -42,8 +45,28 @@ public class Ship {
         return callSign;
     }
 
-    public ArrayList<DynamicShip> getShipData(){
-        return shipData;
+    public String getVesselName() {
+        return vesselName;
+    }
+
+    public int getVesselType() {
+        return vesselType;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getDraft() {
+        return draft;
+    }
+
+    public double getCargo() {
+        return cargo;
     }
 
     public void addDynamicShip(DynamicShip ship){
@@ -56,6 +79,7 @@ public class Ship {
     public String toString() {
         return "Ship{" +
                 "mmsi=" + mmsi +
+                ", dynamicShip=" + shipData +
                 ", vesselName='" + vesselName + '\'' +
                 ", imo=" + imo +
                 ", callSign='" + callSign + '\'' +
@@ -66,4 +90,7 @@ public class Ship {
                 ", cargo=" + cargo +
                 '}';
     }
+
+
+
 }

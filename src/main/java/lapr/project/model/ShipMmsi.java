@@ -1,8 +1,17 @@
 package lapr.project.model;
 
 public class ShipMmsi extends Ship implements Comparable<ShipMmsi> {
-    public ShipMmsi(int mmsi, String vesselName, int imo, String callSign, int vesselType, double length, double width, double draft, double cargo) {
-        super(mmsi, vesselName, imo, callSign, vesselType, length, width, draft, cargo);
+    public ShipMmsi(Ship ship) {
+        super(ship.getMmsi(),
+                ship.getDynamicShip(),
+                ship.getVesselName(),
+                ship.getImo(),
+                ship.getCallSign(),
+                ship.getVesselType(),
+                ship.getLength(),
+                ship.getWidth(),
+                ship.getDraft(),
+                ship.getCargo());
     }
 
     @Override
