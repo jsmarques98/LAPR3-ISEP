@@ -17,7 +17,6 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <junit.jupiter.version>5.8.1</junit.jupiter.version>
-        <jdkToolsPath>$JAVA_HOME/lib/sa-jdi.jar</jdkToolsPath>
     </properties>
 
     <dependencies>
@@ -27,14 +26,6 @@
             <artifactId>ojdbc10</artifactId>
             <version>19.3.0.0</version>
         </dependency>
-
-        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/junit/junit &ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>junit</groupId>-->
-        <!--            <artifactId>junit</artifactId>-->
-        <!--            <version>4.4</version>-->
-        <!--            <scope>test</scope>-->
-        <!--        </dependency>-->
 
 
         <dependency>
@@ -65,15 +56,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>RELEASE</version>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
 
@@ -100,22 +85,20 @@
                 </configuration>
             </plugin>
 
-
             <!-- Required for running unit tests -->
-            <!--            <plugin>-->
-            <!--                <artifactId>maven-surefire-plugin</artifactId>-->
-            <!--                <version>2.22.2</version>-->
-            <!--                <configuration>-->
-            <!--                    &lt;!&ndash; new configuration needed for coverage per test &ndash;&gt;-->
-            <!--                    <properties>-->
-            <!--                        <property>-->
-            <!--                            <name>listener</name>-->
-            <!--                            <value>org.sonar.java.jacoco.JUnitListener</value>-->
-            <!--                        </property>-->
-            <!--                    </properties>-->
-            <!--                    <useSystemClassLoader>false</useSystemClassLoader>-->
-            <!--                </configuration>-->
-            <!--            </plugin>-->
+               <plugin>
+                   <artifactId>maven-surefire-plugin</artifactId>
+                   <version>2.22.0</version>
+                   <configuration>
+                       <!-- new configuration needed for coverage per test -->
+                       <properties>
+                           <property>
+                               <name>listener</name>
+                               <value>org.sonar.java.jacoco.JUnitListener</value>
+                           </property>
+                       </properties>
+                   </configuration>
+               </plugin>
 
             <!-- Required for generating coverage report -->
             <plugin>
