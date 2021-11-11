@@ -79,7 +79,7 @@ public class DynamicShipTest {
         System.out.println("toString()");
 
         DynamicShip ship = new DynamicShip(LocalDateTime.now(), 124.7, 315.14, 11.47, 46.17, 43.3, 'B');
-        String expRes = "Date: " + ship.getBaseDateTime().toLocalDate() +
+        /*String expRes = "Date: " + ship.getBaseDateTime().toLocalDate() +
                 ", Time: " + ship.getBaseDateTime().toLocalTime() +
                 ", Latitude: " + ship.getLat() +
                 ", Longitude: " + ship.getLon() +
@@ -87,6 +87,16 @@ public class DynamicShipTest {
                 ", COG: " + ship.getCog() +
                 ", Heading: " + ship.getHeading() +
                 ", Transceiver: " + ship.getTranscrieverClass();
+        */
+        String expRes = "DynamicShip{" +
+                "baseDateTime=" + ship.getBaseDateTime() +
+                ", lat=" + ship.getLat() +
+                ", lon=" + ship.getLon() +
+                ", sog=" + ship.getSog() +
+                ", cog=" + ship.getCog() +
+                ", heading=" + ship.getHeading() +
+                ", transcrieverClass=" + ship.getTranscrieverClass() +
+                '}';
 
         assertEquals(expRes, ship.toString());
     }
