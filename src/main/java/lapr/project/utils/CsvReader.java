@@ -8,6 +8,8 @@ import java.io.FileReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 
 public class CsvReader {
@@ -77,9 +79,23 @@ public class CsvReader {
 
                 }
             }
-            return shipArray;
+            return sortByDate(shipArray);
         }
     }
+
+    public static ArrayList<Ship> sortByDate(ArrayList<Ship> shipArray) throws Exception {
+
+        for (int i = 0; i < shipArray.size(); i++) {
+            ArrayList<DynamicShip> sortedArray = (ArrayList<DynamicShip>) shipArray.get(i).getDynamicShip().stream()
+                    .sorted(Comparator.comparing(DynamicShip::getBaseDateTime))
+                    .collect(Collectors.toList());
+
+            shipArray.get(i).setShipData(sortedArray);
+        }
+
+        return shipArray;
+    }
+
     /**
      * Method to take the first 3 chars (IMO) of the integer so that we can cast the value
      */

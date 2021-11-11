@@ -269,35 +269,8 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
         }
     }
 
-//    public Ship findImo(int imo) {
-//        int count = 0;
-//        Node<E> node = this.root();
-//        while(count < this.height() - 1) {
-//            Ship right = (Ship) node.getElement();
-//            if (right.compareImo(imo)) {
-//                break;
-//            }
-//            node = node.getRight();
-//            count++;
-//        }
-//        return (Ship) node.getElement();
-//    }
-//
-//    public Ship findCallSign(String callSign) {
-//        int count = 0;
-//        Node<E> node = this.root();
-//        while(count < this.height() - 1) {
-//            Ship right = (Ship) node.getElement();
-//            if (right.compareCallSign(callSign)) {
-//                break;
-//            }
-//            node = node.getRight();
-//            count++;
-//        }
-//        return (Ship) node.getElement();
-//    }
 
-    /*
+    /**
      * Returns an iterable collection of elements of the tree, reported in in-order.
      * @return iterable collection of the tree's elements reported in in-order
      */

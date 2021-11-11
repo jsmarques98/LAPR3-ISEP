@@ -46,6 +46,7 @@ class Main {
         }
 
         //US 101 - Print the 3 bsts (avls)
+        //US 103 - The 3 avls are with the date ordered
 
         ArrayList<Ship> shipArray;
         shipArray = CsvReader.readCSV();

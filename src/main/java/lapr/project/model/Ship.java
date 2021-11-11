@@ -37,6 +37,10 @@ public class Ship {
         return shipData;
     }
 
+    public void setShipData(ArrayList<DynamicShip> shipData) {
+        this.shipData = shipData;
+    }
+
     public int getImo() {
         return imo;
     }
