@@ -88,7 +88,7 @@
             <!-- Required for running unit tests -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <!--<version>2.22.2</version> -->
                 <configuration>
                     <!-- new configuration needed for coverage per test -->
                     <properties>
