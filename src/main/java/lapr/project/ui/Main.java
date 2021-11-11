@@ -4,6 +4,7 @@ import lapr.project.model.CalculatorExample;
 import lapr.project.model.Ship;
 //import lapr.project.model.ShipIMO;
 import lapr.project.model.Ship;
+import lapr.project.model.ShipBST;
 import lapr.project.utils.BST;
 import lapr.project.utils.CsvReader;
 
@@ -44,28 +45,14 @@ class Main {
             LOGGER.log(Level.INFO, String.valueOf(value));
         }
 
-        List<Ship> shipsRead = CsvReader.readCSV();
-        List<Ship> shipArray = shipsRead;
+        //US 101 - Print the 3 bsts (avls)
 
+        ArrayList<Ship> shipArray;
+        shipArray = CsvReader.readCSV();
+        ShipBST shipBst = new ShipBST();
 
-      /*  BST<Ship> shipBST = new BST<>();
-
-        for (Ship s: shipArray) {
-            shipBST.insert(s);
-        }*/
-
-
-        /*ArrayList<Ship> shipArray2;
-        shipArray2 = CsvReader.readCSV();
-
-        BST<ShipIMO> ship2BST = new BST<>();
-
-        for (ShipIMO s: shipArray2) {
-            ship2BST.insert(s);
-        }*/
-
-
-        /*shipBST.printTree("\n");
+        shipBst.insert();
+        shipBst.printTrees();
 
         int cont=0;
         for (Ship s: shipArray) {
@@ -73,7 +60,8 @@ class Main {
             System.out.println(s.toString());
         }
         System.out.println(cont);
-    }*/
+
+
     }
 }
 

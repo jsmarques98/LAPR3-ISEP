@@ -22,4 +22,44 @@ public class DynamicShip {
         this.transcrieverClass = transcrieverClass;
     }
 
+    public LocalDateTime getBaseDateTime() {
+        return baseDateTime;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public double getSog() {
+        return sog;
+    }
+
+    public double getCog() {
+        return cog;
+    }
+
+    public double getHeading() {
+        return heading;
+    }
+
+    public char getTranscrieverClass() {
+        return transcrieverClass;
+    }
+
+    @Override
+    public String toString() {
+        return "DynamicShip{" +
+                "baseDateTime=" + baseDateTime +
+                ", lat=" + lat +
+                ", lon=" + lon +
+                ", sog=" + sog +
+                ", cog=" + cog +
+                ", heading=" + heading +
+                ", transcrieverClass=" + transcrieverClass +
+                '}';
+    }
 }

@@ -79,7 +79,7 @@ public class Ship {
     public String toString() {
         return "Ship{" +
                 "mmsi=" + mmsi +
-                ", dynamicShip=" + shipData +
+                ", dynamicShip=" + getDynamicShip() +
                 ", vesselName='" + vesselName + '\'' +
                 ", imo=" + imo +
                 ", callSign='" + callSign + '\'' +
