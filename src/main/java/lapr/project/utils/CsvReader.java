@@ -29,7 +29,7 @@ public class CsvReader {
 
     public static ArrayList<Ship> readCSV() throws Exception {
 
-        String path = "/Users/joaomarques/Desktop/LAPR3/src/main/java/lapr/project/data/sships.csv";
+        String path = "src/main/java/lapr/project/data/sships.csv";
 
         DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
