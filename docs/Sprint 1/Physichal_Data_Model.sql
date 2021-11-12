@@ -50,7 +50,7 @@ CREATE TABLE "container" (
   refrigeration FLOAT,
   CONSTRAINT "PK_container"
   PRIMARY KEY (contNumber),
-  CONSTRAINT "CK_container_ISOCode" CHECK (length(ISOCode)>4),
+  CONSTRAINT "CK_container_ISOCode" CHECK (length(ISOCode)=4),
   CONSTRAINT "CK_container_maxWeightC" CHECK (maxWeightC>0),
   CONSTRAINT "CK_container_weightC" CHECK (weightC>0),
   CONSTRAINT "CK_container_maxVol" CHECK (maxVol>0)
@@ -158,7 +158,7 @@ CREATE TABLE "truck_data" (
   CONSTRAINT "CK_truck_data_lat_maior" CHECK (lat>=-90),
   CONSTRAINT "CK_truck_data_log_menor" CHECK ("log"<=90),
   CONSTRAINT "CK_truck_data_log_maior" CHECK ("log">=-90),
-  CONSTRAINT "CK_truck_data_plate" CHECK (length("plate")=6)
+  CONSTRAINT "CK_truck_data_plate" CHECK (REGEXP_LIKE(plate,'^(([A-Z]{2}:\d{2}:(\d{2}|[A-Z]{2}))|(\d{2}:(\d{2}:[A-Z]{2}|[A-Z]{2}:\d{2})))$$'))
 );
 
 CREATE TABLE "employe" (
