@@ -1,67 +1,230 @@
 @startuml
-
 class container{
--contNumber
--ISOCode
--checkDigit
--maxWeightC
--weightC
--maxWeight
--maxVol
--repairRecomendation
--certificate
--refrigeration
--
+    -container_id
+    -iso_code
+    -check_digit
+    -max_weight_c
+    -weight_c
+    -max_vol
+    -repair_recomendation
+    -refrigeration
 }
-class certificate{}
+class certificate{
+    -container_id
+    -cargo_manifesto_id
+    -ship_id
+    -container_position_x
+    -continer_positions_y
+    -container_positions_z
+    -container_gross_weigth
+    -type
+    -entry_date
+    -leave_date
+}
 class ship{
--MMSI
--shipName
--IMO
--numberGenerator
--generatorOutput
--callSign
--vesselType
--length
--width
--capacity
--draft
+    -mmsi
+    -call_sign
+    -ship_imo_id
+    -ship_name
+    -nr_energy_gens
+    -gen_po
+    -length
+    -width
+    -capacity
+    -draft
+    -VesselType
+  }
+class shipData{
+    -ship_id
+    -Data
+    -time
+    -latitude
+    -Longitude
+    -SOG
+    -COG
+    -heading
+    -cargo
+    -transceiver_class
 }
-class shipData{}
-class port{}
-class wharehouse{}
-class crew{}
-class roles{}
-class employee{}
+class port_wharehouse{
+    -port_warehouse_id
+    -name
+    -continent
+    -country
+    -type
+    -lat
+    -log
+}
+class roles{
+    -role_id
+    -name
+}
+class employee{
+    -employe_id
+    -name
+    -email
+    -pass
+    -role_id
+}
 class cargoManifest{
--containerID
--containerPosition
--grossWeight
--energy
+    -container_id
+    -cargo_manifesto_id
+    -ship_id
+    -container_position_x
+    -continer_positions_y
+    -container_positions_z
+    -container_gross_weigth
+    -type
+    -entry_date
+    -leave_date
 }
-class truck{}
+class truck{
+    -plate
+    -fuelCapacity
+}
+class truck_data{
+    -plate
+    -data
+    -time
+    -lat
+    -log
+}
+class employee_schedule{
+    -employe_id
+    -port_whare_id
+    -day_of_the_week
+    -hour
+}
+class ShipBST{
+    -shipMmsiAVL
+    -shipImoAVL
+    -shipCallSignAVL
+    -shipArray
+    +printTrees()
+    +findShip(String s)
+    +shipSummary(String s)
+    +insert()
+}
+class ShipCallSign{
+    +compareTo()
+}
+class ShipIMO{
+    +compareTo()
+}
+class ShipMmsi{
+    +compareTo()
+}
 
-ship-->shipData
-ship-->crew
-ship-->container
-ship--> port
-ship--> wharehouse
+class DynamicShip{
+    -baseDateTime;
+    -lat;
+    -lon;
+    -sog;
+    -cog;
+    -eading;
+    -transcrieverClass;
+
+    +getBaseDateTime()
+    +getLat()
+    +getLon()
+    +getSog()
+    +getCog()
+    +getHeading()
+    +getTranscrieverClass()
+    +toString()
+}
+class ShipStore{
+    -shipBST
+
+    +findShip(String s)
+    +insert()
+    +shipSummary(String s)
+}
+class AVL{
+    +root()
+    -balanceFactor(Node<E> node)
+    -rightRotation(Node<E> node)
+    -leftRotation(Node<E> node)
+    -twoRotations(Node<E> node)
+    -balanceNode(Node<E> node)
+    +insert(E element)
+    +remove(E element)
+    -remove(E element, BST.Node<E> node)
+    +equals(Object otherObj)
+    -equals(Node<E> root1, Node<E> root2)
+}
+class BST{
+    -element
+    -left
+    -right
+    +getElement()
+    +getLeft()
+    +getRight()
+    +setElement(E e)
+    +setLeft(Node<E> leftChild)
+    +setRight(Node<E> rightChild)
+    +root()
+    +isEmpty()
+    +insert(E element)
+    -insert(E element, Node<E> node)
+    +remove(E element)
+    -remove(E element, Node<E> node)
+    +size()
+    -size(Node<E> node)
+    +height()
+    -height(Node<E> node)
+    +smallestElement()
+    -smallestElement(Node<E> node)
+    +find(E element)
+    -find(Node<E> node,E element)
+    +printTreeMmsi(String prefix)
+    +printTreeImo(String prefix)
+    +printTreeCallSign(String prefix)
+    +printTreeMmsi(Node<E> node, String prefix)
+    +printTreeImo(Node<E> node, String prefix)
+    +printTreeCallSign(Node<E> node, String prefix)
+    +findMSSI(Node<E> node, String s)
+    +findIMO(Node<E> node, String s)
+    +findCALLSIGN(Node<E> node, String s)
+    +inOrder()
+    -inOrderSubtree(Node<E> node, List<E> snapshot)
+    +preOrder()
+    -preOrderSubtree(Node<E> node, List<E> snapshot)
+    +posOrder()
+    -posOrderSubtree(Node<E> node, List<E> snapshot)
+    +Map<Integer,List<E>> nodesByLevel()
+    -processBstByLevel(Node<E> node, Map<Integer,List<E>> result, int level)
+    +toString(
+    -toStringRec(Node<E> root, int level, StringBuilder sb)
+}
+BST..>AVL
+
+AVL..>ShipBST
+
+ShipStore-->ShipBST
+
+ShipBST..> ShipCallSign
+ShipBST..> ShipIMO
+ShipBST..>ShipMmsi
+
+ShipIMO..>ship
+ShipMmsi..>ship
+ShipCallSign..>ship
+
+
+ship-->DynamicShip
+ship-->cargoManifest
+ship--> port_wharehouse
 
 container-->cargoManifest
-container-->port
-container-->wharehouse
 container-->certificate
 
-crew-->port
-crew-->wharehouse
-crew-->employee
-
-wharehouse-->truck
-
-port-->truck
+port_wharehouse-->truck
+port_wharehouse-->employee_schedule
 
 employee-->roles
+employee-->employee_schedule
 
-
+truck-->truck_data
 
 @enduml

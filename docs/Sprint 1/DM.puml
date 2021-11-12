@@ -4,35 +4,26 @@ class container{}
 class certificate{}
 class ship{}
 class shipData{}
-class port{}
-class wharehouse{}
-class crew{}
+class port_wharehouse{}
 class roles{}
 class employee{}
 class cargoManifest{}
 class truck{}
+class truck_data
 
-ship-->shipData: has
-ship-->crew
-ship-->container
-ship--> port
-ship--> wharehouse
+ship-->shipData
+ship-->cargoManifest
+ship--> port_wharehouse
 
 container-->cargoManifest
-container-->port
-container-->wharehouse
 container-->certificate
 
-crew-->port
-crew-->wharehouse
-crew-->employee
-
-wharehouse-->truck
-
-port-->truck
+port_wharehouse-->truck
+port_wharehouse-->employee_schedule
 
 employee-->roles
+employee-->employee_schedule
 
-
+truck-->truck_data
 
 @enduml
