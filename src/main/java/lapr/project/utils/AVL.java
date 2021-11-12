@@ -85,7 +85,7 @@ public class AVL <E extends Comparable<E>> extends BST<E> {
         }
         return node;
     }
-    
+
     public void remove(E element) {
         root = remove(element, root());
     }

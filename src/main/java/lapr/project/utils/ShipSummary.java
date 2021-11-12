@@ -74,7 +74,7 @@ public class ShipSummary {
         return sumary;
     }
 
-    private static double distanciaDelta(double lat1,double lat2, double log1, double log2){
+    public static double distanciaDelta(double lat1,double lat2, double log1, double log2){
         //1 grau = 111.11km
         double convert = 111.11;
         lat1 = lat1*convert;
@@ -86,7 +86,7 @@ public class ShipSummary {
         return Math.sqrt(lat+log);
     }
 
-    private static double totalDistance(ArrayList<DynamicShip> ds){
+    public static double totalDistance(ArrayList<DynamicShip> ds){
         double totalDistance = -1;
         double lat1 = 91;
         double lat2 = 91;
@@ -109,7 +109,7 @@ public class ShipSummary {
     }
 
 
-    private static String getTime(LocalDateTime dob, LocalDateTime now) {
+    public static String getTime(LocalDateTime dob, LocalDateTime now) {
         final int MINUTES_PER_HOUR = 60;
         final int SECONDS_PER_MINUTE = 60;
         final int SECONDS_PER_HOUR = SECONDS_PER_MINUTE * MINUTES_PER_HOUR;

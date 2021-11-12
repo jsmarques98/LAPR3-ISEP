@@ -428,7 +428,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
             sb.append(root.getElement()+"\n");
         toStringRec(root.getLeft(), level+1, sb);
     }
-
+    /*
     public void PrintLevels() {
         List<Node<E>> list = new LinkedList<>();
 
@@ -448,5 +448,5 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
             }
         }
     }
-
+*/
 } //----------- end of BST class -----------
