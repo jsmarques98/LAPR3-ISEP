@@ -70,5 +70,6 @@ INSERT INTO "employe" VALUES (1, 'Francisco', 'francisco@gmail.com', 'qwerty', 1
 INSERT INTO "employe" VALUES (1, 'Francisco', 'francisco.gmail.com', 'qwerty', 1);
 
 --insert employe_schedule
+INSERT INTO "employee_schedule" VALUES (1, 1, 'Friday','00:00');
 INSERT INTO "employee_schedule" VALUES (1, 1, 'Friday','ok');
 INSERT INTO "employee_schedule" VALUES (1, 1, 'Naosei','ok');
