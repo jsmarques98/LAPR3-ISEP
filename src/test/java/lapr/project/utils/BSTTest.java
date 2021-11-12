@@ -124,7 +124,7 @@ public class BSTTest {
         String result = bst1.toString();
         assertEquals(expected, result);
     }
-    
+
 
     @Test
     void printTreeMmsi() {
