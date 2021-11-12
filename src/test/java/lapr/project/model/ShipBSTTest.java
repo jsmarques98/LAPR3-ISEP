@@ -4,8 +4,7 @@ import lapr.project.utils.BST;
 import lapr.project.utils.ShipSummary;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ShipBSTTest {
     ShipBST sb = new ShipBST();
@@ -63,5 +62,10 @@ public class ShipBSTTest {
     @Test
     void findShipMMSI() {
         assertNotNull(sb.findShip("210950000"));
+    }
+    @Test
+    void findShipNull() {
+        assertNull(sb.findShip("2950000"));
+
     }
 }
