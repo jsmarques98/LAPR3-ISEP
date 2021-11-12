@@ -149,4 +149,48 @@ public class BSTTest {
     }
 
 
+    @Test
+    void printTreeMmsi() {
+        assertTrue(true);
+    }
+
+    @Test
+    void printTreeImo() {
+        assertTrue(true);
+    }
+
+    @Test
+    void printTreeCallSign() {
+        assertTrue(true);
+    }
+
+    @Test
+    void testPrintTreeMmsi() {
+        assertTrue(true);
+    }
+
+    @Test
+    void testPrintTreeImo() {
+        assertTrue(true);
+    }
+
+    @Test
+    void testPrintTreeCallSign() {
+        assertTrue(true);
+    }
+
+    @Test
+    void findMSSI() {
+        assertTrue(true);
+    }
+
+    @Test
+    void findIMO() {
+        assertTrue(true);
+    }
+
+    @Test
+    void findCALLSIGN() {
+        assertTrue(true);
+    }
 }

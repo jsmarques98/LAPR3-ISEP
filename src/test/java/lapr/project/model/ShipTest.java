@@ -1,5 +1,6 @@
 package lapr.project.model;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -16,6 +17,9 @@ class ShipTest {
     DynamicShip ds1 = new DynamicShip(t1, 30.2, 90.0, 1.3, 12.0,0,'B');
     DynamicShip ds2 = new DynamicShip(t2, 40.2, 120.0, 3.3, 45.0,0,'C');
 
+
+    @BeforeAll
+    shipArray.add(ds1);
 
     public ShipTest() {
 
@@ -58,6 +62,9 @@ class ShipTest {
 
     @Test
     public void getShipData() {
+        int type = 70;
+        int teste = ship.getVesselType();
+        assertEquals(type, teste);
     }
 
     @Test
