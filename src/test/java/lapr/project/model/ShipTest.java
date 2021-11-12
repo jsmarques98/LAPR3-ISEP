@@ -76,10 +76,10 @@ class ShipTest {
             String expRes = "Ship{" +
                     "mmsi=" + ship.getMmsi() +
                     ", dynamicShip=" + ship.getDynamicShip() +
-                    ", name='" + ship.getVesselName() +
-            ", imo=" + ship.getImo() +
-                    ", callSign='" + ship.getCallSign() +
-            ", vessel=" + ship.getVesselType() +
+                    ", vesselName='" + ship.getVesselName() + '\'' +
+                    ", imo=" + ship.getImo()  +
+                    ", callSign='" + ship.getCallSign() + '\'' +
+                    ", vesselType=" + ship.getVesselType() +
                     ", length=" + ship.getLength() +
                     ", width=" + ship.getWidth() +
                     ", draft=" + ship.getDraft() +
