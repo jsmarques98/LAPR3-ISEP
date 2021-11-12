@@ -77,6 +77,10 @@ public class Ship {
         this.shipData.add(ship);
     }
 
+    public void inializeDynamicShip(){
+        this.shipData = new ArrayList<>();
+    }
+
 
 
     @Override

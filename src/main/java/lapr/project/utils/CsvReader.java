@@ -70,6 +70,7 @@ public class CsvReader {
                             Double.parseDouble(values[13]),// draft)
                             cargo); //cargo
 
+                    ship.inializeDynamicShip();
                     ship.addDynamicShip(ds);
                     shipArray.add(ship);
 

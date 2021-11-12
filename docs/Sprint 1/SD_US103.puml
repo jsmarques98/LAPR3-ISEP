@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor "Traffic Manager" as traf
+
+
+participant ":Company" as com
+participant ":CSVReader" as csv
+
+activate traf
+
+traf -> com : Starts to organize the  positional messages temporally
+activate com
+
+com -> csv: sortByDate()
+activate csv
+
+deactivate csv
+
+com -> traf: Show the positional messages organize temporally
+deactivate com
+deactivate traf
+
+@enduml
