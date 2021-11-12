@@ -270,6 +270,45 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
     }
 
 
+    public Ship findMSSI(Node<E> node, String s){
+        if(node == null)
+            return null;
+        Ship ship = (Ship) node.getElement();
+        if(ship.getMmsi() == Integer.parseInt(s))
+            return ship;
+        if(ship.getMmsi() > Integer.parseInt(s))
+            return findMSSI(node.getLeft(), s);
+        if(ship.getMmsi() < Integer.parseInt(s))
+            return findMSSI(node.getRight(), s);
+        return null;
+    }
+
+    public Ship findIMO(Node<E> node, String s){
+        if(node == null)
+            return null;
+        Ship ship = (Ship) node.getElement();
+        if(ship.getImo() == Integer.parseInt(s))
+            return ship;
+        if(ship.getImo() > Integer.parseInt(s))
+            return findIMO(node.getLeft(), s);
+        if(ship.getImo() < Integer.parseInt(s))
+            return findIMO(node.getRight(), s);
+        return null;
+    }
+
+    public Ship findCALLSIGN(Node<E> node, String s){
+        if(node == null)
+            return null;
+        Ship ship = (Ship) node.getElement();
+        if(s.equals(ship.getCallSign()))
+            return ship;
+        if(s.compareTo(ship.getCallSign()) < 0)
+            return findCALLSIGN(node.getLeft(), s);
+        if(s.compareTo(ship.getCallSign()) > 0)
+            return findCALLSIGN(node.getRight(), s);
+        return null;
+    }
+
     /**
      * Returns an iterable collection of elements of the tree, reported in in-order.
      * @return iterable collection of the tree's elements reported in in-order

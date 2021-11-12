@@ -95,6 +95,18 @@ public class Ship {
                 '}';
     }
 
-
+    public String toString1() {
+        return "Ship{" +
+                "mmsi=" + mmsi +
+                ", vesselName='" + vesselName + '\'' +
+                ", imo=" + imo +
+                ", callSign='" + callSign + '\'' +
+                ", vesselType=" + vesselType +
+                ", length=" + length +
+                ", width=" + width +
+                ", draft=" + draft +
+                ", cargo=" + cargo +
+                '}';
+    }
 
 }

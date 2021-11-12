@@ -7,6 +7,10 @@ package lapr.project.utils;
  */
 public class AVL <E extends Comparable<E>> extends BST<E> {
 
+    public Node<E> root() {
+        return root;
+    }
+
 
     private int balanceFactor(Node<E> node) {
         if (node == null)

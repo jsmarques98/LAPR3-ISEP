@@ -36,4 +36,20 @@ public class ShipBST {
         shipCallSignAVL.printTreeCallSign("\n");
     }
 
+    public String findShip(String s){
+        Ship ship;
+        if(s == null)
+            return "String vazia";
+        else if(s.length() == 9)
+           ship = shipMmsiAVL.findMSSI(shipMmsiAVL.root(), s);
+        else if (s.length() == 7)
+            ship = shipImoAVL.findIMO(shipImoAVL.root(),s);
+        else
+            ship = shipCallSignAVL.findCALLSIGN(shipCallSignAVL.root(),s);
+        if(ship == null)
+            return "Ship doesn't exist.";
+        else
+            return ship.toString1();
+    }
+
 }

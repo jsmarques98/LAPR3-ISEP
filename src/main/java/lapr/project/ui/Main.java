@@ -5,6 +5,7 @@ import lapr.project.model.Ship;
 //import lapr.project.model.ShipIMO;
 import lapr.project.model.Ship;
 import lapr.project.model.ShipBST;
+import lapr.project.store.ShipStore;
 import lapr.project.utils.BST;
 import lapr.project.utils.CsvReader;
 
@@ -47,7 +48,7 @@ class Main {
 
         //US 101 - Print the 3 bsts (avls)
         //US 103 - The 3 avls are with the date ordered
-
+        ShipStore st = new ShipStore();
         ArrayList<Ship> shipArray;
         shipArray = CsvReader.readCSV();
         ShipBST shipBst = new ShipBST();
@@ -61,6 +62,12 @@ class Main {
             System.out.println(s.toString());
         }
         System.out.println(cont);
+
+       st.insert();
+        st.print();
+        System.out.println(st.findShip("210950000"));
+        System.out.println(st.findShip("9395044"));
+        System.out.println(st.findShip("C4SQ2"));
 
 
     }
