@@ -7,11 +7,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * BST Class Unit Testing.
- *
- * @author DEI-ESINF, Marlene
- */
 public class BSTTest {
     BST<Integer> bst1;
     BST<String> bst2;
