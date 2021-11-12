@@ -56,17 +56,17 @@ class ShipTest {
         assertEquals(type, teste);
     }
 
-    @org.junit.Test
+    @Test
     public void getShipData() {
     }
 
-    @org.junit.Test
+    @Test
     public void addDynamicShip() {
         ship.addDynamicShip(ds1);
         ship1.addDynamicShip(ds2);
     }
 
-    @org.junit.Test
+    @Test
     public void testToString() {
         {
             System.out.println("toString()");
