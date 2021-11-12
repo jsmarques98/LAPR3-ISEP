@@ -1,12 +1,13 @@
 package lapr.project.model;
 
 import lapr.project.utils.BST;
+import lapr.project.utils.ShipSummary;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ShipBSTTest {
-
+    ShipBST sb = new ShipBST();
     @Test
     public void insert() {
         System.out.println("insert");
@@ -24,5 +25,14 @@ public class ShipBSTTest {
 
     @Test
     public void printTrees() {
+    }
+
+    @Test
+    void shipSummaryEmpty() {
+        assertEquals(sb.shipSummary(""),"String vazia");
+    }
+    @Test
+    void shipSummaryNull() {
+        assertEquals(sb.shipSummary("1234"),"Ship doesn't exist.");
     }
 }
