@@ -2,12 +2,7 @@ package lapr.project.utils;
 
 import lapr.project.model.Ship;
 
-import javax.sound.midi.Soundbank;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -62,7 +57,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
     /*
      * @return root Node of the tree (or null if tree is empty)
      */
-    protected Node<E> root() {
+    public Node<E> root() {
         return root;
     }
 
@@ -274,12 +269,12 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
     }
 
 
-    public Ship findMSSI(Node<E> node, String s){
+    public E findMSSI(Node<E> node, String s){
         if(node == null)
             return null;
         Ship ship = (Ship) node.getElement();
         if(ship.getMmsi() == Integer.parseInt(s))
-            return ship;
+            return node.getElement();
         if(ship.getMmsi() > Integer.parseInt(s))
             return findMSSI(node.getLeft(), s);
         if(ship.getMmsi() < Integer.parseInt(s))
@@ -287,12 +282,12 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
         return null;
     }
 
-    public Ship findIMO(Node<E> node, String s){
+    public E findIMO(Node<E> node, String s){
         if(node == null)
             return null;
         Ship ship = (Ship) node.getElement();
         if(ship.getImo() == Integer.parseInt(s))
-            return ship;
+            return node.getElement();
         if(ship.getImo() > Integer.parseInt(s))
             return findIMO(node.getLeft(), s);
         if(ship.getImo() < Integer.parseInt(s))
@@ -300,12 +295,12 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
         return null;
     }
 
-    public Ship findCALLSIGN(Node<E> node, String s){
+    public E findCALLSIGN(Node<E> node, String s){
         if(node == null)
             return null;
         Ship ship = (Ship) node.getElement();
         if(s.equals(ship.getCallSign()))
-            return ship;
+            return node.getElement();
         if(s.compareTo(ship.getCallSign()) < 0)
             return findCALLSIGN(node.getLeft(), s);
         if(s.compareTo(ship.getCallSign()) > 0)

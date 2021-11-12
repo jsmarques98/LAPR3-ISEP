@@ -34,19 +34,15 @@ class Main {
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")) {
             System.out.println("Please make your selection");
-            System.out.println("1) Import Data");
-            System.out.println("2) Search ship");
+            System.out.println("1) Search ship");
             System.out.println("0) Leave");
             option = read.readLine();
             switch (option) {
                 case "1":
-                    st.insert();
-                    break;
-                case "2":
                     System.out.println("Insert the value: ");
                     String value = read.readLine();
                     System.out.println(st.findShip(value));
-
+                    System.out.println(st.shipSummary(value));
                     break;
                 case "0":
                     System.out.println("bye");

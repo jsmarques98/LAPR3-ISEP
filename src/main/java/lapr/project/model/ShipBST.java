@@ -2,8 +2,8 @@ package lapr.project.model;
 
 
 import lapr.project.utils.AVL;
-import lapr.project.utils.BST;
 import lapr.project.utils.CsvReader;
+import lapr.project.utils.ShipSummary;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,6 @@ public class ShipBST {
             this.shipMmsiAVL.insert(new ShipMmsi(s));
             this.shipImoAVL.insert(new ShipIMO(s));
             this.shipCallSignAVL.insert(new ShipCallSign(s));
-
         }
     }
 
@@ -36,20 +35,34 @@ public class ShipBST {
         shipCallSignAVL.printTreeCallSign("\n");
     }
 
-    public String findShip(String s){
+    public Ship findShip(String s){
         Ship ship;
         if(s == null)
-            return "String vazia";
+            return null;
         else if(s.length() == 9)
            ship = shipMmsiAVL.findMSSI(shipMmsiAVL.root(), s);
         else if (s.length() == 7)
             ship = shipImoAVL.findIMO(shipImoAVL.root(),s);
         else
             ship = shipCallSignAVL.findCALLSIGN(shipCallSignAVL.root(),s);
+        return ship;
+    }
+
+
+    public String shipSummary(String s){
+        ShipSummary shipSummary = null;
+        ArrayList<Object> ass;
+        if(s.isEmpty())
+            return "String vazia";
+        Ship ship = findShip(s);
         if(ship == null)
             return "Ship doesn't exist.";
+        else if(s.length() == 9)
+            return shipSummary.create(ship,"MMSI").toString();
+        else if (s.length() == 7)
+            return shipSummary.create(ship,"IMO").toString();
         else
-            return ship.toString1();
+            return shipSummary.create(ship,"CallSign").toString();
     }
 
 }
