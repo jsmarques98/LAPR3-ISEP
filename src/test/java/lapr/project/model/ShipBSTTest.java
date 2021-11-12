@@ -8,6 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ShipBSTTest {
     ShipBST sb = new ShipBST();
+     public ShipBSTTest(){
+         sb.insert();
+     }
     @Test
     public void insert() {
         System.out.println("insert");
@@ -34,5 +37,17 @@ public class ShipBSTTest {
     @Test
     void shipSummaryNull() {
         assertEquals(sb.shipSummary("1234"),"Ship doesn't exist.");
+    }
+    @Test
+    void shipSummaryMMSI() {
+        assertEquals(sb.shipSummary("210950000"),"[210950000, VARAMO, 70, 2020-12-31T16:00, 2020-12-31T18:31, 2H31M, 25, 13.7, 13.024, 16.3, -15.611999999999998, 42.69577, -66.97808, 43.22513, -66.96725, 414257.6276107956, 58.8294974871741]");
+    }
+    @Test
+    void shipSummaryIMO() {
+        assertEquals(sb.shipSummary("9395044"),"[9395044, VARAMO, 70, 2020-12-31T16:00, 2020-12-31T18:31, 2H31M, 25, 13.7, 13.024, 16.3, -15.611999999999998, 42.69577, -66.97808, 43.22513, -66.96725, 414257.6276107956, 58.8294974871741]");
+    }
+    @Test
+    void shipSummaryCallSign() {
+        assertEquals(sb.shipSummary("C4SQ2"),"[C4SQ2, VARAMO, 70, 2020-12-31T16:00, 2020-12-31T18:31, 2H31M, 25, 13.7, 13.024, 16.3, -15.611999999999998, 42.69577, -66.97808, 43.22513, -66.96725, 414257.6276107956, 58.8294974871741]");
     }
 }
