@@ -102,7 +102,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
     /**
      * Removes an element from the tree maintaining its consistency as a Binary Search Tree.
      */
-    public void remove(E element){
+   public void remove(E element){
         root = remove(element, root());
     }
 
@@ -134,6 +134,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
         return node;
     }
 
+
     /*
      * Returns the number of nodes in the tree.
      * @return number of nodes in the tree
@@ -156,6 +157,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
      * Returns the height of the tree
      * @return height
      */
+
     public int height(){
         return height(root);
     }
@@ -165,17 +167,18 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
      * @param node A valid Node within the tree
      * @return height
      */
+
     protected int height(Node<E> node){
 
         if (node == null)
             return -1;
         else
         {
-            /* compute the depth of each subtree */
+
             int lDepth = height(node.getLeft());
             int rDepth = height(node.getRight());
 
-            /* use the larger one */
+
             if (lDepth > rDepth)
                 return (lDepth + 1);
             else
@@ -188,6 +191,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
      * Returns the smallest element within the tree.
      * @return the smallest element within the tree
      */
+
     public E smallestElement(){
         return smallestElement(root);
     }
