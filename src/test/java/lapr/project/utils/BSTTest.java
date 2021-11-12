@@ -124,30 +124,7 @@ public class BSTTest {
         String result = bst1.toString();
         assertEquals(expected, result);
     }
-
-    /**
-     * Test of smallestElement method, of class TREE.
-     */
-    @Test
-    public void testSmallestElement() {
-        System.out.println("\t\tExecuting " + new Object() {
-        }.getClass().getEnclosingMethod().getName());
-
-        assertEquals(Integer.valueOf(7), bst1.smallestElement());
-    }
-
-    /**
-     * Test of inOrder method, of class BST.
-     */
-    @Test
-    public void testInOrder() {
-        System.out.println("\t\tExecuting " + new Object() {
-        }.getClass().getEnclosingMethod().getName());
-
-        List<Integer> lExpected = Arrays.asList(inorderT);
-        assertEquals(lExpected, bst1.inOrder(), "inOrder should be "+lExpected.toString());
-    }
-
+    
 
     @Test
     void printTreeMmsi() {

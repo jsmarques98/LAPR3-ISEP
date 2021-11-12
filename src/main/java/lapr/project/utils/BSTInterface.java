@@ -13,15 +13,15 @@ public interface BSTInterface<E> {
 
     public boolean isEmpty();
     public void insert(E element);
-    public void remove(E element);
+    //public void remove(E element);
 
     public int size();
     public int height();
 
-    public E smallestElement();
+    //public E smallestElement();
     public Iterable<E> inOrder();
-    public Iterable<E> preOrder();
-    public Iterable<E> posOrder();
-    public Map<Integer,List<E>> nodesByLevel();
+    //public Iterable<E> preOrder();
+    //public Iterable<E> posOrder();
+    //public Map<Integer,List<E>> nodesByLevel();
 
 }

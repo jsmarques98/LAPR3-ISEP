@@ -97,7 +97,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
     /**
      * Removes an element from the tree maintaining its consistency as a Binary Search Tree.
      */
-   public void remove(E element){
+   /*public void remove(E element){
         root = remove(element, root());
     }
 
@@ -129,7 +129,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
         return node;
     }
 
-
+    */
     /*
      * Returns the number of nodes in the tree.
      * @return number of nodes in the tree
@@ -197,9 +197,9 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
         return smallestElement(node.getLeft());
     }
 
-    public Node<E> find(E element) {
+    /*public Node<E> find(E element) {
         return this.find(this.root(), element);
-    }
+    }*/
 
     /**
      * Returns the Node containing a specific Element, or null otherwise.
@@ -212,6 +212,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
      * subclasses avoiding recoding.
      * So its access level is protected
      */
+    /*
     protected Node<E> find(Node<E> node,E element){
 
         if (node == null){
@@ -226,7 +227,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
             return find (node.getRight(), element);
         }
     }
-
+*/
     public void printTreeMmsi(String prefix) {
         this.printTreeMmsi(this.root(), prefix);
     }

@@ -122,7 +122,6 @@ public class ShipSummary {
 
         long hours = seconds / SECONDS_PER_HOUR;
         long minutes = ((seconds % SECONDS_PER_HOUR) / SECONDS_PER_MINUTE);
-        long secs = (seconds % SECONDS_PER_MINUTE);
 
         return hours+"H"+minutes+"M";
     }
