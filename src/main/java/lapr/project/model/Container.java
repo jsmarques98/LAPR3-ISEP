@@ -1,7 +1,7 @@
 package lapr.project.model;
 
 public class Container {
-    private int containerId;
+    /*private int containerId;
     private int isoCode;
     private int checkDigit;
     private double maxWeightC;
@@ -9,5 +9,5 @@ public class Container {
     private double maxVolume;
     private boolean repairRecomendation;
     //falta meter certificados
-    private double refrigeration;
+    private double refrigeration;*/
 }

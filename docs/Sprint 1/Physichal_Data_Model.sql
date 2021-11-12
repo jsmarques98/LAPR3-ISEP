@@ -71,15 +71,6 @@ CREATE TABLE "roles" (
   PRIMARY KEY ("role_id")
 );
 
-CREATE TABLE "truck" (
-  plate VARCHAR(8),
-  fuelCapacity FLOAT,
-  CONSTRAINT "PK_truck"
-  PRIMARY KEY (plate),
-  CONSTRAINT "CK_truck_plate" CHECK (REGEXP_LIKE(plate,'^(([A-Z]{2}:\d{2}:(\d{2}|[A-Z]{2}))|(\d{2}:(\d{2}:[A-Z]{2}|[A-Z]{2}:\d{2})))$$')) ,
-  CONSTRAINT "CK_truck_fuelCapacity" CHECK (fuelCapacity>0)
-);
-
 CREATE TABLE "cargo_manifest" (
   container_id int,
   cargo_manifesto_id int ,
@@ -103,6 +94,15 @@ CREATE TABLE "cargo_manifest" (
   CONSTRAINT "CK_cargo_manifest_container_position_z" CHECK (container_position_z>=0),
   CONSTRAINT "CK_cargo_manifest_type" CHECK (tipo= 'load' OR tipo='unload'),
   CONSTRAINT "CK_cargo_manifest_container_gross_weigth" CHECK (container_gross_weigth>0)
+);
+
+CREATE TABLE "truck" (
+                         plate VARCHAR(8),
+                         fuelCapacity FLOAT,
+                         CONSTRAINT "PK_truck"
+                             PRIMARY KEY (plate),
+                         CONSTRAINT "CK_truck_plate" CHECK (REGEXP_LIKE(plate,'^(([A-Z]{2}:\d{2}:(\d{2}|[A-Z]{2}))|(\d{2}:(\d{2}:[A-Z]{2}|[A-Z]{2}:\d{2})))$$')) ,
+                         CONSTRAINT "CK_truck_fuelCapacity" CHECK (fuelCapacity>0)
 );
 
 CREATE TABLE "container_certificate" (
