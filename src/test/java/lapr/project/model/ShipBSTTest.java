@@ -5,6 +5,7 @@ import lapr.project.utils.ShipSummary;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ShipBSTTest {
     ShipBST sb = new ShipBST();
@@ -49,5 +50,18 @@ public class ShipBSTTest {
     @Test
     void shipSummaryCallSign() {
         assertEquals(sb.shipSummary("C4SQ2"),"[C4SQ2, VARAMO, 70, 2020-12-31T16:00, 2020-12-31T18:31, 2H31M, 25, 13.7, 13.024, 16.3, -15.611999999999998, 42.69577, -66.97808, 43.22513, -66.96725, 414257.6276107956, 58.8294974871741]");
+    }
+
+    @Test
+    void findShipCallSign() {
+        assertNotNull(sb.findShip("C4SQ2"));
+    }
+    @Test
+    void findShipIMO() {
+        assertNotNull(sb.findShip("9395044"));
+    }
+    @Test
+    void findShipMMSI() {
+        assertNotNull(sb.findShip("210950000"));
     }
 }
