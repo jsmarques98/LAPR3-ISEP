@@ -37,7 +37,7 @@ public class ShipSummary {
         }
 
 
-        //String finalMoveTime = getTime(inicialTime,finalTime);
+        String finalMoveTime = getTime(inicialTime,finalTime);
 
         meanSog = meanSog / nMoves;
         meanCog = meanCog / nMoves;
@@ -58,7 +58,7 @@ public class ShipSummary {
         sumary.add(ship.getVesselType()); // VasselType
         sumary.add(inicialTime); // BDT Inicial
         sumary.add(finalTime); // BDT Final
-        sumary.add(1); // Tempo total dos movimentos
+        sumary.add(finalMoveTime); // Tempo total dos movimentos
         sumary.add(nMoves); // Numero total de movimentos
         sumary.add(maxSog); // MaxSog
         sumary.add(meanSog); // MeanSog
@@ -124,7 +124,7 @@ public class ShipSummary {
         long minutes = ((seconds % SECONDS_PER_HOUR) / SECONDS_PER_MINUTE);
         long secs = (seconds % SECONDS_PER_MINUTE);
 
-        return hours+ " "+minutes;
+        return hours+"H"+minutes+"M";
     }
 
 }

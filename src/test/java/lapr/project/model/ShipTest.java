@@ -18,17 +18,18 @@ class ShipTest {
     DynamicShip ds2 = new DynamicShip(t2, 40.2, 120.0, 3.3, 45.0,0,'C');
 
 
-    @BeforeAll
-    shipArray.add(ds1);
+
+
 
     public ShipTest() {
 
-        ArrayList<DynamicShip> shipArray = new ArrayList<>();
 
+        shipArray.add(ds1);
         ship1 = new Ship(2222, shipArray, "jose", 2222, "2222", 71, 2.3, 3.1, 2.4, 12.1) {
         };
         ship = new Ship(1111, shipArray, "maria", 1111, "1111", 70, 2.2, 3.0, 2.4, 12.0) {
         };
+
     }
 
     @Test
@@ -62,9 +63,9 @@ class ShipTest {
 
     @Test
     public void getShipData() {
-        int type = 70;
-        int teste = ship.getVesselType();
-        assertEquals(type, teste);
+        ArrayList<DynamicShip> type = new ArrayList<>();
+        type.add(ds1);
+        assertEquals(type, ship.getDynamicShip());
     }
 
     @Test

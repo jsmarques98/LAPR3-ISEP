@@ -19,7 +19,7 @@ public class Ship {
 
     public Ship(int mmsi, ArrayList<DynamicShip> shipArray, String vesselName, int imo, String callSign, int vesselType, double length, double width, double draft, double cargo) {
         this.mmsi = mmsi;
-        this.shipData = new ArrayList<>();
+        this.shipData = shipArray;
         this.vesselName = vesselName;
         this.imo = imo;
         this.callSign = callSign;
