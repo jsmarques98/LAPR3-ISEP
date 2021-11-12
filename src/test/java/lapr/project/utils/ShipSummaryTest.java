@@ -50,4 +50,58 @@ class ShipSummaryTest {
 
         assertEquals(expectRes, sumary);
     }
+
+    @Test
+    public void createSumary1() {
+        ship.addDynamicShip(shipData1);
+        ship.addDynamicShip(shipData2);
+        ArrayList<Object> sumary = ShipSummary.create(ship, "IMO");
+        ArrayList<Object> expectRes = new ArrayList<>();
+        expectRes.add(9700122);
+        expectRes.add("ARABELLA");
+        expectRes.add(70);
+        expectRes.add(time1);
+        expectRes.add(time2);
+        expectRes.add(ShipSummary.getTime(time1,time2));
+        expectRes.add(2);
+        expectRes.add(0.1);
+        expectRes.add(0.1);
+        expectRes.add(82.8);
+        expectRes.add(58.7);
+        expectRes.add(54.23188);
+        expectRes.add(-130.33667);
+        expectRes.add(54.23184);
+        expectRes.add(-130.33702);
+        expectRes.add(ShipSummary.totalDistance(ship.getDynamicShip()));
+        expectRes.add(ShipSummary.distanciaDelta(54.23188, 54.23184, -130.33667, -130.33702));
+
+        assertEquals(expectRes, sumary);
+    }
+
+    @Test
+    public void createSumary3() {
+        ship.addDynamicShip(shipData1);
+        ship.addDynamicShip(shipData2);
+        ArrayList<Object> sumary = ShipSummary.create(ship, "CallSign");
+        ArrayList<Object> expectRes = new ArrayList<>();
+        expectRes.add("9HA3752");
+        expectRes.add("ARABELLA");
+        expectRes.add(70);
+        expectRes.add(time1);
+        expectRes.add(time2);
+        expectRes.add(ShipSummary.getTime(time1,time2));
+        expectRes.add(2);
+        expectRes.add(0.1);
+        expectRes.add(0.1);
+        expectRes.add(82.8);
+        expectRes.add(58.7);
+        expectRes.add(54.23188);
+        expectRes.add(-130.33667);
+        expectRes.add(54.23184);
+        expectRes.add(-130.33702);
+        expectRes.add(ShipSummary.totalDistance(ship.getDynamicShip()));
+        expectRes.add(ShipSummary.distanciaDelta(54.23188, 54.23184, -130.33667, -130.33702));
+
+        assertEquals(expectRes, sumary);
+    }
 }

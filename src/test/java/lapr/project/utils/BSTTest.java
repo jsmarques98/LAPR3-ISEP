@@ -29,7 +29,7 @@ public class BSTTest {
                 instance.insert(i);
         }
 
-        
+
         /**
          * Test of size method, of class BST.
          */
