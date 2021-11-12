@@ -19,13 +19,12 @@ public class ShipStore {
             return ship.toString();
     }
 
-    public void insert(){
+    public boolean insert(){
         shipBST.insert();
+        return true;
     }
 
-    public void print(){
-        shipBST.printTrees();
-    }
+   // public void print(){shipBST.printTrees();}
 
     public String shipSummary(String s){
         return shipBST.shipSummary(s);
