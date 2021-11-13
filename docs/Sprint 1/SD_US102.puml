@@ -29,7 +29,7 @@ activate tm
                     bst-->sbst : Node<E>
                     deactivate bst
                     else
-                    sbst->bst : findIMO(Node<E> node, String s)
+                    sbst->bst : findCallSign(Node<E> node, String s)
                     activate bst
                     bst-->sbst : Node<E>
                     deactivate bst
