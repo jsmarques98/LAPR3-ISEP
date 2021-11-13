@@ -1,0 +1,9 @@
+@startuml
+
+
+class ship
+class shipData
+
+ship-->shipData
+
+@enduml

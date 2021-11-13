@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+activate TraficManager
+TraficManager -> system: select the find option
+activate system
+system --> TraficManager: Ask for the value
+deactivate system
+
+TraficManager -> system: insert the value
+activate system
+system --> TraficManager: show's the ship description
+deactivate system
+
+deactivate TraficManager
+@enduml
