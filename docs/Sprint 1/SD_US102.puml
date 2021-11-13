@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant "TraficManager" as tm
+participant "UI" as ui
+participant "ShipStore" as store
+participant "ShipBST" as sbst
+participant "BST" as bst
+
+
+
+activate tm
+    tm->ui : inserts a value
+    activate ui
+        ui->store : findShip(value)
+        activate store
+            store->sbst : findShip(String s)
+            activate sbst
+                    alt : s.length() == 9
+                    sbst->bst : findMSSI(Node<E> node, String s)
+                    activate bst
+                    bst-->sbst : Node<E>
+                    deactivate bst
+                    else :  s.length() == 7
+                    sbst->bst : findIMO(Node<E> node, String s)
+                    activate bst
+                    bst-->sbst : Node<E>
+                    deactivate bst
+                    else
+                    sbst->bst : findIMO(Node<E> node, String s)
+                    activate bst
+                    bst-->sbst : Node<E>
+                    deactivate bst
+                    end
+                sbst --> store : ship
+            deactivate sbst
+            store --> ui : toString()
+        deactivate store
+        ui --> tm
+    deactivate ui
+deactivate tm
+
+
+@enduml
