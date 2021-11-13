@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant "TraficManager" as tm
+participant "UI" as ui
+participant "ShipStore" as store
+participant "ShipBST" as sbst
+participant "ShipSummary" as ss
+participant "BST" as bst
+
+activate tm
+    tm->ui : inserts a value
+    activate ui
+        ui-> store : shipSummary(value);
+        activate store
+            store -> sbst : shipSummary(String s)
+            activate sbst
+                sbst->sbst : ship = findShip(s)
+                alt : s.length() == 9
+                sbst->ss : create(ship,"MMSI")
+                activate ss
+                ss-->sbst : ArrayList<Object> sumary
+                deactivate ss
+                else :  s.length() == 7
+                sbst->ss : create(ship,"IMO")
+                activate ss
+                ss-->sbst : ArrayList<Object> sumary
+                deactivate ss
+                else
+                sbst->ss : create(ship,"CallSign")
+                activate ss
+                ss-->sbst : ArrayList<Object> sumary
+                deactivate ss
+                end
+                deactivate ss
+                sbst-->store : String toString()
+            deactivate sbst
+            store-->ui :   String toString()
+        deactivate store
+        ui-->tm
+    deactivate ui
+deactivate tm
+
+@enduml
