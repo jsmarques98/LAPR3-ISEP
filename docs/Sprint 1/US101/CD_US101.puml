@@ -1,0 +1,78 @@
+@startuml
+
+skinparam classAtributionIconSize 0
+
+
+class Ship {
+    -mmsi
+    -dynamicShip
+    -name
+    -imo
+    -callSign
+    -type
+    -length
+    -width
+    -draft
+    -cargo
+    +initializeDynamicShip
+    +getMmsi
+    +getImo
+    +getDynamicShip
+    +getCallSign
+    +getName
+    +getType
+    +getLength
+    +getWidth
+    +getDraft
+    +getCargo
+    +addDynamicShip
+    +setShipData
+  }
+
+class ShipBST {
+    +insert
+    +printTrees
+}
+
+class CSVReader {
+    +readCSV
+    +cutImo
+    +fixCargo
+    +existShip
+}
+
+class ShipImo {
+    +compareTo(ShipImo)
+}
+
+class ShipCallSign {
+    +compareTo(ShipCallSign)
+}
+
+class ShipImo {
+    +compareTo(ShipMmsi)
+}
+
+class DynamicShip {
+    -date
+    -latitude
+    -longitude
+    -sog
+    -cog
+    -heading
+    -transcrieverClass
+    +getLat
+    +getLon
+    +getSog
+    +getCog
+}
+
+
+CSVReader "1" ..> "*" Ship  : creates
+CSVReader "1" ..> "*" ShipBST  : creates
+ShipImo  -->  Ship
+ShipCallSign --> Ship
+ShipMmsi --> Ship
+DynamicShip "1" ..> "1" Ship
+
+@enduml

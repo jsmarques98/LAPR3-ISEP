@@ -1,0 +1,65 @@
+@startuml
+autonumber
+
+actor "Traffic Manager" as traf
+
+
+participant ":Company" as com
+participant ":CSVReader" as csv
+participant ":Ship" as ship
+participant ":DynamicShip" as ds
+participant ":ShipBST" as bst
+participant ":ShipIMO" as imo
+participant ":ShipMmsi" as mmsi
+participant ":ShipCallSign" as callSign
+
+
+
+activate traf
+
+
+traf -> com : Start to register the file
+activate com
+com --> traf : Asks for the path
+traf -> com : Inserts the path
+
+com -> csv : readCSV()
+
+activate csv
+
+
+csv -> ship : newShip(...)
+activate ship
+csv -> ship : initializeDynamicShip()
+
+deactivate csv
+ship -> ds : initializeDynamicShip()
+
+activate ds
+
+ship -> ds: get(data,lat,long,sog,cog,heading, transcrieverClass)
+
+deactivate ds
+
+ship -> csv : addDynamicShip()
+activate csv
+ship -> csv : addShip
+
+deactivate csv
+
+
+com -> bst: shipMmsiAVL
+activate bst
+com -> bst: shipImoAVL
+com -> bst: shipCallSignAVL
+com -> bst: insert()
+
+bst -> com : printTrees()
+
+deactivate bst
+
+com -> traf : showTrees()
+deactivate com
+deactivate traf
+
+@enduml
