@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class ShipStore{
+    +shipSummary(String s)
+}
+class ShipBST{
+    -shipMmsiAVL
+    -shipImoAVL
+    -shipCallSignAVL
+    -shipArray
+    +shipSummary(String s)
+}
+class BST{
+    -element
+    -left
+    -right
+    +findMSSI(Node<E> node, String s)
+    +findIMO(Node<E> node, String s)
+    +findCallSign(Node<E> node, String s)
+}
+
+class ShipSummary{
+    +create(Ship ship, String code)
+}
+
+BST--|>ShipBST
+ShipStore--|>ShipBST
+ShipSummary--|>ShipBST
+
+@enduml

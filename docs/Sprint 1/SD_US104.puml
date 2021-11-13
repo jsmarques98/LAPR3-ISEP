@@ -18,6 +18,8 @@ activate tm
             store -> sbst : shipSummary(String s)
             activate sbst
                 sbst->sbst : ship = findShip(s)
+                activate bst
+                deactivate bst
                 alt : s.length() == 9
                 sbst->ss : create(ship,"MMSI")
                 activate ss
