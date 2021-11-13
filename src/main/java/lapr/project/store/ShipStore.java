@@ -16,7 +16,7 @@ public class ShipStore {
         if(ship == null)
             return "Ship doesn't exist.";
         else
-            return ship.toString();
+            return ship.toString1();
     }
 
     public boolean insert(){
