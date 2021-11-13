@@ -35,13 +35,19 @@ class Main {
         while (!option.equals("0")) {
             System.out.println("Please make your selection");
             System.out.println("1) Search ship");
+            System.out.println("2) Search ship summary");
             System.out.println("0) Leave");
             option = read.readLine();
+            String value;
             switch (option) {
                 case "1":
                     System.out.println("Insert the value: ");
-                    String value = read.readLine();
+                    value = read.readLine();
                     System.out.println(st.findShip(value));
+                    break;
+                case "2":
+                    System.out.println("Insert the value: ");
+                    value = read.readLine();
                     System.out.println(st.shipSummary(value));
                     break;
                 case "0":
