@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="310px" preserveAspectRatio="none" style="width:623px;height:310px;background:#FFFFFF;" version="1.1" viewBox="0 0 623 310" width="623px" zoomAndPan="magnify"><defs><filter height="300%" id="f1pcvlqiwn19xe" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><rect fill="#FFFFFF" filter="url(#f1pcvlqiwn19xe)" height="109.9316" style="stroke:#A80036;stroke-width:1.0;" width="10" x="57" y="98.4883"/><rect fill="#FFFFFF" filter="url(#f1pcvlqiwn19xe)" height="88.6211" style="stroke:#A80036;stroke-width:1.0;" width="10" x="442" y="119.7988"/><rect fill="#FFFFFF" filter="url(#f1pcvlqiwn19xe)" height="30" style="stroke:#A80036;stroke-width:1.0;" width="10" x="560" y="149.1094"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="62" x2="62" y1="88.4883" y2="226.4199"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="446.5" x2="446.5" y1="88.4883" y2="226.4199"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="564.5" x2="564.5" y1="88.4883" y2="226.4199"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="108" x="5" y="85.5352">Traffic Manager</text><ellipse cx="62" cy="15" fill="#FEFECE" filter="url(#f1pcvlqiwn19xe)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M62,23 L62,50 M49,31 L75,31 M62,50 L49,65 M62,50 L75,65 " fill="none" filter="url(#f1pcvlqiwn19xe)" style="stroke:#A80036;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="108" x="5" y="238.9551">Traffic Manager</text><ellipse cx="62" cy="251.9082" fill="#FEFECE" filter="url(#f1pcvlqiwn19xe)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M62,259.9082 L62,286.9082 M49,267.9082 L75,267.9082 M62,286.9082 L49,301.9082 M62,286.9082 L75,301.9082 " fill="none" filter="url(#f1pcvlqiwn19xe)" style="stroke:#A80036;stroke-width:2.0;"/><rect fill="#FEFECE" filter="url(#f1pcvlqiwn19xe)" height="30.4883" style="stroke:#A80036;stroke-width:1.5;" width="83" x="403.5" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="69" x="410.5" y="73.5352">:Company</text><rect fill="#FEFECE" filter="url(#f1pcvlqiwn19xe)" height="30.4883" style="stroke:#A80036;stroke-width:1.5;" width="83" x="403.5" y="225.4199"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="69" x="410.5" y="245.9551">:Company</text><rect fill="#FEFECE" filter="url(#f1pcvlqiwn19xe)" height="30.4883" style="stroke:#A80036;stroke-width:1.5;" width="93" x="516.5" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="79" x="523.5" y="73.5352">:CSVReader</text><rect fill="#FEFECE" filter="url(#f1pcvlqiwn19xe)" height="30.4883" style="stroke:#A80036;stroke-width:1.5;" width="93" x="516.5" y="225.4199"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="79" x="523.5" y="245.9551">:CSVReader</text><rect fill="#FFFFFF" filter="url(#f1pcvlqiwn19xe)" height="109.9316" style="stroke:#A80036;stroke-width:1.0;" width="10" x="57" y="98.4883"/><rect fill="#FFFFFF" filter="url(#f1pcvlqiwn19xe)" height="88.6211" style="stroke:#A80036;stroke-width:1.0;" width="10" x="442" y="119.7988"/><rect fill="#FFFFFF" filter="url(#f1pcvlqiwn19xe)" height="30" style="stroke:#A80036;stroke-width:1.0;" width="10" x="560" y="149.1094"/><polygon fill="#A80036" points="430,115.7988,440,119.7988,430,123.7988,434,119.7988" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="67" x2="436" y1="119.7988" y2="119.7988"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="74" y="115.0566">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="343" x="87" y="115.0566">Starts to organize the  positional messages temporally</text><polygon fill="#A80036" points="548,145.1094,558,149.1094,548,153.1094,552,149.1094" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="452" x2="554" y1="149.1094" y2="149.1094"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="459" y="144.3672">2</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="76" x="472" y="144.3672">sortByDate()</text><polygon fill="#A80036" points="73,204.4199,63,208.4199,73,212.4199,69,208.4199" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="67" x2="446" y1="208.4199" y2="208.4199"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="79" y="203.6777">3</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="319" x="92" y="203.6777">Show the positional messages organize temporally</text><!--MD5=[7959549ad8a6c173dfef980ae9cee98e]
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor "Traffic Manager" as traf
+
+
+participant ":Company" as com
+participant ":CSVReader" as csv
+
+activate traf
+
+traf -> com : Starts to organize the  positional messages temporally
+activate com
+
+com -> csv: sortByDate()
+activate csv
+
+deactivate csv
+
+com -> traf: Show the positional messages organize temporally
+deactivate com
+deactivate traf
+
+@enduml
+
+@startuml
+
+autonumber
+
+actor "Traffic Manager" as traf
+
+
+participant ":Company" as com
+participant ":CSVReader" as csv
+
+activate traf
+
+traf -> com : Starts to organize the  positional messages temporally
+activate com
+
+com -> csv: sortByDate()
+activate csv
+
+deactivate csv
+
+com -> traf: Show the positional messages organize temporally
+deactivate com
+deactivate traf
+
+@enduml
+
+PlantUML version 1.2021.11(Sat Oct 02 14:26:11 WEST 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: PT
+--></g></svg>
