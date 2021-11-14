@@ -196,38 +196,6 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
         if(node.getLeft() == null) return node.getElement();
         return smallestElement(node.getLeft());
     }
-    /*
-    public Node<E> find(E element) {
-        return this.find(this.root(), element);
-    }
-
-    /**
-     * Returns the Node containing a specific Element, or null otherwise.
-     *
-     * @param element    the element to find
-     * @return the Node that contains the Element, or null otherwise
-     *
-     * This method despite not being essential is very useful.
-     * It is written here in order to be used bys this class and its
-     * subclasses avoiding recoding.
-     * So its access level is protected
-     */
-/*
-    protected Node<E> find(Node<E> node,E element){
-
-        if (node == null){
-            return null;
-        }
-        if(node.getElement() == element){
-            return node;
-        }
-        if(node.getElement().compareTo(element) > 0){
-            return find (node.getLeft(), element);
-        }else{
-            return find (node.getRight(), element);
-        }
-    }
-*/
     public boolean printTreeMmsi(String prefix) {
         this.printTreeMmsi(this.root(), prefix);
         return true;

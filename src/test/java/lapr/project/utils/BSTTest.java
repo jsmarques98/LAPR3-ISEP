@@ -222,6 +222,15 @@ public class BSTTest {
     void findMSSI() {
         assertNotNull(store.findShip("210950000"));
     }
+    @Test
+    void findMSSI1() {
+        assertEquals(store.findShip("210950001"),"Ship doesn't exist.");
+    }
+    @Test
+    void findMSSI2() {
+        assertEquals(store.findShip("21094000"),"Ship doesn't exist.");
+    }
+
 
     @Test
     void findIMO() {
