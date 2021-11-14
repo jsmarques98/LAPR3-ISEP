@@ -285,9 +285,9 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
         Ship ship = (Ship) node.getElement();
         if(ship.getMmsi() == Integer.parseInt(s))
             return node.getElement();
-        if(ship.getMmsi() > Integer.parseInt(s))
+        else if(ship.getMmsi() > Integer.parseInt(s))
             return findMSSI(node.getLeft(), s);
-        if(ship.getMmsi() < Integer.parseInt(s))
+        else if(ship.getMmsi() < Integer.parseInt(s))
             return findMSSI(node.getRight(), s);
         return null;
     }
@@ -296,11 +296,11 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
         if(node == null)
             return null;
         Ship ship = (Ship) node.getElement();
-        if(ship.getImo() == Integer.parseInt(s))
+         if(ship.getImo() == Integer.parseInt(s))
             return node.getElement();
-        if(ship.getImo() > Integer.parseInt(s))
+        else if(ship.getImo() > Integer.parseInt(s))
             return findIMO(node.getLeft(), s);
-        if(ship.getImo() < Integer.parseInt(s))
+        else if(ship.getImo() < Integer.parseInt(s))
             return findIMO(node.getRight(), s);
         return null;
     }
@@ -311,9 +311,9 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
         Ship ship = (Ship) node.getElement();
         if(s.equals(ship.getCallSign()))
             return node.getElement();
-        if(s.compareTo(ship.getCallSign()) < 0)
+        else if(s.compareTo(ship.getCallSign()) < 0)
             return findCALLSIGN(node.getLeft(), s);
-        if(s.compareTo(ship.getCallSign()) > 0)
+        else if(s.compareTo(ship.getCallSign()) > 0)
             return findCALLSIGN(node.getRight(), s);
         return null;
     }
