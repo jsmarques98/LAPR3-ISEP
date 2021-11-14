@@ -9,6 +9,9 @@ This is the repository template used for student repositories in LAPR Projets.
 ![CD.svg](docs/Sprint 1/CD.svg)
 
 #US101
+###SSD
+![SSD_US101.svg](docs/Sprint 1/US101/SSD_US101.svg)
+
 ###SD
 ![SD_US101.svg](docs/Sprint 1/US101/SD_US101.svg)
 
@@ -30,6 +33,8 @@ This is the repository template used for student repositories in LAPR Projets.
 ![MD_102.svg](docs/Sprint 1/US102/DM_US102.png)
 
 #US103
+###SSD
+![SSD_US103.svg](docs/Sprint 1/US103/SSD_US103.svg)
 ###SD
 ![SSD_US103.svg](docs/Sprint 1/US103/SD_US103.svg)
 
