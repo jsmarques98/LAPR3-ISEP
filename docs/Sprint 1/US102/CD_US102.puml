@@ -20,7 +20,8 @@ class BST{
     +findCallSign(Node<E> node, String s)
 }
 
-BST--|>ShipBST
-ShipStore--|>ShipBST
+BST-->ShipBST
+ShipStore-->ShipBST
+
 
 @enduml
