@@ -30,10 +30,11 @@ public class ShipBST {
         }
     }
 
-    public void printTrees(){
+    public boolean printTrees(){
         shipMmsiAVL.printTreeMmsi("\n");
         shipImoAVL.printTreeImo("\n");
         shipCallSignAVL.printTreeCallSign("\n");
+        return true;
     }
 
     public Ship findShip(String s){
@@ -50,9 +51,8 @@ public class ShipBST {
     }
 
 
-    public String shipSummary(String s){
-        ShipSummary shipSummary = null;
-        ArrayList<Object> ass;
+    public  String shipSummary(String s){
+        ShipSummary shipSummary = new ShipSummary();
         if(s.isEmpty())
             return "String vazia";
         Ship ship = findShip(s);

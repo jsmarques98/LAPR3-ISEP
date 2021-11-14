@@ -23,9 +23,26 @@ class BST{
 class ShipSummary{
     +create(Ship ship, String code)
 }
+class DynamicShip{
+    -baseDateTime;
+    -lat;
+    -lon;
+    -sog;
+    -cog;
+    -eading;
+    -transcrieverClass;
 
-BST--|>ShipBST
-ShipStore--|>ShipBST
-ShipSummary--|>ShipBST
+    +getBaseDateTime()
+    +getLat()
+    +getLon()
+    +getSog()
+    +getCog()
+    +getHeading()
+    +getTranscrieverClass()
+}
+BST-->ShipBST
+ShipStore-->ShipBST
+ShipSummary-->ShipBST
+ShipSummary-->DynamicShip
 
 @enduml

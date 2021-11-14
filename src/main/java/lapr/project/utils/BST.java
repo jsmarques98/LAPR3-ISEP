@@ -104,7 +104,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
     private Node<E> remove(E element, Node<E> node) {
 
         if (node == null) {
-            return null;    //throw new IllegalArgumentException("Element does not exist");
+            return null;
         }
         if (element.compareTo(node.getElement())==0) {
             // node is the Node to be removed
@@ -196,77 +196,54 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
         if(node.getLeft() == null) return node.getElement();
         return smallestElement(node.getLeft());
     }
-
-    public Node<E> find(E element) {
-        return this.find(this.root(), element);
-    }
-
-    /**
-     * Returns the Node containing a specific Element, or null otherwise.
-     *
-     * @param element    the element to find
-     * @return the Node that contains the Element, or null otherwise
-     *
-     * This method despite not being essential is very useful.
-     * It is written here in order to be used bys this class and its
-     * subclasses avoiding recoding.
-     * So its access level is protected
-     */
-
-    protected Node<E> find(Node<E> node,E element){
-
-        if (node == null){
-            return null;
-        }
-        if(node.getElement() == element){
-            return node;
-        }
-        if(node.getElement().compareTo(element) > 0){
-            return find (node.getLeft(), element);
-        }else{
-            return find (node.getRight(), element);
-        }
-    }
-
-    public void printTreeMmsi(String prefix) {
+    public boolean printTreeMmsi(String prefix) {
         this.printTreeMmsi(this.root(), prefix);
+        return true;
     }
 
-    public void printTreeImo(String prefix) {
+    public boolean printTreeImo(String prefix) {
         this.printTreeImo(this.root(), prefix);
+        return true;
     }
 
-    public void printTreeCallSign(String prefix) {
+    public boolean printTreeCallSign(String prefix) {
         this.printTreeCallSign(this.root(), prefix);
+        return true;
     }
 
-    public void printTreeMmsi(Node<E> node, String prefix) {
+    public boolean printTreeMmsi(Node<E> node, String prefix) {
         if (node != null) {
             Ship ship = (Ship) node.getElement();
             System.out.println(prefix + "mmsi: " + ship.getMmsi());
             printTreeMmsi(node.getLeft(), "left ");
             printTreeMmsi(node.getRight(), "right ");
+            return true;
         }
+        return false;
     }
 
 
-    public void printTreeImo(Node<E> node, String prefix) {
+    public boolean printTreeImo(Node<E> node, String prefix) {
         if (node != null) {
             Ship ship = (Ship) node.getElement();
             System.out.println(prefix + "imo: " + ship.getImo());
             printTreeImo(node.getLeft(), "left ");
             printTreeImo(node.getRight(), "right ");
+            return true;
         }
+        return false;
     }
 
 
-    public void printTreeCallSign(Node<E> node, String prefix) {
+    public boolean printTreeCallSign(Node<E> node, String prefix) {
         if (node != null) {
             Ship ship = (Ship) node.getElement();
             System.out.println(prefix + "calSign: " + ship.getCallSign());
             printTreeCallSign(node.getLeft(), "left ");
             printTreeCallSign(node.getRight(), "right ");
+            return true;
         }
+        return false;
     }
 
 
@@ -276,9 +253,9 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
         Ship ship = (Ship) node.getElement();
         if(ship.getMmsi() == Integer.parseInt(s))
             return node.getElement();
-        if(ship.getMmsi() > Integer.parseInt(s))
+        else if(ship.getMmsi() > Integer.parseInt(s))
             return findMSSI(node.getLeft(), s);
-        if(ship.getMmsi() < Integer.parseInt(s))
+        else if(ship.getMmsi() < Integer.parseInt(s))
             return findMSSI(node.getRight(), s);
         return null;
     }
@@ -287,11 +264,11 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
         if(node == null)
             return null;
         Ship ship = (Ship) node.getElement();
-        if(ship.getImo() == Integer.parseInt(s))
+         if(ship.getImo() == Integer.parseInt(s))
             return node.getElement();
-        if(ship.getImo() > Integer.parseInt(s))
+        else if(ship.getImo() > Integer.parseInt(s))
             return findIMO(node.getLeft(), s);
-        if(ship.getImo() < Integer.parseInt(s))
+        else if(ship.getImo() < Integer.parseInt(s))
             return findIMO(node.getRight(), s);
         return null;
     }
@@ -302,9 +279,9 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
         Ship ship = (Ship) node.getElement();
         if(s.equals(ship.getCallSign()))
             return node.getElement();
-        if(s.compareTo(ship.getCallSign()) < 0)
+        else if(s.compareTo(ship.getCallSign()) < 0)
             return findCALLSIGN(node.getLeft(), s);
-        if(s.compareTo(ship.getCallSign()) > 0)
+        else if(s.compareTo(ship.getCallSign()) > 0)
             return findCALLSIGN(node.getRight(), s);
         return null;
     }

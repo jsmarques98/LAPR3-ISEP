@@ -34,18 +34,7 @@ class ship{
     -draft
     -VesselType
   }
-class shipData{
-    -ship_id
-    -Data
-    -time
-    -latitude
-    -Longitude
-    -SOG
-    -COG
-    -heading
-    -cargo
-    -transceiver_class
-}
+
 class port_wharehouse{
     -port_warehouse_id
     -name
@@ -197,6 +186,22 @@ class BST{
     +toString(
     -toStringRec(Node<E> root, int level, StringBuilder sb)
 }
+
+class CSVReader {
+    +readCSV
+    +cutImo
+    +fixCargo
+    +existShip
+}
+class ShipSummary{
+    +create(Ship ship, String code)
+}
+
+ShipSummary-->DynamicShip
+ShipSummary-->ShipBST
+
+CSVReader..>ship
+
 BST..>AVL
 
 AVL..>ShipBST

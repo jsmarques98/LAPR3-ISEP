@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class ShipSummary {
+    public ShipSummary(){
+
+    }
     public static ArrayList create(Ship ship, String code) {
         ArrayList<Object> sumary = new ArrayList<>();
         LocalDateTime inicialTime = null, finalTime = null;
