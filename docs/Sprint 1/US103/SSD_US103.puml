@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+activate TraficManager
+TraficManager -> system: want to order the dynamic data
+activate system
+
+system --> TraficManager: informs success
+deactivate system
+
+deactivate TraficManager
+@enduml
