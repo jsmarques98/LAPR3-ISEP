@@ -50,14 +50,14 @@ public class ShipBST {
 
 
     public String shipSummary(String s){
-        ShipSummary shipSummary = null;
-        ArrayList<Object> ass;
+        ShipSummary shipSummary = new ShipSummary();
         if(s.isEmpty())
             return "String vazia";
         Ship ship = findShip(s);
         if(ship == null)
             return "Ship doesn't exist.";
         else if(s.length() == 9)
+
             return shipSummary.create(ship,"MMSI").toString();
         else if (s.length() == 7)
             return shipSummary.create(ship,"IMO").toString();
