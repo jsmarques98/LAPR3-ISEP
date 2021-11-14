@@ -65,7 +65,7 @@ public class ShipBSTTest {
     }
     @Test
     void findShipNull() {
-        assertNull(sb.findShip("2950000"));
+        assertNull(sb.findShip(null));
 
     }
 }
