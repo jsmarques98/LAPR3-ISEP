@@ -1,8 +1,5 @@
 @startuml
 
-skinparam classAtributionIconSize 0
-
-
 class Ship {
     -mmsi
     -dynamicShip
