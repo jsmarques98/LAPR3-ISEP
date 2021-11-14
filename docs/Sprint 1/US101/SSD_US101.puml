@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+activate TraficManager
+TraficManager -> system: want to import ships.csv
+activate system
+system --> TraficManager: Ask for the path
+deactivate system
+
+TraficManager -> system: insert the path
+activate system
+system --> TraficManager: informs success
+deactivate system
+
+deactivate TraficManager
+@enduml
