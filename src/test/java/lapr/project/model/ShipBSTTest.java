@@ -68,4 +68,9 @@ public class ShipBSTTest {
         assertNull(sb.findShip(null));
 
     }
+
+    @Test
+    void testPrintTrees() {
+         assertTrue(sb.printTrees());
+    }
 }

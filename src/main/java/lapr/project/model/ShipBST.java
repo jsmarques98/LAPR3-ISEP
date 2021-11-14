@@ -29,10 +29,11 @@ public class ShipBST {
         }
     }
 
-    public void printTrees(){
+    public boolean printTrees(){
         shipMmsiAVL.printTreeMmsi("\n");
         shipImoAVL.printTreeImo("\n");
         shipCallSignAVL.printTreeCallSign("\n");
+        return true;
     }
 
     public Ship findShip(String s){
