@@ -104,7 +104,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
     private Node<E> remove(E element, Node<E> node) {
 
         if (node == null) {
-            return null;    //throw new IllegalArgumentException("Element does not exist");
+            return null;
         }
         if (element.compareTo(node.getElement())==0) {
             // node is the Node to be removed
@@ -228,45 +228,54 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
         }
     }
 */
-    public void printTreeMmsi(String prefix) {
+    public boolean printTreeMmsi(String prefix) {
         this.printTreeMmsi(this.root(), prefix);
+        return true;
     }
 
-    public void printTreeImo(String prefix) {
+    public boolean printTreeImo(String prefix) {
         this.printTreeImo(this.root(), prefix);
+        return true;
     }
 
-    public void printTreeCallSign(String prefix) {
+    public boolean printTreeCallSign(String prefix) {
         this.printTreeCallSign(this.root(), prefix);
+        return true;
     }
 
-    public void printTreeMmsi(Node<E> node, String prefix) {
+    public boolean printTreeMmsi(Node<E> node, String prefix) {
         if (node != null) {
             Ship ship = (Ship) node.getElement();
             System.out.println(prefix + "mmsi: " + ship.getMmsi());
             printTreeMmsi(node.getLeft(), "left ");
             printTreeMmsi(node.getRight(), "right ");
+            return true;
         }
+        return false;
     }
 
 
-    public void printTreeImo(Node<E> node, String prefix) {
+    public boolean printTreeImo(Node<E> node, String prefix) {
         if (node != null) {
             Ship ship = (Ship) node.getElement();
             System.out.println(prefix + "imo: " + ship.getImo());
             printTreeImo(node.getLeft(), "left ");
             printTreeImo(node.getRight(), "right ");
+            return true;
         }
+        return false;
     }
 
 
-    public void printTreeCallSign(Node<E> node, String prefix) {
+    public boolean printTreeCallSign(Node<E> node, String prefix) {
         if (node != null) {
             Ship ship = (Ship) node.getElement();
             System.out.println(prefix + "calSign: " + ship.getCallSign());
             printTreeCallSign(node.getLeft(), "left ");
             printTreeCallSign(node.getRight(), "right ");
+            return true;
         }
+        return false;
     }
 
 

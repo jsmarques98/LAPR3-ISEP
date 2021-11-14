@@ -24,7 +24,9 @@ public class ShipStore {
         return true;
     }
 
-   // public void print(){shipBST.printTrees();}
+   public boolean print(){shipBST.printTrees();
+    return true;
+    }
 
     public String shipSummary(String s){
         return shipBST.shipSummary(s);
