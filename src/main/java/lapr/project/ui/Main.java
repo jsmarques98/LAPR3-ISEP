@@ -38,7 +38,7 @@ class Main {
             System.out.println("Please make your selection");
             System.out.println("1) Read CSV");
             System.out.println("2) Search ship");
-            System.out.println("2) Search ship summary");
+            System.out.println("3) Search ship summary");
             System.out.println("0) Leave");
             option = read.readLine();
             String value;
@@ -47,7 +47,7 @@ class Main {
                 case "1":
                     System.out.println("Insert the name file: ");
                     path = read.readLine();
-                    System.out.println(cs.readCSV(path));
+                    System.out.println(cs.readCSV("src/main/java/lapr/project/data/"+path+".csv"));
                     break;
                 case "2":
                     System.out.println("Insert the value: ");
