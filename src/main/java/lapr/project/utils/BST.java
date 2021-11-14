@@ -196,7 +196,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
         if(node.getLeft() == null) return node.getElement();
         return smallestElement(node.getLeft());
     }
-
+    /*
     public Node<E> find(E element) {
         return this.find(this.root(), element);
     }
@@ -212,7 +212,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
      * subclasses avoiding recoding.
      * So its access level is protected
      */
-
+/*
     protected Node<E> find(Node<E> node,E element){
 
         if (node == null){
@@ -227,7 +227,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
             return find (node.getRight(), element);
         }
     }
-
+*/
     public void printTreeMmsi(String prefix) {
         this.printTreeMmsi(this.root(), prefix);
     }
