@@ -11,7 +11,8 @@ public class ShipBST {
 
     ArrayList<Ship> shipArray;{
         try {
-            shipArray = CsvReader.readCSV();
+            String path = "src\\main\\java\\lapr\\project\\data\\sships.csv";
+            shipArray = CsvReader.readCSV(path);
         } catch (Exception e) {
             e.printStackTrace();
         }

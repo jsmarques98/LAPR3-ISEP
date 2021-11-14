@@ -4,6 +4,7 @@ import lapr.project.model.DynamicShip;
 import lapr.project.model.Ship;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 public class CsvReader {
 
     // verificar se um barco existe - através do mmsi/imo/callsign
+
     private static int existShip(int mmsi, ArrayList<Ship> shipArray) {
 
         for (int i = 0; i < shipArray.size(); i++) {
@@ -22,29 +24,16 @@ public class CsvReader {
                 return i;
             }
         }
-
         return -1;
     }
 
-
-    public static ArrayList<Ship> readCSV() throws Exception {
-
-        String path = "src/main/java/lapr/project/data/sships.csv";
-
+    public static ArrayList<Ship> readCSV(String path) throws Exception {
         DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-
         ArrayList<Ship> shipArray = new ArrayList<>();
-
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-
-            //BufferedReader br = new BufferedReader(new FileReader(path));
-
             String line = br.readLine();
-
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-
-
                 DynamicShip ds = new DynamicShip(
                         LocalDateTime.parse(values[1], formatDate), // base date time
                         Double.parseDouble(values[2]), // latitude
@@ -53,12 +42,10 @@ public class CsvReader {
                         Double.parseDouble(values[5]), //cog
                         Double.parseDouble(values[6]), //heading
                         values[15].charAt(0)); //Transcriever class
-
                 int index = existShip(Integer.parseInt(values[0]), shipArray);
                 if (index == -1) { // se o barco não existir
                     int imo = cutImo(values[8]);
                     int cargo = fixCargo(values[14]);
-
                     Ship ship = new Ship(
                             Integer.parseInt(values[0]), // mmsi
                             null, values[7], // name
@@ -69,20 +56,19 @@ public class CsvReader {
                             Double.parseDouble(values[12]), // width
                             Double.parseDouble(values[13]),// draft)
                             cargo); //cargo
-
-                    ship.inializeDynamicShip();
+                    ship.initializeDynamicShip();
                     ship.addDynamicShip(ds);
                     shipArray.add(ship);
-
                 } else { // se o barco existir
-
                     shipArray.get(index).addDynamicShip(ds);
-
                 }
+            }
+        }catch (FileNotFoundException e){
+                System.out.println("File not found!");
             }
             return sortByDate(shipArray);
         }
-    }
+
 
     public static ArrayList<Ship> sortByDate(ArrayList<Ship> shipArray) throws Exception {
 
@@ -96,6 +82,7 @@ public class CsvReader {
 
         return shipArray;
     }
+
 
     /**
      * Method to take the first 3 chars (IMO) of the integer so that we can cast the value

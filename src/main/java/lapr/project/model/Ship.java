@@ -77,7 +77,7 @@ public class Ship {
         this.shipData.add(ship);
     }
 
-    public void inializeDynamicShip(){
+    public void initializeDynamicShip(){
         this.shipData = new ArrayList<>();
     }
 
