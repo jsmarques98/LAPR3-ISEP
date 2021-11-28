@@ -1,11 +1,13 @@
 package lapr.project.utils;
 
 import lapr.project.model.DynamicShip;
+import lapr.project.model.Port;
 import lapr.project.model.Ship;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -83,6 +85,26 @@ public class CsvReader {
         return shipArray;
     }
 
+
+    public static ArrayList<Port> readPorts(String path) throws Exception {
+        ArrayList<Port> portArray = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            String line = br.readLine();
+            while ((line = br.readLine()) != null) {
+                String values[] = line.split(",");
+                Port port = new Port(
+                        values[0],          //continent
+                        values[1],          //country
+                        Integer.parseInt(values[2]),    //code
+                        values[3],          //port
+                        Double.parseDouble(values[4]),  //lat
+                        Double.parseDouble(values[5])); //lon
+            }
+        }catch (FileNotFoundException e){
+                System.out.println("File not found!");
+         }
+        return portArray;
+    }
 
     /**
      * Method to take the first 3 chars (IMO) of the integer so that we can cast the value
