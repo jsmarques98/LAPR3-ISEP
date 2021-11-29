@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ShipStore  {
+public class ShipStore implements Persistable {
 
 
 
@@ -43,7 +43,7 @@ public class ShipStore  {
     public String shipSummary(String s){
         return shipBST.shipSummary(s);
     }
-    /*
+
     @Override
     public boolean save(DataBaseConnection databaseConnection, Object object) {
         Ship ship = (Ship) object;
@@ -184,7 +184,7 @@ public class ShipStore  {
 
         return returnValue;
     }
-*/
+
 
 
 }
