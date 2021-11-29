@@ -38,9 +38,6 @@ class Main {
         ShipStore st = new ShipStore();
         String option = new String();
         // TODO code application logic here
-        Logger.getLogger(ShipStore.class.getName())
-                .log(Level.SEVERE, "teste");
-
         DataBaseConnection databaseConnection = null;
         try {
             databaseConnection = ConnectionFactory.getInstance()
