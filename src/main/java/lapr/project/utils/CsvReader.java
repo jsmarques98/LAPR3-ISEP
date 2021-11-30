@@ -99,7 +99,10 @@ public class CsvReader {
                         values[3],          //port
                         Double.parseDouble(values[4]),  //lat
                         Double.parseDouble(values[5])); //lon
+
+                portArray.add(port);
             }
+
         }catch (FileNotFoundException e){
                 System.out.println("File not found!");
          }
