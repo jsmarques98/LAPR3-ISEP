@@ -1,6 +1,6 @@
 package lapr.project.model;
 
-public class Port {
+public class Port  {
 
     private String continent;
     private String country;
@@ -65,4 +65,5 @@ public class Port {
     public void setLon(double lon) {
         this.lon = lon;
     }
+
 }
