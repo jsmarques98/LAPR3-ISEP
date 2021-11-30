@@ -51,6 +51,7 @@ CREATE TABLE "container" (
   CONSTRAINT "PK_container"
   PRIMARY KEY (contNumber),
   CONSTRAINT "CK_container_ISOCode" CHECK (length(ISOCode)=4),
+  CONSTRAINT "CK_container_checkDigit" CHECK (length(ISOCode)=1),
   CONSTRAINT "CK_container_maxWeightC" CHECK (maxWeightC>0),
   CONSTRAINT "CK_container_weightC" CHECK (weightC>0),
   CONSTRAINT "CK_container_maxVol" CHECK (maxVol>0)
