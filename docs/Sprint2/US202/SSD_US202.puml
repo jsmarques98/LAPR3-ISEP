@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+activate TraficManager
+TraficManager -> system: select the find nearest Port option
+activate system
+system --> TraficManager: Ask for CallSign
+deactivate system
+
+TraficManager -> system: insert the CallSign
+activate system
+system --> TraficManager: Ask for the Date that want's to know
+deactivate system
+
+TraficManager -> system: insert the date
+activate system
+system --> TraficManager: show's the nearest Port
+deactivate system
+
+deactivate TraficManager
+@enduml

@@ -1,0 +1,11 @@
+@startuml
+
+
+class ship
+class shipData
+class port_wharehouse
+
+ship-->shipData
+ship-->port_wharehouse
+
+@enduml
