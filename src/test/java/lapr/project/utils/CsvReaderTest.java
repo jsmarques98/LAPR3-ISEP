@@ -75,5 +75,12 @@ class CsvReaderTest {
         assertEquals(-3.033333333, portArray1.get(0).getLon());
 
     }
+
+    @Test
+    void readPortsExp() throws Exception {
+        ArrayList<Port> ports = CsvReader.readPorts("src/data/1234.csv");
+        ArrayList<Port> expectRes = null;
+        assertEquals(ports, expectRes);
+    }
 }
 
