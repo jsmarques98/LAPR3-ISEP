@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+activate PortManager
+PortManager -> system: want to import sports.csv
+activate system
+system --> PortManager: Ask for the path
+deactivate system
+
+PortManager -> system: insert the path
+activate system
+system --> PortManager: informs success
+deactivate system
+
+deactivate PortManager
+@enduml
