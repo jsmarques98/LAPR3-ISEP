@@ -4,6 +4,7 @@ import lapr.project.model.Port;
 import lapr.project.utils.KDTree;
 import lapr.project.utils.CsvReader;
 import lapr.project.utils.NodeKDTree;
+//import org.graalvm.compiler.graph.Node;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,5 @@ public class KDTreePort {
         }
         portTree.buildTree(nodes);
     }
-
 
 }

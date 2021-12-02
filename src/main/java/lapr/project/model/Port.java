@@ -22,10 +22,6 @@ public class Port  {
         return continent;
     }
 
-    public void setContinent(String continent) {
-        this.continent = continent;
-    }
-
     public String getCountry() {
         return country;
     }
@@ -46,10 +42,6 @@ public class Port  {
         return port;
     }
 
-    public void setPort(String port) {
-        this.port = port;
-    }
-
     public double getLat() {
         return lat;
     }
@@ -64,6 +56,18 @@ public class Port  {
 
     public void setLon(double lon) {
         this.lon = lon;
+    }
+
+    @Override
+    public String toString() {
+        return "Port{" +
+                "continent='" + continent + '\'' +
+                ", country='" + country + '\'' +
+                ", code=" + code +
+                ", port='" + port + '\'' +
+                ", lat=" + lat +
+                ", lon=" + lon +
+                '}';
     }
 
 }

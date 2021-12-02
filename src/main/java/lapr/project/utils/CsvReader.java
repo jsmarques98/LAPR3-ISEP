@@ -102,11 +102,13 @@ public class CsvReader {
 
                 portArray.add(port);
             }
+            return portArray;
 
         }catch (FileNotFoundException e){
-                System.out.println("File not found!");
-         }
-        return portArray;
+            System.out.println("File not found!");
+            return null;
+        }
+
     }
 
     /**
