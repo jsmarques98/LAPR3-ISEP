@@ -1,6 +1,6 @@
 package lapr.project.model;
 
-public class Port  {
+public class Port {
 
     private String continent;
     private String country;

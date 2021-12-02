@@ -9,7 +9,7 @@ import lapr.project.utils.NodeKDTree;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KDTreePort {
+public class KDTreePort{
 
     KDTree portTree = new KDTree();
 
@@ -23,13 +23,17 @@ public class KDTreePort {
         }
     }
 
-    private  void insertPorts() {
+    public void insertPorts() {
         List<NodeKDTree<Port>> nodes = new ArrayList<>();
         for (Port port : portArray) {
             NodeKDTree<Port> node = new NodeKDTree<Port>(port, port.getLat(), port.getLon());
             nodes.add(node);
         }
         portTree.buildTree(nodes);
+    }
+
+    public Port nearestPort(double lat, double lon){
+        return (Port) portTree.findNearestNeighbour(lat,lon);
     }
 
 }

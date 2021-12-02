@@ -1,5 +1,6 @@
 package lapr.project.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
@@ -111,6 +112,17 @@ public class Ship {
                 ", draft=" + draft +
                 ", cargo=" + cargo +
                 '}';
+    }
+
+    public DynamicShip getDataByDate(LocalDateTime date) {
+        DynamicShip foundData = null;
+        for (DynamicShip data : this.shipData) {
+            LocalDateTime currentDate = data.getBaseDateTime();
+            if (currentDate.isEqual(date)) {
+                foundData = data;
+            }
+        }
+        return foundData;
     }
 
 }

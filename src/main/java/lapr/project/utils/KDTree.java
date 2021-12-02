@@ -6,42 +6,42 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class KDTree<E extends Comparable<E>> {
+public class KDTree<T> {
 
-    private final Comparator<NodeKDTree<E>> cmpX = new Comparator<NodeKDTree<E>>() {
+    private final Comparator<NodeKDTree<T>> cmpX = new Comparator<NodeKDTree<T>>() {
 
         @Override
-        public int compare(NodeKDTree<E> p1, NodeKDTree<E> p2) {
+        public int compare(NodeKDTree<T> p1, NodeKDTree<T> p2) {
             return Double.compare(p1.getX(), p2.getY());
         }
     };
 
-    private final Comparator<NodeKDTree<E>> cmpY = new Comparator<NodeKDTree<E>>() {
+    private final Comparator<NodeKDTree<T>> cmpY = new Comparator<NodeKDTree<T>>() {
 
         @Override
-        public int compare(NodeKDTree<E> p1, NodeKDTree<E> p2) {
+        public int compare(NodeKDTree<T> p1, NodeKDTree<T> p2) {
             return Double.compare(p1.getY(), p2.getY());
         }
     };
 
-    private NodeKDTree<E> root;
+    private NodeKDTree<T> root;
 
     public KDTree() {
 
     }
 
-    public KDTree(List<NodeKDTree<E>> nodes) {
+    public KDTree(List<NodeKDTree<T>> nodes) {
         buildTree(nodes);
     }
 
-    public void buildTree(List<NodeKDTree<E>> nodes) {
+    public void buildTree(List<NodeKDTree<T>> nodes) {
         root = new Object() {
-            NodeKDTree<E> buildTree(boolean divX, List<NodeKDTree<E>> nodes) {
+            NodeKDTree<T> buildTree(boolean divX, List<NodeKDTree<T>> nodes) {
                 if (nodes == null || nodes.isEmpty())
                     return null;
                 Collections.sort(nodes, divX ? cmpX : cmpY);
                 int mid = nodes.size() >> 1;
-                NodeKDTree<E> node = new NodeKDTree<>();
+                NodeKDTree<T> node = new NodeKDTree<>();
                 node.coords = nodes.get(mid).coords;
                 node.info = nodes.get(mid).info;
                 node.left = buildTree(!divX, nodes.subList(0, mid));
@@ -52,18 +52,18 @@ public class KDTree<E extends Comparable<E>> {
         }.buildTree(true, nodes);
     }
 
-    public E findNearestNeighbour(double x, double y) {
+    public T findNearestNeighbour(double x, double y) {
         return findNearestNeighbour(root, x, y, true);
     }
 
-    private E findNearestNeighbour(NodeKDTree<E> fromNode, final double x, final double y, boolean divX) {
+    private T findNearestNeighbour(NodeKDTree<T> fromNode, final double x, final double y, boolean divX) {
         return new Object() {
 
             double closestDist = Double.POSITIVE_INFINITY;
 
-            E closestNode = null;
+            T closestNode = null;
 
-            E findNearestNeighbour(NodeKDTree<E> node, boolean divX) {
+            T findNearestNeighbour(NodeKDTree<T> node, boolean divX) {
                 if (node == null)
                     return null;
                 double d = Point2D.distanceSq(node.coords.x, node.coords.y, x, y);
@@ -73,8 +73,8 @@ public class KDTree<E extends Comparable<E>> {
                 }
                 double delta = divX ? x - node.coords.x : y - node.coords.y;
                 double delta2 = delta * delta;
-                NodeKDTree<E> node1 = delta < 0 ? node.left : node.right;
-                NodeKDTree<E> node2 = delta < 0 ? node.right : node.left;
+                NodeKDTree<T> node1 = delta < 0 ? node.left : node.right;
+                NodeKDTree<T> node2 = delta < 0 ? node.right : node.left;
                 findNearestNeighbour(node1, !divX);
                 if (delta2 < closestDist) {
                     findNearestNeighbour(node2, !divX);
@@ -85,11 +85,11 @@ public class KDTree<E extends Comparable<E>> {
     }
 
 
-    public List<E> rangeSearch(final double x, final double y, final double dist) {
+    public List<T> rangeSearch(final double x, final double y, final double dist) {
         return new Object() {
-            List<E> result = new LinkedList<>();
+            List<T> result = new LinkedList<>();
             double radius = dist * dist;
-            List<E> rangeSearch(NodeKDTree<E> node, boolean divX) {
+            List<T> rangeSearch(NodeKDTree<T> node, boolean divX) {
                 if (node == null)
                     return result;
                 double d = Point2D.distanceSq(node.coords.x, node.coords.y, x, y);
@@ -99,8 +99,8 @@ public class KDTree<E extends Comparable<E>> {
 
                 double delta = divX ? x - node.coords.x : y - node.coords.y;
                 double delta2 = delta * delta;
-                NodeKDTree<E> node1 = delta < 0 ? node.left : node.right;
-                NodeKDTree<E> node2 = delta < 0 ? node.right : node.left;
+                NodeKDTree<T> node1 = delta < 0 ? node.left : node.right;
+                NodeKDTree<T> node2 = delta < 0 ? node.right : node.left;
                 rangeSearch(node1, !divX);
                 if (delta2 < radius) {
                     rangeSearch(node2, !divX);
@@ -112,12 +112,12 @@ public class KDTree<E extends Comparable<E>> {
 
 
 
-    public List<E> findNearestNeighbours(final double x, final double y, final int limit) {
-        final List<E> result = new LinkedList<>();
-        final List<NodeKDTree<E>> closestNodes  = new ArrayList<>();
-        final Comparator<NodeKDTree<E>> cmp = new Comparator<NodeKDTree<E>>() {
+    public List<T> findNearestNeighbours(final double x, final double y, final int limit) {
+        final List<T> result = new LinkedList<>();
+        final List<NodeKDTree<T>> closestNodes  = new ArrayList<>();
+        final Comparator<NodeKDTree<T>> cmp = new Comparator<NodeKDTree<T>>() {
             @Override
-            public int compare(NodeKDTree<E> node1, NodeKDTree<E> node2) {
+            public int compare(NodeKDTree<T> node1, NodeKDTree<T> node2) {
                 Double p1 = Point2D.distanceSq(node1.coords.x, node1.coords.y, x, y);
                 Double p2 = Point2D.distanceSq(node2.coords.x, node2.coords.y, x, y);
                 return Double.compare(p1, p2);
@@ -128,7 +128,7 @@ public class KDTree<E extends Comparable<E>> {
             double closestDist = Double.POSITIVE_INFINITY;
             int size = 0;
 
-            void findNearestNeighbours(NodeKDTree<E> node, boolean divX) {
+            void findNearestNeighbours(NodeKDTree<T> node, boolean divX) {
                 if (node == null)
                     return ;
                 double d = Point2D.distanceSq(node.coords.x, node.coords.y, x, y);
@@ -139,8 +139,8 @@ public class KDTree<E extends Comparable<E>> {
                 size++;
                 double delta = divX ? x - node.coords.x : y - node.coords.y;
                 double delta2 = delta * delta;
-                NodeKDTree<E> node1 = delta < 0 ? node.left : node.right;
-                NodeKDTree<E> node2 = delta < 0 ? node.right : node.left;
+                NodeKDTree<T> node1 = delta < 0 ? node.left : node.right;
+                NodeKDTree<T> node2 = delta < 0 ? node.right : node.left;
                 findNearestNeighbours(node1, !divX);
                 if (delta2 < closestDist || size < limit) {
                     findNearestNeighbours(node2, !divX);
@@ -152,7 +152,7 @@ public class KDTree<E extends Comparable<E>> {
         Collections.sort(closestNodes, cmp);
 
         int cnt = 0;
-        for(NodeKDTree<E> node : closestNodes) {
+        for(NodeKDTree<T> node : closestNodes) {
             if (cnt >= limit)
                 break;
             result.add(node.info);
@@ -163,15 +163,15 @@ public class KDTree<E extends Comparable<E>> {
     }
 
 
-    public void insert(E object, double x, double y) {
-        NodeKDTree<E> node = new NodeKDTree<>(object, x, y);
+    public void insert(T object, double x, double y) {
+        NodeKDTree<T> node = new NodeKDTree<>(object, x, y);
         if (root == null)
             root = node;
         else
             insert(node, root, true);
     }
 
-    private void insert(NodeKDTree<E> node, NodeKDTree<E> currentNode, boolean divX) {
+    private void insert(NodeKDTree<T> node, NodeKDTree<T> currentNode, boolean divX) {
         if (node == null)
             return;
         int cmpResult = (divX ? cmpX : cmpY).compare(node, currentNode);
@@ -187,15 +187,15 @@ public class KDTree<E extends Comparable<E>> {
             insert(node, currentNode.right, !divX);
     }
 
-    public E findMin() {
-        NodeKDTree<E> node = findMin(root, true);
+    public T findMin() {
+        NodeKDTree<T> node = findMin(root, true);
         if(node != null)
             return node.info;
         return null;
     }
 
 
-    private NodeKDTree<E> findMin(NodeKDTree<E> node, boolean divX) {
+    private NodeKDTree<T> findMin(NodeKDTree<T> node, boolean divX) {
         if (node == null)
             return null;
         if (divX) {
@@ -205,7 +205,7 @@ public class KDTree<E extends Comparable<E>> {
                 return findMin(node.left, false);
         }
         else {
-            List<NodeKDTree<E>> list = new LinkedList<>();
+            List<NodeKDTree<T>> list = new LinkedList<>();
             list.add(findMin(node, true));
 
             if(node.left != null)
@@ -221,20 +221,20 @@ public class KDTree<E extends Comparable<E>> {
         }
     }
 
-    public NodeKDTree<E> fastDelete(final E target, double x, double y) {
+    public NodeKDTree<T> fastDelete(final T target, double x, double y) {
         root = new Object() {
-            NodeKDTree<E> delete(E targetObject, double x, double y, NodeKDTree<E> node, boolean divX) {
+            NodeKDTree<T> delete(T targetObject, double x, double y, NodeKDTree<T> node, boolean divX) {
                 if(node == null)
                     return null;
                 if (targetObject.equals(node.info)) {
                     if(node.right != null) {
-                        NodeKDTree<E> minNode = findMin(node.right, !divX);
+                        NodeKDTree<T> minNode = findMin(node.right, !divX);
                         node.info = minNode.info;
                         node.coords = minNode.coords;
                         node.right = delete(node.info, node.getX(), node.getY(), node.right, !divX);
                     }
                     else if (node.left != null) {
-                        NodeKDTree<E> minNode = findMin(node.left, !divX);
+                        NodeKDTree<T> minNode = findMin(node.left, !divX);
                         node.info = minNode.info;
                         node.coords = minNode.coords;
                         node.left = delete(node.info, node.getX(), node.getY(), node.left, !divX);
@@ -256,20 +256,20 @@ public class KDTree<E extends Comparable<E>> {
         return root;
     }
 
-    public NodeKDTree<E> delete(final E target) {
+    public NodeKDTree<T> delete(final T target) {
         root = new Object() {
-            NodeKDTree<E> delete(E targetObject, NodeKDTree<E> node, boolean divX) {
+            NodeKDTree<T> delete(T targetObject, NodeKDTree<T> node, boolean divX) {
                 if(node == null)
                     return null;
                 if (targetObject.equals(node.info)) {
                     if(node.right != null) {
-                        NodeKDTree<E> minNode = findMin(node.right, !divX);
+                        NodeKDTree<T> minNode = findMin(node.right, !divX);
                         node.info = minNode.info;
                         node.coords = minNode.coords;
                         node.right = delete(node.info, node.right, !divX);
                     }
                     else if (node.left != null) {
-                        NodeKDTree<E> minNode = findMin(node.left, !divX);
+                        NodeKDTree<T> minNode = findMin(node.left, !divX);
                         node.info = minNode.info;
                         node.coords = minNode.coords;
                         node.left = delete(node.info, node.left, !divX);
@@ -289,7 +289,7 @@ public class KDTree<E extends Comparable<E>> {
     }
 
 
-    public void insertOrUpdate(E target, double x, double y) {
+    public void insertOrUpdate(T target, double x, double y) {
         delete(target);
         insert(target, x, y);
     }
@@ -297,7 +297,7 @@ public class KDTree<E extends Comparable<E>> {
     public int getSize() {
         return new Object() {
             int cnt = 0;
-            int getSize(NodeKDTree<E> node) {
+            int getSize(NodeKDTree<T> node) {
                 if (node == null)
                     return cnt - 1;
                 if (node.left != null) {
@@ -313,10 +313,10 @@ public class KDTree<E extends Comparable<E>> {
         }.getSize(root) + 1;
     }
 
-    public List<E> getAll() {
-        final List<E> result = new LinkedList<>();
+    public List<T> getAll() {
+        final List<T> result = new LinkedList<>();
         new Object() {
-            void fillList(NodeKDTree<E> node) {
+            void fillList(NodeKDTree<T> node) {
                 if(node == null)
                     return;
                 result.add(node.getObject());
