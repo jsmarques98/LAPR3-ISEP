@@ -36,7 +36,7 @@ CREATE TABLE "port_warehouse" (
                                   "capacity" INT NOT NULL,
                                   CONSTRAINT PK_port_warehouse  PRIMARY KEY ("port_warehouse_id"),
                                   CONSTRAINT CK_port_warehouse_lat CHECK ("lat">=-90 AND "lat"<=90),
-                                  CONSTRAINT CK_port_warehouse_log CHECK ("log" >=-90 AND "log"<=90)
+                                  CONSTRAINT CK_port_warehouse_log CHECK ("log" >=-180 AND "log"<=180)
 );
 
 CREATE TABLE "container" (
