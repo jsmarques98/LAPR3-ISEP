@@ -42,7 +42,7 @@ INSERT INTO "truck_transportation" VALUES(123466666,to_date('11.09.20 12:30','yy
 INSERT INTO "truck_data" VALUES('22:CP:66',to_date('11.09.20 12:30','yyyy.mm.dd hh24:mi'),52,-2);
 
 --insert cargo manifest
-INSERT INTO "cargo_manifest" VALUES (1, 210950000, 12, 22, 2, 3332.3, 'load', to_date('11.09.20','dd.mm.yy'),to_date('14.10.20','dd.mm.yy'), 29002,20351);
+INSERT INTO "cargo_manifest" VALUES (1, 210950000, 'load', to_date('11.09.20','dd.mm.yy'));
 
 --insert user
 INSERT INTO "user" VALUES (1,1, 'Antonio', 'tone@gmail.com', 'qwerty');
