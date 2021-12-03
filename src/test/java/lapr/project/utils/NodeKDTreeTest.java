@@ -13,44 +13,47 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NodeKDTreeTest {
 
+    NodeKDTree<Object> node1;
+    NodeKDTree<Object> node2;
+    NodeKDTree<Object> node3;
+    NodeKDTree<Object> node4;
+    NodeKDTree<Object> node5;
+
+    Object obj1;
+    Object obj2;
+    Object obj3;
+    Object obj4;
+    Object obj5;
+
     public NodeKDTreeTest(){
-        ArrayList<DynamicShip> dynamicShip = new ArrayList<>();
+        obj1 = new Object();
+        obj2 = new Object();
+        obj3 = new Object();
+        obj4 = new Object();
+        obj5 = new Object();
 
-        LocalDateTime time1 = LocalDateTime.of(2020, 12, 31, 23, 28, 00);
-        LocalDateTime time2 = LocalDateTime.of(2020, 12, 31, 23, 31, 00);
-
-        DynamicShip shipData1 = new DynamicShip(time1, 54.23188,-130.33667, 0.1, 82.8, 0,34, 'A');
-        DynamicShip shipData2 = new DynamicShip(time2, 54.23184,-130.33702, 0.1, 34.6, 0, 67,'A');
-
-        Ship ship = new Ship(229961000, dynamicShip, "ARABELLA", 9700122, "9HA3752", 70,
-                199, 32, 14.4, 15,0.8,0.1);
-
+        node1 = new NodeKDTree<>(obj1, 0, 0);
+        node2 = new NodeKDTree<>(obj2, 10, 10);
+        node3 = new NodeKDTree<>(obj3, 0, 10);
+        node4 = new NodeKDTree<>(obj4, 10, 0);
+        node5 = new NodeKDTree<>(obj5, 20, 20);
 
     }
 
 
     @Test
     void setObject() {
-        assertTrue(true);
+        node1.setObject(obj1);
+        assertEquals(node1.getObject(), obj1);
     }
 
     @Test
     void getCoords() {
-        assertTrue(true);
-    }
-
-    @Test
-    void getX() {
-        assertTrue(true);
-    }
-
-    @Test
-    void getY() {
-        assertTrue(true);
+        assertNotNull(node1.getCoords());
     }
 
     @Test
     void testToString() {
-        assertTrue(true);
+        assertEquals(node3.toString(),"Node{coords=Point2D.Double[0.0, 10.0], left=null, right=null}");
     }
 }
