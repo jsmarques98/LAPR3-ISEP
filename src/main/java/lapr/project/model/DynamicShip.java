@@ -11,8 +11,9 @@ public class DynamicShip {
     private double cog;
     private double heading;
     private char transcrieverClass;
+    private double cargo;
 
-    public DynamicShip(LocalDateTime baseDateTime, double lat, double lon, double sog, double cog, double heading, char transcrieverClass) {
+    public DynamicShip(LocalDateTime baseDateTime, double lat, double lon, double sog, double cog, double heading,double cargo, char transcrieverClass) {
         this.baseDateTime = baseDateTime;
         this.lat = lat;
         this.lon = lon;
@@ -20,6 +21,7 @@ public class DynamicShip {
         this.cog = cog;
         this.heading = heading;
         this.transcrieverClass = transcrieverClass;
+        this.cargo = cargo;
     }
 
     public LocalDateTime getBaseDateTime() {
@@ -61,5 +63,13 @@ public class DynamicShip {
                 ", heading=" + heading +
                 ", transcrieverClass=" + transcrieverClass +
                 '}';
+    }
+
+    public double getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(double cargo) {
+        this.cargo = cargo;
     }
 }

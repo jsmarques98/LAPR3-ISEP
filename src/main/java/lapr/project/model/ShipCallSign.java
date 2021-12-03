@@ -12,7 +12,9 @@ public class ShipCallSign extends Ship implements Comparable<ShipCallSign>{
                 ship.getLength(),
                 ship.getWidth(),
                 ship.getDraft(),
-                ship.getCargo());
+                ship.getNr_gen(),
+                ship.getCapacity(),
+                ship.getGen_power());
     }
 
 

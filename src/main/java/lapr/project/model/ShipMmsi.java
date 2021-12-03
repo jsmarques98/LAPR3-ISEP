@@ -11,7 +11,9 @@ public class ShipMmsi extends Ship implements Comparable<ShipMmsi> {
                 ship.getLength(),
                 ship.getWidth(),
                 ship.getDraft(),
-                ship.getCargo());
+                ship.getNr_gen(),
+                ship.getCapacity(),
+                ship.getGen_power());
     }
 
     @Override

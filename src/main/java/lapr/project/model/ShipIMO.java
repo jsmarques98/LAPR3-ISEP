@@ -11,7 +11,9 @@ public class ShipIMO extends Ship implements Comparable<ShipIMO>  {
                 ship.getLength(),
                 ship.getWidth(),
                 ship.getDraft(),
-                ship.getCargo());
+                ship.getNr_gen(),
+                ship.getCapacity(),
+                ship.getGen_power());
     }
 
     @Override

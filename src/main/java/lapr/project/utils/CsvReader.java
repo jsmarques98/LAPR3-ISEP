@@ -36,18 +36,24 @@ public class CsvReader {
             String line = br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                DynamicShip ds = new DynamicShip(
-                        LocalDateTime.parse(values[1], formatDate), // base date time
-                        Double.parseDouble(values[2]), // latitude
-                        Double.parseDouble(values[3]), // longitude
-                        Double.parseDouble(values[4]), // sog
-                        Double.parseDouble(values[5]), //cog
-                        Double.parseDouble(values[6]), //heading
-                        values[15].charAt(0)); //Transcriever class
+                int cargo = fixCargo(values[14]);
+                DynamicShip ds = null;
+
+                    ds = new DynamicShip(
+                            LocalDateTime.parse(values[1], formatDate), // base date time
+                            Double.parseDouble(values[2]), // latitude
+                            Double.parseDouble(values[3]), // longitude
+                            Double.parseDouble(values[4]), // sog
+                            Double.parseDouble(values[5]), //cog
+                            Double.parseDouble(values[6]),//heading
+                            cargo,//cargo
+                            values[15].charAt(0)//Transcriever class
+                    );
+
                 int index = existShip(Integer.parseInt(values[0]), shipArray);
                 if (index == -1) { // se o barco não existir
                     int imo = cutImo(values[8]);
-                    int cargo = fixCargo(values[14]);
+
                     Ship ship = new Ship(
                             Integer.parseInt(values[0]), // mmsi
                             null, values[7], // name
@@ -57,9 +63,13 @@ public class CsvReader {
                             Double.parseDouble(values[11]), // length
                             Double.parseDouble(values[12]), // width
                             Double.parseDouble(values[13]),// draft)
-                            cargo); //cargo
+                            1,//nr_gen
+                            1,//cap
+                            1//gen_po
+                            );
                     ship.initializeDynamicShip();
-                    ship.addDynamicShip(ds);
+                        ship.addDynamicShip(ds);
+
                     shipArray.add(ship);
                 } else { // se o barco existir
                     shipArray.get(index).addDynamicShip(ds);

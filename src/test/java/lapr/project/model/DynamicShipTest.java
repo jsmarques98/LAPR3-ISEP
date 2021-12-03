@@ -16,7 +16,7 @@ public class DynamicShipTest {
     public void getLat() {
         System.out.println("getLatitude()");
 
-        DynamicShip ship = new DynamicShip(LocalDateTime.now(), 124.7, 315.14, 11.47, 46.17, 43.3, 'B');
+        DynamicShip ship = new DynamicShip(LocalDateTime.now(), 124.7, 315.14, 11.47, 46.17, 43.3,23 ,'B');
         double expRes = 124.7;
 
         assertEquals(expRes, ship.getLat(), "Should be equal");
@@ -26,7 +26,7 @@ public class DynamicShipTest {
     public void getLon() {
         System.out.println("getLongitude()");
 
-        DynamicShip ship = new DynamicShip(LocalDateTime.now(), 124.7, 315.14, 11.47, 46.17, 43.3, 'B');
+        DynamicShip ship = new DynamicShip(LocalDateTime.now(), 124.7, 315.14, 11.47, 46.17, 43.3,23, 'B');
         double expRes = 315.14;
 
         assertEquals(expRes, ship.getLon(), "Should be equal");
@@ -36,7 +36,7 @@ public class DynamicShipTest {
     public void getSog() {
         System.out.println("getSog()");
 
-        DynamicShip ship = new DynamicShip(LocalDateTime.now(), 124.7, 315.14, 11.47, 46.17, 43.3, 'B');
+        DynamicShip ship = new DynamicShip(LocalDateTime.now(), 124.7, 315.14, 11.47, 46.17, 43.3,43, 'B');
         double expRes = 11.47;
 
         assertEquals(expRes, ship.getSog(), "Should be equal");
@@ -46,7 +46,7 @@ public class DynamicShipTest {
     public void getCog() {
         System.out.println("getCog()");
 
-        DynamicShip ship = new DynamicShip(LocalDateTime.now(), 124.7, 315.14, 11.47, 46.17, 43.3, 'B');
+        DynamicShip ship = new DynamicShip(LocalDateTime.now(), 124.7, 315.14, 11.47, 46.17, 43.3,45, 'B');
         double expRes = 46.17;
 
         assertEquals(expRes, ship.getCog(), "Should be equal");
@@ -56,7 +56,7 @@ public class DynamicShipTest {
     public void getHeading() {
         System.out.println("getHeading()");
 
-        DynamicShip ship = new DynamicShip(LocalDateTime.now(), 124.7, 315.14, 11.47, 46.17, 43.3, 'B');
+        DynamicShip ship = new DynamicShip(LocalDateTime.now(), 124.7, 315.14, 11.47, 46.17, 43.3,32, 'B');
         double expRes = 43.3;
 
         assertEquals(expRes, ship.getHeading(), "Should be equal");
@@ -66,7 +66,7 @@ public class DynamicShipTest {
     public void getTranscrieverClass() {
         System.out.println("getTranscrieverClass()");
 
-        DynamicShip ship = new DynamicShip(LocalDateTime.now(), 124.7, 315.14, 11.47, 46.17, 43.3, 'B');
+        DynamicShip ship = new DynamicShip(LocalDateTime.now(), 124.7, 315.14, 11.47, 46.17, 43.3,78, 'B');
         char expRes = 'B';
 
         assertEquals(expRes, ship.getTranscrieverClass(), "Should be equal");
@@ -76,7 +76,7 @@ public class DynamicShipTest {
     public void testToString() {
         System.out.println("toString()");
 
-        DynamicShip ship = new DynamicShip(LocalDateTime.now(), 124.7, 315.14, 11.47, 46.17, 43.3, 'B');
+        DynamicShip ship = new DynamicShip(LocalDateTime.now(), 124.7, 315.14, 11.47, 46.17, 43.3,67, 'B');
         /*String expRes = "Date: " + ship.getBaseDateTime().toLocalDate() +
                 ", Time: " + ship.getBaseDateTime().toLocalTime() +
                 ", Latitude: " + ship.getLat() +

@@ -53,6 +53,8 @@ class Main {
                     .log(Level.SEVERE, null, exception);
         }
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+        st.uploadShipsToDB(databaseConnection);
+        st.loadFromDatabase(databaseConnection);
         while (!option.equals("0")) {
             System.out.println("Please make your selection");
             System.out.println("1) Search ship");

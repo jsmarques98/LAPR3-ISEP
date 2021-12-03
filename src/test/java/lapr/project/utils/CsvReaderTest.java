@@ -23,12 +23,12 @@ class CsvReaderTest {
     ArrayList<Port> portArray = new ArrayList<>();
     LocalDateTime t1 = LocalDateTime.of(2020, 12, 31, 17, 03, 00);
     LocalDateTime t2 = LocalDateTime.of(2020, 12, 31, 17, 19, 00);
-    DynamicShip ds1 = new DynamicShip(t1, 42.92236, -66.97243, 12.5, 2.4, 358, 'B');
-    DynamicShip ds2 = new DynamicShip(t2, 42.97875, -66.97001, 12.9, 13.1, 355, 'B');
+    DynamicShip ds1 = new DynamicShip(t1, 42.92236, -66.97243, 12.5, 2.4, 358, 45,'B');
+    DynamicShip ds2 = new DynamicShip(t2, 42.97875, -66.97001, 12.9, 13.1, 355, 64,'B');
 
 
     public CsvReaderTest() {
-        s1 = new Ship(210950000, shipDataArray, "VARAMO", 9395044, "C4SQ2", 70, 166, 25, 9.5, 0) {
+        s1 = new Ship(210950000, shipDataArray, "VARAMO", 9395044, "C4SQ2", 70, 166, 25, 9.5, 15,0.8,0.1) {
         };
         shipDataArray.add(ds2);
         shipDataArray.add(ds1);

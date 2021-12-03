@@ -15,10 +15,12 @@ public class Ship {
     private final double length;
     private final double width;
     private final double draft;
-    private final double cargo;
-
-
-    public Ship(int mmsi, ArrayList<DynamicShip> shipArray, String vesselName, int imo, String callSign, int vesselType, double length, double width, double draft, double cargo) {
+    private final int nr_gen;
+    private final double capacity;
+    private final double gen_power;
+    
+    
+    public Ship(int mmsi, ArrayList<DynamicShip> shipArray, String vesselName, int imo, String callSign, int vesselType, double length, double width, double draft,int nr_gen,double capacity,double gen_power) {
         this.mmsi = mmsi;
         this.shipData = shipArray;
         this.vesselName = vesselName;
@@ -28,8 +30,12 @@ public class Ship {
         this.length = length;
         this.width = width;
         this.draft = draft;
-        this.cargo = cargo;
+        this.nr_gen = nr_gen;
+        this.capacity = capacity;
+        this.gen_power = gen_power;
     }
+
+
     public int getMmsi() {
         return mmsi;
     }
@@ -70,10 +76,6 @@ public class Ship {
         return draft;
     }
 
-    public double getCargo() {
-        return cargo;
-    }
-
     public void addDynamicShip(DynamicShip ship){
         this.shipData.add(ship);
     }
@@ -96,7 +98,7 @@ public class Ship {
                 ", length=" + length +
                 ", width=" + width +
                 ", draft=" + draft +
-                ", cargo=" + cargo +
+
                 '}';
     }
 
@@ -110,7 +112,7 @@ public class Ship {
                 ", length=" + length +
                 ", width=" + width +
                 ", draft=" + draft +
-                ", cargo=" + cargo +
+
                 '}';
     }
 
@@ -125,4 +127,15 @@ public class Ship {
         return foundData;
     }
 
+    public int getNr_gen() {
+        return nr_gen;
+    }
+
+    public double getCapacity() {
+        return capacity;
+    }
+
+    public double getGen_power() {
+        return gen_power;
+    }
 }

@@ -30,6 +30,14 @@ public class ShipBST {
         }
     }
 
+    public void insert(ArrayList<Ship> shipArray){
+        for (Ship s: shipArray) {
+            this.shipMmsiAVL.insert(new ShipMmsi(s));
+            this.shipImoAVL.insert(new ShipIMO(s));
+            this.shipCallSignAVL.insert(new ShipCallSign(s));
+        }
+    }
+
     public boolean printTrees(){
         shipMmsiAVL.printTreeMmsi("\n");
         shipImoAVL.printTreeImo("\n");
@@ -50,6 +58,9 @@ public class ShipBST {
         return ship;
     }
 
+    public Iterable<ShipMmsi> getTreeForDB(){
+        return shipMmsiAVL.inOrder();
+    }
 
     public  String shipSummary(String s){
         ShipSummary shipSummary = new ShipSummary();

@@ -14,8 +14,8 @@ class ShipTest {
     ArrayList<DynamicShip> shipArray = new ArrayList<>();
     LocalDateTime t1 = LocalDateTime.of(2020,10,20,12,30,00);
     LocalDateTime t2 = LocalDateTime.of(2020, 03, 9, 14,15, 00);
-    DynamicShip ds1 = new DynamicShip(t1, 30.2, 90.0, 1.3, 12.0,0,'B');
-    DynamicShip ds2 = new DynamicShip(t2, 40.2, 120.0, 3.3, 45.0,0,'C');
+    DynamicShip ds1 = new DynamicShip(t1, 30.2, 90.0, 1.3, 12.0,0,56,'B');
+    DynamicShip ds2 = new DynamicShip(t2, 40.2, 120.0, 3.3, 45.0,0,45,'C');
 
 
 
@@ -25,9 +25,9 @@ class ShipTest {
 
 
         shipArray.add(ds1);
-        ship1 = new Ship(2222, shipArray, "jose", 2222, "2222", 71, 2.3, 3.1, 2.4, 12.1) {
+        ship1 = new Ship(2222, shipArray, "jose", 2222, "2222", 71, 2.3, 3.1, 2.4, 15,0.8,0.1) {
         };
-        ship = new Ship(1111, shipArray, "maria", 1111, "1111", 70, 2.2, 3.0, 2.4, 12.0) {
+        ship = new Ship(1111, shipArray, "maria", 1111, "1111", 70, 2.2, 3.0, 2.4, 15,0.8,0.1) {
         };
 
     }
@@ -80,7 +80,7 @@ class ShipTest {
             System.out.println("toString()");
             ArrayList<DynamicShip> shipArray = new ArrayList<>();
 
-            Ship ship = new Ship(123456789, shipArray, "Primeiro", 1234567, "callsign", 1, 294.13, 32.31, 11.89, 10.0);
+            Ship ship = new Ship(123456789, shipArray, "Primeiro", 1234567, "callsign", 1, 294.13, 32.31, 11.89, 15,0.8,0.1);
             String expRes = "Ship{" +
                     "mmsi=" + ship.getMmsi() +
                     ", dynamicShip=" + ship.getDynamicShip() +
@@ -91,7 +91,6 @@ class ShipTest {
                     ", length=" + ship.getLength() +
                     ", width=" + ship.getWidth() +
                     ", draft=" + ship.getDraft() +
-                    ", cargo=" + ship.getCargo() +
                     '}';
 
             assertEquals(expRes, ship.toString(), "should be equal");

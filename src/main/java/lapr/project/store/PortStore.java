@@ -97,7 +97,7 @@ public class PortStore  implements Persistable {
 
         boolean isPortOnDatabase = false;
 
-        String sqlCommand = "SELECT * FROM port_warehouse WHERE MMSI = ?";
+        String sqlCommand = "SELECT * FROM port_warehouse WHERE code = ?";
 
         PreparedStatement getPortPreparedStatement =
                 connection.prepareStatement(sqlCommand);
@@ -138,7 +138,7 @@ public class PortStore  implements Persistable {
             String sqlCommand;
 
             //eliminar as outras ocurrencias do port_warehouse
-            sqlCommand = "delete from port_warehouse where MMSI = ?";
+            sqlCommand = "delete from port_warehouse where port_warehouse_id = ?";
             try (PreparedStatement deletePortPreparedStatement = connection.prepareStatement(
                     sqlCommand)) {
                 deletePortPreparedStatement.setInt(1, port.getCode());
@@ -152,7 +152,7 @@ public class PortStore  implements Persistable {
                     .log(Level.SEVERE, null, exception);
             databaseConnection
                     .registerError(exception);
-            returnValue = false;
+
         }
 
         return returnValue;
