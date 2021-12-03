@@ -112,10 +112,8 @@ public class ShipStore implements Persistable {
         saveShipPreparedStatement.setFloat(9, (float)ship.getCapacity());//cap
         saveShipPreparedStatement.setFloat(10, (float)ship.getDraft());
         saveShipPreparedStatement.setInt(11, ship.getVesselType());
-        insertShipData(databaseConnection,ship.getDynamicShip(),ship.getMmsi());
-        //TODO METER CENAS NO SHIP DATA
-        //atualizar a classe para adicionar atributos
         saveShipPreparedStatement.executeUpdate();
+        insertShipData(databaseConnection,ship.getDynamicShip(),ship.getMmsi());
     }
     private void insertShipData(DataBaseConnection databaseConnection,ArrayList<DynamicShip> array,int ship_id) throws SQLException {
         Connection connection = databaseConnection.getConnection();
@@ -124,6 +122,7 @@ public class ShipStore implements Persistable {
 
         for (DynamicShip ds: array) {
             if(ds.getCog()>0 && ds.getCog()<359 && ds.getSog()>=0 ) {
+                System.out.println("ship_id= "+ ship_id + "data= "+ds.getBaseDateTime().toString().replace('T', ' '));
                 PreparedStatement saveShipDataPreparedStatement =
                         connection.prepareStatement(sqlCommand);
                 saveShipDataPreparedStatement.setInt(1, ship_id);
@@ -161,9 +160,8 @@ public class ShipStore implements Persistable {
         saveShipPreparedStatement.setFloat(8, (float)ship.getCapacity());//cap
         saveShipPreparedStatement.setFloat(9, (float)ship.getDraft());
         saveShipPreparedStatement.setInt(10, ship.getVesselType());
-        insertShipData(databaseConnection,ship.getDynamicShip(),ship.getMmsi());
-        //atualizar a classe para adicionar atributos
         saveShipPreparedStatement.executeUpdate();
+        insertShipData(databaseConnection,ship.getDynamicShip(),ship.getMmsi());
     }
 
     private boolean isShipOnDatabase(DataBaseConnection databaseConnection,
