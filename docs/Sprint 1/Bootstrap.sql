@@ -59,3 +59,14 @@ INSERT INTO "trip" VALUES (1 ,210950000, 29002, 20351, to_date('11.09.20','dd.mm
 -- insert trip_stops
 INSERT INTO "trip_stop" VALUES (1,28261,to_date('20.09.20','dd.mm.yy'));
 INSERT INTO "trip_stop" VALUES (1,18476,to_date('25.09.20','dd.mm.yy'));
+
+
+--insert registos container
+
+INSERT INTO "registo_container" VALUES (1,123456789, 1,5,to_date('11.09.20 12:30','yyyy.mm.dd hh24:mi'),29002,27248,'no');
+INSERT INTO "registo_container" VALUES (2,123451111, 1,5,to_date('11.09.20 12:35','yyyy.mm.dd hh24:mi'),29002,27248,'yes');
+
+--insert cargo_manifest_container (registo_id,cargo_manifest,container_position_x,
+--container_position_y,container_position_z, container_gross_weigth)
+INSERT INTO "cargo_manifest_container" VALUES (1,1,0,1,2,0.4);
+INSERT INTO "cargo_manifest_container" VALUES (2,1,10,1,2,0.4);
