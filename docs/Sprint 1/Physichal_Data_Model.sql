@@ -224,36 +224,36 @@ CREATE TABLE "employe_schedule" (
                                     CONSTRAINT  "CK_employe_schedule_hour" CHECK (length(hour)=5)
 );
 CREATE TABLE "registo_container" (
-                                      "registo_id" int ,
-                                      "container_id" INT,
-                                      "cargo_manifesto_id" INT,
-                                      "user_id" INT,
-                                      "date" DATE NOT NULL,
-                                      "source" int NOT NULL,
-                                      "destiny" int NOT NULL,
-                                      "delivered" VARCHAR(255),
-                                      CONSTRAINT "PK_Registos__container"
-                                          PRIMARY KEY ("registo_id"),
-                                      CONSTRAINT "FK_registos_container_id.container_id"
-                                          FOREIGN KEY ("container_id")
-                                              REFERENCES "container"("container_id"),
-                                      CONSTRAINT "FK_container_id.user_id"
-                                          FOREIGN KEY ("user_id")
-                                              REFERENCES "user"("user_id"),
-                                      CONSTRAINT "FK_registos_container.cargo_manifest_id"
-                                          FOREIGN KEY ("cargo_manifesto_id")
-                                              REFERENCES "cargo_manifest"("cargo_manifesto_id"),
-                                      CONSTRAINT "FK_registo_container.source"
-                                          FOREIGN KEY ("source")
-                                              REFERENCES "port_warehouse"("port_warehouse_id"),
-                                      CONSTRAINT "FK_registos_container.destiny"
-                                          FOREIGN KEY ("destiny")
-                                              REFERENCES "port_warehouse"("port_warehouse_id")
+                                     "registo_id" int ,
+                                     "container_id" INT,
+                                     "cargo_manifesto_id" INT,
+                                     "user_id" INT,
+                                     "date" DATE NOT NULL,
+                                     "source" int NOT NULL,
+                                     "destiny" int NOT NULL,
+                                     "delivered" VARCHAR(255),
+                                     CONSTRAINT "PK_Registos__container"
+                                         PRIMARY KEY ("registo_id"),
+                                     CONSTRAINT "FK_registos_container_id.container_id"
+                                         FOREIGN KEY ("container_id")
+                                             REFERENCES "container"("container_id"),
+                                     CONSTRAINT "FK_container_id.user_id"
+                                         FOREIGN KEY ("user_id")
+                                             REFERENCES "user"("user_id"),
+                                     CONSTRAINT "FK_registos_container.cargo_manifest_id"
+                                         FOREIGN KEY ("cargo_manifesto_id")
+                                             REFERENCES "cargo_manifest"("cargo_manifesto_id"),
+                                     CONSTRAINT "FK_registo_container.source"
+                                         FOREIGN KEY ("source")
+                                             REFERENCES "port_warehouse"("port_warehouse_id"),
+                                     CONSTRAINT "FK_registos_container.destiny"
+                                         FOREIGN KEY ("destiny")
+                                             REFERENCES "port_warehouse"("port_warehouse_id")
 );
 
 CREATE TABLE "cargo_manifest_container" (
                                             "registo_id" INT,
-                                            "cargo_mainfesto_id" INT,
+                                            "cargo_manifesto_id" INT,
                                             "container_position_x" INT,
                                             "container_position_y" INT,
                                             "container_position_z" INT,
