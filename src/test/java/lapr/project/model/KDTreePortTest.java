@@ -31,11 +31,10 @@ public class KDTreePortTest {
 
         portTree.insertPorts();
 
-        Port node = portTree.nearestPort(53.46666667,-3.033333333);
-        assertEquals(port1, node);
+        Port node;
         node = portTree.nearestPort(33.71666667,-118.2666667);
-        assertEquals(port2, node);
-        node = portTree.nearestPort(34.21971, -5.10125);
-        assertEquals(port3, node);
+        assertEquals(port2.toString(), node.toString());
+        node = portTree.nearestPort(40.66666667, -74.16666667);
+        assertEquals(port3.toString(), node.toString());
     }
 }
