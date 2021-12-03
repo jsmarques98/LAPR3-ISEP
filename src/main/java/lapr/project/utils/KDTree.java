@@ -187,13 +187,6 @@ public class KDTree<T> {
             insert(node, currentNode.right, !divX);
     }
 
-    public T findMin() {
-        NodeKDTree<T> node = findMin(root, true);
-        if(node != null)
-            return node.info;
-        return null;
-    }
-
 
     private NodeKDTree<T> findMin(NodeKDTree<T> node, boolean divX) {
         if (node == null)
@@ -311,21 +304,5 @@ public class KDTree<T> {
                 return cnt;
             }
         }.getSize(root) + 1;
-    }
-
-    public List<T> getAll() {
-        final List<T> result = new LinkedList<>();
-        new Object() {
-            void fillList(NodeKDTree<T> node) {
-                if(node == null)
-                    return;
-                result.add(node.getObject());
-                if(node.left != null)
-                    fillList(node.left);
-                if(node.right != null)
-                    fillList(node.right);
-            }
-        }.fillList(root);
-        return result;
     }
 }
