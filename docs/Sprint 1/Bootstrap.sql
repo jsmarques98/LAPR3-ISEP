@@ -42,19 +42,14 @@ INSERT INTO "truck_transportation" VALUES(123466666,to_date('11.09.20 12:30','yy
 INSERT INTO "truck_data" VALUES('22:CP:66',to_date('11.09.20 12:30','yyyy.mm.dd hh24:mi'),52,-2);
 
 --insert cargo manifest
-INSERT INTO "cargo_manifest" VALUES (1, 210950000, 12, 22, 2, 3332.3, 'load', to_date('11.09.20','dd.mm.yy'),null, 29002,20351);
-INSERT INTO "cargo_manifest" VALUES (1, 229767000, 12, 22, 2, 3332.3, 'load', to_date('11.09.20','dd.mm.yy'),null, 29002,20351);
-INSERT INTO "cargo_manifest" VALUES (1, 210950000, 12, 22, 2, 3332.3, 'load', to_date('11.09.20','dd.mm.yy'),null, 29002,20351);
-INSERT INTO "cargo_manifest" VALUES (1, 229767000, 12, 22, 2, 3332.3, 'load', to_date('11.09.20','dd.mm.yy'),null, 29002,20351);
-INSERT INTO "cargo_manifest" VALUES (1, 210950000, 12, 22, 2, 3332.3, 'unload', to_date('11.09.20','dd.mm.yy'),null, 29002,20351);
-
+INSERT INTO "cargo_manifest" VALUES (1, 210950000, 12, 22, 2, 3332.3, 'load', to_date('11.09.20','dd.mm.yy'),to_date('14.10.20','dd.mm.yy'), 29002,20351);
 
 --insert user
-INSERT INTO "user" VALUES (1,1, 'Antonio', 'tone@gmail.com', 'qwerty', 1);
-INSERT INTO "user" VALUES (2,2, 'Pedro', 'pedro@gmail.com', 'qwerty', 2);
-INSERT INTO "user" VALUES (3,3, 'Manuel', 'nel@gmail.com', 'qwerty', 3);
-INSERT INTO "user" VALUES (4,4, 'Joaquim', 'quim@gmail.com', 'qwerty', 4);
-INSERT INTO "user" VALUES (5,5, 'Jose', 'ze@gmail.com', 'qwerty', 5);
+INSERT INTO "user" VALUES (1,1, 'Antonio', 'tone@gmail.com', 'qwerty');
+INSERT INTO "user" VALUES (2,2, 'Pedro', 'pedro@gmail.com', 'qwerty');
+INSERT INTO "user" VALUES (3,3, 'Manuel', 'nel@gmail.com', 'qwerty');
+INSERT INTO "user" VALUES (4,4, 'Joaquim', 'quim@gmail.com', 'qwerty');
+INSERT INTO "user" VALUES (5,5, 'Jose', 'ze@gmail.com', 'qwerty');
 
 
 -- insert trip
@@ -62,5 +57,5 @@ INSERT INTO "user" VALUES (5,5, 'Jose', 'ze@gmail.com', 'qwerty', 5);
 INSERT INTO "trip" VALUES (1 ,210950000, 29002, 20351, to_date('11.09.20','dd.mm.yy'), null, to_date('14.10.20','dd.mm.yy'));
 
 -- insert trip_stops
-INSERT INTO "trip_stops" VALUES (1,28261,to_date('20.09.20','dd.mm.yy'));
-INSERT INTO "trip_stops" VALUES (1,18476,to_date('25.09.20','dd.mm.yy'));
+INSERT INTO "trip_stop" VALUES (1,28261,to_date('20.09.20','dd.mm.yy'));
+INSERT INTO "trip_stop" VALUES (1,18476,to_date('25.09.20','dd.mm.yy'));
