@@ -65,10 +65,9 @@ INSERT INTO "trip" VALUES (2 ,228339600, 22226, 18476, to_date('01.08.20','dd.mm
 -- insert trip_stops(trip_id,port_wharehouse_id,data)
 INSERT INTO "trip_stop" VALUES (1,28261,to_date('20.09.20','dd.mm.yy'));
 INSERT INTO "trip_stop" VALUES (1,18476,to_date('25.09.20','dd.mm.yy'));
-INSERT INTO "trip_stop" VALUES (1,18476,null);
-INSERT INTO "trip_stop" VALUES (1,18476,null);
-INSERT INTO "trip_stop" VALUES (3,18476,to_date('22.08.20','dd.mm.yy'));
-INSERT INTO "trip_stop" VALUES (3,18476,null);
+INSERT INTO "trip_stop" VALUES (1,17386,null);
+INSERT INTO "trip_stop" VALUES (2,18476,to_date('22.08.20','dd.mm.yy'));
+INSERT INTO "trip_stop" VALUES (2,17386,null);
 
 --insert registos container (registo_id,container_id,cargo_manifesto_id,user_id,date,source,destiny,delivered)
 INSERT INTO "registo_container" VALUES (3,123456789, 1,5,to_date('17.11.20 12:30','yyyy.mm.dd hh24:mi'),29002,18476,'no');
@@ -80,7 +79,7 @@ INSERT INTO "registo_container" VALUES (6,123453333, 1,5,to_date('2.11.19 12:30'
 --insert cargo_manifest_container (registo_id,cargo_manifest,container_position_x,
 --container_position_y,container_position_z, container_gross_weigth)
 INSERT INTO "cargo_manifest_container" VALUES (1,1,0,1,2,0.4);
-INSERT INTO "cargo_manifest_container" VALUES (2,1,10,1,2,0.4);
+INSERT INTO "cargo_manifest_container" VALUES (4,1,10,1,2,0.4);
 INSERT INTO "cargo_manifest_container" VALUES (3,2,18,19,24,1798);
 
 --insert port_warehouse(port_warehouse_id,name,continent,country,type,lat,log,capacity)
