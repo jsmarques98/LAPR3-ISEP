@@ -7,7 +7,6 @@ import lapr.project.model.Ship;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -16,6 +15,8 @@ import java.util.stream.Collectors;
 
 
 public class CsvReader {
+
+    private CsvReader(){}
 
     // verificar se um barco existe - através do mmsi/imo/callsign
 
