@@ -1,0 +1,42 @@
+@startuml
+autonumber
+
+actor "Traffic Manager" as traf
+
+
+participant ":Company" as com
+participant ":CSVReader" as csv
+participant ":Port" as port
+participant ":KDTreePort" as pt
+
+activate traf
+
+
+traf -> com : Start to register port file
+activate com
+com --> traf : Asks for path
+traf -> com : Inserts path
+
+com -> csv : readCSV()
+
+activate csv
+
+csv -> port : newPort(continent, country, code, port, lat, lon)
+activate port
+
+
+port -> csv : addPort
+
+deactivate csv
+
+activate pt
+
+com -> pt: insert(port, lat, lon)
+
+deactivate pt
+
+com -> traf : success message
+deactivate com
+deactivate traf
+
+@enduml
