@@ -40,20 +40,10 @@ class NodeKDTreeTest {
 
     }
 
-
     @Test
     void setObject() {
         node1.setObject(obj1);
         assertEquals(node1.getObject(), obj1);
     }
 
-    @Test
-    void getCoords() {
-        assertNotNull(node1.getCoords());
-    }
-
-    @Test
-    void testToString() {
-        assertEquals(node3.toString(),"Node{coords=Point2D.Double[0.0, 10.0], left=null, right=null}");
-    }
 }
