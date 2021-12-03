@@ -262,7 +262,7 @@ CREATE TABLE "cargo_manifest_container" (
                                                 FOREIGN KEY ("registo_id")
                                                     REFERENCES "registo_container"("registo_id"),
                                             CONSTRAINT "FK_container_manifesto_container.cargo_manifesto_id"
-                                                FOREIGN KEY ("cargo_mainfesto_id")
+                                                FOREIGN KEY ("cargo_manifesto_id")
                                                     REFERENCES "cargo_manifest"("cargo_manifesto_id"),
                                             CONSTRAINT PK_registo_id
                                                 PRIMARY KEY ("registo_id")
