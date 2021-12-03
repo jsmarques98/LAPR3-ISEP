@@ -1,7 +1,5 @@
-package lapr.project.store;
+package lapr.project.data;
 
-import lapr.project.data.DataBaseConnection;
-import lapr.project.data.Persistable;
 import lapr.project.model.DynamicShip;
 import lapr.project.model.Ship;
 import lapr.project.model.ShipBST;

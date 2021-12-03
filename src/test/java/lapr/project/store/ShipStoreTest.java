@@ -1,10 +1,7 @@
 package lapr.project.store;
 
-import lapr.project.model.DynamicShip;
-import lapr.project.model.Ship;
+import lapr.project.data.ShipStore;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 

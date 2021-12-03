@@ -3,8 +3,8 @@ package lapr.project.ui;
 import lapr.project.data.ConnectionFactory;
 import lapr.project.data.DataBaseConnection;
 import lapr.project.model.*;
-import lapr.project.store.PortStore;
-import lapr.project.store.ShipStore;
+import lapr.project.data.PortStore;
+import lapr.project.data.ShipStore;
 
 import java.io.BufferedReader;
 import java.io.IOException;

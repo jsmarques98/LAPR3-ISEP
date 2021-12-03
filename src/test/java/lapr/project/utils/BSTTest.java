@@ -1,6 +1,6 @@
 package lapr.project.utils;
 
-import lapr.project.store.ShipStore;
+import lapr.project.data.ShipStore;
 import org.junit.jupiter.api.*;
 
 import java.util.Arrays;
