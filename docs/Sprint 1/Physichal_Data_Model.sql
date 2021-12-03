@@ -119,22 +119,21 @@ CREATE TABLE "container_certificate" (
 CREATE TABLE "ship_data" (
                              "ship_id" INT,
                              "Data" DATE,
-                             "time" DATE,
                              "latitude" FLOAT NOT NULL,
                              "longitude" FLOAT NOT NULL,
                              "SOG" FLOAT NOT NULL,
                              "COG" FLOAT NOT NULL,
-                             "heading" VARCHAR(60) NOT NULL,
+                             "heading" FLOAT NOT NULL,
                              "cargo" VARCHAR(60) NOT NULL,
                              "transceiver_class" VARCHAR(60) NOT NULL,
-                             CONSTRAINT "PK_ship_data"  PRIMARY KEY ("ship_id", "Data", "time"),
+                             CONSTRAINT "PK_ship_data"  PRIMARY KEY ("ship_id", "Data"),
                              CONSTRAINT "FK_ ship_data.ship_id"
                                  FOREIGN KEY ("ship_id")
                                      REFERENCES "ship"("mmsi"),
                              CONSTRAINT "CK_latitude_menor" CHECK ("latitude"<=90),
                              CONSTRAINT "CK_latitude_maior" CHECK ("latitude">=-90),
-                             CONSTRAINT "CK_Longitude_menor" CHECK ("longitude"<=90),
-                             CONSTRAINT "CK_Longitude_maior" CHECK ("longitude">=-90),
+                             CONSTRAINT "CK_Longitude_menor" CHECK ("longitude"<=180),
+                             CONSTRAINT "CK_Longitude_maior" CHECK ("longitude">=-180),
                              CONSTRAINT "CK_SOG" CHECK ("SOG">=0),
                              CONSTRAINT "CK_COG_menor" CHECK ("COG">=0),
                              CONSTRAINT "CK_COG_maior" CHECK ("COG"<=359)
@@ -220,49 +219,48 @@ CREATE TABLE "trip" (
 );
 
 CREATE TABLE "trip_stops" (
-        "trip_id" INT,
-        "port_wharehouse_id" INT,
-        "data" DATE NOT NULL,
-        CONSTRAINT "PK_trip_stops_id"
-            PRIMARY KEY ("trip_id", "port_wharehouse_id"),
-        CONSTRAINT "FK_trip_id.trip_id"
-            FOREIGN KEY ("trip_id")
-        REFERENCES "trip"("trip_id"),
+                              "trip_id" INT,
+                              "port_wharehouse_id" INT,
+                              "data" DATE NOT NULL,
+                              CONSTRAINT "PK_trip_stops_id"
+                                  PRIMARY KEY ("trip_id", "port_wharehouse_id"),
+                              CONSTRAINT "FK_trip_id.trip_id"
+                                  FOREIGN KEY ("trip_id")
+                                      REFERENCES "trip"("trip_id"),
                               CONSTRAINT "FK_trip_id.port_wharehouse_id"
                                   FOREIGN KEY ("port_wharehouse_id")
                                       REFERENCES "port_warehouse"("port_warehouse_id")
 );
 
 CREATE TABLE "user" (
-        "user_id" INT,
-        "role_id" INT,
-        "name" VARCHAR(100),
-        "email" VARCHAR(100),
-        "pass" VARCHAR(60),
-        CONSTRAINT "PK_user_id"
-            PRIMARY KEY ("user_id"),
-        CONSTRAINT "FK_user_id.role_id"
-            FOREIGN KEY ("role_id")
-                REFERENCES "roles"("role_id")
+                        "user_id" INT,
+                        "role_id" INT,
+                        "name" VARCHAR(100),
+                        "email" VARCHAR(100),
+                        "pass" VARCHAR(60),
+                        CONSTRAINT "PK_user_id"
+                            PRIMARY KEY ("user_id"),
+                        CONSTRAINT "FK_user_id.role_id"
+                            FOREIGN KEY ("role_id")
+                                REFERENCES "roles"("role_id")
 );
 
 CREATE TABLE "registos_container" (
-        "registo_id" int ,
-        "container_id" INT,
-        "cargo_manifesto_id" INT,
-        "user_id" INT,
-        "date" DATE NOT NULL,
-        "operation_type" VARCHAR(255),
-        CONSTRAINT "PK_Registos__container"
-            PRIMARY KEY ("registo_id"),
-        CONSTRAINT "FK_registos_container_id.container_id"
-            FOREIGN KEY ("container_id")
-                REFERENCES "container"("container_id"),
-        CONSTRAINT "FK_container_id.user_id"
-            FOREIGN KEY ("user_id")
-                REFERENCES "user"("user_id"),
-        CONSTRAINT "FK_registos_container.cargo_manifest_id"
-            FOREIGN KEY ("cargo_manifesto_id")
-                REFERENCES "cargo_manifest"("cargo_manifesto_id")
+                                      "registo_id" int ,
+                                      "container_id" INT,
+                                      "cargo_manifesto_id" INT,
+                                      "user_id" INT,
+                                      "date" DATE NOT NULL,
+                                      "operation_type" VARCHAR(255),
+                                      CONSTRAINT "PK_Registos__container"
+                                          PRIMARY KEY ("registo_id"),
+                                      CONSTRAINT "FK_registos_container_id.container_id"
+                                          FOREIGN KEY ("container_id")
+                                              REFERENCES "container"("container_id"),
+                                      CONSTRAINT "FK_container_id.user_id"
+                                          FOREIGN KEY ("user_id")
+                                              REFERENCES "user"("user_id")
+    ,CONSTRAINT "FK_registos_container.cargo_manifest_id" FOREIGN KEY ("cargo_manifesto_id") REFERENCES "cargo_manifest"("cargo_manifesto_id")
 );
+
 
