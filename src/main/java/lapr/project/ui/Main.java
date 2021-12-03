@@ -5,14 +5,10 @@ import lapr.project.data.DataBaseConnection;
 import lapr.project.model.*;
 import lapr.project.store.PortStore;
 import lapr.project.store.ShipStore;
-import lapr.project.utils.CsvReader;
-import lapr.project.utils.DateReader;
-import lapr.project.utils.KDTree;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.Connection;
 import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
