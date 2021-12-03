@@ -83,25 +83,30 @@ CREATE TABLE "truck" (
 CREATE TABLE "cargo_manifest" (
                                   "cargo_manifesto_id" int ,
                                   "ship_id" int ,
-                                  "container_position_x" int NOT NULL,
-                                  "container_position_y" int NOT NULL,
-                                  "container_position_z" int NOT NULL,
-                                  "container_gross_weigth" FLOAT NOT NULL,
-                                  "tipo" VARCHAR(60) NOT NULL,
+                                  "operation_type" varchar(30) NOT NULL,
                                   "entry_date" DATE NOT NULL,
-                                  "leave_date" DATE NOT NULL,
-                                  "source" VARCHAR(60) NOT NULL,
-                                  "destiny" VARCHAR(60) NOT NULL,
                                   CONSTRAINT "FK_cargo_manifest.ship_id"
                                       FOREIGN KEY ("ship_id")
                                           REFERENCES "ship"("mmsi"),
                                   CONSTRAINT PK_cargo_manifest
-                                      PRIMARY KEY ("cargo_manifesto_id"),
-                                  CONSTRAINT "CK_cargo_manifest_container_position_x" CHECK ("container_position_x">=0),
-                                  CONSTRAINT "CK_cargo_manifest_container_position_y" CHECK ("container_position_y">=0),
-                                  CONSTRAINT "CK_cargo_manifest_container_position_z" CHECK ("container_position_z">=0),
-                                  CONSTRAINT "CK_cargo_manifest_type" CHECK ("tipo"= 'load' OR "tipo"='unload'),
-                                  CONSTRAINT "CK_cargo_manifest_container_gross_weigth" CHECK ("container_gross_weigth">0)
+                                      PRIMARY KEY ("cargo_manifesto_id")
+
+);
+
+CREATE TABLE "cargo_manifest_container" (
+                                            "registo_id" INT,
+                                            "cargo_mainfest_id" INT,
+                                            "container_position_x" INT,
+                                            "container_position_y" INT,
+                                            "container_position_z" INT,
+                                            "container_gross_weigth" FLOAT,
+                                            CONSTRAINT "FK_cargo_manifest_container.registo_id"
+                                                FOREIGN KEY ("registo_id")
+                                                    REFERENCES "registo_container"("registo_id"),
+                                            CONSTRAINT "FK_container_manifest_container.cargo_manifest_id"
+                                                FOREIGN KEY ("cargo_manifest_id")
+                                                    REFERENCES "cargo_manifest"("cargo_manifest_id"),
+                                            PRIMARY KEY ("registo_id")
 );
 
 CREATE TABLE "container_certificate" (
@@ -173,8 +178,6 @@ CREATE TABLE "truck_transportation" (
 
 
 
-
-
 CREATE TABLE "trip" (
                         "trip_id" INT,
                         "ship_id" INT,
@@ -220,7 +223,9 @@ CREATE TABLE "registos_container" (
                                       "cargo_manifesto_id" INT,
                                       "user_id" INT,
                                       "date" DATE NOT NULL,
-                                      "operation_type" VARCHAR(255),
+                                      "source" VARCHAR(255) NOT NULL,
+                                      "destiny" VARCHAR(255) NOT NULL,
+                                      "delivered" VARCHAR(255),
                                       CONSTRAINT "PK_Registos__container"
                                           PRIMARY KEY ("registo_id"),
                                       CONSTRAINT "FK_registos_container_id.container_id"
@@ -228,8 +233,17 @@ CREATE TABLE "registos_container" (
                                               REFERENCES "container"("container_id"),
                                       CONSTRAINT "FK_container_id.user_id"
                                           FOREIGN KEY ("user_id")
-                                              REFERENCES "user"("user_id")
-    ,CONSTRAINT "FK_registos_container.cargo_manifest_id" FOREIGN KEY ("cargo_manifesto_id") REFERENCES "cargo_manifest"("cargo_manifesto_id")
+                                              REFERENCES "user"("user_id"),
+                                      CONSTRAINT "FK_registos_container.cargo_manifest_id"
+                                          FOREIGN KEY ("cargo_manifesto_id")
+                                              REFERENCES "cargo_manifest"("cargo_manifesto_id"),
+
+                                      CONSTRAINT "FK_registo_container.source"
+                                          FOREIGN KEY ("source")
+                                              REFERENCES "port_warehouse"("port_warehouse_id"),
+                                      CONSTRAINT "FK_registos_container.destiny"
+                                          FOREIGN KEY ("destiny")
+                                              REFERENCES "port_warehouse"("port_warehouse_id")
 );
 CREATE TABLE "employe_schedule" (
                                     "employe_id" INT,
@@ -250,4 +264,3 @@ CREATE TABLE "employe_schedule" (
                                         OR "day_of_the_week"='friday' OR "day_of_the_week"='saturday' OR "day_of_the_week"='sunday'),
                                     CONSTRAINT  "CK_employe_schedule_hour" CHECK (length(hour)=5)
 );
-
