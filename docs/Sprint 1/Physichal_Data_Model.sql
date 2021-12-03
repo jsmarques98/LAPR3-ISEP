@@ -64,11 +64,11 @@ CREATE TABLE "certificate" (
 );
 
 
-CREATE TABLE "roles" (
-                         "role_id" INT,
-                         "name" VARCHAR(60) NOT NULL,
-                         CONSTRAINT "PK_roles"
-                             PRIMARY KEY ("role_id")
+CREATE TABLE "role" (
+                        "role_id" INT,
+                        "name" VARCHAR(60) NOT NULL,
+                        CONSTRAINT "PK_roles"
+                            PRIMARY KEY ("role_id")
 );
 
 CREATE TABLE "truck" (
@@ -89,6 +89,7 @@ CREATE TABLE "cargo_manifest" (
                                   "container_gross_weigth" FLOAT NOT NULL,
                                   "tipo" VARCHAR(60) NOT NULL,
                                   "entry_date" DATE NOT NULL,
+                                  "leave_date" DATE NOT NULL,
                                   "source" VARCHAR(60) NOT NULL,
                                   "destiny" VARCHAR(60) NOT NULL,
                                   CONSTRAINT "FK_cargo_manifest.ship_id"
@@ -143,11 +144,10 @@ CREATE TABLE "ship_data" (
 CREATE TABLE "truck_data" (
                               "plate" VARCHAR(8),
                               "date" DATE NOT NULL,
-                              "time" DATE NOT NULL,
                               "lat" FLOAT NOT NULL,
                               "log" FLOAT NOT NULL,
                               CONSTRAINT "PK_truck_data"
-                                  PRIMARY KEY ("plate", "date", "time"),
+                                  PRIMARY KEY ("plate", "date"),
                               CONSTRAINT "FK_truck_data_plate.plate"
                                   FOREIGN KEY ("plate")
                                       REFERENCES "truck"("plate"),
@@ -162,7 +162,7 @@ CREATE TABLE "truck_transportation" (
                                         "container_id" INT,
                                         "data" DATE NOT NULL,
                                         "entry_date" DATE NOT NULL,
-                                        "leave_date" DATE NOT NULL,
+                                        "leave_date" DATE ,
                                         "plate" VARCHAR(8),
                                         CONSTRAINT "PK_container_id"
                                             PRIMARY KEY ("container_id", "data"),
@@ -172,39 +172,8 @@ CREATE TABLE "truck_transportation" (
 );
 
 
-CREATE TABLE "employe" (
-                           "employe_id" INT,
-                           "name" VARCHAR(60) NOT NULL,
-                           "email" VARCHAR(60) NOT NULL,
-                           "pass" VARCHAR(20) NOT NULL,
-                           "role_id" INT,
-                           CONSTRAINT "PK_employe"
-                               PRIMARY KEY ("employe_id"),
-                           CONSTRAINT "FK_employe.role_id"
-                               FOREIGN KEY ("role_id")
-                                   REFERENCES "roles"("role_id"),
-                           CONSTRAINT "CK_employe_email" CHECK (REGEXP_LIKE("email",'^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$'))
-);
 
-CREATE TABLE "employe_schedule" (
-                                    "employe_id" INT,
-                                    "port_wharehouse_id" INT,
-                                    "day_of_the_week" VARCHAR(60) NOT NULL,
-                                    hour VARCHAR(20) NOT NULL,
-                                    CONSTRAINT "PK_employe_schedule"
-                                        PRIMARY KEY ("employe_id", "port_wharehouse_id"),
-                                    CONSTRAINT "FK_employe_schedule.employe_id"
-                                        FOREIGN KEY ("employe_id")
-                                            REFERENCES "employe"("employe_id"),
-                                    CONSTRAINT "FK_employe_schedule.port_wharehouse_id"
-                                        FOREIGN KEY ("port_wharehouse_id")
-                                            REFERENCES "port_warehouse"("port_warehouse_id"),
-                                    CONSTRAINT "CK_employe_schedule_day_of_the_week" CHECK ("day_of_the_week" = 'Monday' OR "day_of_the_week" = 'Tuesday' OR "day_of_the_week"='Wednesday' OR "day_of_the_week"='Thursday'
-                                        OR "day_of_the_week"='Friday' OR "day_of_the_week"='Saturday' OR "day_of_the_week"='Sunday' OR
-                                                                                            "day_of_the_week" = 'monday' OR "day_of_the_week" = 'tuesday' OR "day_of_the_week"='wednesday' OR "day_of_the_week"='thursday'
-                                        OR "day_of_the_week"='friday' OR "day_of_the_week"='saturday' OR "day_of_the_week"='sunday'),
-                                    CONSTRAINT  "CK_employe_schedule_hour" CHECK (length(hour)=5)
-);
+
 
 CREATE TABLE "trip" (
                         "trip_id" INT,
@@ -218,18 +187,18 @@ CREATE TABLE "trip" (
                             PRIMARY KEY ("trip_id")
 );
 
-CREATE TABLE "trip_stops" (
-                              "trip_id" INT,
-                              "port_wharehouse_id" INT,
-                              "data" DATE NOT NULL,
-                              CONSTRAINT "PK_trip_stops_id"
-                                  PRIMARY KEY ("trip_id", "port_wharehouse_id"),
-                              CONSTRAINT "FK_trip_id.trip_id"
-                                  FOREIGN KEY ("trip_id")
-                                      REFERENCES "trip"("trip_id"),
-                              CONSTRAINT "FK_trip_id.port_wharehouse_id"
-                                  FOREIGN KEY ("port_wharehouse_id")
-                                      REFERENCES "port_warehouse"("port_warehouse_id")
+CREATE TABLE "trip_stop" (
+                             "trip_id" INT,
+                             "port_wharehouse_id" INT,
+                             "data" DATE NOT NULL,
+                             CONSTRAINT "PK_trip_stops_id"
+                                 PRIMARY KEY ("trip_id", "port_wharehouse_id"),
+                             CONSTRAINT "FK_trip_id.trip_id"
+                                 FOREIGN KEY ("trip_id")
+                                     REFERENCES "trip"("trip_id"),
+                             CONSTRAINT "FK_trip_id.port_wharehouse_id"
+                                 FOREIGN KEY ("port_wharehouse_id")
+                                     REFERENCES "port_warehouse"("port_warehouse_id")
 );
 
 CREATE TABLE "user" (
@@ -242,7 +211,7 @@ CREATE TABLE "user" (
                             PRIMARY KEY ("user_id"),
                         CONSTRAINT "FK_user_id.role_id"
                             FOREIGN KEY ("role_id")
-                                REFERENCES "roles"("role_id")
+                                REFERENCES "role"("role_id")
 );
 
 CREATE TABLE "registos_container" (
@@ -262,5 +231,23 @@ CREATE TABLE "registos_container" (
                                               REFERENCES "user"("user_id")
     ,CONSTRAINT "FK_registos_container.cargo_manifest_id" FOREIGN KEY ("cargo_manifesto_id") REFERENCES "cargo_manifest"("cargo_manifesto_id")
 );
-
+CREATE TABLE "employe_schedule" (
+                                    "employe_id" INT,
+                                    "port_wharehouse_id" INT,
+                                    "day_of_the_week" VARCHAR(60) NOT NULL,
+                                    hour VARCHAR(20) NOT NULL,
+                                    CONSTRAINT "PK_employe_schedule"
+                                        PRIMARY KEY ("employe_id", "port_wharehouse_id"),
+                                    CONSTRAINT "FK_employe_schedule.employe_id"
+                                        FOREIGN KEY ("employe_id")
+                                            REFERENCES "user"("user_id"),
+                                    CONSTRAINT "FK_employe_schedule.port_wharehouse_id"
+                                        FOREIGN KEY ("port_wharehouse_id")
+                                            REFERENCES "port_warehouse"("port_warehouse_id"),
+                                    CONSTRAINT "CK_employe_schedule_day_of_the_week" CHECK ("day_of_the_week" = 'Monday' OR "day_of_the_week" = 'Tuesday' OR "day_of_the_week"='Wednesday' OR "day_of_the_week"='Thursday'
+                                        OR "day_of_the_week"='Friday' OR "day_of_the_week"='Saturday' OR "day_of_the_week"='Sunday' OR
+                                                                                            "day_of_the_week" = 'monday' OR "day_of_the_week" = 'tuesday' OR "day_of_the_week"='wednesday' OR "day_of_the_week"='thursday'
+                                        OR "day_of_the_week"='friday' OR "day_of_the_week"='saturday' OR "day_of_the_week"='sunday'),
+                                    CONSTRAINT  "CK_employe_schedule_hour" CHECK (length(hour)=5)
+);
 
