@@ -1,0 +1,37 @@
+@startuml
+
+class Port {
+    -continent
+    -country
+    -code
+    -porto
+    -lat
+    -lon
+    +getContinent
+    +getCountry
+    +setCountry
+    +getCode
+    +setCode
+    +getPorto
+    +getLat
+    +setLat
+    +getLon
+    +setLon
+
+  }
+
+class KDTreePort {
+    +insert
+    +nearstPort
+}
+
+class CSVReader {
+    +readPorts
+}
+
+
+CSVReader "1" ..> "*" Port  : creates
+CSVReader "1" ..> "*" KDTreePort  : creates
+
+
+@enduml
