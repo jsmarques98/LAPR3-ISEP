@@ -3,6 +3,7 @@ package lapr.project.ui;
 import lapr.project.data.ConnectionFactory;
 import lapr.project.data.DataBaseConnection;
 import lapr.project.model.*;
+import lapr.project.store.PortStore;
 import lapr.project.store.ShipStore;
 import lapr.project.utils.CsvReader;
 import lapr.project.utils.DateReader;
@@ -43,6 +44,7 @@ class Main {
         KDTreePort portTree = new KDTreePort();
         portTree.insertPorts();
         String option = new String();
+        PortStore pt = new PortStore(portTree);
         // TODO code application logic here
         DataBaseConnection databaseConnection = null;
         try {
@@ -55,6 +57,8 @@ class Main {
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         st.uploadShipsToDB(databaseConnection);
         st.loadFromDatabase(databaseConnection);
+        pt.uploadPortstoDatabase(databaseConnection);
+        pt.loadPortFromDatabase(databaseConnection);
         while (!option.equals("0")) {
             System.out.println("Please make your selection");
             System.out.println("1) Search ship");
