@@ -9,7 +9,9 @@ import java.util.ArrayList;
 
 public class ShipBST {
 
-    ArrayList<Ship> shipArray;{
+    ArrayList<Ship> shipArray;
+
+    public ShipBST(){
         try {
             String path = "src/main/java/lapr/project/data/sships.csv";
             shipArray = CsvReader.readCSV(path);

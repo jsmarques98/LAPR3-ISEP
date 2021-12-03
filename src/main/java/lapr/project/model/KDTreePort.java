@@ -13,7 +13,8 @@ public class KDTreePort{
     KDTree portTree = new KDTree();
 
     ArrayList<Port> portArray = new ArrayList<>();
-    {
+
+    public KDTreePort(){
         try {
             String path = "src/main/java/lapr/project/data/sports.csv";
             portArray = CsvReader.readPorts(path);
