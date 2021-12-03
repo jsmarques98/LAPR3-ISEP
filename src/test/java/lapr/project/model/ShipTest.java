@@ -67,7 +67,7 @@ class ShipTest {
     public void getShipData() {
         ArrayList<DynamicShip> type = new ArrayList<>();
         type.add(ds1);
-        assertEquals(type, ship.getDynamicShip());
+        assertEquals(type, ship1.getDynamicShip());
     }
 
     @Test
