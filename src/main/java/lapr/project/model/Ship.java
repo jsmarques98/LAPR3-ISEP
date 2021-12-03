@@ -15,12 +15,12 @@ public class Ship {
     private final double length;
     private final double width;
     private final double draft;
-    private final int nr_gen;
+    private final int nrGen;
     private final double capacity;
-    private final double gen_power;
+    private final double genPower;
     
     
-    public Ship(int mmsi, ArrayList<DynamicShip> shipArray, String vesselName, int imo, String callSign, int vesselType, double length, double width, double draft,int nr_gen,double capacity,double gen_power) {
+    public Ship(int mmsi, ArrayList<DynamicShip> shipArray, String vesselName, int imo, String callSign, int vesselType, double length, double width, double draft, int nrGen, double capacity, double genPower) {
         this.mmsi = mmsi;
         this.shipData = shipArray;
         this.vesselName = vesselName;
@@ -30,9 +30,9 @@ public class Ship {
         this.length = length;
         this.width = width;
         this.draft = draft;
-        this.nr_gen = nr_gen;
+        this.nrGen = nrGen;
         this.capacity = capacity;
-        this.gen_power = gen_power;
+        this.genPower = genPower;
     }
 
 
@@ -127,15 +127,15 @@ public class Ship {
         return foundData;
     }
 
-    public int getNr_gen() {
-        return nr_gen;
+    public int getNrGen() {
+        return nrGen;
     }
 
     public double getCapacity() {
         return capacity;
     }
 
-    public double getGen_power() {
-        return gen_power;
+    public double getGenPower() {
+        return genPower;
     }
 }

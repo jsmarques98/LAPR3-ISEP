@@ -12,6 +12,7 @@ class ShipTest {
     private final Ship ship;
     private final Ship ship1;
     ArrayList<DynamicShip> shipArray = new ArrayList<>();
+    ArrayList<DynamicShip> shipArray1 = new ArrayList<>();
     LocalDateTime t1 = LocalDateTime.of(2020,10,20,12,30,00);
     LocalDateTime t2 = LocalDateTime.of(2020, 03, 9, 14,15, 00);
     DynamicShip ds1 = new DynamicShip(t1, 30.2, 90.0, 1.3, 12.0,0,56,'B');
@@ -25,9 +26,10 @@ class ShipTest {
 
 
         shipArray.add(ds1);
+        shipArray1.add(ds2);
         ship1 = new Ship(2222, shipArray, "jose", 2222, "2222", 71, 2.3, 3.1, 2.4, 15,0.8,0.1) {
         };
-        ship = new Ship(1111, shipArray, "maria", 1111, "1111", 70, 2.2, 3.0, 2.4, 15,0.8,0.1) {
+        ship = new Ship(1111, shipArray1, "maria", 1111, "1111", 70, 2.2, 3.0, 2.4, 15,0.8,0.1) {
         };
 
     }
@@ -95,5 +97,11 @@ class ShipTest {
 
             assertEquals(expRes, ship.toString(), "should be equal");
         }
+    }
+
+    @Test
+    void getDataByDate() {
+        assertEquals(ship1.getDataByDate(t1).toString(),"DynamicShip{baseDateTime=2020-10-20T12:30, lat=30.2, lon=90.0, sog=1.3, cog=12.0, heading=0.0, transcrieverClass=B}");
+        assertEquals(ship.getDataByDate(t2).toString(),"DynamicShip{baseDateTime=2020-03-09T14:15, lat=40.2, lon=120.0, sog=3.3, cog=45.0, heading=0.0, transcrieverClass=C}");
     }
 }

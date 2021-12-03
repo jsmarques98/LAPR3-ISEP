@@ -103,8 +103,8 @@ public class ShipStore implements Persistable {
         saveShipPreparedStatement.setString(2, ship.getCallSign());
         saveShipPreparedStatement.setInt(3, ship.getImo());
         saveShipPreparedStatement.setString(4, ship.getVesselName());
-        saveShipPreparedStatement.setInt(5, ship.getNr_gen());//nr_gen
-        saveShipPreparedStatement.setFloat(6, (float) ship.getGen_power());//gen_po
+        saveShipPreparedStatement.setInt(5, ship.getNrGen());//nr_gen
+        saveShipPreparedStatement.setFloat(6, (float) ship.getGenPower());//gen_po
         saveShipPreparedStatement.setFloat(7, (float)ship.getLength());
         saveShipPreparedStatement.setFloat(8, (float)ship.getWidth());
         saveShipPreparedStatement.setFloat(9, (float)ship.getCapacity());//cap
@@ -150,8 +150,8 @@ public class ShipStore implements Persistable {
         saveShipPreparedStatement.setString(1, ship.getCallSign());
         saveShipPreparedStatement.setInt(2, ship.getImo());
         saveShipPreparedStatement.setString(3, ship.getVesselName());
-        saveShipPreparedStatement.setInt(4, ship.getNr_gen());//nr_gen
-        saveShipPreparedStatement.setFloat(5, (float) ship.getGen_power());//gen_po
+        saveShipPreparedStatement.setInt(4, ship.getNrGen());//nr_gen
+        saveShipPreparedStatement.setFloat(5, (float) ship.getGenPower());//gen_po
         saveShipPreparedStatement.setFloat(6, (float)ship.getLength());
         saveShipPreparedStatement.setFloat(7, (float)ship.getWidth());
         saveShipPreparedStatement.setFloat(8, (float)ship.getCapacity());//cap
