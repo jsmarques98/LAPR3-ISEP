@@ -2,18 +2,18 @@ package lapr.project.model;
 
 public class Port {
 
-    private String continent;
+    private final String continent;
     private String country;
     private int code;
-    private String port;
+    private final String porto;
     private double lat;
     private double lon;
 
-    public Port(String continent, String country, int code, String port, double lat, double lon) {
+    public Port(String continent, String country, int code, String porto, double lat, double lon) {
         this.continent = continent;
         this.country = country;
         this.code = code;
-        this.port = port;
+        this.porto = porto;
         this.lat = lat;
         this.lon = lon;
     }
@@ -38,8 +38,8 @@ public class Port {
         this.code = code;
     }
 
-    public String getPort() {
-        return port;
+    public String getPorto() {
+        return porto;
     }
 
     public double getLat() {
@@ -64,7 +64,7 @@ public class Port {
                 "continent='" + continent + '\'' +
                 ", country='" + country + '\'' +
                 ", code=" + code +
-                ", port='" + port + '\'' +
+                ", port='" + porto + '\'' +
                 ", lat=" + lat +
                 ", lon=" + lon +
                 '}';

@@ -70,7 +70,7 @@ class CsvReaderTest {
         assertEquals("Europe", portArray1.get(0).getContinent());
         assertEquals("United Kingdom", portArray1.get(0).getCountry());
         assertEquals(29002, portArray1.get(0).getCode());
-        assertEquals("Liverpool", portArray1.get(0).getPort());
+        assertEquals("Liverpool", portArray1.get(0).getPorto());
         assertEquals(53.46666667, portArray1.get(0).getLat());
         assertEquals(-3.033333333, portArray1.get(0).getLon());
 

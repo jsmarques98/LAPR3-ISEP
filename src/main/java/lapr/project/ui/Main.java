@@ -87,7 +87,7 @@ class Main {
                         DynamicShip data = currentShip.getDataByDate(date);
                         if (data != null) {
                             Port nearestPort = portTree.nearestPort(data.getLat(), data.getLon());
-                            System.out.println("The nearest port is "+nearestPort.getPort());
+                            System.out.println("The nearest port is "+nearestPort.getPorto());
                         }
                     } else {
                         System.out.println("Ship not found");

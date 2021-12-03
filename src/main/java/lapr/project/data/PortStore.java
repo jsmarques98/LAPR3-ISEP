@@ -63,7 +63,7 @@ public class PortStore  implements Persistable {
         PreparedStatement savePortPreparedStatement =
                 connection.prepareStatement(sqlCommand);
         savePortPreparedStatement.setInt(1, port.getCode());
-        savePortPreparedStatement.setString(2, port.getPort());
+        savePortPreparedStatement.setString(2, port.getPorto());
         savePortPreparedStatement.setString(3, port.getContinent());
         savePortPreparedStatement.setString(4, port.getCountry());
         savePortPreparedStatement.setString(5, "port");
@@ -84,7 +84,7 @@ public class PortStore  implements Persistable {
         savePortPreparedStatement.setString(1, port.getContinent());
         savePortPreparedStatement.setString(2, port.getCountry());
         savePortPreparedStatement.setInt(6, port.getCode());
-        savePortPreparedStatement.setString(3, port.getPort());
+        savePortPreparedStatement.setString(3, port.getPorto());
         savePortPreparedStatement.setFloat(4,(float)port.getLat());
         savePortPreparedStatement.setFloat(5,(float) port.getLon());
         //atualizar a classe para adicionar atributos

@@ -24,7 +24,7 @@ public class PortTest {
 
     @Test
     public void testGetPortName() {
-        assertEquals("Liverpool", newPort.getPort());
+        assertEquals("Liverpool", newPort.getPorto());
     }
 
     @Test
@@ -37,4 +37,27 @@ public class PortTest {
         assertEquals(-3.033333333, newPort.getLon());
     }
 
+    @Test
+    void setCountry() {
+        newPort.setCountry("Portugal");
+        assertEquals(newPort.getCountry(),"Portugal");
+    }
+
+    @Test
+    void setCode() {
+        newPort.setCode(21345);
+        assertEquals(newPort.getCode(),21345);
+    }
+
+    @Test
+    void setLat() {
+        newPort.setLat(52.92);
+        assertEquals(newPort.getLat(),52.92);
+    }
+
+    @Test
+    void setLon() {
+        newPort.setLon(120.9);
+        assertEquals(newPort.getLon(),120.9);
+    }
 }
