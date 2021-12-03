@@ -76,7 +76,7 @@ public class ShipStore implements Persistable {
         }
         return returnValue;
     }
-
+    //TODO criar o mesmo metodo para o ship data
     private void saveShiptoDatabase(DataBaseConnection dataBaseConnection, Ship ship) throws SQLException {
         if (isShipOnDatabase(dataBaseConnection, ship)) {
             updateShipOnDatabase(dataBaseConnection, ship);
@@ -122,7 +122,6 @@ public class ShipStore implements Persistable {
 
         for (DynamicShip ds: array) {
             if(ds.getCog()>0 && ds.getCog()<359 && ds.getSog()>=0 ) {
-                System.out.println("ship_id= "+ ship_id + "data= "+ds.getBaseDateTime().toString().replace('T', ' '));
                 PreparedStatement saveShipDataPreparedStatement =
                         connection.prepareStatement(sqlCommand);
                 saveShipDataPreparedStatement.setInt(1, ship_id);

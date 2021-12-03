@@ -22,7 +22,9 @@ public class KDTreePort{
             e.printStackTrace();
         }
     }
-
+    public void insertPorts(ArrayList<Port> portArray){
+        this.portArray = portArray;
+    }
     public void insertPorts() {
         List<NodeKDTree<Port>> nodes = new ArrayList<>();
         for (Port port : portArray) {
@@ -30,6 +32,10 @@ public class KDTreePort{
             nodes.add(node);
         }
         portTree.buildTree(nodes);
+    }
+
+    public ArrayList<Port> getArray(){
+        return portArray;
     }
 
     public Port nearestPort(double lat, double lon){

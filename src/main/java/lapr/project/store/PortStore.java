@@ -2,20 +2,25 @@ package lapr.project.store;
 
 import lapr.project.data.DataBaseConnection;
 import lapr.project.data.Persistable;
+import lapr.project.model.KDTreePort;
 import lapr.project.model.Port;
+import lapr.project.model.Ship;
+import lapr.project.model.ShipMmsi;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PortStore  implements Persistable {
 
     //Atualizar atributos
-
-    public PortStore(){
-
+    KDTreePort portTree = new KDTreePort();
+    public PortStore(KDTreePort portTree){
+        this.portTree = portTree;
     }
 
 
@@ -49,7 +54,7 @@ public class PortStore  implements Persistable {
     private void insertPortOnDatabase(DataBaseConnection databaseConnection,
                                       Port port) throws SQLException {
         String sqlCommand =
-                "insert into port_warehouse(continent, country, code, port, lat, lon) values (?, ?, ?,?,?,?)";
+                "insert into \"port_warehouse\" (\"port_warehouse_id\",\"name\",\"continent\", \"country\", \"type\", \"lat\", \"log\",\"capacity\") values (?, ?, ?,?,?,?,?,?)";
 
         executeInsertPortStatementOnDatabase(databaseConnection, port,
                 sqlCommand);
@@ -61,15 +66,15 @@ public class PortStore  implements Persistable {
 
         PreparedStatement savePortPreparedStatement =
                 connection.prepareStatement(sqlCommand);
-        savePortPreparedStatement.setString(1, port.getContinent());
-        savePortPreparedStatement.setString(2, port.getCountry());
-        savePortPreparedStatement.setInt(3, port.getCode());
-        savePortPreparedStatement.setString(4, port.getPort());
-        savePortPreparedStatement.setDouble(5,port.getLat());
-        savePortPreparedStatement.setDouble(6,port.getLon());
-        //atualizar a classe para adicionar atributos
+        savePortPreparedStatement.setInt(1, port.getCode());
+        savePortPreparedStatement.setString(2, port.getPort());
+        savePortPreparedStatement.setString(3, port.getContinent());
+        savePortPreparedStatement.setString(4, port.getCountry());
+        savePortPreparedStatement.setString(5, "port");
+        savePortPreparedStatement.setDouble(6,port.getLat());
+        savePortPreparedStatement.setDouble(7,port.getLon());
+        savePortPreparedStatement.setDouble(8,3);
         savePortPreparedStatement.executeUpdate();
-        connection.close();
     }
 
     private void executeUpdatePortStatementOnDatabase(
@@ -84,11 +89,10 @@ public class PortStore  implements Persistable {
         savePortPreparedStatement.setString(2, port.getCountry());
         savePortPreparedStatement.setInt(6, port.getCode());
         savePortPreparedStatement.setString(3, port.getPort());
-        savePortPreparedStatement.setDouble(4,port.getLat());
-        savePortPreparedStatement.setDouble(5,port.getLon());
+        savePortPreparedStatement.setFloat(4,(float)port.getLat());
+        savePortPreparedStatement.setFloat(5,(float) port.getLon());
         //atualizar a classe para adicionar atributos
         savePortPreparedStatement.executeUpdate();
-        connection.close();
     }
 
     private boolean isPortOnDatabase(DataBaseConnection databaseConnection,
@@ -97,7 +101,7 @@ public class PortStore  implements Persistable {
 
         boolean isPortOnDatabase = false;
 
-        String sqlCommand = "SELECT * FROM port_warehouse WHERE code = ?";
+        String sqlCommand = "SELECT * FROM \"port_warehouse\" WHERE \"port_warehouse_id\" = ?";
 
         PreparedStatement getPortPreparedStatement =
                 connection.prepareStatement(sqlCommand);
@@ -107,7 +111,6 @@ public class PortStore  implements Persistable {
         try (ResultSet portsResultSet = getPortPreparedStatement.executeQuery()) {
 
             if (portsResultSet.next()) {
-
                 isPortOnDatabase = true;
             } else {
 
@@ -115,13 +118,54 @@ public class PortStore  implements Persistable {
                 isPortOnDatabase = false;
             }
         }
-        connection.close();
+
         return isPortOnDatabase;
+    }
+
+    public boolean loadPortFromDatabase(DataBaseConnection databaseConnection) {
+        boolean returnValue= false;
+        Connection connection = databaseConnection.getConnection();
+        ArrayList<Port> tempArray = new ArrayList<>();
+        String sqlCommand = "Select * from \"port_warehouse\"";
+        try (PreparedStatement getPortPreparedStatement = connection.prepareStatement(sqlCommand)) {
+
+            try (ResultSet portPreparedResultSet = getPortPreparedStatement.executeQuery()) {
+
+                while (portPreparedResultSet.next()) {
+                    Port tempPort = new Port(portPreparedResultSet.getString(3), //continent
+                            portPreparedResultSet.getString(4), //country
+                            portPreparedResultSet.getInt(1), //id
+                            portPreparedResultSet.getString(2), //port
+                            portPreparedResultSet.getFloat(6), //lat
+                            portPreparedResultSet.getFloat(7) //lon
+                    );
+                    tempArray.add(tempPort);
+
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return returnValue;
+        }
+        returnValue = true;
+        portTree.insertPorts(tempArray);
+        return returnValue;
+    }
+
+    public boolean uploadPortstoDatabase(DataBaseConnection databaseConnection){
+        boolean returnValue = false;
+
+        ArrayList<Port> ports = portTree.getArray();
+        for (Port p: ports) {
+            this.save(databaseConnection,p);
+        }
+        returnValue = true;
+        return returnValue;
     }
     private void updatePortOnDatabase(DataBaseConnection databaseConnection,
                                       Port port) throws SQLException {
         String sqlCommand =
-                "update port_warehouse set continent = ?, country = ?, port = ?, lat = ?, lon = ?  where code = ?";
+                "update \"port_warehouse\" set \"continent\" = ?, \"country\" = ?, \"name\" = ?, \"lat\" = ?, \"log\" = ?  where \"port_warehouse_id\" = ?";
 
         executeUpdatePortStatementOnDatabase(databaseConnection, port,
                 sqlCommand);
@@ -144,7 +188,7 @@ public class PortStore  implements Persistable {
                 deletePortPreparedStatement.setInt(1, port.getCode());
                 deletePortPreparedStatement.executeUpdate();
             }
-            connection.close();
+
             returnValue = true;
 
         } catch (SQLException exception) {
