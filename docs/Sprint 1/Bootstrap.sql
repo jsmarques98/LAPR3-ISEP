@@ -12,6 +12,13 @@ insert into "container" VALUES ( 123458888, 'WIQN', 3, 10, 30, 45, 0.5, 2);
 --insert certificate
 INSERT INTO "certificate" VALUES (12, 'csc');
 
+--insert container_certificate
+INSERT INTO "container_certificate" VALUES (123456789,12);
+INSERT INTO "container_certificate" VALUES (123451111,12);
+INSERT INTO "container_certificate" VALUES (123452222,12);
+INSERT INTO "container_certificate" VALUES (123453333,12);
+INSERT INTO "container_certificate" VALUES (123454444,12);
+
 --insert role
 INSERT INTO "role" VALUES (1, 'Ship employe');
 INSERT INTO "role" VALUES (2, 'Ship Capitan');
@@ -28,23 +35,32 @@ INSERT INTO "role" VALUES (11, 'Truck driver');
 --insert truck
 INSERT INTO "truck" VALUES ('22:CP:66', 123);
 
+--insert truck truck_transportation
+INSERT INTO "truck_transportation" VALUES(123466666,to_date('11.09.20 12:30','yyyy.mm.dd hh24:mi'),to_date('11.09.20 16:30','yyyy.mm.dd hh24:mi'),null,'22:CP:66');
+
+--insert truck_data
+INSERT INTO "truck_data" VALUES('22:CP:66',to_date('11.09.20 12:30','yyyy.mm.dd hh24:mi'),52,-2);
 
 --insert cargo manifest
-INSERT INTO "cargo_manifest" VALUES (123456789, 1, 210950000, 12, 22, 2, 3332.3, 'load', to_date('11.09.20','dd.mm.yy'),null, 29002,20351);
-INSERT INTO "cargo_manifest" VALUES (123451111, 1, 229767000, 12, 22, 2, 3332.3, 'load', to_date('11.09.20','dd.mm.yy'),null, 29002,20351);
-INSERT INTO "cargo_manifest" VALUES (123452222, 1, 210950000, 12, 22, 2, 3332.3, 'load', to_date('11.09.20','dd.mm.yy'),null, 29002,20351);
-INSERT INTO "cargo_manifest" VALUES (123453333, 1, 229767000, 12, 22, 2, 3332.3, 'load', to_date('11.09.20','dd.mm.yy'),null, 29002,20351);
-INSERT INTO "cargo_manifest" VALUES (123454444, 1, 210950000, 12, 22, 2, 3332.3, 'unload', to_date('11.09.20','dd.mm.yy'),null, 29002,20351);
+INSERT INTO "cargo_manifest" VALUES (1, 210950000, 12, 22, 2, 3332.3, 'load', to_date('11.09.20','dd.mm.yy'),null, 29002,20351);
+INSERT INTO "cargo_manifest" VALUES (1, 229767000, 12, 22, 2, 3332.3, 'load', to_date('11.09.20','dd.mm.yy'),null, 29002,20351);
+INSERT INTO "cargo_manifest" VALUES (1, 210950000, 12, 22, 2, 3332.3, 'load', to_date('11.09.20','dd.mm.yy'),null, 29002,20351);
+INSERT INTO "cargo_manifest" VALUES (1, 229767000, 12, 22, 2, 3332.3, 'load', to_date('11.09.20','dd.mm.yy'),null, 29002,20351);
+INSERT INTO "cargo_manifest" VALUES (1, 210950000, 12, 22, 2, 3332.3, 'unload', to_date('11.09.20','dd.mm.yy'),null, 29002,20351);
 
 
---insert employe
-INSERT INTO "employe" VALUES (1, 'Antonio', 'tone@gmail.com', 'qwerty', 1);
-INSERT INTO "employe" VALUES (2, 'Pedro', 'pedro@gmail.com', 'qwerty', 2);
-INSERT INTO "employe" VALUES (3, 'Manuel', 'nel@gmail.com', 'qwerty', 3);
-INSERT INTO "employe" VALUES (4, 'Joaquim', 'quim@gmail.com', 'qwerty', 4);
-INSERT INTO "employe" VALUES (5, 'Jose', 'ze@gmail.com', 'qwerty', 5);
+--insert user
+INSERT INTO "user" VALUES (1,1, 'Antonio', 'tone@gmail.com', 'qwerty', 1);
+INSERT INTO "user" VALUES (2,2, 'Pedro', 'pedro@gmail.com', 'qwerty', 2);
+INSERT INTO "user" VALUES (3,3, 'Manuel', 'nel@gmail.com', 'qwerty', 3);
+INSERT INTO "user" VALUES (4,4, 'Joaquim', 'quim@gmail.com', 'qwerty', 4);
+INSERT INTO "user" VALUES (5,5, 'Jose', 'ze@gmail.com', 'qwerty', 5);
 
 
 -- insert trip
 
 INSERT INTO "trip" VALUES (1 ,210950000, 29002, 20351, to_date('11.09.20','dd.mm.yy'), null, to_date('14.10.20','dd.mm.yy'));
+
+-- insert trip_stops
+INSERT INTO "trip_stops" VALUES (1,28261,to_date('20.09.20','dd.mm.yy'));
+INSERT INTO "trip_stops" VALUES (1,18476,to_date('25.09.20','dd.mm.yy'));

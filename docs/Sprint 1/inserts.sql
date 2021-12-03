@@ -20,11 +20,14 @@ INSERT INTO "port_warehouse" VALUES (3, 'casa da avo 4', 'europe', 'Portugal', '
 
 --insert container
 insert into "container" VALUES ( 123456789, 'ISOC', 123456789, 10, 30, 45, 0.5, 2);
-insert into "container" VALUES ( 123456789, 'ISOCod5', 123456789, 10, 30, 45, 0.5, 2);
+insert into "container" VALUES ( 183456789, 'ISOCod5', 123456789, 10, 30, 45, 0.5, 2);
 insert into "container" VALUES ( 123456789, 'ISOC', 123456789, -10, 30, 45, 0.5, 2);
-insert into "container" VALUES ( 123456789, 'ISOC', 123456789, 10, 30, 45, 0.5, 2);
-insert into "container" VALUES ( 123456789, 'ISOC', 123456789, 10, -30, 45, 0.5, 2);
-insert into "container" VALUES ( 123456789, 'ISOC', 123456789, 10, 30, -20, 0.5, 2);
+insert into "container" VALUES ( 123056789, 'ISOC', 123456789, 10, 30, 45, 0.5, 2);
+insert into "container" VALUES ( 123496789, 'ISOC', 123456789, 10, -30, 45, 0.5, 2);
+insert into "container" VALUES ( 127456789, 'ISOC', 123456789, 10, 30, -20, 0.5, 2);
+
+
+
 
 --insert certificate
 INSERT INTO "certificate" VALUES (12, 'csc');
