@@ -1,0 +1,43 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class UI{
+}
+
+class DateReader{
++readData(BufferedReader sc, String msg)
+}
+
+class KDTreePort{
++KDTree portTree
++ Port nearestPort(double lat, double lon)
+}
+
+class KDTree{
+- root
++ T findNearestNeighbour(double x, double y)
+}
+
+class ShipBST{
++ Ship findShip(String callSign)
+}
+
+class Ship{
++ DynamicShip getDataByDate(LocalDateTime date)
+}
+
+class DynamicShip{
++ double getLat()
++ double getLon()
+
+}
+
+
+UI->Ship
+UI->DateReader
+UI->KDTreePort
+Ship->DynamicShip
+Ship..>ShipBST
+KDTreePort --|> KDTree
+
+@enduml

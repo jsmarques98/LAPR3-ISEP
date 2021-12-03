@@ -1,0 +1,58 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant "TraficManager" as tm
+participant "UI" as ui
+participant "DateReader" as read
+participant "ShipBST" as sbst
+participant "KDTreePort" as kdtree
+participant "KDTree" as kd
+participant "currentShip : Ship" as current
+participant "DynamicShip" as ds
+
+
+activate tm
+    tm->ui : selects the option to find the nearest port
+activate ui
+    ui-->tm : requests ship's callSign
+deactivate ui
+    tm->ui : inserts callSign
+activate ui
+
+ui->sbst : findShip(callSign)
+alt findShip(callSign) != null
+
+activate sbst
+    sbst-->ui : currentShip
+deactivate sbst
+
+
+    ui->read : readDate(read, "Insert date: ")
+activate read
+    read-->tm : requests Date of intrest for search
+    tm->read : inserts Date
+    read-->ui : date
+deactivate read
+
+alt date != null
+
+    activate ds
+    ui->ds : getLat(date)
+    ui->ds: getLon(date)
+    deactivate ds
+
+    ui->kdtree : nearestPort(lat, lon)
+    activate kdtree
+    kdtree-> kd: findNearestNeighbour(lat,lon)
+
+end
+
+    ui-->tm : shows the name of the port nearest to the ship
+deactivate ui
+end
+deactivate tm
+
+
+@enduml
