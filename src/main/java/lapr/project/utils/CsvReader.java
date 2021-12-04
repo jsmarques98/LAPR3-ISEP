@@ -65,7 +65,7 @@ public class CsvReader {
                             Double.parseDouble(values[12]), // width
                             Double.parseDouble(values[13]),// draft)
                             1,//nr_gen
-                            1,//cap
+                            10,//cap
                             1//gen_po
                             );
                     ship.initializeDynamicShip();

@@ -72,9 +72,9 @@ INSERT INTO "trip_stop" VALUES (2,17386,null);
 --insert registos container (registo_id,container_id,cargo_manifesto_id,user_id,date,source,destiny,delivered)
 INSERT INTO "registo_container" VALUES (3,123456789, 1,5,to_date('17.11.20 12:30','yyyy.mm.dd hh24:mi'),29002,18476,'no');
 INSERT INTO "registo_container" VALUES (1,123453333, 1,5,to_date('11.09.20 12:30','yyyy.mm.dd hh24:mi'),29002,27248,'no');
-INSERT INTO "registo_container" VALUES (4,123451111, 1,5,to_date('11.09.20 12:35','yyyy.mm.dd hh24:mi'),29002,27248,'yes');
-INSERT INTO "registo_container" VALUES (5,123451111, 1,5,to_date('11.09.20 12:35','yyyy.mm.dd hh24:mi'),29002,27248,'yes');
-INSERT INTO "registo_container" VALUES (6,123453333, 1,5,to_date('2.11.19 12:30','yyyy.mm.dd hh24:mi'),29002,27248,'no');
+INSERT INTO "registo_container" VALUES (4,123454444, 1,5,to_date('11.09.20 12:35','yyyy.mm.dd hh24:mi'),29002,22226,'yes');
+INSERT INTO "registo_container" VALUES (5,123451111, 1,5,to_date('11.09.20 12:35','yyyy.mm.dd hh24:mi'),29002,25350,'yes');
+INSERT INTO "registo_container" VALUES (6,123458888, 1,5,to_date('2.11.19 12:30','yyyy.mm.dd hh24:mi'),29002,30045,'no');
 
 --insert cargo_manifest_container (registo_id,cargo_manifest,container_position_x,
 --container_position_y,container_position_z, container_gross_weigth)
