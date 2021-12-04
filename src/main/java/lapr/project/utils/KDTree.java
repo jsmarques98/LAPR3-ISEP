@@ -1,6 +1,4 @@
 package lapr.project.utils;
-import lapr.project.model.Port;
-
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,28 +53,35 @@ public class KDTree<T> {
     }
 
     public T findNearestNeighbour(double x, double y) {
-        NodeKDTree<T> closestNode = findMin(root,true);
-        return findNearestNeighbour(root, x, y,closestNode ,true);
+        return findNearestNeighbour(root, x, y, true);
     }
 
-    private T findNearestNeighbour(NodeKDTree<T> node, final double x, final double y,NodeKDTree<T> closestNode , boolean divX) {
-        if (node == null)
-            return null;
-        double d = Point2D.distanceSq(node.coords.x, node.coords.y, x, y);
-        double closestDist = Point2D.distanceSq(closestNode.coords.x, closestNode.coords.y, x, y);
-        if (closestDist > d) {
-            closestNode.setObject(node.getObject());
-            closestNode.coords.y = node.getY();
-            closestNode.coords.x = node.getX();
-        }
-        double delta = divX ? x - node.coords.x : y - node.coords.y;
-        double delta2 = delta * delta;
-        NodeKDTree<T> node1 = delta < 0 ? node.left : node.right;
-        NodeKDTree<T> node2 = delta < 0 ? node.right : node.left;
-        findNearestNeighbour(node1, x, y, closestNode, !divX);
-        if (delta2 < closestDist)
-                findNearestNeighbour(node2, x, y, closestNode, !divX);
-        return closestNode.info;
+    private T findNearestNeighbour(NodeKDTree<T> fromNode, final double x, final double y, boolean divX) {
+        return new Object() {
+
+            double closestDist = Double.POSITIVE_INFINITY;
+
+            T closestNode = null;
+
+            T findNearestNeighbour(NodeKDTree<T> node, boolean divX) {
+                if (node == null)
+                    return null;
+                double d = Point2D.distanceSq(node.coords.x, node.coords.y, x, y);
+                if (closestDist > d) {
+                    closestDist = d;
+                    closestNode = node.info;
+                }
+                double delta = divX ? x - node.coords.x : y - node.coords.y;
+                double delta2 = delta * delta;
+                NodeKDTree<T> node1 = delta < 0 ? node.left : node.right;
+                NodeKDTree<T> node2 = delta < 0 ? node.right : node.left;
+                findNearestNeighbour(node1, !divX);
+                if (delta2 < closestDist) {
+                    findNearestNeighbour(node2, !divX);
+                }
+                return closestNode;
+            }
+        }.findNearestNeighbour(fromNode, divX);
     }
 
 
