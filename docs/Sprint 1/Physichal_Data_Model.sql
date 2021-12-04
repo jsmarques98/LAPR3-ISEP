@@ -181,6 +181,7 @@ CREATE TABLE "trip_stop" (
                              "trip_id" INT,
                              "port_wharehouse_id" INT,
                              "data" DATE ,
+                             "estimate_date" DATE NOT NULL,
                              CONSTRAINT "PK_trip_stops_id"
                                  PRIMARY KEY ("trip_id", "port_wharehouse_id"),
                              CONSTRAINT "FK_trip_id.trip_id"

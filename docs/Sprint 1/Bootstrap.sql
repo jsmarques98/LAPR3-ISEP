@@ -75,12 +75,15 @@ INSERT INTO "registo_container" VALUES (1,123453333, 1,5,to_date('11.09.20 12:30
 INSERT INTO "registo_container" VALUES (4,123454444, 1,5,to_date('11.09.20 12:35','yyyy.mm.dd hh24:mi'),29002,22226,'yes');
 INSERT INTO "registo_container" VALUES (5,123451111, 1,5,to_date('11.09.20 12:35','yyyy.mm.dd hh24:mi'),29002,25350,'yes');
 INSERT INTO "registo_container" VALUES (6,123458888, 1,5,to_date('2.11.19 12:30','yyyy.mm.dd hh24:mi'),29002,30045,'no');
+INSERT INTO "registo_container" VALUES (7,123458888, 1,5,to_date('2.11.19 12:30','yyyy.mm.dd hh24:mi'),29002,17386,'no');
+INSERT INTO "registo_container" VALUES (8,123458888, 1,5,to_date('2.11.19 12:30','yyyy.mm.dd hh24:mi'),17386,22226,'no');
 
 --insert cargo_manifest_container (registo_id,cargo_manifest,container_position_x,
 --container_position_y,container_position_z, container_gross_weigth)
 INSERT INTO "cargo_manifest_container" VALUES (1,1,0,1,2,0.4);
 INSERT INTO "cargo_manifest_container" VALUES (4,1,10,1,2,0.4);
-INSERT INTO "cargo_manifest_container" VALUES (3,2,18,19,24,1798);
+INSERT INTO "cargo_manifest_container" VALUES (7,2,18,19,24,1798);
+INSERT INTO "cargo_manifest_container" VALUES (8,2,18,19,24,1798);
 
 --insert port_warehouse(port_warehouse_id,name,continent,country,type,lat,log,capacity)
 INSERT INTO "port_warehouse" VALUES (29003, 'Liverpool', 'Europe', 'United Kingdom', 'warehouse', 53.46666667, -3.033333333,200);

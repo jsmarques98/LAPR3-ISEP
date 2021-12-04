@@ -33,16 +33,25 @@ from "container" INNER JOIN "registo_container" using("container_id")
 where "source" = (select "port_wharehouse_id" from "trip_stop" where "data" is null and "trip_id" = 2 and ROWNUM =1);
 
 
---[US209] As Ship Captain, I want to know the occupancy rate (percentage) of a given ship
+--[US207] As Ship Captain, I want to know how many cargo manifests I have transported during a given year and the average number of containers per manifest.
+
+select '21', (count("cargo_manifesto_id")) as nr_coargo,
+avg((select count("registo_id") from "registo_container" group by "cargo_manifesto_id")) as average
+from "registo_container" INNER JOIN "cargo_manifest"using("cargo_manifesto_id") WHERE EXTRACT(YEAR FROM "entry_date")=2020 GROUP BY "ship_id";
+
+--[US208] As Ship Captain, I want to know the occupancy rate (percentage) of a given ship
 --for a given cargo manifest. Occupancy rate is the ratio between total number of containers
 --in the ship coming from a given manifest and the total capacity of the ship, i.e., the
 --maximum number of containers the ship can load
+
 select "mmsi","cargo_manifesto_id",(100*((select count("registo_id") from "cargo_manifest_container" where "cargo_manifesto_id"=
 (select "cargo_manifesto_id" from "cargo_manifest" where "ship_id" = '210950000'))/("capacity"))) as perc from "ship" 
 INNER JOIN "cargo_manifest" on "cargo_manifest"."ship_id"="ship"."mmsi" where "mmsi" ='210950000' and "cargo_manifesto_id" = '1';
 
 --[US209] - As Ship Captain, I want to know the occupancy rate of a given ship at a given moment.
+
 select "mmsi","cargo_manifesto_id",(100*((select count("registo_id") from "cargo_manifest_container" where "cargo_manifesto_id"=
 (select "cargo_manifesto_id" from "cargo_manifest" where "ship_id" = '210950000'))/("capacity"))) as perc from "ship" 
 INNER JOIN "cargo_manifest" on "cargo_manifest"."ship_id"="ship"."mmsi" where "mmsi" ='210950000' and "entry_date" BETWEEN '2020.09.10' AND '2020.09.17' ;
 
+--[US210] As Traffic manager, I need to know which ships will be available on Monday next week and their location.
