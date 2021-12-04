@@ -16,9 +16,8 @@ public class KDTreePortTest {
     Port port3;
 
     public KDTreePortTest (){
-        port1 = new Port("Europe","United Kingdom", 29002,"Liverpool",53.46666667,-3.033333333);
-        port2 = new Port("America","United States",14635,"Los Angeles",33.71666667,-118.2666667);
-        port3 = new Port("America","United States",25007,"New Jersey",40.66666667,-74.16666667);
+        port1 = new Port("America","Colombia",28261,"Buenaventura",3.916666667,-77.05);
+        port2 = new Port("America","United States",25007,"New Jersey",40.66666667,-74.16666667);
     }
 
     @Test
@@ -27,14 +26,13 @@ public class KDTreePortTest {
         ArrayList<Port> portArray = new ArrayList<>();
         portArray.add(port1);
         portArray.add(port2);
-        portArray.add(port3);
 
         portTree.insertPorts();
 
         Port node;
-        node = portTree.nearestPort(33.71666667,-118.2666667);
-        assertEquals(port2.toString(), node.toString());
+        node = portTree.nearestPort(4.71666667,-77.2666667);
+        assertEquals(port1.toString(), node.toString());
         node = portTree.nearestPort(40.66666667, -74.16666667);
-        assertEquals(port3.toString(), node.toString());
+        assertEquals(port2.toString(), node.toString());
     }
 }
