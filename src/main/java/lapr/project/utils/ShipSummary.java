@@ -9,71 +9,82 @@ import java.util.ArrayList;
 
 public class ShipSummary {
     public ShipSummary(){
-
     }
     public static ArrayList create(Ship ship, String code) {
         ArrayList<Object> sumary = new ArrayList<>();
-        LocalDateTime inicialTime = null, finalTime = null;
+        LocalDateTime inicialTime = null;
+        LocalDateTime finalTime = null;
         int nMoves = 0;
-        double maxSog = 0.0, meanSog = 0.0, maxCog = 0.0, meanCog = 0.0;
-        double departLat = 0.0, departLong = 0.0, arrLat = 0.0, arrLong = 0.0;
+        double maxSog = 0.0;
+        double meanSog = 0.0;
+        double maxCog = 0.0;
+        double meanCog = 0.0;
+        double departLat = 0.0;
+        double departLong = 0.0;
+        double arrLat = 0.0;
+        double arrLong = 0.0;
+        String finalMoveTime = null;
+        if (ship != null) {
+            for (DynamicShip sd : ship.getDynamicShip()) {
+                if (nMoves == 0) {
+                    inicialTime = sd.getBaseDateTime();
+                    departLat = sd.getLat();
+                    departLong = sd.getLon();
+                } else if (nMoves + 1 == ship.getDynamicShip().size()) {
+                    finalTime = sd.getBaseDateTime();
+                    arrLat = sd.getLat();
+                    arrLong = sd.getLon();
+                }
+                if (maxSog < sd.getSog()) {
+                    maxSog = sd.getSog();
+                }
+                if (maxCog < sd.getCog()) {
+                    maxCog = sd.getCog();
+                }
+                meanSog += sd.getSog();
+                meanCog += sd.getCog();
+                nMoves++;
+            }
 
-        for (DynamicShip sd : ship.getDynamicShip()) {
-            if (nMoves == 0) {
-                inicialTime = sd.getBaseDateTime();
-                departLat = sd.getLat();
-                departLong = sd.getLon();
-            } else if (nMoves + 1 == ship.getDynamicShip().size()) {
-                finalTime = sd.getBaseDateTime();
-                arrLat = sd.getLat();
-                arrLong = sd.getLon();
+            if (inicialTime != null && finalTime != null) {
+                finalMoveTime = getTime(inicialTime, finalTime);
             }
-            if (maxSog < sd.getSog()) {
-                maxSog = sd.getSog();
+
+
+            meanSog = meanSog / nMoves;
+            meanCog = meanCog / nMoves;
+
+            Double travelDistance = totalDistance(ship.getDynamicShip());
+            Double deltaDistance = distanciaDelta(arrLat, departLat, arrLong, departLong);
+
+
+            // Code
+            if (code.equalsIgnoreCase("MMSI")) {
+                sumary.add(ship.getMmsi());
+            } else if (code.equalsIgnoreCase("IMO")) {
+                sumary.add(ship.getImo());
+            } else if (code.equalsIgnoreCase("CallSign")) {
+                sumary.add(ship.getCallSign());
             }
-            if (maxCog < sd.getCog()) {
-                maxCog = sd.getCog();
-            }
-            meanSog += sd.getSog();
-            meanCog += sd.getCog();
-            nMoves++;
+            sumary.add(ship.getVesselName()); // Name
+            sumary.add(ship.getVesselType()); // VasselType
+            sumary.add(inicialTime); // BDT Inicial
+            sumary.add(finalTime); // BDT Final
+            sumary.add(finalMoveTime); // Tempo total dos movimentos
+            sumary.add(nMoves); // Numero total de movimentos
+            sumary.add(maxSog); // MaxSog
+            sumary.add(meanSog); // MeanSog
+            sumary.add(maxCog); // MaxCog
+            sumary.add(meanCog); // MeanCog
+            sumary.add(departLat); // DepartureLatitude
+            sumary.add(departLong); // DepartureLongitude
+            sumary.add(arrLat); // ArrivalLatitude
+            sumary.add(arrLong); // ArrivalLongitude
+            sumary.add(travelDistance); // TraveledDistance
+            sumary.add(deltaDistance); // DeltaDistance
+
+            return sumary;
         }
-
-
-        String finalMoveTime = getTime(inicialTime,finalTime);
-
-        meanSog = meanSog / nMoves;
-        meanCog = meanCog / nMoves;
-
-        Double travelDistance = totalDistance(ship.getDynamicShip());
-        Double deltaDistance = distanciaDelta(arrLat,departLat,arrLong,departLong);
-
-
-        // Code
-        if (code.equalsIgnoreCase("MMSI")) {
-            sumary.add(ship.getMmsi());
-        } else if (code.equalsIgnoreCase("IMO")) {
-            sumary.add(ship.getImo());
-        } else if (code.equalsIgnoreCase("CallSign")) {
-            sumary.add(ship.getCallSign());
-        }
-        sumary.add(ship.getVesselName()); // Name
-        sumary.add(ship.getVesselType()); // VasselType
-        sumary.add(inicialTime); // BDT Inicial
-        sumary.add(finalTime); // BDT Final
-        sumary.add(finalMoveTime); // Tempo total dos movimentos
-        sumary.add(nMoves); // Numero total de movimentos
-        sumary.add(maxSog); // MaxSog
-        sumary.add(meanSog); // MeanSog
-        sumary.add(maxCog); // MaxCog
-        sumary.add(meanCog); // MeanCog
-        sumary.add(departLat); // DepartureLatitude
-        sumary.add(departLong); // DepartureLongitude
-        sumary.add(arrLat); // ArrivalLatitude
-        sumary.add(arrLong); // ArrivalLongitude
-        sumary.add(travelDistance); // TraveledDistance
-        sumary.add(deltaDistance); // DeltaDistance
-
         return sumary;
     }
 
@@ -91,12 +102,12 @@ public class ShipSummary {
 
     public static double totalDistance(ArrayList<DynamicShip> ds){
         double totalDistance = -1;
-        double lat1 = 91;
-        double lat2 = 91;
-        double lon1 = 181;
-        double lon2 = 181;
-        DynamicShip pos1 = null;
-        DynamicShip pos2 = null;
+        double lat1;
+        double lat2;
+        double lon1;
+        double lon2;
+        DynamicShip pos1;
+        DynamicShip pos2;
 
         for(int i = 0; i < ds.size() - 1; i++) {
             pos1= ds.get(i);

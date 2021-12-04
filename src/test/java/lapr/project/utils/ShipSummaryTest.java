@@ -104,4 +104,13 @@ class ShipSummaryTest {
 
         assertEquals(expectRes, sumary);
     }
+
+    @Test
+    public void createSumary4() {
+        ship.addDynamicShip(shipData1);
+        ship.addDynamicShip(shipData2);
+        ArrayList<Object> sumary = ShipSummary.create(null, "CallSign");
+
+        assertEquals("[]", sumary.toString());
+    }
 }
