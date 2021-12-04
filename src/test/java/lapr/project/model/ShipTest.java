@@ -15,6 +15,7 @@ class ShipTest {
     ArrayList<DynamicShip> shipArray1 = new ArrayList<>();
     LocalDateTime t1 = LocalDateTime.of(2020,10,20,12,30,00);
     LocalDateTime t2 = LocalDateTime.of(2020, 03, 9, 14,15, 00);
+    LocalDateTime t3 = LocalDateTime.of(2021, 03, 9, 14,15, 00);
     DynamicShip ds1 = new DynamicShip(t1, 30.2, 90.0, 1.3, 12.0,0,56,'B');
     DynamicShip ds2 = new DynamicShip(t2, 40.2, 120.0, 3.3, 45.0,0,45,'C');
 
@@ -103,5 +104,6 @@ class ShipTest {
     void getDataByDate() {
         assertEquals(ship1.getDataByDate(t1).toString(),"DynamicShip{baseDateTime=2020-10-20T12:30, lat=30.2, lon=90.0, sog=1.3, cog=12.0, heading=0.0, transcrieverClass=B}");
         assertEquals(ship.getDataByDate(t2).toString(),"DynamicShip{baseDateTime=2020-03-09T14:15, lat=40.2, lon=120.0, sog=3.3, cog=45.0, heading=0.0, transcrieverClass=C}");
+        assertEquals(ship.getDataByDate(t3).toString(),"DynamicShip{baseDateTime=0000-01-01T00:00, lat=0.0, lon=0.0, sog=0.0, cog=0.0, heading=0.0, transcrieverClass=0}");
     }
 }

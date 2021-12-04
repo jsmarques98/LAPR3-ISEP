@@ -117,7 +117,8 @@ public class Ship {
     }
 
     public DynamicShip getDataByDate(LocalDateTime date) {
-        DynamicShip foundData = null;
+        LocalDateTime t1 = LocalDateTime.of(0,1,1,0,0,0);
+        DynamicShip foundData = new DynamicShip(t1,0.0,0.0,0.0,0.0,0.0,0,'0');
         for (DynamicShip data : this.shipData) {
             LocalDateTime currentDate = data.getBaseDateTime();
             if (currentDate.isEqual(date)) {
