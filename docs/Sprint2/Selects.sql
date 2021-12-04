@@ -21,7 +21,8 @@ from "container" INNER JOIN "registo_container" using("container_id")
 where "destiny" = (select "port_wharehouse_id" from "trip_stop" where "data" is null and "trip_id" = 2 and ROWNUM =1);
 
 
---[US206] - As Ship Captain, I want the list of containers to be loaded in the next port, including container identifier, type, and load.
+--[US206] - As Ship Captain, I want the list of containers to be loaded in the next port, 
+--including container identifier, type, and load.
 select "container_id" as identificador,
 case "refrigeration" WHEN NULL THEN 'nao refrigerado' ELSE 'refrigerado' end as type,
 (select "container_position_x" from "cargo_manifest_container" where "registo_container"."registo_id" = "cargo_manifest_container"."registo_id")as x,
