@@ -22,8 +22,9 @@ public class KDTreePort{
             e.printStackTrace();
         }
     }
-    public void insertPorts(ArrayList<Port> portArray){
+    public boolean insertPorts(ArrayList<Port> portArray){
         this.portArray = portArray;
+        return true;
     }
     public void insertPorts() {
         List<NodeKDTree<Port>> nodes = new ArrayList<>();
