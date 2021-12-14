@@ -174,11 +174,10 @@ public class PortStore  implements Persistable {
         Port port = (Port) object;
 
         try {
-
-            String sqlCommand;
+            //TODO VER ISTO
+            String sqlCommand = "delete from \"port_warehouse\" where \"port_warehouse_id\" = ?";
 
             //eliminar as outras ocurrencias do port_warehouse
-            sqlCommand = "delete from port_warehouse where port_warehouse_id = ?";
             try (PreparedStatement deletePortPreparedStatement = connection.prepareStatement(
                     sqlCommand)) {
                 deletePortPreparedStatement.setInt(1, port.getCode());
