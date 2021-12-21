@@ -63,11 +63,11 @@ INSERT INTO "trip" VALUES (1 ,210950000, 29002, 20351, to_date('11.09.20','dd.mm
 INSERT INTO "trip" VALUES (2 ,228339600, 22226, 18476, to_date('01.08.20','dd.mm.yy'), null, to_date('14.10.20','dd.mm.yy'));
 
 -- insert trip_stops(trip_id,port_wharehouse_id,data)
-INSERT INTO "trip_stop" VALUES (1,28261,to_date('20.09.20','dd.mm.yy'));
-INSERT INTO "trip_stop" VALUES (1,18476,to_date('25.09.20','dd.mm.yy'));
-INSERT INTO "trip_stop" VALUES (1,17386,null);
-INSERT INTO "trip_stop" VALUES (2,18476,to_date('22.08.20','dd.mm.yy'));
-INSERT INTO "trip_stop" VALUES (2,17386,null);
+INSERT INTO "trip_stop" VALUES (1,28261,null,to_date('20.09.20','dd.mm.yy'));
+INSERT INTO "trip_stop" VALUES (1,18476,null,to_date('25.09.20','dd.mm.yy'));
+INSERT INTO "trip_stop" VALUES (1,17386,null,to_date('22.08.20','dd.mm.yy'));
+INSERT INTO "trip_stop" VALUES (2,18476,null,to_date('22.08.20','dd.mm.yy'));
+INSERT INTO "trip_stop" VALUES (2,17386,null,to_date('22.08.20','dd.mm.yy'));
 
 --insert registos container (registo_id,container_id,cargo_manifesto_id,user_id,date,source,destiny,delivered)
 INSERT INTO "registo_container" VALUES (3,123456789, 1,5,to_date('17.11.20 12:30','yyyy.mm.dd hh24:mi'),29002,18476,'no');
