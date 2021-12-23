@@ -6,13 +6,13 @@ public class Country {
     private String alpha2Code;
     private String alpha3Code;
     private String country;
-    private int population;
+    private double population;
     private String capital;
-    private String latitude;
-    private String longitude;
+    private double latitude;
+    private double longitude;
 
     public Country(String continent, String alpha2Code, String alpha3Code, String country,
-                   int population, String capital, String latitude, String longitude) {
+                   double population, String capital, double latitude, double longitude) {
         this.continent = continent;
         this.alpha2Code = alpha2Code;
         this.alpha3Code = alpha3Code;
@@ -55,11 +55,11 @@ public class Country {
         this.country = country;
     }
 
-    public int getPopulation() {
+    public double getPopulation() {
         return population;
     }
 
-    public void setPopulation(int population) {
+    public void setPopulation(double population) {
         this.population = population;
     }
 
@@ -71,19 +71,19 @@ public class Country {
         this.capital = capital;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 }
