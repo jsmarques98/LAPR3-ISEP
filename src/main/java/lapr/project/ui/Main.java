@@ -9,6 +9,7 @@ import lapr.project.data.ShipStore;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,30 +52,30 @@ class Main {
                     .log(Level.SEVERE, null, exception);
         }
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-        //st.uploadShipsToDB(databaseConnection);
-        //st.loadFromDatabase(databaseConnection);
-        //pt.uploadPortstoDatabase(databaseConnection);
-        //pt.loadPortFromDatabase(databaseConnection);
         while (!option.equals("0")) {
             System.out.println("Please make your selection");
-            System.out.println("1) Search ship");
-            System.out.println("2) Search ship summary");
-            System.out.println("3) Search nearest Port");
+            System.out.println("1) Import data to the Database");
+            System.out.println("2) Search ship");
+            System.out.println("3) Search ship summary");
+            System.out.println("4) Search nearest Port");
             System.out.println("0) Leave");
             option = read.readLine();
             String value;
             switch (option){
                 case "1":
-                    System.out.println("Insert the value: ");
-                    value = read.readLine();
-                    System.out.println(st.findShip(value));
+                    importMenu();
                     break;
                 case "2":
                     System.out.println("Insert the value: ");
                     value = read.readLine();
-                    System.out.println(st.shipSummary(value));
+                    System.out.println(st.findShip(value));
                     break;
                 case "3":
+                    System.out.println("Insert the value: ");
+                    value = read.readLine();
+                    System.out.println(st.shipSummary(value));
+                    break;
+                case "4":
                     LocalDateTime date;
                     Ship currentShip;
                     ShipBST bst = new ShipBST();
@@ -97,6 +98,41 @@ class Main {
                     System.out.println("bye");
                     break;
             }
+        }
+    }
+    private static void importMenu() throws IOException, SQLException {
+        ShipStore st = new ShipStore();
+        KDTreePort portTree = new KDTreePort();
+        String option = new String();
+        String option1 = new String();
+        PortStore pt = new PortStore(portTree);
+        // TODO code application logic here
+        DataBaseConnection databaseConnection = null;
+        try {
+            databaseConnection = ConnectionFactory.getInstance()
+                    .getDatabaseConnection();
+        } catch (IOException exception) {
+            Logger.getLogger(ShipStore.class.getName())
+                    .log(Level.SEVERE, null, exception);
+        }
+        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("1) Import Ship's");
+        System.out.println("2) Import Port's");
+        System.out.println("0) Leave");
+        option = read.readLine();
+        String value;
+        switch (option) {
+            case "1":
+                st.uploadShipsToDB(databaseConnection);
+                st.loadFromDatabase(databaseConnection);
+                break;
+            case "2":
+                pt.uploadPortstoDatabase(databaseConnection);
+                pt.loadPortFromDatabase(databaseConnection);
+                break;
+            case "0":
+                System.out.println("bye");
+                break;
         }
     }
 }
