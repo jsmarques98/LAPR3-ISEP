@@ -127,7 +127,7 @@ public class CsvReader {
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line = br.readLine();
             while ((line = br.readLine()) != null) {
-                String values[] = line.split(",");
+                String[] values = line.split(",");
                 Country country = new Country(
                         values[0],  //continent
                         values[1],  //alpha2code
@@ -155,7 +155,7 @@ public class CsvReader {
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line = br.readLine();
             while ((line = br.readLine()) != null) {
-                String values[] = line.split(",");
+                String[] values = line.split(",");
                 SeaDist seaDist = new SeaDist(
                         values[0],  //fromCountry
                         Integer.parseInt(values[1]),  //fromPortId
@@ -182,7 +182,7 @@ public class CsvReader {
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line = br.readLine();
             while ((line = br.readLine()) != null) {
-                String values[] = line.split(",");
+                String[] values = line.split(",");
                 Border border = new Border(
                         values[0],  //fromCountry
                         values[1]  //fromPortId

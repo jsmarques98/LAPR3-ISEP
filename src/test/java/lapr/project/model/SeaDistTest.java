@@ -75,13 +75,13 @@ class SeaDistTest {
     }
 
     @Test
-    void getSea_distance() {
-        assertEquals(seaDist.getSea_distance(),3673);
+    void getSeaDistance() {
+        assertEquals(seaDist.getSeaDistance(),3673);
     }
 
     @Test
-    void setSea_distance() {
-        seaDist.setSea_distance(7531);
-        assertEquals(seaDist.getSea_distance(),7531);
+    void setSeaDistance() {
+        seaDist.setSeaDistance(7531);
+        assertEquals(seaDist.getSeaDistance(),7531);
     }
 }

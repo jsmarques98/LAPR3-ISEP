@@ -8,17 +8,17 @@ public class SeaDist {
     private String toCountry;
     private int toPortId;
     private String toPort;
-    private double sea_distance;
+    private double seaDistance;
 
     public SeaDist(String fromCountry, int fromPortId, String fromPort,
-                   String toCountry, int toPortId, String toPort, double sea_distance) {
+                   String toCountry, int toPortId, String toPort, double seaDistance) {
         this.fromCountry = fromCountry;
         this.fromPortId = fromPortId;
         this.fromPort = fromPort;
         this.toCountry = toCountry;
         this.toPortId = toPortId;
         this.toPort = toPort;
-        this.sea_distance = sea_distance;
+        this.seaDistance = seaDistance;
     }
 
     public String getFromCountry() {
@@ -69,11 +69,11 @@ public class SeaDist {
         this.toPort = toPort;
     }
 
-    public double getSea_distance() {
-        return sea_distance;
+    public double getSeaDistance() {
+        return seaDistance;
     }
 
-    public void setSea_distance(double sea_distance) {
-        this.sea_distance = sea_distance;
+    public void setSeaDistance(double seaDistance) {
+        this.seaDistance = seaDistance;
     }
 }
