@@ -1,12 +1,11 @@
 package lapr.project.utils;
 
-import lapr.project.model.DynamicShip;
-import lapr.project.model.Port;
-import lapr.project.model.Ship;
+import lapr.project.model.*;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -121,6 +120,84 @@ public class CsvReader {
         }
 
     }
+
+
+    public static ArrayList<Country> readCountry(String path){
+        ArrayList<Country> countryArray = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            String line = br.readLine();
+            while ((line = br.readLine()) != null) {
+                String values[] = line.split(",");
+                Country country = new Country(
+                        values[0],  //continent
+                        values[1],  //alpha2code
+                        values[2],  //alpha3code
+                        values[3],  //country
+                        Double.parseDouble(values[4]),  //population
+                        values[5],  //capital
+                        Double.parseDouble(values[6]),  //latitude
+                        Double.parseDouble(values[7])   //longitude
+                );
+
+                countryArray.add(country);
+            }
+            return countryArray;
+
+        }catch (IOException e){
+            System.out.println("File not found!");
+            return null;
+        }
+    }
+
+
+    public static ArrayList<SeaDist> readSeaDist(String path){
+        ArrayList<SeaDist> seaDistArray = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            String line = br.readLine();
+            while ((line = br.readLine()) != null) {
+                String values[] = line.split(",");
+                SeaDist seaDist = new SeaDist(
+                        values[0],  //fromCountry
+                        Integer.parseInt(values[1]),  //fromPortId
+                        values[2],  //fromPort
+                        values[3],  //toCountry
+                        Integer.parseInt(values[4]),  //toPortId
+                        values[5],  //toPort
+                        Double.parseDouble(values[6])  //seaDistance
+                );
+
+                seaDistArray.add(seaDist);
+            }
+            return seaDistArray;
+
+        }catch (IOException e){
+            System.out.println("File not found!");
+            return null;
+        }
+    }
+
+
+    public static ArrayList<Border> readBorder(String path){
+        ArrayList<Border> borderArray = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            String line = br.readLine();
+            while ((line = br.readLine()) != null) {
+                String values[] = line.split(",");
+                Border border = new Border(
+                        values[0],  //fromCountry
+                        values[1]  //fromPortId
+                );
+
+                borderArray.add(border);
+            }
+            return borderArray;
+
+        }catch (IOException e){
+            System.out.println("File not found!");
+            return null;
+        }
+    }
+
 
     /**
      * Method to take the first 3 chars (IMO) of the integer so that we can cast the value
