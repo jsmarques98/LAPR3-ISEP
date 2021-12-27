@@ -101,7 +101,7 @@ public class CsvReader {
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line = br.readLine();
             while ((line = br.readLine()) != null) {
-                String values[] = line.split(",");
+                String[] values = line.split(",");
                 Port port = new Port(
                         values[0],          //continent
                         values[1],          //country

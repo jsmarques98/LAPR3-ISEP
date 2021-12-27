@@ -1,8 +1,6 @@
 package lapr.project.utils;
 
-import lapr.project.model.DynamicShip;
-import lapr.project.model.Port;
-import lapr.project.model.Ship;
+import lapr.project.model.*;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -14,13 +12,22 @@ class CsvReaderTest {
 
     String path = "testReader";
     String path1 = "portReaderTest";
+    String path3 = "borderReaderTest";
+    String path4 = "countryReaderTest";
+    String path5 = "seaDistReaderTest";
 
     private final Ship s1;
     private final Port p1;
+    private final Border b1;
+    private final Country c1;
+    private final SeaDist sd1;
 
     ArrayList<Ship> shipArray = new ArrayList<>();
     ArrayList<DynamicShip> shipDataArray = new ArrayList<>();
     ArrayList<Port> portArray = new ArrayList<>();
+    ArrayList<Border> borderArray = new ArrayList<>();
+    ArrayList<Country> countryArray = new ArrayList<>();
+    ArrayList<SeaDist> seaDistArray = new ArrayList<>();
     LocalDateTime t1 = LocalDateTime.of(2020, 12, 31, 17, 03, 00);
     LocalDateTime t2 = LocalDateTime.of(2020, 12, 31, 17, 19, 00);
     DynamicShip ds1 = new DynamicShip(t1, 42.92236, -66.97243, 12.5, 2.4, 358, 45,'B');
@@ -35,6 +42,15 @@ class CsvReaderTest {
 
         p1 = new Port("Europe", "United Kingdom", 29002, "Liverpool", 53.46666667, -3.033333333);
         portArray.add(p1);
+
+        b1 = new Border("Portugal","Espanha");
+        borderArray.add(b1);
+
+        c1 = new Country("Europe","CY","CYP","Cyprus",0.85,"Nicosia",35.16666667,33.366667);
+        countryArray.add(c1);
+
+        sd1 = new SeaDist("Denmark",10358,"Aarhus","Turkey",246265,"Ambarli",3673);
+        seaDistArray.add(sd1);
     }
 
     @Test
@@ -82,5 +98,65 @@ class CsvReaderTest {
         ArrayList<Port> expectRes = null;
         assertEquals(ports, expectRes);
     }
+/*
+    @Test
+    void readCountry() throws Exception{
+        ArrayList<Country> countryArray1 = CsvReader.readCountry(path4);
+        countryArray1.get(0).toString();
+        assertEquals(1, countryArray1.size());
+        assertEquals("Europe", countryArray1.get(0).getContinent());
+        assertEquals("Cyprus", countryArray1.get(0).getCountry());
+        assertEquals("CY", countryArray1.get(0).getAlpha2Code());
+        assertEquals("CYP", countryArray1.get(0).getAlpha3Code());
+        assertEquals(0.85, countryArray1.get(0).getPopulation());
+        assertEquals("Nicosia", countryArray1.get(0).getCapital());
+        assertEquals(35.16666667, countryArray1.get(0).getLatitude());
+        assertEquals(33.366667, countryArray1.get(0).getLongitude());
+    }
+
+    @Test
+    void readCountryExp() throws Exception {
+        ArrayList<Country> country = CsvReader.readCountry("src/data/1234.csv");
+        ArrayList<Country> expectRes = null;
+        assertEquals(country, expectRes);
+    }
+
+    @Test
+    void readSeaDist() throws Exception {
+        ArrayList<Country> seaDistArray1 = CsvReader.readSeaDist(path5);
+        seaDistArray1.get(0).toString();
+        assertEquals(1, seaDistArray1.size());
+        assertEquals("Denmark", seaDistArray1.get(0).getFromCountry());
+        assertEquals(10358, seaDistArray1.get(0).getFromPortId());
+        assertEquals("Aarhus", seaDistArray1.get(0).getFromPort());
+        assertEquals("Turkey", seaDistArray1.get(0).getToCountry());
+        assertEquals(246265, seaDistArray1.get(0).getToPortId());
+        assertEquals("Ambarli", seaDistArray1.get(0).getToPort());
+        assertEquals(3673, seaDistArray1.get(0).getSeaDistance());
+    }
+
+    @Test
+    void readSeaDistExp() throws Exception {
+        ArrayList<SeaDist> seaDist = CsvReader.readSeaDist("src/data/1234.csv");
+        ArrayList<SeaDist> expectRes = null;
+        assertEquals(seaDist, expectRes);
+    }
+
+    @Test
+    void readBorder() throws Exception {
+        ArrayList<Border> borderArray1 = CsvReader.readBorder(path3);
+        borderArray1.get(0).toString();
+        assertEquals(1, borderArray1.size());
+        assertEquals("Portugal", borderArray1.get(0).getContry1());
+        assertEquals("Espanha", borderArray1.get(0).getContry2());
+    }
+
+    @Test
+    void readCBorderExp() throws Exception {
+        ArrayList<Border> border = CsvReader.readBorder("src/data/1234.csv");
+        ArrayList<Border> expectRes = null;
+        assertEquals(border, expectRes);
+    }
+    */
 }
 
