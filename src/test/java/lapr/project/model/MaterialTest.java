@@ -27,12 +27,12 @@ class MaterialTest {
     void testGetThermalConductivity() {
         assertEquals(52.00,m.getThermalConductivity());
     }
-/*
+
     @Test
     void testGetWall() {
         assertEquals("Outside",m.getWall());
     }
-
+/*
     @Test
     void testEquals(){
         assertTrue(m.equals(m2));
