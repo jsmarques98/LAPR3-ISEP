@@ -32,12 +32,12 @@ class MaterialTest {
     void testGetWall() {
         assertEquals("Outside",m.getWall());
     }
-/*
+
     @Test
     void testEquals(){
         assertTrue(m.equals(m2));
     }
-
+/*
     @Test
     void testHashCode(){
         assertEquals(-301671663,m.hashCode());
