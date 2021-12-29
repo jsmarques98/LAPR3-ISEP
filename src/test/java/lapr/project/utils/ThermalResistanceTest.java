@@ -1,0 +1,40 @@
+package lapr.project.utils;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class ThermalResistanceTest {
+    List<Double> dimensions = new ArrayList<>();
+    List<Double> kMaterials = new ArrayList<>();
+    ThermalResistance t;
+
+
+    @BeforeEach
+    public void setUp() {
+        dimensions.add(5.0);
+        dimensions.add(2.0);
+        dimensions.add(2.0);
+
+
+        kMaterials.add(52.0);
+        kMaterials.add(0.035);
+        kMaterials.add(0.170);
+
+        t = new ThermalResistance();
+    }
+
+    @Test
+    void calculateResistancerLayer() {
+        assertEquals(1,t.calculateResistancerLayer(52.0,0.03,5.0,2.0));
+    }
+
+    @Test
+    void calculateResistanceContainer() {
+        assertEquals(1,t.calculateResistanceContainer(kMaterials,0.03,dimensions));
+    }
+}
