@@ -36,6 +36,15 @@ class MaterialTest {
     @Test
     void testEquals(){
         assertTrue(m.equals(m2));
+        assertFalse(m.equals(null));
+        Integer a = 0;
+        assertFalse(m.equals(a));
+        Material m3 = new Material("Madeira", 52.00, "Outside");
+        assertFalse(m.equals(m3));
+        m3 = new Material("Aco", 51.00, "Outside");
+        assertFalse(m.equals(m3));
+        m3 = new Material("Aco", 52.00, "Middle");
+        assertFalse(m.equals(m3));
     }
 
     @Test
