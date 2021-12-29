@@ -98,7 +98,7 @@ class CsvReaderTest {
         ArrayList<Port> expectRes = null;
         assertEquals(ports, expectRes);
     }
-/*
+
     @Test
     void readCountry() throws Exception{
         ArrayList<Country> countryArray1 = CsvReader.readCountry(path4);
@@ -123,7 +123,7 @@ class CsvReaderTest {
 
     @Test
     void readSeaDist() throws Exception {
-        ArrayList<Country> seaDistArray1 = CsvReader.readSeaDist(path5);
+        ArrayList<SeaDist> seaDistArray1 = CsvReader.readSeaDist(path5);
         seaDistArray1.get(0).toString();
         assertEquals(1, seaDistArray1.size());
         assertEquals("Denmark", seaDistArray1.get(0).getFromCountry());
@@ -147,8 +147,8 @@ class CsvReaderTest {
         ArrayList<Border> borderArray1 = CsvReader.readBorder(path3);
         borderArray1.get(0).toString();
         assertEquals(1, borderArray1.size());
-        assertEquals("Portugal", borderArray1.get(0).getContry1());
-        assertEquals("Espanha", borderArray1.get(0).getContry2());
+        assertEquals("Portugal", borderArray1.get(0).getCountry1());
+        assertEquals("Espanha", borderArray1.get(0).getCountry2());
     }
 
     @Test
@@ -157,6 +157,5 @@ class CsvReaderTest {
         ArrayList<Border> expectRes = null;
         assertEquals(border, expectRes);
     }
-    */
 }
 

@@ -1,0 +1,2 @@
+from_country,from_port_id,from_port,to_country,to_port_id,to_port,sea_distance
+Denmark,10358,Aarhus,Turkey,246265,Ambarli,3673
