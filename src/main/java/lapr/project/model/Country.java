@@ -1,5 +1,7 @@
 package lapr.project.model;
 
+import java.util.Objects;
+
 public class Country {
 
     private String continent;
@@ -85,5 +87,18 @@ public class Country {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Country country1 = (Country) o;
+        return Double.compare(country1.population, population) == 0 && Double.compare(country1.latitude, latitude) == 0 && Double.compare(country1.longitude, longitude) == 0 && continent.equals(country1.continent) && alpha2Code.equals(country1.alpha2Code) && alpha3Code.equals(country1.alpha3Code) && country.equals(country1.country) && capital.equals(country1.capital);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(continent, alpha2Code, alpha3Code, country, population, capital, latitude, longitude);
     }
 }
