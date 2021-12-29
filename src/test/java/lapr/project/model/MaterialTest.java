@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MaterialTest {
-/*
+
     private Material m;
     private Material m2;
 
@@ -22,7 +22,7 @@ class MaterialTest {
     void testGetName() {
         assertEquals("Aco",m.getName());
     }
-
+/*
     @Test
     void testGetThermalConductivity() {
         assertEquals(52.00,m.getThermalConductivity());
