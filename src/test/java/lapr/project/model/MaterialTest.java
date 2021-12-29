@@ -36,6 +36,7 @@ class MaterialTest {
     @Test
     void testEquals(){
         assertTrue(m.equals(m2));
+        assertTrue(m.equals(m));
         assertFalse(m.equals(null));
         Integer a = 0;
         assertFalse(m.equals(a));
