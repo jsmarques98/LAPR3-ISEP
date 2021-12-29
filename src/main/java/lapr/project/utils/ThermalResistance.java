@@ -42,7 +42,7 @@ public class ThermalResistance {
             resistanceDoorWalls =  2 * (resistanceOuterLayer+resistanceMiddleLayer+resistanceInteriorLayer);
         }
 
-        BigDecimal bd = new BigDecimal(resistanceBaseWalls+resistanceDoorWalls+resistanceLateralWalls).setScale(3, RoundingMode.HALF_UP);
+        BigDecimal bd = BigDecimal.valueOf(resistanceBaseWalls + resistanceDoorWalls + resistanceLateralWalls).setScale(3, RoundingMode.HALF_UP);
         return bd.doubleValue();
 
     }
