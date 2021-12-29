@@ -30,7 +30,7 @@ class ThermalResistanceTest {
 
     @Test
     void calculateResistancerLayer() {
-        assertEquals(5.769230769230769E-5,t.calculateResistancerLayer(52.0,0.03,5.0,2.0));
+        assertEquals(0.075,t.calculateResistancerLayer(0.04,0.03,5.0,2.0));
     }
 
     @Test
