@@ -42,9 +42,9 @@ class MaterialTest {
     void testHashCode(){
         assertEquals(-301671663,m.hashCode());
     }
-/*
+
     @Test
     void testToString() {
         assertEquals("Aco With Thermal Conductivity 52,000 W/mk, good for Outside layer",m.toString());
-    }*/
+    }
 }
