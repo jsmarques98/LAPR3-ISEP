@@ -269,56 +269,87 @@ CREATE TABLE "cargo_manifest_container" (
                                                 PRIMARY KEY ("registo_id")
 );
 CREATE TABLE "country"(
-        "name" VARCHAR(255) NOT NULL,
-        "continent" VARCHAR(255) NOT NULL,
-        "alpha2code" VARCHAR(2) NOT NULL,
-        "alpha3code" VARCHAR(3) NOT NULL,
-        "population" INT NOT NULL,
-        "capital" VARCHAR(255) NOT NULL,
-        "lat" FLOAT NOT NULL,
-        "lon" Float NOT NULL,
-        CONSTRAINT PK_country
-                    PRIMARY KEY ("alpha3code"),
-        CONSTRAINT "CK_latitude_menor" CHECK ("lat"<=90),
-        CONSTRAINT "CK_latitude_maior" CHECK ("lat">=-90),
-        CONSTRAINT "CK_Longitude_menor" CHECK ("lon"<=180),
-        CONSTRAINT "CK_Longitude_maior" CHECK ("lon">=-180)
+                          "name" VARCHAR(255) NOT NULL,
+                          "continent" VARCHAR(255) NOT NULL,
+                          "alpha2code" VARCHAR(2) NOT NULL,
+                          "alpha3code" VARCHAR(3) NOT NULL,
+                          "population" INT NOT NULL,
+                          "capital" VARCHAR(255) NOT NULL,
+                          "lat" FLOAT NOT NULL,
+                          "lon" Float NOT NULL,
+                          CONSTRAINT PK_country
+                              PRIMARY KEY ("alpha3code"),
+                          CONSTRAINT "CK_country_latitude_menor" CHECK ("lat"<=90),
+                          CONSTRAINT "CK_country_latitude_maior" CHECK ("lat">=-90),
+                          CONSTRAINT "CK_country_Longitude_menor" CHECK ("lon"<=180),
+                          CONSTRAINT "CK_country_Longitude_maior" CHECK ("lon">=-180)
 );
 CREATE TABLE "border"(
-        "id" INT NOT NULL,
-        "country1" VARCHAR(3) NOT NULL,
-        "country2" VARCHAR(3) NOT NULL,
-        CONSTRAINT PK_border
-                         PRIMARY KEY ("id"),
-        CONSTRAINT FK_border.country1
-                     FOREIGN KEY ("country1")
-                     REFERENCES "country"("alpha3code"),
-        CONSTRAINT FK_border.country2
-            FOREIGN KEY ("country2")
-                REFERENCES "country"("alpha3code")
-
+                         "id" INT NOT NULL,
+                         "country1" VARCHAR(3) NOT NULL,
+                         "country2" VARCHAR(3) NOT NULL,
+                         CONSTRAINT PK_border
+                             PRIMARY KEY ("id"),
+                         CONSTRAINT "FK_border.country1"
+                             FOREIGN KEY ("country1")
+                                 REFERENCES "country"("alpha3code"),
+                         CONSTRAINT "FK_border.country2"
+                             FOREIGN KEY ("country2")
+                                 REFERENCES "country"("alpha3code")
 
 );
 CREATE TABLE "seadist"(
-        "seadist_id" INT NOT NULL,
-        "from_country" VARCHAR(3) NOT NULL,
-        "from_port_id" INT NOT NULL,
-        "to_country" VARCHAR(255) NOT NULL,
-        "to_port_id" INT NOT NULL,
-        "distance" FLOAT NOT NULL,
-        CONSTRAINT PK_seadist PRIMARY KEY ("seadist_id"),
-        CONSTRAINT FK_seadist.from_country
-            FOREIGN KEY ("from_country")
-            REFERENCES "country"("alpha3code"),
-        CONSTRAINT FK_seadist.to_country
-            FOREIGN KEY ("to_country")
-                REFERENCES "country"("alpha3code"),
-        CONSTRAINT FK_seadist.from_port_id
-                      FOREIGN KEY ("from_port_id")
-                      REFERENCES "port_warehouse" ("port_warehouse_id"),
-        CONSTRAINT FK_seadist.to_port_id
-            FOREIGN KEY ("to_port_id")
-                REFERENCES "port_warehouse" ("port_warehouse_id"),
-        CONSTRAINT CK_seadist_distance CHECK ("distance">0)
+                          "seadist_id" INT NOT NULL,
+                          "from_country" VARCHAR(3) NOT NULL,
+                          "from_port_id" INT NOT NULL,
+                          "to_country" VARCHAR(255) NOT NULL,
+                          "to_port_id" INT NOT NULL,
+                          "distance" FLOAT NOT NULL,
+                          CONSTRAINT PK_seadist PRIMARY KEY ("seadist_id"),
+                          CONSTRAINT "FK_seadist.from_country"
+                              FOREIGN KEY ("from_country")
+                                  REFERENCES "country"("alpha3code"),
+                          CONSTRAINT "FK_seadist.to_country"
+                              FOREIGN KEY ("to_country")
+                                  REFERENCES "country"("alpha3code"),
+                          CONSTRAINT "FK_seadist.from_port_id"
+                              FOREIGN KEY ("from_port_id")
+                                  REFERENCES "port_warehouse" ("port_warehouse_id"),
+                          CONSTRAINT "FK_seadist.to_port_id"
+                              FOREIGN KEY ("to_port_id")
+                                  REFERENCES "port_warehouse" ("port_warehouse_id"),
+                          CONSTRAINT CK_seadist_distance CHECK ("distance">0)
 );
 
+CREATE TABLE "audit_trails"(
+                         "id" INT NOT NULL,
+                         "user_id" INT NOT NULL,
+                         "container_id" INT NOT NULL,
+                         "cargo_manifest_id" INT NOT NULL,
+                         "date" DATE NOT NULL ,
+                         "operation_type" VARCHAR(255) NOT NULL,
+                         CONSTRAINT "PK_audit_trails" PRIMARY KEY ("id"),
+                         CONSTRAINT "FK_audit.user_id"
+                            FOREIGN KEY ("user_id")
+                                REFERENCES "user"("user_id"),
+                         CONSTRAINT  "FK_audit.container"
+                            FOREIGN KEY ("container_id")
+                                REFERENCES "container"("container_id"),
+                         CONSTRAINT "FK_audit.cargo_manifest"
+                            FOREIGN KEY ("cargo_manifest_id")
+                                REFERENCES "cargo_manifest"("cargo_manifesto_id"),
+                         CONSTRAINT "CK_audit_operation" CHECK ("operation_type" = 'UPDATE' OR "operation_type" = 'INSERT'
+                             OR "operation_type" = 'DELETE')
+);
+
+CREATE TABLE "port_manager"(
+                "user_id" INT NOT NULL,
+                "port_id" INT NOT NULL
+                CONSTRAINT "PK_portmanager" PRIMARY KEY ("user_id","port_id"),
+                CONSTRAINT "FK_port_manager.user_id"
+                            FOREIGN KEY ("user_id")
+                                REFERENCES "user"("user_id"),
+                CONSTRAINT "FK_port_manager.port_id"
+                            FOREIGN KEY ("port_id")
+                                REFERENCES "port_warehouse"("port_warehouse_id")               
+);
