@@ -207,7 +207,7 @@ public class ShipStore implements Persistable {
         try {
 
             String sqlCommand;
-            sqlCommand = "delete from \"ship_data\" where ship_id = ?";
+            sqlCommand = "delete from \"ship_data\" where \"ship_id\" = ?";
             try (PreparedStatement deleteShipAddressesPreparedStatement = connection.prepareStatement(
                     sqlCommand)) {
                 deleteShipAddressesPreparedStatement.setInt(1,
@@ -215,7 +215,7 @@ public class ShipStore implements Persistable {
                 deleteShipAddressesPreparedStatement.executeUpdate();
             }
             //eliminar as outras ocurrencias do ship
-            sqlCommand = "delete from \"ship\" where MMSI = ?";
+            sqlCommand = "delete from \"ship\" where \"mmsi\" = ?";
             try (PreparedStatement deleteClientPreparedStatement = connection.prepareStatement(
                     sqlCommand)) {
                 deleteClientPreparedStatement.setInt(1, ship.getMmsi());
