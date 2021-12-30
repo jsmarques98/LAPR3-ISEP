@@ -3,9 +3,9 @@ package lapr.project.utils;
 import java.util.Objects;
 
 public class Edge<V, E> {
+    private E weight;        // Edge weight
     final private V vOrig;        // vertex origin
     final private V vDest;        // vertex destination
-    private E weight;        // Edge weight
 
 
     public Edge(V vOrig, V vDest, E weight) {
