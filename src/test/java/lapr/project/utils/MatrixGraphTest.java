@@ -1,4 +1,4 @@
-package graph.matrix;
+package lapr.project.utils;
 
 import graph.Edge;
 import graph.Graph;
@@ -23,11 +23,11 @@ public class MatrixGraphTest {
     final ArrayList <Integer> cw = new ArrayList<>(Arrays.asList( 1,  2 ,  3 ,  4 ,  5 ,  6 ,  7 ,  8 ));
 
     final ArrayList <String> ov = new ArrayList<>(Arrays.asList( "A",  "B",  "C" ,  "D" ,  "E" ));
-    MatrixGraph<String, Integer> instance = null;
+    graph.matrix.MatrixGraph<String, Integer> instance = null;
 
     @BeforeEach
     public void initializeGraph() {
-        instance = new MatrixGraph<>(true) ;
+        instance = new graph.matrix.MatrixGraph<>(true) ;
     }
 
     /**
@@ -40,7 +40,7 @@ public class MatrixGraphTest {
         for (int i = 0; i < co.size(); i++)
             instance.addEdge(co.get(i), cd.get(i), cw.get(i));
 
-        Graph <String,Integer> g = new MatrixGraph<>(instance);
+        Graph <String,Integer> g = new graph.matrix.MatrixGraph<>(instance);
         assertEquals( instance.getClass(), g.getClass(), "The graphs should be from the same class");
         assertEquals(instance, g, "The graphs should have equal contents");
     }
@@ -53,7 +53,7 @@ public class MatrixGraphTest {
         System.out.println("Test isDirected");
 
         assertTrue( instance.isDirected(), "result should be true");
-        instance = new MatrixGraph<>(false);
+        instance = new graph.matrix.MatrixGraph<>(false);
         assertFalse(instance.isDirected(), "result should be false");
     }
 
