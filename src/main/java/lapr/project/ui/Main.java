@@ -2,19 +2,20 @@ package lapr.project.ui;
 
 import lapr.project.data.ConnectionFactory;
 import lapr.project.data.DataBaseConnection;
-import lapr.project.model.*;
-import lapr.project.data.PortStore;
 import lapr.project.data.ShipStore;
-import lapr.project.store.MaterialStore;
-import lapr.project.utils.ThermalResistance;
+import lapr.project.model.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,6 +32,7 @@ class Main {
     /**
      * Private constructor to hide implicit public one.
      */
+    private static String USER_SESSION;
     private Main() {
 
     }
@@ -41,11 +43,11 @@ class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
+        loginMenu();
         ShipStore st = new ShipStore();
         KDTreePort portTree = new KDTreePort();
         portTree.insertPorts();
         String option = new String();
-        PortStore pt = new PortStore(portTree);
         // TODO code application logic here
         DataBaseConnection databaseConnection = null;
         try {
@@ -68,7 +70,7 @@ class Main {
             String value;
             switch (option){
                 case "1":
-                    importMenu();
+
                     break;
                 case "2":
                     System.out.println("Insert the value: ");
@@ -100,7 +102,7 @@ class Main {
                     }
                     break;
                 case "5":
-                    physicsMenu();
+
                     break;
                 case "0":
                     System.out.println("bye");
@@ -108,93 +110,62 @@ class Main {
             }
         }
     }
-    private static void importMenu() throws IOException, SQLException {
-        ShipStore st = new ShipStore();
-        KDTreePort portTree = new KDTreePort();
-        String option = new String();
-        PortStore pt = new PortStore(portTree);
-        // TODO code application logic here
+    private static void loginMenu() throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        RolesUI rolesUI = new RolesUI();
+
+        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Login");
+        System.out.println("Email:");
+        String user = read.readLine();
+        System.out.println("Password:");
+        String pass = read.readLine();
+        String role = login(user, pass);
+        if (role.compareTo("not found") == 0){
+            System.out.println("Username or password incorret");
+            loginMenu();
+        }
+        role = role.toLowerCase(Locale.ROOT);
+        role =role.replace(" ","_");
+        System.out.println(role);
+        Method method = Class.forName("lapr.project.ui.RolesUI").getMethod(role,String.class);
+        method.invoke(rolesUI,USER_SESSION);
+
+    }
+    private static String login(String user, String pass){
+        String role = "not found";
+
         DataBaseConnection databaseConnection = null;
+
         try {
             databaseConnection = ConnectionFactory.getInstance()
                     .getDatabaseConnection();
         } catch (IOException exception) {
-            Logger.getLogger(ShipStore.class.getName())
+            Logger.getLogger(Main.class.getName())
                     .log(Level.SEVERE, null, exception);
         }
-        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("1) Import Ship's");
-        System.out.println("2) Import Port's");
-        System.out.println("0) Leave");
-        option = read.readLine();
-        switch (option) {
-            case "1":
-                st.uploadShipsToDB(databaseConnection);
-                st.loadFromDatabase(databaseConnection);
-                break;
-            case "2":
-                pt.uploadPortstoDatabase(databaseConnection);
-                pt.loadPortFromDatabase(databaseConnection);
-                break;
-            case "0":
-                System.out.println("bye");
-                break;
+        Connection connection = databaseConnection.getConnection();
+        String sqlCommand = "select \"role\".\"name\",\"user_id\" from \"role\" INNER JOIN \"user\" using(\"role_id\") WHERE \"email\" = ? AND \"pass\" = ?";
+        try (PreparedStatement getLoginPreparedStatement = connection.prepareStatement(sqlCommand)) {
+
+            getLoginPreparedStatement.setString(1,user);
+            getLoginPreparedStatement.setString(2,pass);
+
+            try (ResultSet loginPreparedResultSet = getLoginPreparedStatement.executeQuery()) {
+                while (loginPreparedResultSet.next()) {
+                    role = loginPreparedResultSet.getString(1);  //role
+                    USER_SESSION = loginPreparedResultSet.getString(2);
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
+
+
+        return role;
     }
 
-    private static void physicsMenu() throws IOException {
-        String option = new String();
-        MaterialStore ms = new MaterialStore();
-        Material m1 = new Material("Aco",52.00,"OutsideLayer");
-        Material m2 = new Material("Poliestireno Extrudido",0.035,"MiddleLayer");
-        Material m3 = new Material("Madeira Composta",0.170,"InsideLayer");
-        Material m4 = new Material("Ferro",80.0,"OutsideWall");
-        Material m5 = new Material("La de Rocha",0.04,"MiddleLayer");
-        Material m6 = new Material("Cortica",0.04,"InsideLayer");
-        ms.addMaterial(m1);
-        ms.addMaterial(m2);
-        ms.addMaterial(m3);
-        ms.addMaterial(m4);
-        ms.addMaterial(m5);
-        ms.addMaterial(m6);
-        List<Double> kMaterials = new ArrayList<>();
-        kMaterials.add(m1.getThermalConductivity());
-        kMaterials.add(m2.getThermalConductivity());
-        kMaterials.add(m3.getThermalConductivity());
-        List<Double> dimensions = new ArrayList<>();
-        dimensions.add(5.0);
-        dimensions.add(2.0);
-        dimensions.add(2.0);
-        ThermalResistance t = new ThermalResistance();
-        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("1) Show the materials for the container");
-        System.out.println("2) Resistivity of the container for the 5 degrees");
-        System.out.println("3) Resistivity of the container for the 7 negative degrees");
-        System.out.println("0) Leave");
-        option = read.readLine();
-        switch (option) {
-            case "1":
-                List<Material> materials = ms.getMaterialList();
-                String infoMaterialsContainer="";
-                for(Material m :materials ){
-                    infoMaterialsContainer+=m.toString()+"\n";
-                }
-                System.out.println(infoMaterialsContainer);
-                break;
-            case "2":
-                System.out.println(String.format("Outer layer material : %s\nMiddle layer material : %s\nInterior layer material : %s\n\n" +
-                                "This container with this material has a thermal resistance = %.3f\n\n\n",m1,m2,
-                        m3,t.calculateResistanceContainer(kMaterials,0.03, dimensions)));
-                break;
-            case "3":
-                System.out.println(String.format("Outer layer material : %s\nMiddle layer material : %s\nInterior layer material : %s\n\n" +
-                                "This container with this material has a thermal resistance = %.3f\n\n\n",m1,m5,
-                        m6,t.calculateResistanceContainer(kMaterials,0.03, dimensions)));
-                break;
-            case "0":
-                break;
-        }
-    }
+
+
 }
 
 
