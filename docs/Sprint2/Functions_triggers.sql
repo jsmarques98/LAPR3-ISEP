@@ -204,12 +204,12 @@ BEGIN
             --REMOVE OS ANTIGOS CONTAINERS
             SELECT COUNT("registo_id") INTO UNLOAD_CONTAINERS
                 FROM "cargo_manifest" INNER JOIN "cargo_manifest_container" on "cargo_manifest"."cargo_manifesto_id"="cargo_manifest_container"."cargo_manifest_id"
-                WHERE "operation_type"='unload' OR "operation_type"='UNLOAD';
+                WHERE "operation_type"='unload' OR "operation_type"='UNLOAD' AND "cargo_manifest"."cargo_manifesto_id"=i;;
             CURRENT_CONTAINERS:= CURRENT_CONTAINERS-UNLOAD_CONTAINERS;
             --ADICIONA OS NOVOS CONTAINERS
             SELECT COUNT("registo_id") INTO LOAD_CONTAINERS
                 FROM "cargo_manifest" INNER JOIN "cargo_manifest_container" on "cargo_manifest"."cargo_manifesto_id"="cargo_manifest_container"."cargo_manifest_id"
-                WHERE "operation_type"='load' OR "operation_type"='Load' AND "cargo_manifest"."cargo_manifesto_id"=:old."cargo_manifest_id";
+                WHERE "operation_type"='load' OR "operation_type"='Load' AND "cargo_manifest"."cargo_manifesto_id"=i;
                 CURRENT_CONTAINERS:= CURRENT_CONTAINERS+LOAD_CONTAINERS;
             --VERIFICA SE PODE SER EFETUADO O LOAD
                 IF CURRENT_CONTAINERS>TOTAL_CONTAINERS THEN
@@ -242,3 +242,14 @@ END;
 
 --[US306] As Port manager, I want to know the occupancy rate of each warehouse and an estimate of the containers leaving the warehouse during the next 30 days.
 
+CREATE OR REPLACE FUNCTION  "occunpacy_rate"(port_manager_id "port_manager"."user_id"%TYPE) RETURN BOOLEAN
+    IS
+    TYPE WAREHOUSE_LIST IS TABLE OF "port_manager"."port_id"%TYPE;
+    portsList        WAREHOUSE_LIST;
+    BEGIN
+        SELECT "port_id" BULK COLLECT INTO portsList FROM "port_manager" WHERE "user_id"=port_manager_id;
+        for i in 1..portsList.COUNT LOOP
+
+            end loop;
+        return true;
+    end;
