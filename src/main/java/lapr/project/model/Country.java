@@ -2,7 +2,7 @@ package lapr.project.model;
 
 import java.util.Objects;
 
-public class Country {
+public class Country extends Position {
 
     private String continent;
     private String alpha2Code;
@@ -15,14 +15,11 @@ public class Country {
 
     public Country(String continent, String alpha2Code, String alpha3Code, String country,
                    double population, String capital, double latitude, double longitude) {
+        super(country,capital,latitude,longitude);
         this.continent = continent;
         this.alpha2Code = alpha2Code;
         this.alpha3Code = alpha3Code;
-        this.country = country;
         this.population = population;
-        this.capital = capital;
-        this.latitude = latitude;
-        this.longitude = longitude;
     }
 
     public String getContinent() {

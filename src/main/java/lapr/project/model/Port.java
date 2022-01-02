@@ -1,21 +1,18 @@
 package lapr.project.model;
 
-public class Port {
+public class Port extends Position {
 
     private final String continent;
     private String country;
     private int code;
-    private final String porto;
+    private String porto;
     private double lat;
     private double lon;
 
     public Port(String continent, String country, int code, String porto, double lat, double lon) {
+        super(porto,country,lat,lon);
         this.continent = continent;
-        this.country = country;
         this.code = code;
-        this.porto = porto;
-        this.lat = lat;
-        this.lon = lon;
     }
 
     public String getContinent() {
@@ -40,6 +37,10 @@ public class Port {
 
     public String getPorto() {
         return porto;
+    }
+
+    public void setPorto(String porto) {
+        this.porto = porto;
     }
 
     public double getLat() {

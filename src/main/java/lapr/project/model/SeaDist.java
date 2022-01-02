@@ -1,6 +1,7 @@
 package lapr.project.model;
 
-public class SeaDist {
+
+public class SeaDist implements Comparable<SeaDist> {
 
     private String fromCountry;
     private int fromPortId;
@@ -8,6 +9,8 @@ public class SeaDist {
     private String toCountry;
     private int toPortId;
     private String toPort;
+    private Place fromPlace;
+    private Place toPlace;
     private double seaDistance;
 
     public SeaDist(String fromCountry, int fromPortId, String fromPort,
@@ -19,6 +22,8 @@ public class SeaDist {
         this.toPortId = toPortId;
         this.toPort = toPort;
         this.seaDistance = seaDistance;
+        this.fromPlace = new Place(fromPort,fromCountry);
+        this.toPlace = new Place(toPort,toCountry);
     }
 
     public String getFromCountry() {
@@ -75,5 +80,32 @@ public class SeaDist {
 
     public void setSeaDistance(double seaDistance) {
         this.seaDistance = seaDistance;
+    }
+
+    public Place getFromPlace() {
+        return fromPlace;
+    }
+
+    public void setFromPlace(Place fromPlace) {
+        this.fromPlace = fromPlace;
+    }
+
+    public Place getToPlace() {
+        return toPlace;
+    }
+
+    public void setToPlace(Place toPlace) {
+        this.toPlace = toPlace;
+    }
+
+    @Override
+    public int compareTo(SeaDist sd){
+        if (this.getSeaDistance() > sd.getSeaDistance()) {
+            return 1;
+        } else if (this.getSeaDistance() < sd.getSeaDistance()){
+            return -1;
+        } else {
+            return 0;
+        }
     }
 }
