@@ -124,6 +124,8 @@ public class RolesUI {
             System.out.println("3) I wish to know which places (cities or ports) are closest to all other places (closeness places)");
             System.out.println("4) I want to have a system that ensures that the number of containers in a manifest does not exceed the ship's available capacity");
             System.out.println("5) I do not allow a cargo manifest for a particular ship to be registered in the system on a date when the ship is already occupied. ");
+            System.out.println("6) Insert containers in a cargo manifest");
+            System.out.println("7) Delete containers in a cargo manifest");
             System.out.println("0) Leave");
             option = read.readLine();
             switch (option){
@@ -136,9 +138,74 @@ public class RolesUI {
                 case "3":
                     //[US303]
                 break;
+                case "6":
+                    System.out.println("Insert the container id:");
+                    String code = read.readLine();
+                    System.out.println("Insert the cargo manifest id:");
+                    String cargo_manifest = read.readLine();
+                    System.out.println("Insert the position x:");
+                    String x = read.readLine();
+                    System.out.println("Insert the position y:");
+                    String y = read.readLine();
+                    System.out.println("Insert the position z:");
+                    String z = read.readLine();
+                    System.out.println("Insert gross weigth:");
+                    String weigth = read.readLine();
+                    regist_audit_trail(user_id,Integer.parseInt(code),Integer.parseInt(cargo_manifest),"Insert");
+                break;
+                case "7":
+                    System.out.println("Insert the container id:");
+                    String code_ = read.readLine();
+                    System.out.println("Insert the cargo manifest id:");
+                    String cargo_manifest_ = read.readLine();
+                    regist_audit_trail(user_id,Integer.parseInt(code_),Integer.parseInt(cargo_manifest_),"Delete");
+                break;
                 // 4 e 5 são triggers
             }
         }
+    }
+    private void delete_containers(String code,String cargo_manifest) throws SQLException {
+        DataBaseConnection databaseConnection = null;
+        try {
+            databaseConnection = ConnectionFactory.getInstance()
+                    .getDatabaseConnection();
+        } catch (IOException exception) {
+            Logger.getLogger(ShipStore.class.getName())
+                    .log(Level.SEVERE, null, exception);
+        }
+        String sqlCommand =
+                "delete from \"cargo_manifest_container\" where \"registo_id\"=?   AND \"cargo_manifesto_id\"=?";
+        Connection connection = databaseConnection.getConnection();
+
+        PreparedStatement savePortPreparedStatement =
+                connection.prepareStatement(sqlCommand);
+        savePortPreparedStatement.setInt(1, Integer.parseInt(code));
+        savePortPreparedStatement.setInt(2, Integer.parseInt(cargo_manifest));
+        savePortPreparedStatement.executeUpdate();
+    }
+    private void insert_containers(String code,String cargo_manifest, String x,String y,String z,String weigth) throws SQLException {
+        DataBaseConnection databaseConnection = null;
+        try {
+            databaseConnection = ConnectionFactory.getInstance()
+                    .getDatabaseConnection();
+        } catch (IOException exception) {
+            Logger.getLogger(ShipStore.class.getName())
+                    .log(Level.SEVERE, null, exception);
+        }
+        String sqlCommand =
+                "insert into \"cargo_manifest_container\" (\"registo_id\",\"cargo_manifesto_id\",\"container_position_x\",\"container_position_y\",\"container_position_z\",\"container_gross_weigth\")" +
+                        " values (?, ?,?,?,?,?)";
+        Connection connection = databaseConnection.getConnection();
+
+        PreparedStatement savePortPreparedStatement =
+                connection.prepareStatement(sqlCommand);
+        savePortPreparedStatement.setInt(1, Integer.parseInt(code));
+        savePortPreparedStatement.setInt(2, Integer.parseInt(cargo_manifest));
+        savePortPreparedStatement.setInt(3, Integer.parseInt(x));
+        savePortPreparedStatement.setInt(4, Integer.parseInt(y));
+        savePortPreparedStatement.setInt(5, Integer.parseInt(z));
+        savePortPreparedStatement.setFloat(6, Float.parseFloat(weigth));
+        savePortPreparedStatement.executeUpdate();
     }
     public void fleet_manager(String user_id) throws IOException {
         String option = new String();
