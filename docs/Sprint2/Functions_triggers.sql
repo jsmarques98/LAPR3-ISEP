@@ -321,3 +321,35 @@ CREATE OR REPLACE FUNCTION  "occunpacy_rate"(port_manager_id "port_manager"."use
             end loop;
         return true;
     end;
+--[US307]As Port manager, I intend to get a warning whenever I issue a cargo manifest destined for a warehouse whose available capacity is insufficient to accommodate the new manifest.
+CREATE OR REPLACE TRIGGER "capacity_update_warehouse"
+    BEFORE INSERT OR UPDATE ON "cargo_manifest_container"
+    FOR EACH ROW
+DECLARE
+    DESTINO INT;
+    DATA_ DATE;
+    CAPACITY_WAREHOUSE INT;
+    COUNT_CONT INT;
+    COUNT_REMOVE_CONT INT;
+    COUNT_NEW_CONTAINER INT;
+BEGIN
+                SELECT "destiny" INTO DESTINO FROM "cargo_manifest" WHERE "cargo_manifesto_id"=new."cargo_manifesto_id";
+                SELECT "entry_date" INTO DATA_ FROM "cargo_manifest" WHERE "cargo_manifesto_id"=new."cargo_manifesto_id";
+                SELECT "capacity" INTO CAPACITY_WAREHOUSE FROM "port_warehouse" WHERE "port_warehouse_id"=DESTINO;
+                SELECT COUNT("registo_id") INTO COUNT_CONT FROM "cargo_manifest_container" INNER JOIN "trip_stop" on "cargo_manifesto_id"="cargo_manifest_id"
+                INNER JOIN "cargo_manifest" cm on cm."cargo_manifesto_id" = "cargo_manifest_container"."cargo_manifesto_id"
+                WHERE "trip_stop"."port_wharehouse_id"=DESTINO AND "trip_stop"."estimate_date"<DATA_ AND
+                cm."operation_type"='load' OR cm."operation_type"='Load';
+                SELECT COUNT("registo_id") INTO COUNT_REMOVE_CONT FROM "cargo_manifest_container" INNER JOIN "trip_stop" on "cargo_manifesto_id"="cargo_manifest_id"
+                INNER JOIN "cargo_manifest" cm on cm."cargo_manifesto_id" = "cargo_manifest_container"."cargo_manifesto_id"
+                WHERE "trip_stop"."port_wharehouse_id"=DESTINO AND "trip_stop"."estimate_date"<DATA_ AND
+                      cm."operation_type"='unload' OR cm."operation_type"='Unload';
+                      
+                SELECT COUNT "registo_id" INTO COUNT_NEW_CONTAINER FROM "cargo_manifest_container" where "cargo_manifesto_id"=new."cargo_manifesto_id";
+                COUNT_CONT:=(COUNT_CONT + COUNT_NEW_CONTAINER)-COUNT_REMOVE_CONT;
+                
+            if COUNT_CONT < 0 THEN
+                  raise_application_error(-0307,'NO SPACE MORE SPACE ON THE WAREHOUSE');
+            end if;
+            
+end;
