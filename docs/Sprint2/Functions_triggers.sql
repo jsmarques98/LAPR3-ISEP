@@ -227,6 +227,52 @@ BEGIN
     end if;
 END;
 
+--[US309] As Traffic manager, I do not allow a cargo manifest for a particular ship to be
+--registered in the system on a date when the ship is already occupied. 
+CREATE OR REPLACE TRIGGER "cargo_manifest_on_date"
+    BEFORE INSERT OR UPDATE ON "cargo_manifest"
+    FOR EACH ROW
+DECLARE
+    SHIP_CAPACITY INT;
+    SHIP_ID INT;
+    CURRENT_CONTAINERS INT;
+    UNLOAD_CONTAINERS INT;
+    LOAD_CONTAINERS   INT;
+    TYPE CARGO_MANIFEST_ID_ARRAY IS TABLE OF "trip_stop"."cargo_manifest_id"%TYPE;
+    cargo_manifest_ids        "CARGO_MANIFEST_ID_ARRAY";
+    vehicleID INT;
+BEGIN
+    IF :new."entry_date" != NULL THEN
+        --BUSCA SHIP ID 
+        SELECT "ship_id" INTO SHIP_ID, "vehicle_id" into vehicleID 
+        FROM "vehicle" INNER JOIN "cargo_manifest" using("vehicle_id") WHERE "cargo_manifest"."cargo_manifesto_id"=:new."cargo_manifest_id";
+        --BUSCA A CAPACIDADE MAXIMA DO BARCO
+        SELECT "capacity" INTO SHIP_CAPACITY
+        FROM "ship" WHERE "mmsi"=SHIP_ID;
+        --BUSCA TDS OS CARGO_MANIFEST NAQUELA STOP
+        SELECT "cargo_manifest_id" BULK COLLECT INTO cargo_manifest_ids FROM "trip_stop" WHERE "trip_id"=:old."trip_id" AND "estimated_date"<=:new."entry_date";
+        --GUARDA OS CONTAINERS QUE TEM O NAVIO
+        SELECT "current_capacity" INTO CURRENT_CONTAINERS
+        FROM "current_capacity" INNER JOIN "cargo_manifest" USING("vehicle_id") WHERE "vehicle_id"= vehicleID;
+        FOR i in 1..cargo_manifest_ids.COUNT LOOP
+            --REMOVE OS ANTIGOS CONTAINERS
+            SELECT COUNT("registo_id") INTO UNLOAD_CONTAINERS
+                FROM "cargo_manifest" INNER JOIN "cargo_manifest_container" on "cargo_manifest"."cargo_manifesto_id"="cargo_manifest_container"."cargo_manifest_id"
+                WHERE "operation_type"='unload' OR "operation_type"='UNLOAD' AND "cargo_manifest"."cargo_manifesto_id"=i;;
+            CURRENT_CONTAINERS:= CURRENT_CONTAINERS-UNLOAD_CONTAINERS;
+            --ADICIONA OS NOVOS CONTAINERS
+            SELECT COUNT("registo_id") INTO LOAD_CONTAINERS
+                FROM "cargo_manifest" INNER JOIN "cargo_manifest_container" on "cargo_manifest"."cargo_manifesto_id"="cargo_manifest_container"."cargo_manifest_id"
+                WHERE "operation_type"='load' OR "operation_type"='Load' AND "cargo_manifest"."cargo_manifesto_id"=i;
+                CURRENT_CONTAINERS:= CURRENT_CONTAINERS+LOAD_CONTAINERS;
+        end loop;
+        --VERIFICA SE PODE SER EFETUADO O CARGO MANIFEST
+                IF CURRENT_CONTAINERS>SHIP_CAPACITY THEN
+                    raise_application_error(-0308,'NO SPACE MORE SPACE ON THE SHIP ON THAT DATE');
+                end if;
+    END IF;
+END;
+
 --TRIGGER FROM PORT ----------------------------------------
 CREATE OR REPLACE TRIGGER "from_port_validation"
     BEFORE INSERT OR UPDATE ON "port_warehouse"
