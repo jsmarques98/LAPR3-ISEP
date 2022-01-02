@@ -12,7 +12,11 @@ public class Port extends Position {
     public Port(String continent, String country, int code, String porto, double lat, double lon) {
         super(porto,country,lat,lon);
         this.continent = continent;
+        this.country = country;
         this.code = code;
+        this.porto = porto;
+        this.lat = lat;
+        this.lon = lon;
     }
 
     public String getContinent() {

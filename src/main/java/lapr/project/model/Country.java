@@ -19,7 +19,11 @@ public class Country extends Position {
         this.continent = continent;
         this.alpha2Code = alpha2Code;
         this.alpha3Code = alpha3Code;
+        this.country = country;
         this.population = population;
+        this.capital = capital;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getContinent() {
