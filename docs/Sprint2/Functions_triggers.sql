@@ -161,14 +161,14 @@ DECLARE
 BEGIN
 
     SELECT "ship_id" INTO SHIP_ID
-    FROM "vehicle" INNER JOIN "cargo_manifest" using("vehicle_id") WHERE "cargo_manifest"."cargo_manifesto_id"=:new."cargo_manifest_id";
+    FROM "vehicle" INNER JOIN "cargo_manifest" using("vehicle_id") WHERE "cargo_manifest"."cargo_manifesto_id"=new."cargo_manifesto_id";
 
     SELECT "capacity" INTO SHIP_CAPACITY
     FROM "ship" WHERE "mmsi"=SHIP_ID;
 
     SELECT COUNT(*) INTO NUMBER_OF_NEW_CONTAINERS
     FROM "cargo_manifest_container"
-    WHERE "cargo_manifesto_id"=:new."cargo_manifest_id";
+    WHERE "cargo_manifesto_id"=new."cargo_manifesto_id";
     --pegar na trip do cargo_manifest pela trip_stop
     --verificar tds os cargo manifest dos trip stop q a data é null
 
@@ -188,12 +188,13 @@ DECLARE
     CURRENT_CONTAINERS INT;
     UNLOAD_CONTAINERS INT;
     LOAD_CONTAINERS   INT;
+    TRIP_VEHICLE_ID INT;
     TYPE CARGO_MANIFEST_ID_ARRAY IS TABLE OF "trip_stop"."cargo_manifest_id"%TYPE;
     cities_ids        "CARGO_MANIFEST_ID_ARRAY";
 BEGIN
-    IF :new."data" != NULL THEN
+    IF new."data" != NULL THEN
         --BUSCA TDS OS CARGO_MANIFEST NAQUELA STOP
-        SELECT "cargo_manifest_id" BULK COLLECT INTO cities_ids FROM "trip_stop" WHERE "trip_id"=:old."trip_id";
+        SELECT "cargo_manifest_id" BULK COLLECT INTO cities_ids FROM "trip_stop" WHERE "trip_id"=old."trip_id";
         --BUSCA A CAPACIDADE MAXIMA DO BARCO
         SELECT "total_capacity" INTO TOTAL_CONTAINERS
         FROM "current_capacity" INNER JOIN "cargo_manifest" USING("vehicle_id") WHERE;
@@ -203,12 +204,12 @@ BEGIN
         FOR i in 1..cities_ids.COUNT LOOP
             --REMOVE OS ANTIGOS CONTAINERS
             SELECT COUNT("registo_id") INTO UNLOAD_CONTAINERS
-                FROM "cargo_manifest" INNER JOIN "cargo_manifest_container" on "cargo_manifest"."cargo_manifesto_id"="cargo_manifest_container"."cargo_manifest_id"
+                FROM "cargo_manifest" INNER JOIN "cargo_manifest_container" on "cargo_manifest"."cargo_manifesto_id"="cargo_manifest_container"."cargo_manifesto_id"
                 WHERE "operation_type"='unload' OR "operation_type"='UNLOAD' AND "cargo_manifest"."cargo_manifesto_id"=i;;
             CURRENT_CONTAINERS:= CURRENT_CONTAINERS-UNLOAD_CONTAINERS;
             --ADICIONA OS NOVOS CONTAINERS
             SELECT COUNT("registo_id") INTO LOAD_CONTAINERS
-                FROM "cargo_manifest" INNER JOIN "cargo_manifest_container" on "cargo_manifest"."cargo_manifesto_id"="cargo_manifest_container"."cargo_manifest_id"
+                FROM "cargo_manifest" INNER JOIN "cargo_manifest_container" on "cargo_manifest"."cargo_manifesto_id"="cargo_manifest_container"."cargo_manifesto_id"
                 WHERE "operation_type"='load' OR "operation_type"='Load' AND "cargo_manifest"."cargo_manifesto_id"=i;
                 CURRENT_CONTAINERS:= CURRENT_CONTAINERS+LOAD_CONTAINERS;
             --VERIFICA SE PODE SER EFETUADO O LOAD
@@ -217,8 +218,9 @@ BEGIN
                 end if;
 
         end loop;
+        SELECT "vehicle_id" INTO TRIP_VEHICLE_ID FROM "trip" WHERE "trip"."trip_id"=old."trip_id";
         --ATUALIZA A TABELA
-        UPDATE "current_capacity" SET "current_capacity"=CURRENT_CONTAINERS WHERE "vehicle_id";
+        UPDATE "current_capacity" SET "current_capacity"=CURRENT_CONTAINERS WHERE "vehicle_id"=TRIP_VEHICLE_ID;
 
 
 
@@ -232,10 +234,14 @@ CREATE OR REPLACE TRIGGER "from_port_validation"
 DECLARE
     TYPE_PLACE VARCHAR(255);
 BEGIN
-    IF :new."from_port" != NULL THEN
-        SELECT "type" INTO TYPE_PLACE FROM "port_warehouse" WHERE "port_warehouse_id"=:new."from_port";
+    IF new."from_port" != NULL THEN
+        SELECT "type" INTO TYPE_PLACE FROM "port_warehouse" WHERE "port_warehouse_id"=new."from_port";
         IF TYPE_PLACE ='port' OR TYPE_PLACE ='Port' THEN
             raise_application_error(-0666,'The id is not from a port');
+        end if;
+        SELECT "type" INTO TYPE_PLACE FROM "port_warehouse" WHERE "port_warehouse_id"=old."port_warehouse_id";
+        IF TYPE_PLACE ='warehouse' OR TYPE_PLACE ='Warehouse' THEN
+            raise_application_error(-0666,'U cant insert a port in a port');
         end if;
     end if;
 END;
@@ -246,10 +252,26 @@ CREATE OR REPLACE FUNCTION  "occunpacy_rate"(port_manager_id "port_manager"."use
     IS
     TYPE WAREHOUSE_LIST IS TABLE OF "port_manager"."port_id"%TYPE;
     portsList        WAREHOUSE_LIST;
+    RATE FLOAT;
+    CAPACITY_WAREHOUSE INT;
+    COUNT_CONT INT;
+    COUNT_REMOVE_CONT INT;
     BEGIN
         SELECT "port_id" BULK COLLECT INTO portsList FROM "port_manager" WHERE "user_id"=port_manager_id;
         for i in 1..portsList.COUNT LOOP
-
+            --Ocupacy Rate each warehouse
+                SELECT "capacity" INTO CAPACITY_WAREHOUSE FROM "port_warehouse" WHERE "port_warehouse_id"=i;
+                SELECT COUNT("registo_id") INTO COUNT_CONT FROM "cargo_manifest_container" INNER JOIN "trip_stop" on "cargo_manifesto_id"="cargo_manifest_id"
+                INNER JOIN "cargo_manifest" cm on cm."cargo_manifesto_id" = "cargo_manifest_container"."cargo_manifesto_id"
+                WHERE "trip_stop"."port_wharehouse_id"=i AND "trip_stop"."estimate_date"<sysdate AND
+                cm."operation_type"='load' OR cm."operation_type"='Load';
+                SELECT COUNT("registo_id") INTO COUNT_REMOVE_CONT FROM "cargo_manifest_container" INNER JOIN "trip_stop" on "cargo_manifesto_id"="cargo_manifest_id"
+                INNER JOIN "cargo_manifest" cm on cm."cargo_manifesto_id" = "cargo_manifest_container"."cargo_manifesto_id"
+                WHERE "trip_stop"."port_wharehouse_id"=i AND "trip_stop"."estimate_date"<sysdate AND
+                      cm."operation_type"='unload' OR cm."operation_type"='Unload';
+                COUNT_CONT:=COUNT_CONT-COUNT_REMOVE_CONT;
+                RATE := COUNT_CONT/CAPACITY_WAREHOUSE;
+                dbms_output.put_line('Warehouse id: ' || i || 'occupancy rate: ' || RATE);
             end loop;
         return true;
     end;
