@@ -3,6 +3,7 @@ package lapr.project.ui;
 import lapr.project.data.*;
 import lapr.project.model.KDTreePort;
 import lapr.project.model.Material;
+import lapr.project.model.Port;
 import lapr.project.store.MaterialStore;
 import lapr.project.utils.CsvReader;
 import lapr.project.utils.ThermalResistance;
@@ -25,7 +26,7 @@ import java.util.logging.Logger;
 
 public class RolesUI {
 
-    public static void client(String user) throws IOException {
+    public  void client(String user) throws IOException {
         String option = new String();
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
@@ -34,7 +35,24 @@ public class RolesUI {
             System.out.println("2) I want to know the current situation of a specific container being used to transport my goods");
             System.out.println("0) Leave");
             option = read.readLine();
+            switch (option){
+                case "1":
+                    System.out.println("Insert container id:");
+                    String container_id = read.readLine();
+                    leasing_container(container_id);
+                    break;
+                case "2":
+                    //mudar o x e y para ID
+                    System.out.println("x to work");
+                    System.out.println("y to break");
+                    String container_id_ = read.readLine();
+                    leasing_container(container_id_);
+                    break;
+            }
         }
+    }
+    private void leasing_container(String container_id){
+
     }
     public void ship_employe(String user_id) throws IOException {
         String option = new String();
@@ -138,6 +156,9 @@ public class RolesUI {
                 case "3":
                     //[US303]
                 break;
+                case "4":
+
+                    break;
                 case "6":
                     System.out.println("Insert the container id:");
                     String code = read.readLine();
@@ -164,6 +185,7 @@ public class RolesUI {
             }
         }
     }
+
     private void delete_containers(String code,String cargo_manifest) throws SQLException {
         DataBaseConnection databaseConnection = null;
         try {
@@ -246,7 +268,8 @@ public class RolesUI {
             option = read.readLine();
             switch (option){
                 case "1":
-                    //[US313]
+                    String cargo_id= read.readLine();
+                    fill_matrix(Integer.parseInt(cargo_id));
                     break;
                 case "2":
                     //[US314]
@@ -256,6 +279,34 @@ public class RolesUI {
                     break;
             }
         }
+    }
+    private void fill_matrix(int cargo_id){
+        ArrayList<String> tempArray = new ArrayList<>();
+        DataBaseConnection databaseConnection=null;
+        try {
+            databaseConnection = ConnectionFactory.getInstance()
+                    .getDatabaseConnection();
+        } catch (IOException exception) {
+            Logger.getLogger(ShipStore.class.getName())
+                    .log(Level.SEVERE, null, exception);
+        }
+        Connection connection = databaseConnection.getConnection();
+        String sqlCommand = "Select \"container_id\",\"container_position_x\",\"container_position_y\",\"container_position_z\" from \"cargo_manifest_container\" INNER JOIN \"registo_container\" using (\"registo_id\") WHERE \"cargo_manifesto_id\"=?";
+        try (PreparedStatement getPortPreparedStatement = connection.prepareStatement(sqlCommand)) {
+            getPortPreparedStatement.setInt(1,cargo_id);
+            try (ResultSet portPreparedResultSet = getPortPreparedStatement.executeQuery()) {
+
+                while (portPreparedResultSet.next()) {
+                    String tempS = portPreparedResultSet.getInt(1) +
+                            portPreparedResultSet.getInt(2) +
+                            portPreparedResultSet.getInt(3) +
+                            portPreparedResultSet.getInt(4) +" ";
+                    tempArray.add(tempS);
+                }
+            }
+        } catch (SQLException throwables) {
+        }
+
     }
     public void port_manager(String user_id) throws IOException {
         String option = new String();
@@ -270,16 +321,43 @@ public class RolesUI {
             switch (option){
                 case "1":
                     //[US306]
+                    try{
+                        occupancyRate(user_id);
+                    } catch (SQLException throwables) {
+                        System.out.println("erro");
+                    }
                     break;
                 case "2":
-                    //[US307]
+                    warehouse_capacity_limit();
                     break;
                 case "3":
-                    //[US310]
+                    occupation_map();
                     break;
             }
         }
     }
+    private void occupation_map(){}
+    private void warehouse_capacity_limit(){
+        //criar 2 bootstrap um de sucesso outro de insucesso
+    }
+    private void occupancyRate(String user_id) throws SQLException {
+        DataBaseConnection databaseConnection = null;
+        try {
+            databaseConnection = ConnectionFactory.getInstance()
+                    .getDatabaseConnection();
+        } catch (IOException exception) {
+            Logger.getLogger(ShipStore.class.getName())
+                    .log(Level.SEVERE, null, exception);
+        }
+        Connection connection = databaseConnection.getConnection();
+        String sqlCommand="select occunpacy_rate(?) from dual";
+
+        PreparedStatement preparedStatement =
+                connection.prepareStatement(sqlCommand);
+        preparedStatement.setInt(1,Integer.parseInt(user_id));
+        preparedStatement.executeUpdate();
+    }
+
         public void ship_chief_electrical_engineer(String user_id) throws IOException {
         physicsMenu();
     }
