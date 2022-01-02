@@ -179,11 +179,12 @@ BEGIN
     end if;
 END;
 
---TRIGGER atualizar capacity- COMO CHEGAR AO VEHICLE ID????-----------------------------------------------------
+--TRIGGER atualizar capacity------------------------------------------------------
 CREATE OR REPLACE TRIGGER "capacity_update"
     BEFORE UPDATE ON "trip_stop"
     FOR EACH ROW
 DECLARE
+    VEHICLEID INT;
     TOTAL_CONTAINERS  INT;
     CURRENT_CONTAINERS INT;
     UNLOAD_CONTAINERS INT;
@@ -193,14 +194,17 @@ DECLARE
     cities_ids        "CARGO_MANIFEST_ID_ARRAY";
 BEGIN
     IF new."data" != NULL THEN
+        --BUSCA VEHICLEID ID
+        SELECT "vehicle_id" into VEHICLEID 
+        FROM "vehicle" INNER JOIN "cargo_manifest" using("vehicle_id") WHERE "cargo_manifest"."cargo_manifesto_id"=:new."cargo_manifest_id";
         --BUSCA TDS OS CARGO_MANIFEST NAQUELA STOP
         SELECT "cargo_manifest_id" BULK COLLECT INTO cities_ids FROM "trip_stop" WHERE "trip_id"=old."trip_id";
         --BUSCA A CAPACIDADE MAXIMA DO BARCO
         SELECT "total_capacity" INTO TOTAL_CONTAINERS
-        FROM "current_capacity" INNER JOIN "cargo_manifest" USING("vehicle_id") WHERE;
-        --GUARDA OS CONTAINERS Q TEM O NAVIO
+        FROM "current_capacity" INNER JOIN "cargo_manifest" USING("vehicle_id") WHERE "vehicle_id"= VEHICLEID;
+        --GUARDA OS CONTAINERS QUE TEM O NAVIO
         SELECT "current_capacity" INTO CURRENT_CONTAINERS
-        FROM "current_capacity" INNER JOIN "cargo_manifest" USING("vehicle_id") WHERE;
+        FROM "current_capacity" INNER JOIN "cargo_manifest" USING("vehicle_id") WHERE "vehicle_id"= VEHICLEID;
         FOR i in 1..cities_ids.COUNT LOOP
             --REMOVE OS ANTIGOS CONTAINERS
             SELECT COUNT("registo_id") INTO UNLOAD_CONTAINERS
@@ -216,14 +220,10 @@ BEGIN
                 IF CURRENT_CONTAINERS>TOTAL_CONTAINERS THEN
                     raise_application_error(-0308,'NO SPACE MORE SPACE ON THE SHIP');
                 end if;
-
         end loop;
         SELECT "vehicle_id" INTO TRIP_VEHICLE_ID FROM "trip" WHERE "trip"."trip_id"=old."trip_id";
         --ATUALIZA A TABELA
         UPDATE "current_capacity" SET "current_capacity"=CURRENT_CONTAINERS WHERE "vehicle_id"=TRIP_VEHICLE_ID;
-
-
-
     end if;
 END;
 
