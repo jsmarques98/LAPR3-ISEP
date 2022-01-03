@@ -379,11 +379,67 @@ WHERE "trip_stop"."port_wharehouse_id"=i AND  cm."operation_type"='unload' OR cm
     AND extract(month from "trip_stop"."estimate_date")=extract(month from MONTH_GIVEN) AND extract(day from "trip_stop"."estimate_date")=j ;
 COUNT_CONT:=COUNT_CONT-COUNT_REMOVE_CONT;
                     RATE := COUNT_CONT/CAPACITY_WAREHOUSE;
-                    dbms_output.put_line('Warehouse id: '  i  'occupancy rate: '  RATE  'day: ' || j);
+                    dbms_output.put_line('Warehouse id: ' || i || 'occupancy rate: ' || RATE || 'day: ' || j);
 end loop;
 
 end loop;
 return true;
 end;
 
+
+--[US312] As Client, I want to know the current situation of a specific container being used to transport my goods – US204.
+
+CREATE OR REPLACE FUNCTION  "get_container_situation"(codeContainer "container"."container_id"%TYPE, codeClient "user"."user_id"%TYPE) RETURN BOOLEAN
+IS
+    AUX int;
+    AUX1 int;
+    CARGOMANIFESTID "cargo_manifest"."cargo_manifesto_id"%type;
+    CARGOMANIFESTID "cargo_manifest"."cargo_manifesto_id"%type;
+    DELIVERED "registo_container"."delivered"%type;
+    SHIPID "vehicle"."vehicle_id"%type;
+    PORTNAME "port_warehouse"."port_warehouse_id"%type;
+    PORTTYPE "port_warehouse"."type"%type;
+    SHIPNAME "ship"."ship_name"%type;
+    PLATE "truck"."plate"%type;
+BEGIN
+
+    SELECT COUNT(*) INTO AUX FROM "container" WHERE "container"."container_id" = codeContainer;
+
+    IF AUX = 0 THEN
+        raise_application_error(-20010, 'Invalid Container ID');
+    end if;
+
+    SELECT COUNT(*) INTO AUX1 FROM "goods" WHERE "goods"."client_id" = codeClient AND "goods"."container_id" = codeContainer;
+
+    IF AUX1 = 0 THEN
+        raise_application_error(-20011, 'Container is not leased by client.');
+    end if;
+
+    SELECT "cargo_manifest_id" INTO CARGOMANIFESTID FROM "goods" WHERE "goods"."container_id" = codeContainer AND "goods"."client_id" = codeClient;
+
+    SELECT "delivered" INTO DELIVERED FROM "registo_container" WHERE "registo_container"."container_id" = codeContainer;
+
+    SELECT "ship_id" INTO SHIPID FROM "vehicle" WHERE "vehicle"."vehicle_id" = (
+        SELECT "vehicle_id" FROM "cargo_manifest" WHERE "cargo_manifest"."cargo_manifesto_id" = CARGOMANIFESTID);
+
+    IF DELIVERED = 'YES' OR 'Yes' OR 'yes' THEN
+        SELECT "name" INTO PORTNAME FROM "port_warehouse" WHERE "port_warehouse"."port_warehouse_id" = (
+            SELECT "destiny" FROM "cargo_manifest" WHERE "cargo_manifest"."cargo_manifesto_id" = CARGOMANIFESTID);
+        SELECT "type" INTO PORTTYPE FROM "port_warehouse" WHERE "port_warehouse"."port_warehouse_id" = (
+            SELECT "destiny" FROM "cargo_manifest" WHERE "cargo_manifest"."cargo_manifesto_id" = CARGOMANIFESTID);
+        DBMS_OUTPUT('DELIVERED AT THE' || PORTTYPE || ' CALLED ' || PORTNAME);
+        ELSE
+            IF SHIPID IS NOT NULL THEN
+                SELECT "ship_name" INTO SHIPNAME FROM "ship" WHERE "ship"."mmsi" = SHIPID;
+                DBMS_OUTPUT('ON BOARD OF THE SHIP CALLED' || SHIPNAME);
+            ELSE
+                SELECT "plate" INTO PLATE FROM "truck" WHERE "truck"."plate" = (
+                    SELECT "plate" FROM "vehicle" WHERE "vehicle"."vehicle_id" = (
+                        SELECT "vehicle_id" FROM "cargo_manifest" WHERE "cargo_manifest"."cargo_manifesto_id" = CARGOMANIFESTID));
+                DBMS_OUTPUT('ON BOARD OF THE TRUCK WITH THE PLATE' || PLATE);
+            end if;
+    end if;
+
+    RETURN TRUE;
+END;
 
