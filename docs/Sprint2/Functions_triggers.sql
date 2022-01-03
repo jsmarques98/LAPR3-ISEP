@@ -169,14 +169,14 @@ DECLARE
 BEGIN
 
     SELECT "ship_id" INTO SHIP_ID
-    FROM "vehicle" INNER JOIN "cargo_manifest" using("vehicle_id") WHERE "cargo_manifest"."cargo_manifesto_id"=new."cargo_manifesto_id";
+    FROM "vehicle" INNER JOIN "cargo_manifest" using("vehicle_id") WHERE "cargo_manifest"."cargo_manifesto_id"=:new."cargo_manifesto_id";
 
     SELECT "capacity" INTO SHIP_CAPACITY
     FROM "ship" WHERE "mmsi"=SHIP_ID;
 
     SELECT COUNT(*) INTO NUMBER_OF_NEW_CONTAINERS
     FROM "cargo_manifest_container"
-    WHERE "cargo_manifesto_id"=new."cargo_manifesto_id";
+    WHERE "cargo_manifesto_id"=:new."cargo_manifesto_id";
     --pegar na trip do cargo_manifest pela trip_stop
     --verificar tds os cargo manifest dos trip stop q a data é null
 
@@ -186,7 +186,7 @@ BEGIN
         raise_application_error(-0308,'NO SPACE MORE SPACE ON THE SHIP');
     end if;
 END;
-
+/
 --TRIGGER atualizar capacity------------------------------------------------------
 CREATE OR REPLACE TRIGGER "capacity_update"
     BEFORE UPDATE ON "trip_stop"
@@ -229,12 +229,12 @@ BEGIN
                     raise_application_error(-0308,'NO SPACE MORE SPACE ON THE SHIP');
                 end if;
         end loop;
-        SELECT "vehicle_id" INTO TRIP_VEHICLE_ID FROM "trip" WHERE "trip"."trip_id"=old."trip_id";
+        SELECT "vehicle_id" INTO TRIP_VEHICLE_ID FROM "trip" WHERE "trip"."trip_id"=:new."trip_id";
         --ATUALIZA A TABELA
         UPDATE "current_capacity" SET "current_capacity"=CURRENT_CONTAINERS WHERE "vehicle_id"=TRIP_VEHICLE_ID;
     end if;
 END;
-
+/
 --[US309] As Traffic manager, I do not allow a cargo manifest for a particular ship to be
 --registered in the system on a date when the ship is already occupied. 
 CREATE OR REPLACE TRIGGER "cargo_manifest_on_date"
@@ -246,31 +246,33 @@ DECLARE
     CURRENT_CONTAINERS INT;
     UNLOAD_CONTAINERS INT;
     LOAD_CONTAINERS   INT;
+    TRIP_ID INT;
     TYPE CARGO_MANIFEST_ID_ARRAY IS TABLE OF "trip_stop"."cargo_manifest_id"%TYPE;
     cargo_manifest_ids        "CARGO_MANIFEST_ID_ARRAY";
     vehicleID INT;
 BEGIN
     IF :new."entry_date" != NULL THEN
         --BUSCA SHIP ID 
-        SELECT "ship_id" INTO SHIP_ID, "vehicle_id" into vehicleID 
-        FROM "vehicle" INNER JOIN "cargo_manifest" using("vehicle_id") WHERE "cargo_manifest"."cargo_manifesto_id"=:new."cargo_manifest_id";
+        SELECT  "vehicle_id" into vehicleID  FROM "vehicle" INNER JOIN "cargo_manifest" using("vehicle_id") WHERE "cargo_manifest"."cargo_manifesto_id"=:new."cargo_manifesto_id";
+        SELECT "ship_id" INTO SHIP_ID FROM "vehicle" INNER JOIN "cargo_manifest" using("vehicle_id") WHERE "cargo_manifest"."cargo_manifesto_id"=:new."cargo_manifesto_id";
         --BUSCA A CAPACIDADE MAXIMA DO BARCO
         SELECT "capacity" INTO SHIP_CAPACITY
         FROM "ship" WHERE "mmsi"=SHIP_ID;
         --BUSCA TDS OS CARGO_MANIFEST NAQUELA STOP
-        SELECT "cargo_manifest_id" BULK COLLECT INTO cargo_manifest_ids FROM "trip_stop" WHERE "trip_id"=:old."trip_id" AND "estimated_date"<=:new."entry_date";
+        SELECT "trip_id" INTO TRIP_ID FROM "trip_stop" WHERE "cargo_manifest_id"=:new."cargo_manifesto_id";
+        SELECT "cargo_manifest_id" BULK COLLECT INTO cargo_manifest_ids FROM "trip_stop" WHERE "trip_id"=TRIP_ID AND "estimated_date"<=:new."entry_date";
         --GUARDA OS CONTAINERS QUE TEM O NAVIO
         SELECT "current_capacity" INTO CURRENT_CONTAINERS
         FROM "current_capacity" INNER JOIN "cargo_manifest" USING("vehicle_id") WHERE "vehicle_id"= vehicleID;
         FOR i in 1..cargo_manifest_ids.COUNT LOOP
             --REMOVE OS ANTIGOS CONTAINERS
             SELECT COUNT("registo_id") INTO UNLOAD_CONTAINERS
-                FROM "cargo_manifest" INNER JOIN "cargo_manifest_container" on "cargo_manifest"."cargo_manifesto_id"="cargo_manifest_container"."cargo_manifest_id"
+                FROM "cargo_manifest_container" INNER JOIN "cargo_manifest" on "cargo_manifest"."cargo_manifesto_id"="cargo_manifest_container"."cargo_manifest_id"
                 WHERE "operation_type"='unload' OR "operation_type"='UNLOAD' AND "cargo_manifest"."cargo_manifesto_id"=i;;
             CURRENT_CONTAINERS:= CURRENT_CONTAINERS-UNLOAD_CONTAINERS;
             --ADICIONA OS NOVOS CONTAINERS
             SELECT COUNT("registo_id") INTO LOAD_CONTAINERS
-                FROM "cargo_manifest" INNER JOIN "cargo_manifest_container" on "cargo_manifest"."cargo_manifesto_id"="cargo_manifest_container"."cargo_manifest_id"
+                FROM "cargo_manifest_container" INNER JOIN "cargo_manifest" on "cargo_manifest"."cargo_manifesto_id"="cargo_manifest_container"."cargo_manifest_id"
                 WHERE "operation_type"='load' OR "operation_type"='Load' AND "cargo_manifest"."cargo_manifesto_id"=i;
                 CURRENT_CONTAINERS:= CURRENT_CONTAINERS+LOAD_CONTAINERS;
         end loop;
@@ -280,7 +282,7 @@ BEGIN
                 end if;
     END IF;
 END;
-
+/
 --TRIGGER FROM PORT ----------------------------------------
 CREATE OR REPLACE TRIGGER "from_port_validation"
     BEFORE INSERT OR UPDATE ON "port_warehouse"
@@ -288,18 +290,18 @@ CREATE OR REPLACE TRIGGER "from_port_validation"
 DECLARE
     TYPE_PLACE VARCHAR(255);
 BEGIN
-    IF new."from_port" != NULL THEN
-        SELECT "type" INTO TYPE_PLACE FROM "port_warehouse" WHERE "port_warehouse_id"=new."from_port";
+    IF :new."from_port" != NULL THEN
+        SELECT "type" INTO TYPE_PLACE FROM "port_warehouse" WHERE "port_warehouse_id"=:new."from_port";
         IF TYPE_PLACE ='port' OR TYPE_PLACE ='Port' THEN
             raise_application_error(-0666,'The id is not from a port');
         end if;
-        SELECT "type" INTO TYPE_PLACE FROM "port_warehouse" WHERE "port_warehouse_id"=old."port_warehouse_id";
+        SELECT "type" INTO TYPE_PLACE FROM "port_warehouse" WHERE "port_warehouse_id"=:new."port_warehouse_id";
         IF TYPE_PLACE ='warehouse' OR TYPE_PLACE ='Warehouse' THEN
             raise_application_error(-0666,'U cant insert a port in a port');
         end if;
     end if;
 END;
-
+/
 --[US306] As Port manager, I want to know the occupancy rate of each warehouse and an estimate of the containers leaving the warehouse during the next 30 days.
 
 CREATE OR REPLACE FUNCTION  "occunpacy_rate"(port_manager_id "port_manager"."user_id"%TYPE) RETURN BOOLEAN
@@ -329,6 +331,7 @@ CREATE OR REPLACE FUNCTION  "occunpacy_rate"(port_manager_id "port_manager"."use
             end loop;
         return true;
     end;
+    /
 --[US307]As Port manager, I intend to get a warning whenever I issue a cargo manifest destined for a warehouse whose available capacity is insufficient to accommodate the new manifest.
 CREATE OR REPLACE TRIGGER "capacity_update_warehouse"
     BEFORE INSERT OR UPDATE ON "cargo_manifest_container"
@@ -341,8 +344,8 @@ DECLARE
     COUNT_REMOVE_CONT INT;
     COUNT_NEW_CONTAINER INT;
 BEGIN
-                SELECT "destiny" INTO DESTINO FROM "cargo_manifest" WHERE "cargo_manifesto_id"=new."cargo_manifesto_id";
-                SELECT "entry_date" INTO DATA_ FROM "cargo_manifest" WHERE "cargo_manifesto_id"=new."cargo_manifesto_id";
+                SELECT "destiny" INTO DESTINO FROM "cargo_manifest" WHERE "cargo_manifesto_id"=:new."cargo_manifesto_id";
+                SELECT "entry_date" INTO DATA_ FROM "cargo_manifest" WHERE "cargo_manifesto_id"=:new."cargo_manifesto_id";
                 SELECT "capacity" INTO CAPACITY_WAREHOUSE FROM "port_warehouse" WHERE "port_warehouse_id"=DESTINO;
                 SELECT COUNT("registo_id") INTO COUNT_CONT FROM "cargo_manifest_container" INNER JOIN "trip_stop" on "cargo_manifesto_id"="cargo_manifest_id"
                 INNER JOIN "cargo_manifest" cm on cm."cargo_manifesto_id" = "cargo_manifest_container"."cargo_manifesto_id"
@@ -353,7 +356,7 @@ BEGIN
                 WHERE "trip_stop"."port_wharehouse_id"=DESTINO AND "trip_stop"."estimate_date"<DATA_ AND
                       cm."operation_type"='unload' OR cm."operation_type"='Unload';
                       
-                SELECT COUNT ("registo_id") INTO COUNT_NEW_CONTAINER FROM "cargo_manifest_container" where "cargo_manifesto_id"=new."cargo_manifesto_id";
+                SELECT COUNT ("registo_id") INTO COUNT_NEW_CONTAINER FROM "cargo_manifest_container" where "cargo_manifesto_id"=:new."cargo_manifesto_id";
                 COUNT_CONT:=(COUNT_CONT + COUNT_NEW_CONTAINER)-COUNT_REMOVE_CONT;
                 
             if COUNT_CONT < 0 THEN
@@ -361,7 +364,7 @@ BEGIN
             end if;
             
 end;
-
+/
 --[US310] As Port manager, I intend to have a map of the occupation of the existing resources in the port during a given month.
 CREATE OR REPLACE FUNCTION  "occupation_map"(port_manager_id "port_manager"."user_id"%TYPE, MONTH_GIVEN DATE) RETURN BOOLEAN
     IS
@@ -394,7 +397,7 @@ end loop;
 return true;
 end;
 
-
+/
 --[US312] As Client, I want to know the current situation of a specific container being used to transport my goods – US204.
 
 CREATE OR REPLACE FUNCTION  "get_container_situation"(codeContainer "container"."container_id"%TYPE, codeClient "user"."user_id"%TYPE) RETURN BOOLEAN
@@ -450,4 +453,4 @@ BEGIN
 
     RETURN TRUE;
 END;
-
+/
