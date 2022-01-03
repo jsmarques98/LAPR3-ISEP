@@ -6,7 +6,6 @@ import lapr.project.store.MaterialStore;
 import lapr.project.utils.CsvReader;
 import lapr.project.utils.ThermalResistance;
 
-import javax.xml.stream.Location;
 import java.awt.*;
 import java.io.*;
 import java.sql.Connection;
@@ -16,9 +15,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,7 +32,7 @@ public class RolesUI {
     ArrayList<SeaDist> seaDistList = new ArrayList<>();
     ArrayList<Country> countryList = new ArrayList<>();
     PositionMatrixGraph pmg = new PositionMatrixGraph();
-
+    private static ColourMapUI colorMapUI = new ColourMapUI();
     public RolesUI(){
         bs = new BorderStore();
         cs = new CountryStore();
@@ -174,8 +171,7 @@ public class RolesUI {
                     //[US302]
 
                     pmg.fillMatrixGraph(3,cs.getCountryList(),ps.getPortList(),sds.getSeaDistArrayList(),bs.toMap(bs.getBorderArray(),cs.getCountryArray()));
-                    System.out.println(pmg.getCompleteMap());
-                    System.out.println();
+                    colorMapUI.run();
                 break;
                 case "3":
                     //[US303]

@@ -42,7 +42,6 @@ class Main {
      */
     public static void main(String[] args) throws Exception {
         DataBaseConnection databaseConnection = null;
-
         try {
             databaseConnection = ConnectionFactory.getInstance()
                     .getDatabaseConnection();
