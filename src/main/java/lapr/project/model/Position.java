@@ -14,14 +14,20 @@ public class Position {
         this.countryName=countryName;
     }
 
-    public Position(String name, String countryName, Double latitude, Double longitude) {
+    public Position(String name, String countryName, double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.name=name;
         this.countryName=countryName;
     }
 
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
 
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 
     public double getLongitude() {
         return longitude;
