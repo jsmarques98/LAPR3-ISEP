@@ -62,13 +62,45 @@ public class SeaDistStore {
 
         PreparedStatement saveSeadDistPreparedStatement =
                 connection.prepareStatement(sqlCommand);
-        saveSeadDistPreparedStatement.setString(1, seadits.getFromCountry());
-        saveSeadDistPreparedStatement.setInt(2, seadits.getFromPortId());
-        saveSeadDistPreparedStatement.setString(3, seadits.getToCountry());
-        saveSeadDistPreparedStatement.setInt(4, seadits.getToPortId());
-        saveSeadDistPreparedStatement.setFloat(5, (float) seadits.getSeaDistance());
+        if (existsInPort(databaseConnection,seadits)){
+            saveSeadDistPreparedStatement.setString(1, seadits.getFromCountry());
+            saveSeadDistPreparedStatement.setInt(2, seadits.getFromPortId());
+            saveSeadDistPreparedStatement.setString(3, seadits.getToCountry());
+            saveSeadDistPreparedStatement.setInt(4, seadits.getToPortId());
+            saveSeadDistPreparedStatement.setFloat(5, (float) seadits.getSeaDistance());
+            System.out.println(seadits.getFromPortId());
+            saveSeadDistPreparedStatement.executeUpdate();
+        }
 
-        saveSeadDistPreparedStatement.executeUpdate();
+        saveSeadDistPreparedStatement.close();
+    }
+    private boolean existsInPort(DataBaseConnection databaseConnection,
+                                 SeaDist seadits) throws SQLException {
+        Connection connection = databaseConnection.getConnection();
+
+        boolean isSeaDistOnDatabase = false;
+
+        String sqlCommand = "SELECT \"name\" FROM \"port_warehouse\" WHERE \"port_warehouse_id\" = ?";
+
+        PreparedStatement getSeadDistPreparedStatement =
+                connection.prepareStatement(sqlCommand);
+
+        getSeadDistPreparedStatement.setInt(1,seadits.getFromPortId());
+
+        try (ResultSet seaDistResultSet = getSeadDistPreparedStatement.executeQuery()) {
+
+            if (seaDistResultSet.next()) {
+                isSeaDistOnDatabase = true;
+            } else {
+
+
+                isSeaDistOnDatabase = false;
+            }
+        }catch ( SQLException x){
+            isSeaDistOnDatabase = false;
+        }
+        getSeadDistPreparedStatement.close();
+        return isSeaDistOnDatabase;
     }
     private boolean isSeaDistOnDatabase(DataBaseConnection databaseConnection,
                                         SeaDist seadits) throws SQLException {
@@ -76,7 +108,7 @@ public class SeaDistStore {
 
         boolean isSeaDistOnDatabase = false;
 
-        String sqlCommand = "SELECT * FROM \"seadist\" WHERE \"from_port_id\" = ? AND \"to_port_id\" = ?";
+        String sqlCommand = "SELECT \"seadist_id\" FROM \"seadist\" WHERE \"from_port_id\" = ? AND \"to_port_id\" = ?";
 
         PreparedStatement getSeadDistPreparedStatement =
                 connection.prepareStatement(sqlCommand);
@@ -93,8 +125,10 @@ public class SeaDistStore {
 
                 isSeaDistOnDatabase = false;
             }
+        }catch ( SQLException x){
+            isSeaDistOnDatabase = false;
         }
-
+        getSeadDistPreparedStatement.close();
         return isSeaDistOnDatabase;
     }
     public boolean delete(DataBaseConnection databaseConnection,
@@ -110,6 +144,7 @@ public class SeaDistStore {
                 deleteSeaDistPreparedStatement.setInt(1, seaDist.getFromPortId());
                 deleteSeaDistPreparedStatement.setInt(2, seaDist.getToPortId());
                 deleteSeaDistPreparedStatement.executeUpdate();
+
             }
 
             returnValue = true;
@@ -146,24 +181,29 @@ public class SeaDistStore {
                         try (ResultSet countryPreparedResultSet = getSeadistPreparedStatement.executeQuery()){
                             from_Country_name=countryPreparedResultSet.getString(1);
                         }
+                        getSeadistPreparedStatement.close();
                     }
                     try (PreparedStatement getcountryPreparedStatement = connection.prepareStatement(sqlCommand)){
                         getcountryPreparedStatement.setString(1,from_Country_id);
                         try (ResultSet countryPreparedResultSet = getcountryPreparedStatement.executeQuery()){
                             to_Country_name=countryPreparedResultSet.getString(1);
+                            getcountryPreparedStatement.close();
                         }
+
                     }
                     sqlCommand = "Select \"name\" from \"port_warehouse\" WHERE \"port_warehouse_id\"=?";
                     try (PreparedStatement getseadistPreparedStatement = connection.prepareStatement(sqlCommand)){
                         getseadistPreparedStatement.setInt(1,from_port_id);
                         try (ResultSet countryPreparedResultSet = getSeadistPreparedStatement.executeQuery()){
                             from_port_name=countryPreparedResultSet.getString(1);
+                            getseadistPreparedStatement.close();
                         }
                     }
                     try (PreparedStatement getcountryPreparedStatement = connection.prepareStatement(sqlCommand)){
                         getcountryPreparedStatement.setInt(1,to_port_id);
                         try (ResultSet countryPreparedResultSet = getcountryPreparedStatement.executeQuery()){
                             to_port_name=countryPreparedResultSet.getString(1);
+                            getcountryPreparedStatement.close();
                         }
                     }
                     SeaDist tempSeadist = new SeaDist(from_Country_name,from_port_id,from_port_name,to_Country_name
@@ -191,7 +231,7 @@ public class SeaDistStore {
         returnValue = true;
         return returnValue;
     }
-        public boolean uploadSeadistToDatabase(DataBaseConnection databaseConnection,ArrayList<SeaDist> seaDists){
+    public boolean uploadSeadistToDatabase(DataBaseConnection databaseConnection,ArrayList<SeaDist> seaDists){
         boolean returnValue = false;
 
         for (SeaDist s: seaDists) {

@@ -175,7 +175,7 @@ public class RolesUI {
                 break;
                 case "2":
                     //[US302]
-                    pmg.fillMatrixGraph(3,cs.getCountryList(),ps.getPortList(),sds.getSeaDistArrayList(),bs.toMap(bs.getBorderArray(),cs.getCountryArray()));
+                    pmg.fillMatrixGraph(3,cs.getCountryList(),ps.getPortList(),sds.getSeaDistArrayList(),bs.toMap(CsvReader.readBorder("src/main/java/lapr/project/data/borders.csv"),cs.getCountryArray()));
                     pmg.getCompleteMap();
                 break;
                 case "3":

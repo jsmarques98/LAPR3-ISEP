@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 
 public class CsvReader {
-
+    private static ArrayList<Port> portArray = new ArrayList<>();
     private CsvReader(){}
 
     // verificar se um barco existe - através do mmsi/imo/callsign
@@ -97,7 +97,7 @@ public class CsvReader {
 
 
     public static ArrayList<Port> readPorts(String path) throws Exception {
-        ArrayList<Port> portArray = new ArrayList<>();
+
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line = br.readLine();
             while ((line = br.readLine()) != null) {
@@ -149,24 +149,34 @@ public class CsvReader {
         }
     }
 
-
+    private static boolean findOnPort(int id){
+        for (Port p: portArray) {
+            if (p.getCode()==id){
+                return true;
+            }
+        }
+        return false;
+    }
     public static ArrayList<SeaDist> readSeaDist(String path){
         ArrayList<SeaDist> seaDistArray = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line = br.readLine();
             while ((line = br.readLine()) != null) {
+                SeaDist seaDist;
                 String[] values = line.split(",");
-                SeaDist seaDist = new SeaDist(
-                        values[0],  //fromCountry
-                        Integer.parseInt(values[1]),  //fromPortId
-                        values[2],  //fromPort
-                        values[3],  //toCountry
-                        Integer.parseInt(values[4]),  //toPortId
-                        values[5],  //toPort
-                        Double.parseDouble(values[6])  //seaDistance
-                );
+                if(findOnPort(Integer.parseInt(values[1]))&&findOnPort(Integer.parseInt(values[4]))){
+                     seaDist = new SeaDist(
+                            values[0],  //fromCountry
+                            Integer.parseInt(values[1]),  //fromPortId
+                            values[2],  //fromPort
+                            values[3],  //toCountry
+                            Integer.parseInt(values[4]),  //toPortId
+                            values[5],  //toPort
+                            Double.parseDouble(values[6])  //seaDistance
+                    );
+                    seaDistArray.add(seaDist);
+                }
 
-                seaDistArray.add(seaDist);
             }
             return seaDistArray;
 
@@ -183,12 +193,14 @@ public class CsvReader {
             String line = br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
+                values[1] = values[1].replaceFirst(" ","");
                 Border border = new Border(
-                        values[0],  //fromCountry
-                        values[1]  //fromPortId
+                        values[0],  //Country1
+                        values[1]  //Country2
                 );
 
                 borderArray.add(border);
+
             }
             return borderArray;
 

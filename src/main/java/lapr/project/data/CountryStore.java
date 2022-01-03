@@ -81,12 +81,13 @@ public class CountryStore {
         savePortPreparedStatement.setFloat(8,(float) country.getLongitude());
 
         savePortPreparedStatement.executeUpdate();
+        savePortPreparedStatement.close();
     }
 
     private void updateCountryOnDatabase(DataBaseConnection databaseConnection,
                                          Country country) throws SQLException {
         String sqlCommand =
-                "update \"country\" set \"name\" = ?, \"continent\" = ?, \"alpha2code\" = ?, \"population\" = ?, \"capital\", \"lat\", \"lon\" = ?  where \"alpha3code\" = ?";
+                "update \"country\" set \"alpha3code\" = ?, \"continent\" = ?, \"alpha2code\" = ?, \"population\" = ?, \"capital\", \"lat\", \"lon\" = ?  where \"name\" = ?";
 
         executeUpdateCountryStatementOnDatabase(databaseConnection, country,
                 sqlCommand);
@@ -99,17 +100,18 @@ public class CountryStore {
         PreparedStatement savePortPreparedStatement =
                 connection.prepareStatement(
                         sqlCommand);
-        savePortPreparedStatement.setString(1, country.getCountry());
+        savePortPreparedStatement.setString(1, country.getAlpha3Code());
         savePortPreparedStatement.setString(2, country.getContinent());
         savePortPreparedStatement.setString(3, country.getAlpha2Code());
         savePortPreparedStatement.setFloat(4, (float) country.getPopulation());
         savePortPreparedStatement.setString(5, country.getCapital());
         savePortPreparedStatement.setFloat(6,(float)country.getLatitude());
         savePortPreparedStatement.setFloat(7,(float) country.getLongitude());
-        savePortPreparedStatement.setString(8, country.getAlpha3Code());
+        savePortPreparedStatement.setString(8, country.getCountry());
 
         //atualizar a classe para adicionar atributos
         savePortPreparedStatement.executeUpdate();
+        savePortPreparedStatement.close();
     }
     private boolean isCountryOnDatabase(DataBaseConnection databaseConnection,
                                         Country country) throws SQLException {
@@ -134,7 +136,7 @@ public class CountryStore {
                 isCountryOnDatabase = false;
             }
         }
-
+        getCountryPreparedStatement.close();
         return isCountryOnDatabase;
     }
 
@@ -159,6 +161,7 @@ public class CountryStore {
                     countryArrayList.add(tempCountry);
 
                 }
+                getCountryPreparedStatement.close();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

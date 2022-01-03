@@ -52,7 +52,7 @@ public class ShipStore implements Persistable {
         Iterable<ShipMmsi> ships = shipBST.getTreeForDB();
         for (Ship s: ships) {
             this.save(dataBaseConnection,s);
-            System.out.println(s.getMmsi());
+
         }
 
         return returnValue;
@@ -77,9 +77,11 @@ public class ShipStore implements Persistable {
     }
     //TODO criar o mesmo metodo para o ship data
     private void saveShiptoDatabase(DataBaseConnection dataBaseConnection, Ship ship) throws SQLException {
+
         if (isShipOnDatabase(dataBaseConnection, ship)) {
             updateShipOnDatabase(dataBaseConnection, ship);
         } else {
+
             insertShipOnDatabase(dataBaseConnection, ship);
         }
     }
@@ -100,6 +102,7 @@ public class ShipStore implements Persistable {
 
         PreparedStatement saveShipPreparedStatement =
                 connection.prepareStatement(sqlCommand);
+
         saveShipPreparedStatement.setInt(1, ship.getMmsi());
         saveShipPreparedStatement.setString(2, ship.getCallSign());
         saveShipPreparedStatement.setInt(3, ship.getImo());
@@ -111,6 +114,7 @@ public class ShipStore implements Persistable {
         saveShipPreparedStatement.setFloat(9, (float)ship.getCapacity());//cap
         saveShipPreparedStatement.setFloat(10, (float)ship.getDraft());
         saveShipPreparedStatement.setInt(11, ship.getVesselType());
+
         saveShipPreparedStatement.executeUpdate();
         insertShipData(databaseConnection,ship.getDynamicShip(),ship.getMmsi());
     }
@@ -165,7 +169,6 @@ public class ShipStore implements Persistable {
     private boolean isShipOnDatabase(DataBaseConnection databaseConnection,
                                      Ship ship) throws SQLException {
         Connection connection = databaseConnection.getConnection();
-
         boolean isShipOnDatabase = false;
 
         String sqlCommand = "SELECT * FROM \"ship\" WHERE \"mmsi\" = ?";

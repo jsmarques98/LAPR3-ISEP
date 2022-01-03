@@ -12,6 +12,7 @@ BEGIN
   INTO   :new."audit_trails_id"
   FROM   dual;
 END;
+/
 --Auto increment- BORDER---------------------------------------
 CREATE SEQUENCE border_seq
   START WITH 1
@@ -26,6 +27,7 @@ BEGIN
   INTO   :new."border_id"
   FROM   dual;
 END;
+/
 --Auto increment- SEADIST---------------------------------------
 CREATE SEQUENCE seadist_seq
   START WITH 1
@@ -40,7 +42,7 @@ BEGIN
   INTO   :new."seadist_id"
   FROM   dual;
 END;
-
+/
 --Auto increment- REGISTO_container---------------------------------------
 CREATE SEQUENCE registo_container_seq
   START WITH 1
@@ -55,7 +57,7 @@ BEGIN
   INTO   :new."registo_id"
   FROM   dual;
 END;
-
+/
 --Auto increment- TRIP---------------------------------------
 CREATE SEQUENCE trip_seq
   START WITH 1
@@ -70,6 +72,7 @@ BEGIN
   INTO   :new."trip_id"
   FROM   dual;
 END;
+/
 --Auto increment- VEHICLE---------------------------------------
 CREATE SEQUENCE vehicle_seq
   START WITH 1
@@ -84,6 +87,7 @@ BEGIN
   INTO   :new."vehicle_id"
   FROM   dual;
 END;
+/
 --Auto increment- CARGO MANIFEST---------------------------------------
 CREATE SEQUENCE cargo_manifest_seq
   START WITH 1
@@ -98,6 +102,7 @@ BEGIN
   INTO   :new."cargo_manifesto_id"
   FROM   dual;
 END;
+/
 --Auto increment- ROLE---------------------------------------
 CREATE SEQUENCE role_seq
     START WITH 1
@@ -112,6 +117,7 @@ BEGIN
     INTO   :new."role_id"
     FROM   dual;
 END;
+/
 --Auto increment- CERTIFICATE---------------------------------------
 CREATE SEQUENCE certificate_seq
     START WITH 1
@@ -126,6 +132,7 @@ BEGIN
     INTO   :new."certificate_id"
     FROM   dual;
 END;
+/
 --Auto increment- CONTAINER---------------------------------------
 CREATE SEQUENCE container_seq
     START WITH 1
@@ -140,6 +147,7 @@ BEGIN
     INTO   :new."container_id"
     FROM   dual;
 END;
+/
 --Trigger automatic date registo----------------------------------
 CREATE OR REPLACE TRIGGER "registo_container_date"
     BEFORE INSERT OR UPDATE ON "registo_container"
@@ -147,7 +155,7 @@ CREATE OR REPLACE TRIGGER "registo_container_date"
 BEGIN
     :new."register_date" := sysdate;
 END;
-
+/
 --[US308]As Traffic manager, I want to have a system that ensures that the number of containers in a manifest does not exceed the ship's available capacity
 CREATE OR REPLACE TRIGGER "US308_number_of_containers"
     BEFORE INSERT OR UPDATE ON "cargo_manifest_container"
@@ -345,7 +353,7 @@ BEGIN
                 WHERE "trip_stop"."port_wharehouse_id"=DESTINO AND "trip_stop"."estimate_date"<DATA_ AND
                       cm."operation_type"='unload' OR cm."operation_type"='Unload';
                       
-                SELECT COUNT "registo_id" INTO COUNT_NEW_CONTAINER FROM "cargo_manifest_container" where "cargo_manifesto_id"=new."cargo_manifesto_id";
+                SELECT COUNT ("registo_id") INTO COUNT_NEW_CONTAINER FROM "cargo_manifest_container" where "cargo_manifesto_id"=new."cargo_manifesto_id";
                 COUNT_CONT:=(COUNT_CONT + COUNT_NEW_CONTAINER)-COUNT_REMOVE_CONT;
                 
             if COUNT_CONT < 0 THEN
@@ -368,18 +376,18 @@ SELECT "port_id" BULK COLLECT INTO portsList FROM "port_manager" WHERE "user_id"
 for i in 1..portsList.COUNT LOOP
 
             for j in 1..30 LOOP
-SELECT "capacity" INTO CAPACITY_WAREHOUSE FROM "port_warehouse" WHERE "port_warehouse_id"=i;
-SELECT COUNT("registo_id") INTO COUNT_CONT FROM "cargo_manifest_container" INNER JOIN "trip_stop" on "cargo_manifesto_id"="cargo_manifest_id"
-                                                                           INNER JOIN "cargo_manifest" cm on cm."cargo_manifesto_id" = "cargo_manifest_container"."cargo_manifesto_id"
-WHERE "trip_stop"."port_wharehouse_id"=i AND cm."operation_type"='load' OR cm."operation_type"='Load'
-    AND extract(month from "trip_stop"."estimate_date")=extract(month from MONTH_GIVEN) AND extract(day from "trip_stop"."estimate_date")=j;
-SELECT COUNT("registo_id") INTO COUNT_REMOVE_CONT FROM "cargo_manifest_container" INNER JOIN "trip_stop" on "cargo_manifesto_id"="cargo_manifest_id"
-                                                                                  INNER JOIN "cargo_manifest" cm on cm."cargo_manifesto_id" = "cargo_manifest_container"."cargo_manifesto_id"
-WHERE "trip_stop"."port_wharehouse_id"=i AND  cm."operation_type"='unload' OR cm."operation_type"='Unload'
-    AND extract(month from "trip_stop"."estimate_date")=extract(month from MONTH_GIVEN) AND extract(day from "trip_stop"."estimate_date")=j ;
-COUNT_CONT:=COUNT_CONT-COUNT_REMOVE_CONT;
-                    RATE := COUNT_CONT/CAPACITY_WAREHOUSE;
-                    dbms_output.put_line('Warehouse id: ' || i || 'occupancy rate: ' || RATE || 'day: ' || j);
+                SELECT "capacity" INTO CAPACITY_WAREHOUSE FROM "port_warehouse" WHERE "port_warehouse_id"=i;
+                SELECT COUNT("registo_id") INTO COUNT_CONT FROM "cargo_manifest_container" INNER JOIN "trip_stop" on "cargo_manifesto_id"="cargo_manifest_id"
+                INNER JOIN "cargo_manifest" cm on cm."cargo_manifesto_id" = "cargo_manifest_container"."cargo_manifesto_id"
+                WHERE "trip_stop"."port_wharehouse_id"=i AND cm."operation_type"='load' OR cm."operation_type"='Load'
+                AND extract(month from "trip_stop"."estimate_date")=extract(month from MONTH_GIVEN) AND extract(day from "trip_stop"."estimate_date")=j;
+                SELECT COUNT("registo_id") INTO COUNT_REMOVE_CONT FROM "cargo_manifest_container" INNER JOIN "trip_stop" on "cargo_manifesto_id"="cargo_manifest_id"
+                INNER JOIN "cargo_manifest" cm on cm."cargo_manifesto_id" = "cargo_manifest_container"."cargo_manifesto_id"
+                WHERE "trip_stop"."port_wharehouse_id"=i AND  cm."operation_type"='unload' OR cm."operation_type"='Unload'
+                AND extract(month from "trip_stop"."estimate_date")=extract(month from MONTH_GIVEN) AND extract(day from "trip_stop"."estimate_date")=j ;
+                COUNT_CONT:=COUNT_CONT-COUNT_REMOVE_CONT;
+                RATE := COUNT_CONT/CAPACITY_WAREHOUSE;
+                dbms_output.put_line('Warehouse id: ' || i || 'occupancy rate: ' || RATE || 'day: ' || j);
 end loop;
 
 end loop;
