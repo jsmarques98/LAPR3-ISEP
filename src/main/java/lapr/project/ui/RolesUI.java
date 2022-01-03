@@ -8,10 +8,7 @@ import lapr.project.utils.ThermalResistance;
 
 import javax.xml.stream.Location;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -175,8 +172,10 @@ public class RolesUI {
                 break;
                 case "2":
                     //[US302]
+
                     pmg.fillMatrixGraph(3,cs.getCountryList(),ps.getPortList(),sds.getSeaDistArrayList(),bs.toMap(bs.getBorderArray(),cs.getCountryArray()));
-                    pmg.getCompleteMap();
+                    System.out.println(pmg.getCompleteMap());
+                    System.out.println();
                 break;
                 case "3":
                     //[US303]
@@ -322,14 +321,28 @@ public class RolesUI {
             try (ResultSet portPreparedResultSet = getPortPreparedStatement.executeQuery()) {
 
                 while (portPreparedResultSet.next()) {
-                    String tempS = portPreparedResultSet.getInt(1) +
-                            portPreparedResultSet.getInt(2) +
-                            portPreparedResultSet.getInt(3) +
-                            portPreparedResultSet.getInt(4) +" ";
+                    String tempS = portPreparedResultSet.getInt(2) +"-"+
+                            portPreparedResultSet.getInt(3) +"-"+
+                            portPreparedResultSet.getInt(4) +":"+
+                            portPreparedResultSet.getInt(1) +"\n";
                     tempArray.add(tempS);
                 }
             }
         } catch (SQLException throwables) {
+        }
+        if(tempArray!=null){
+            try {
+                FileWriter myWriter = new FileWriter("file1.txt");
+                for (String s: tempArray) {
+                    myWriter.write(s);
+                }
+
+                myWriter.close();
+                System.out.println("Successfully wrote to the file.");
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
         }
 
     }
@@ -485,13 +498,13 @@ public class RolesUI {
                 ps.uploadPortstoDatabase(databaseConnection);
                 break;
             case "3":
-                cs.uploadCountriestoDatabase(databaseConnection, CsvReader.readCountry("src/main/java/lapr/project/data/countries.csv"));
+                cs.uploadCountriestoDatabase(databaseConnection);
                 break;
             case "4":
-                bs.uploadBorderstoDatabase(databaseConnection, CsvReader.readBorder("src/main/java/lapr/project/data/borders.csv"));
+                bs.uploadBorderstoDatabase(databaseConnection);
                 break;
             case "5":
-                sds.uploadSeadistToDatabase(databaseConnection, CsvReader.readSeaDist("src/main/java/lapr/project/data/seadists.csv"));
+                sds.uploadSeadistToDatabase(databaseConnection);
                 break;
             case "0":
                 System.out.println("bye");

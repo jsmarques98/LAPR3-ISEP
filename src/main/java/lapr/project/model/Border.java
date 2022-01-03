@@ -40,4 +40,12 @@ public class Border {
     public int hashCode() {
         return Objects.hash(country1, country2);
     }
+
+    @Override
+    public String toString() {
+        return "Border{" +
+                "country1='" + country1 + '\'' +
+                ", country2='" + country2 + '\'' +
+                '}';
+    }
 }

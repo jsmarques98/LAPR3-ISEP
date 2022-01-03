@@ -302,7 +302,7 @@ CREATE TABLE "country"(
                           "lat" FLOAT NOT NULL,
                           "lon" FLOAT NOT NULL,
                           CONSTRAINT PK_country
-                              PRIMARY KEY ("alpha3code"),
+                              PRIMARY KEY ("name"),
                           CONSTRAINT "CK_country_latitude_menor" CHECK ("lat"<=90),
                           CONSTRAINT "CK_country_latitude_maior" CHECK ("lat">=-90),
                           CONSTRAINT "CK_country_Longitude_menor" CHECK ("lon"<=180),
@@ -312,23 +312,23 @@ CREATE TABLE "country"(
 --FAZER AUTO_INCREMENT------------------------------------------DONE
 CREATE TABLE "border"(
                          "border_id" INT NOT NULL,
-                         "country1" VARCHAR(3) NOT NULL,
-                         "country2" VARCHAR(3) NOT NULL,
+                         "country1" VARCHAR(255) NOT NULL,
+                         "country2" VARCHAR(255) NOT NULL,
                          CONSTRAINT PK_border
                              PRIMARY KEY ("border_id"),
                          CONSTRAINT "FK_border.country1"
                              FOREIGN KEY ("country1")
-                                 REFERENCES "country"("alpha3code"),
+                                 REFERENCES "country"("name"),
                          CONSTRAINT "FK_border.country2"
                              FOREIGN KEY ("country2")
-                                 REFERENCES "country"("alpha3code")
+                                 REFERENCES "country"("name")
 
 );
 
 --FAZER AUTO_INCREMENT------------------------------------------DONE
 CREATE TABLE "seadist"(
                           "seadist_id" INT NOT NULL,
-                          "from_country" VARCHAR(3) NOT NULL,
+                          "from_country" VARCHAR(255) NOT NULL,
                           "from_port_id" INT NOT NULL,
                           "to_country" VARCHAR(255) NOT NULL,
                           "to_port_id" INT NOT NULL,
@@ -336,10 +336,10 @@ CREATE TABLE "seadist"(
                           CONSTRAINT PK_seadist PRIMARY KEY ("seadist_id"),
                           CONSTRAINT "FK_seadist.from_country"
                               FOREIGN KEY ("from_country")
-                                  REFERENCES "country"("alpha3code"),
+                                  REFERENCES "country"("name"),
                           CONSTRAINT "FK_seadist.to_country"
                               FOREIGN KEY ("to_country")
-                                  REFERENCES "country"("alpha3code"),
+                                  REFERENCES "country"("name"),
                           CONSTRAINT "FK_seadist.from_port_id"
                               FOREIGN KEY ("from_port_id")
                                   REFERENCES "port_warehouse" ("port_warehouse_id"),

@@ -174,10 +174,10 @@ public class MatrixGraph<V,E> extends CommonGraph<V,E> {
         int vOrigKey = key(vOrig);
         int vDestKey = key(vDest);
 
-        edgeMatrix[vOrigKey][vDestKey] = new Edge<>(vOrig, vDest, weight );
+        this.edgeMatrix[vOrigKey][vDestKey] = new Edge<>(vOrig, vDest, weight );
         numEdges++;
         if (!isDirected) {
-            edgeMatrix[vDestKey][vOrigKey] = new Edge<>(vDest, vOrig, weight );
+            this.edgeMatrix[vDestKey][vOrigKey] = new Edge<>(vDest, vOrig, weight );
             numEdges++;
         }
         return true;
@@ -258,6 +258,7 @@ public class MatrixGraph<V,E> extends CommonGraph<V,E> {
      * Matrix only represents existence of Edge
      */
     public String toString() {
+        System.out.println(edgeMatrix[0][0]+"---------------------------------------------------------------------");
         StringBuilder sb = new StringBuilder();
 
         sb.append("Vertices:\n");
@@ -277,11 +278,13 @@ public class MatrixGraph<V,E> extends CommonGraph<V,E> {
         for (int i = 0 ; i < numVerts ; i++)
         {
             sb.append(" "+ i + " ");
-            for (int j = 0 ; j < numVerts ; j++)
+            for (int j = 0 ; j < numVerts ; j++){
+
                 if(edgeMatrix[i][j] != null)
                     sb.append("|  X  ");
                 else
                     sb.append("|     ");
+            }
             sb.append("\n");
         }
 

@@ -4,6 +4,7 @@ import lapr.project.model.Border;
 import lapr.project.model.Country;
 import lapr.project.model.Port;
 import lapr.project.model.Position;
+import lapr.project.utils.CsvReader;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +22,7 @@ public class BorderStore {
     private ArrayList<Border> borderArray;
 
     public BorderStore(){
-        this.borderArray = new ArrayList<>();
+        this.borderArray = CsvReader.readBorder("src/main/java/lapr/project/data/borders.csv");
     }
 
     public ArrayList<Border> getBorderArray(){
@@ -69,6 +70,7 @@ public class BorderStore {
         savePortPreparedStatement.setString(1, border.getCountry1());
         savePortPreparedStatement.setString(2, border.getCountry2());
         savePortPreparedStatement.executeUpdate();
+        savePortPreparedStatement.close();
     }
 
     private boolean isBorderOnDatabase(DataBaseConnection databaseConnection,
@@ -77,7 +79,7 @@ public class BorderStore {
 
         boolean isBorderOnDatabase = false;
 
-        String sqlCommand = "SELECT * FROM \"border\" WHERE \"country1\" = ? AND \"country2\" = ?";
+        String sqlCommand = "SELECT \"border_id\" FROM \"border\" WHERE \"country1\" = ? AND \"country2\" = ?";
 
         PreparedStatement getPortPreparedStatement =
                 connection.prepareStatement(sqlCommand);
@@ -86,7 +88,6 @@ public class BorderStore {
         getPortPreparedStatement.setString(2,border.getCountry2());
 
         try (ResultSet bordersResultSet = getPortPreparedStatement.executeQuery()) {
-
             if (bordersResultSet.next()) {
                 isBorderOnDatabase = true;
             } else {
@@ -94,8 +95,9 @@ public class BorderStore {
 
                 isBorderOnDatabase = false;
             }
-        }
 
+        }
+        getPortPreparedStatement.close();
         return isBorderOnDatabase;
     }
     //TODO INSERIR NO GRAPH
@@ -114,7 +116,9 @@ public class BorderStore {
                     borderArray.add(tempBorder);
 
                 }
+                getBorderPreparedStatement.close();
             }
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return returnValue;
@@ -127,8 +131,8 @@ public class BorderStore {
     public boolean uploadBorderstoDatabase(DataBaseConnection databaseConnection){
         boolean returnValue = false;
 
-        ArrayList<Border> borders = null;
-        for (Border b: borders) {
+
+        for (Border b: borderArray) {
             this.save(databaseConnection,b);
         }
         returnValue = true;
@@ -150,13 +154,13 @@ public class BorderStore {
         Border border = (Border) object;
 
         try {
-            //TODO VER ISTO
             String sqlCommand = "delete from \"border\" where \"country1\" = ? AND \"country2\" = ?";
             try (PreparedStatement deleteBorderPreparedStatement = connection.prepareStatement(
                     sqlCommand)) {
                 deleteBorderPreparedStatement.setString(1, border.getCountry1());
                 deleteBorderPreparedStatement.setString(2, border.getCountry2());
                 deleteBorderPreparedStatement.executeUpdate();
+
             }
 
             returnValue = true;
@@ -174,12 +178,14 @@ public class BorderStore {
 
     public Map<Position, List<Position>> toMap(ArrayList<Border> borderArray, ArrayList<Country> countryArray){
         Map<Position, List<Position>> mapBorder = new HashMap<>();
+
         for (Border b : borderArray) {
             for (Country c1 : countryArray) {
                 if(b.getCountry1().equals(c1.getCountry())) {
                     for (Country c2 : countryArray) {
                         if (b.getCountry2().equals(c2.getCountry())){
                             for (Position p:mapBorder.keySet()) {
+
                                 if (p.equals(c1)){
                                     mapBorder.get(p).add(c2);
                                 }else{

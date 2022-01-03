@@ -5,9 +5,7 @@ import lapr.project.data.DataBaseConnection;
 import lapr.project.data.ShipStore;
 import lapr.project.model.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Connection;
@@ -43,20 +41,21 @@ class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        loginMenu();
+        DataBaseConnection databaseConnection = null;
+
+        try {
+            databaseConnection = ConnectionFactory.getInstance()
+                    .getDatabaseConnection();
+        } catch (IOException exception) {
+            Logger.getLogger(Main.class.getName())
+                    .log(Level.SEVERE, null, exception);
+        }
+        loginMenu(databaseConnection);
         ShipStore st = new ShipStore();
         KDTreePort portTree = new KDTreePort();
         portTree.insertPorts();
         String option = new String();
         // TODO code application logic here
-        DataBaseConnection databaseConnection = null;
-        try {
-            databaseConnection = ConnectionFactory.getInstance()
-                    .getDatabaseConnection();
-        } catch (IOException exception) {
-            Logger.getLogger(ShipStore.class.getName())
-                    .log(Level.SEVERE, null, exception);
-        }
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")) {
             System.out.println("Please make your selection");
@@ -110,7 +109,7 @@ class Main {
             }
         }
     }
-    private static void loginMenu() throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private static void loginMenu(DataBaseConnection databaseConnection) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, SQLException {
         RolesUI rolesUI = new RolesUI();
 
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
@@ -119,10 +118,10 @@ class Main {
         String user = read.readLine();
         System.out.println("Password:");
         String pass = read.readLine();
-        String role = login(user, pass);
+        String role = login(databaseConnection,user, pass);
         if (role.compareTo("not found") == 0){
             System.out.println("Username or password incorret");
-            loginMenu();
+            loginMenu(databaseConnection);
         }
         role = role.toLowerCase(Locale.ROOT);
         role =role.replace(" ","_");
@@ -131,18 +130,10 @@ class Main {
         method.invoke(rolesUI,USER_SESSION);
 
     }
-    private static String login(String user, String pass){
+    private static String login(DataBaseConnection databaseConnection,String user, String pass) throws SQLException {
         String role = "not found";
 
-        DataBaseConnection databaseConnection = null;
 
-        try {
-            databaseConnection = ConnectionFactory.getInstance()
-                    .getDatabaseConnection();
-        } catch (IOException exception) {
-            Logger.getLogger(Main.class.getName())
-                    .log(Level.SEVERE, null, exception);
-        }
         Connection connection = databaseConnection.getConnection();
         String sqlCommand = "select \"role\".\"name\",\"user_id\" from \"role\" INNER JOIN \"user\" using(\"role_id\") WHERE \"email\" = ? AND \"pass\" = ?";
         try (PreparedStatement getLoginPreparedStatement = connection.prepareStatement(sqlCommand)) {
@@ -163,7 +154,6 @@ class Main {
 
         return role;
     }
-
 
 
 }

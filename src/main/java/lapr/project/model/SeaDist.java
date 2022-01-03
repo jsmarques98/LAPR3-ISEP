@@ -108,4 +108,19 @@ public class SeaDist implements Comparable<SeaDist> {
             return 0;
         }
     }
+
+    @Override
+    public String toString() {
+        return "SeaDist{" +
+                "fromCountry='" + fromCountry + '\'' +
+                ", fromPortId=" + fromPortId +
+                ", fromPort='" + fromPort + '\'' +
+                ", toCountry='" + toCountry + '\'' +
+                ", toPortId=" + toPortId +
+                ", toPort='" + toPort + '\'' +
+                ", fromPlace=" + fromPlace +
+                ", toPlace=" + toPlace +
+                ", seaDistance=" + seaDistance +
+                '}';
+    }
 }
