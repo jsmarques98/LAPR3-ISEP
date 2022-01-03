@@ -8,15 +8,16 @@ import java.util.*;
 
 public class PositionMatrixGraph {
 
-    private Graph<Position, Double> completeMap;
+    private MatrixGraph<Position, Double> completeMap;
     private ShipSummary ss;
 
-    public void PositionMatrixGraph() {
+    public PositionMatrixGraph() {
         this.completeMap = new MatrixGraph<>(false);
         ss = new ShipSummary();
     }
 
     public void fillMatrixGraph(int n, List<Position> country, List<Position> ports, List<SeaDist> seadists, Map<Position, List<Position>> mapBorders) {
+
         createVertices(country);
         createVertices(ports);
         addBordersConection(mapBorders);
@@ -27,6 +28,7 @@ public class PositionMatrixGraph {
 
 
     public void createVertices(List<Position> list) {
+
         for (Position p : list)
             completeMap.addVertex(p);
     }
@@ -36,6 +38,7 @@ public class PositionMatrixGraph {
             List<Position> bordersOfOnCapital = mapBorders.get(p1);
             for (Position p : bordersOfOnCapital) {
                 completeMap.addEdge(p1,p,ss.distanciaDelta(p1.getLatitude(), p.getLatitude(), p1.getLongitude(), p.getLongitude()) );
+
             }
         }
     }
@@ -97,6 +100,7 @@ public class PositionMatrixGraph {
 
     public Graph<Position, Double> getCompleteMap() {
         return completeMap;
+
     }
 
 }

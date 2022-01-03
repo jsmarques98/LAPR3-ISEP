@@ -175,8 +175,10 @@ public class RolesUI {
                 break;
                 case "2":
                     //[US302]
-                    pmg.fillMatrixGraph(3,cs.getCountryList(),ps.getPortList(),sds.getSeaDistArrayList(),bs.toMap(CsvReader.readBorder("src/main/java/lapr/project/data/borders.csv"),cs.getCountryArray()));
-                    pmg.getCompleteMap();
+
+                    pmg.fillMatrixGraph(3,cs.getCountryList(),ps.getPortList(),sds.getSeaDistArrayList(),bs.toMap(bs.getBorderArray(),cs.getCountryArray()));
+                    System.out.println(pmg.getCompleteMap());
+                    System.out.println();
                 break;
                 case "3":
                     //[US303]
@@ -485,13 +487,13 @@ public class RolesUI {
                 ps.uploadPortstoDatabase(databaseConnection);
                 break;
             case "3":
-                cs.uploadCountriestoDatabase(databaseConnection, CsvReader.readCountry("src/main/java/lapr/project/data/countries.csv"));
+                cs.uploadCountriestoDatabase(databaseConnection);
                 break;
             case "4":
-                bs.uploadBorderstoDatabase(databaseConnection, CsvReader.readBorder("src/main/java/lapr/project/data/borders.csv"));
+                bs.uploadBorderstoDatabase(databaseConnection);
                 break;
             case "5":
-                sds.uploadSeadistToDatabase(databaseConnection, CsvReader.readSeaDist("src/main/java/lapr/project/data/seadists.csv"));
+                sds.uploadSeadistToDatabase(databaseConnection);
                 break;
             case "0":
                 System.out.println("bye");

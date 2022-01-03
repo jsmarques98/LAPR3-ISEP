@@ -3,6 +3,7 @@ package lapr.project.data;
 import lapr.project.model.Border;
 import lapr.project.model.Country;
 import lapr.project.model.Position;
+import lapr.project.utils.CsvReader;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ public class CountryStore {
     private ArrayList<Country> countryArrayList;
 
     public CountryStore(){
-        countryArrayList = new ArrayList<>();
+        countryArrayList = CsvReader.readCountry("src/main/java/lapr/project/data/countries.csv");
     }
 
     public ArrayList<Country> getCountryArray(){
@@ -173,8 +174,7 @@ public class CountryStore {
     public boolean uploadCountriestoDatabase(DataBaseConnection databaseConnection){
         boolean returnValue = false;
 
-        ArrayList<Country> countries = null;
-        for (Country c: countries) {
+        for (Country c: countryArrayList) {
             this.save(databaseConnection,c);
         }
         returnValue = true;

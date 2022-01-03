@@ -4,6 +4,7 @@ import lapr.project.model.Border;
 import lapr.project.model.Country;
 import lapr.project.model.Port;
 import lapr.project.model.Position;
+import lapr.project.utils.CsvReader;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +22,7 @@ public class BorderStore {
     private ArrayList<Border> borderArray;
 
     public BorderStore(){
-        this.borderArray = new ArrayList<>();
+        this.borderArray = CsvReader.readBorder("src/main/java/lapr/project/data/borders.csv");
     }
 
     public ArrayList<Border> getBorderArray(){
@@ -130,8 +131,8 @@ public class BorderStore {
     public boolean uploadBorderstoDatabase(DataBaseConnection databaseConnection){
         boolean returnValue = false;
 
-        ArrayList<Border> borders = null;
-        for (Border b: borders) {
+
+        for (Border b: borderArray) {
             this.save(databaseConnection,b);
         }
         returnValue = true;
@@ -153,7 +154,6 @@ public class BorderStore {
         Border border = (Border) object;
 
         try {
-            //TODO VER ISTO
             String sqlCommand = "delete from \"border\" where \"country1\" = ? AND \"country2\" = ?";
             try (PreparedStatement deleteBorderPreparedStatement = connection.prepareStatement(
                     sqlCommand)) {

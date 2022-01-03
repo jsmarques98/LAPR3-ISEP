@@ -3,6 +3,7 @@ package lapr.project.data;
 import lapr.project.model.Country;
 import lapr.project.model.Port;
 import lapr.project.model.SeaDist;
+import lapr.project.utils.CsvReader;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ public class SeaDistStore {
     private ArrayList<SeaDist> seaDistArrayList;
 
     public SeaDistStore(){
-        seaDistArrayList = new ArrayList<>();
+        seaDistArrayList = CsvReader.readSeaDist("src/main/java/lapr/project/data/seadists.csv");
     }
 
     public ArrayList<SeaDist> getSeaDistArrayList(){
@@ -224,8 +225,8 @@ public class SeaDistStore {
     public boolean uploadSeadistToDatabase(DataBaseConnection databaseConnection){
         boolean returnValue = false;
 
-        ArrayList<SeaDist> seaDists = null;
-        for (SeaDist s: seaDists) {
+
+        for (SeaDist s: seaDistArrayList) {
             this.save(databaseConnection,s);
         }
         returnValue = true;
