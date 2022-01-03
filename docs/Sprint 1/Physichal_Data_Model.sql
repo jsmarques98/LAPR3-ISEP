@@ -111,11 +111,15 @@ CREATE TABLE "cargo_manifest" (
                                   "vehicle_id" int ,
                                   "operation_type" varchar(30) NOT NULL,
                                   "entry_date" DATE NOT NULL,
+                                  "destiny" int NOT NULL,
                                   CONSTRAINT "FK_cargo_manifest.ship_id"
                                       FOREIGN KEY ("vehicle_id")
                                           REFERENCES "vehicle"("vehicle_id"),
                                   CONSTRAINT PK_cargo_manifesto
                                       PRIMARY KEY ("cargo_manifesto_id"),
+                                  CONSTRAINT "FK_cargo_manifest.destiny"
+                                      FOREIGN KEY ("destiny")
+                                          REFERENCES "port_warehouse"("port_warehouse_id"),
                                   CONSTRAINT CK_operation_type CHECK ("operation_type" = 'LOAD' OR "operation_type" = 'UNLOAD' OR "operation_type" = 'load' OR "operation_type" = 'unload')
 
 );
@@ -408,6 +412,17 @@ CREATE TABLE "ship_staff"(
                              CONSTRAINT "FK_ship_staff.user_id"
                                  FOREIGN KEY ("user_id")
                                      REFERENCES "user"("user_id")
+);
+
+CREATE TABLE "client"(
+                         "user_id" INT NOT NULL,
+                         "credit_card" INT,
+                         "adress" VARCHAR(255),
+                         CONSTRAINT "PK_client" PRIMARY KEY ("user_id"),
+                         CONSTRAINT "FK_client.user_id"
+                             FOREIGN KEY ("user_id")
+                                 REFERENCES "user"("user_id")
+
 );
 
 --TEST
