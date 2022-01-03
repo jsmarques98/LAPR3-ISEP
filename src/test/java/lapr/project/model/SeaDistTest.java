@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class SeaDistTest {
 
     SeaDist seaDist = new SeaDist("Denmark",10358,"Aarhus","Turkey",246265,"Ambarli",3673);
+    SeaDist seaDist1 = new SeaDist("Denmark",10358,"Aarhus","Turkey",246265,"Ambarli",3672);
+    SeaDist seaDist2 = new SeaDist("Denmark",10358,"Aarhus","Turkey",246265,"Ambarli",3674);
 
     @Test
     void getFromCountry() {
@@ -83,5 +85,36 @@ class SeaDistTest {
     void setSeaDistance() {
         seaDist.setSeaDistance(7531);
         assertEquals(seaDist.getSeaDistance(),7531);
+    }
+
+    @Test
+    void getFromPlace() {
+        assertEquals("Denmark, Aarhus",seaDist.getFromPlace().toString());
+    }
+
+    @Test
+    void setFromPlace() {
+        Place p = new Place("Lisboa", "Portugal");
+        seaDist.setFromPlace(p);
+        assertEquals("Portugal, Lisboa",seaDist.getFromPlace().toString());
+    }
+
+    @Test
+    void getToPlace() {
+        assertEquals("Turkey, Ambarli",seaDist.getToPlace().toString());
+    }
+
+    @Test
+    void setToPlace() {
+        Place p = new Place("Lisboa", "Portugal");
+        seaDist.setToPlace(p);
+        assertEquals("Portugal, Lisboa",seaDist.getToPlace().toString());
+    }
+
+    @Test
+    void compareTo() {
+        assertEquals(0,seaDist.compareTo(seaDist));
+        assertEquals(-1,seaDist.compareTo(seaDist2));
+        assertEquals(1,seaDist.compareTo(seaDist1));
     }
 }

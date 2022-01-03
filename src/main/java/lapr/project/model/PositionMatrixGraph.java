@@ -19,10 +19,10 @@ public class PositionMatrixGraph {
     public void fillMatrixGraph(int n, List<Position> country, List<Position> ports, List<SeaDist> seadists, Map<Position, List<Position>> mapBorders) {
         createVertices(country);
         createVertices(ports);
-        addConectionBorders(mapBorders);
-        addConectionPortsSameCountry(seadists);
-        addConectionCapitalClosePort(country, ports);
-        addConectionsClosetPorts(n, seadists);
+        addBordersConection(mapBorders);
+        addPortsOfCountryConection(seadists);
+        addCapitalCPortConection(country, ports);
+        addClosetNPortsConection(n, seadists);
     }
 
 
@@ -31,7 +31,7 @@ public class PositionMatrixGraph {
             completeMap.addVertex(p);
     }
 
-    public void addConectionBorders(Map<Position, List<Position>> mapBorders) {
+    public void addBordersConection(Map<Position, List<Position>> mapBorders) {
         for (Position p1 : mapBorders.keySet()) {
             List<Position> bordersOfOnCapital = mapBorders.get(p1);
             for (Position p : bordersOfOnCapital) {
@@ -40,14 +40,14 @@ public class PositionMatrixGraph {
         }
     }
 
-    public void addConectionPortsSameCountry(List<SeaDist> list) {
+    public void addPortsOfCountryConection(List<SeaDist> list) {
         for (SeaDist s : list) {
             if (s.getFromCountry().equals(s.getToCountry()))
                 completeMap.addEdge(s.getFromPlace(), s.getToPlace(), s.getSeaDistance());
         }
     }
 
-    public void addConectionCapitalClosePort(List<Position> country, List<Position> ports) {
+    public void addCapitalCPortConection(List<Position> country, List<Position> ports) {
 
         for (Position c : country) {
             Position p = null;
@@ -68,7 +68,7 @@ public class PositionMatrixGraph {
         }
     }
 
-    public Map<Place, List<SeaDist>> nClosetPortsConnections(int n, List<SeaDist> seadists) {
+    public Map<Place, List<SeaDist>> closetNPortsMap(int n, List<SeaDist> seadists) {
         Map<Place, List<SeaDist>> mapSeadists = new HashMap<>();
         Collections.sort(seadists);
         for (SeaDist s : seadists) {
@@ -86,8 +86,8 @@ public class PositionMatrixGraph {
         return mapSeadists;
     }
 
-    public void addConectionsClosetPorts(int n, List<SeaDist> seadists) {
-        Map<Place, List<SeaDist>> mapSeadists = nClosetPortsConnections(n, seadists);
+    public void addClosetNPortsConection(int n, List<SeaDist> seadists) {
+        Map<Place, List<SeaDist>> mapSeadists = closetNPortsMap(n, seadists);
         for (Place p1 : mapSeadists.keySet()) {
             List<SeaDist> l2 = mapSeadists.get(p1);
             for (SeaDist l : l2) {

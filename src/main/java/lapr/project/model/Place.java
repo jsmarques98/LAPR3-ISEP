@@ -34,7 +34,7 @@ public class Place extends Position{
     }
 
     public String getCountryName() {
-        return name;
+        return countryName;
     }
 
     public void setCountryName(String countryName){
