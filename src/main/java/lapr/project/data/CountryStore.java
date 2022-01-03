@@ -2,16 +2,35 @@ package lapr.project.data;
 
 import lapr.project.model.Border;
 import lapr.project.model.Country;
+import lapr.project.model.Position;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CountryStore {
+
+    private ArrayList<Country> countryArrayList;
+
+    public CountryStore(){
+        countryArrayList = new ArrayList<>();
+    }
+
+    public ArrayList<Country> getCountryArray(){
+        return this.countryArrayList;
+    }
+
+    public List<Position> getCountryList(){
+        List<Position> temp = new ArrayList<>();
+        temp.addAll(countryArrayList);
+        return temp;
+    }
+
     public boolean save(DataBaseConnection databaseConnection, Object object) {
         Country country = (Country) object;
         boolean returnValue = false;
@@ -122,7 +141,6 @@ public class CountryStore {
     public boolean loadCountryFromDatabase(DataBaseConnection databaseConnection) {
         boolean returnValue= false;
         Connection connection = databaseConnection.getConnection();
-        ArrayList<Country> tempArray = new ArrayList<>();
         String sqlCommand = "Select * from \"country\"";
         try (PreparedStatement getCountryPreparedStatement = connection.prepareStatement(sqlCommand)) {
 
@@ -138,7 +156,7 @@ public class CountryStore {
                             countryPreparedResultSet.getFloat(7), //lat
                             countryPreparedResultSet.getFloat(8)  //lon
                             );
-                    tempArray.add(tempCountry);
+                    countryArrayList.add(tempCountry);
 
                 }
             }

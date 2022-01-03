@@ -52,6 +52,7 @@ public class ShipStore implements Persistable {
         Iterable<ShipMmsi> ships = shipBST.getTreeForDB();
         for (Ship s: ships) {
             this.save(dataBaseConnection,s);
+            System.out.println(s.getMmsi());
         }
 
         return returnValue;
@@ -234,10 +235,10 @@ public class ShipStore implements Persistable {
         return returnValue;
     }
     // fazer o upload para ter dados
-    public boolean loadFromDatabase(DataBaseConnection databaseConnection) throws SQLException {
+    public boolean loadFromDatabase(DataBaseConnection databaseConnection, ArrayList<Ship> shipArrayList) throws SQLException {
         boolean returnValue = false;
         Connection connection = databaseConnection.getConnection();
-        ArrayList<Ship> tempArray = new ArrayList<>();
+        //ArrayList<Ship> tempArray = new ArrayList<>();
         String sqlCommand = "Select * from \"ship\"";
         try (PreparedStatement getShipsPreparedStatement = connection.prepareStatement(sqlCommand)) {
 
@@ -283,7 +284,7 @@ public class ShipStore implements Persistable {
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
-                    tempArray.add(tempShip);
+                    shipArrayList.add(tempShip);
 
                 }
             } catch (SQLException ex) {
@@ -293,7 +294,7 @@ public class ShipStore implements Persistable {
                 returnValue = false;
 
             }
-            shipBST.insert(tempArray);
+            shipBST.insert(shipArrayList);
             return returnValue;
         }
     }

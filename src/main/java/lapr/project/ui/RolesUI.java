@@ -1,13 +1,12 @@
 package lapr.project.ui;
 
 import lapr.project.data.*;
-import lapr.project.model.KDTreePort;
-import lapr.project.model.Material;
-import lapr.project.model.Port;
+import lapr.project.model.*;
 import lapr.project.store.MaterialStore;
 import lapr.project.utils.CsvReader;
 import lapr.project.utils.ThermalResistance;
 
+import javax.xml.stream.Location;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,11 +19,35 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class RolesUI {
+
+    BorderStore bs;
+    CountryStore cs;
+    PortStore ps;
+    SeaDistStore sds;
+    ShipStore ss;
+    ArrayList<Ship> shipList = new ArrayList<>();
+    ArrayList<Border> borderList = new ArrayList<>();
+    ArrayList<Port> portList = new ArrayList<>();
+    ArrayList<SeaDist> seaDistList = new ArrayList<>();
+    ArrayList<Country> countryList = new ArrayList<>();
+    PositionMatrixGraph pmg = new PositionMatrixGraph();
+
+    public RolesUI(){
+        bs = new BorderStore();
+        cs = new CountryStore();
+        KDTreePort portTree = new KDTreePort();
+        ps = new PortStore(portTree);
+        sds = new SeaDistStore();
+        ss = new ShipStore();
+    }
+
 
     public  void client(String user) throws IOException {
         String option = new String();
@@ -152,6 +175,8 @@ public class RolesUI {
                 break;
                 case "2":
                     //[US302]
+                    pmg.fillMatrixGraph(3,cs.getCountryList(),ps.getPortList(),sds.getSeaDistArrayList(),bs.toMap(bs.getBorderArray(),cs.getCountryArray()));
+                    pmg.getCompleteMap();
                 break;
                 case "3":
                     //[US303]
@@ -433,13 +458,7 @@ public class RolesUI {
 
 
     public void importMenu() throws IOException, SQLException {
-        ShipStore st = new ShipStore();
-        KDTreePort portTree = new KDTreePort();
         String option = new String();
-        PortStore pt = new PortStore(portTree);
-        CountryStore cs = new CountryStore();
-        BorderStore bs = new BorderStore();
-        SeaDistStore sds = new SeaDistStore();
         CsvReader csvReader;
         // TODO code application logic here
         DataBaseConnection databaseConnection = null;
@@ -460,24 +479,19 @@ public class RolesUI {
         option = read.readLine();
         switch (option) {
             case "1":
-                st.uploadShipsToDB(databaseConnection);
-                st.loadFromDatabase(databaseConnection);
+                ss.uploadShipsToDB(databaseConnection);
                 break;
             case "2":
-                pt.uploadPortstoDatabase(databaseConnection);
-                pt.loadPortFromDatabase(databaseConnection);
+                ps.uploadPortstoDatabase(databaseConnection);
                 break;
             case "3":
                 cs.uploadCountriestoDatabase(databaseConnection, CsvReader.readCountry("src/main/java/lapr/project/data/countries.csv"));
-                cs.loadCountryFromDatabase(databaseConnection);
                 break;
             case "4":
                 bs.uploadBorderstoDatabase(databaseConnection, CsvReader.readBorder("src/main/java/lapr/project/data/borders.csv"));
-                bs.loadBorderFromDatabase(databaseConnection);
                 break;
             case "5":
                 sds.uploadSeadistToDatabase(databaseConnection, CsvReader.readSeaDist("src/main/java/lapr/project/data/seadists.csv"));
-                sds.loadSeadistFromDatabase(databaseConnection);
                 break;
             case "0":
                 System.out.println("bye");
@@ -485,5 +499,20 @@ public class RolesUI {
         }
     }
 
+    private void loadBD() throws SQLException {
+        DataBaseConnection databaseConnection = null;
+        try {
+            databaseConnection = ConnectionFactory.getInstance()
+                    .getDatabaseConnection();
+        } catch (IOException exception) {
+            Logger.getLogger(ShipStore.class.getName())
+                    .log(Level.SEVERE, null, exception);
+        }
+        sds.loadSeadistFromDatabase(databaseConnection);
+        bs.loadBorderFromDatabase(databaseConnection);
+        cs.loadCountryFromDatabase(databaseConnection);
+        ps.loadPortFromDatabase(databaseConnection);
+        ss.loadFromDatabase(databaseConnection,shipList);
+    }
 
 }

@@ -11,7 +11,7 @@ public class PositionMatrixGraph {
     private Graph<Position, Double> completeMap;
     private ShipSummary ss;
 
-    public void MatrizGraphPortCapital() {
+    public void PositionMatrixGraph() {
         this.completeMap = new MatrixGraph<>(false);
         ss = new ShipSummary();
     }
@@ -48,22 +48,21 @@ public class PositionMatrixGraph {
     }
 
     public void addCapitalCPortConection(List<Position> country, List<Position> ports) {
-
         for (Position c : country) {
             Position p = null;
             double aux = 0;
-            double disMin = 0;
+            double dist = 0;
             for (Position port : ports) {
                 if (c.getCountryName().equals(port.getCountryName())) {
                     aux = ss.distanciaDelta(c.getLatitude(), port.getLatitude(), c.getLongitude(), port.getLongitude());
-                    if (disMin == 0 || aux < disMin) {
-                        disMin = aux;
+                    if (dist == 0 || aux < dist) {
+                        dist = aux;
                         p = port;
                     }
                 }
             }
             if (p != null) {
-                completeMap.addEdge(c, p, disMin);
+                completeMap.addEdge(c, p, dist);
             }
         }
     }

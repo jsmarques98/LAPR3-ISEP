@@ -21,8 +21,7 @@ public class Position {
         this.countryName=countryName;
     }
 
-<<<<<<< HEAD
-=======
+
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
@@ -31,7 +30,6 @@ public class Position {
         this.longitude = longitude;
     }
 
->>>>>>> f5583e88f043955de5753e989692c799a76f3eb7
     public double getLongitude() {
         return longitude;
     }

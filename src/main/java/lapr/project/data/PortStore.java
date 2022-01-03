@@ -2,12 +2,14 @@ package lapr.project.data;
 
 import lapr.project.model.KDTreePort;
 import lapr.project.model.Port;
+import lapr.project.model.Position;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,10 +17,21 @@ public class PortStore  implements Persistable {
 
     //Atualizar atributos
     KDTreePort portTree = new KDTreePort();
+
     public PortStore(KDTreePort portTree){
         this.portTree = portTree;
     }
 
+
+    public ArrayList<Port> getPortArrayList(){
+        return this.portTree.getArray();
+    }
+
+    public List<Position> getPortList(){
+        List<Position> temp = new ArrayList<>();
+        temp.addAll(portTree.getArray());
+        return temp;
+    }
 
     @Override
     public boolean save(DataBaseConnection databaseConnection, Object object) {

@@ -13,6 +13,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SeaDistStore {
+
+    private ArrayList<SeaDist> seaDistArrayList;
+
+    public SeaDistStore(){
+        seaDistArrayList = new ArrayList<>();
+    }
+
+    public ArrayList<SeaDist> getSeaDistArrayList(){
+        return this.seaDistArrayList;
+    }
+
     public boolean save(DataBaseConnection databaseConnection, Object object) {
         SeaDist seadits = (SeaDist) object;
         boolean returnValue = false;
@@ -116,22 +127,51 @@ public class SeaDistStore {
     public boolean loadSeadistFromDatabase(DataBaseConnection databaseConnection) {
         boolean returnValue= false;
         Connection connection = databaseConnection.getConnection();
-        ArrayList<SeaDist> tempArray = new ArrayList<>();
-        String sqlCommand = "Select * from \"seadist\"";
+        String sqlCommand = "Select \"from_country\",\"from_port_id\",\"to_country\",\"to_port_id\",\"distance\" from \"seadist\"";
         try (PreparedStatement getSeadistPreparedStatement = connection.prepareStatement(sqlCommand)) {
 
             try (ResultSet seadistPreparedResultSet = getSeadistPreparedStatement.executeQuery()) {
-            //TODO IR BUSCAR NOMES A OUTROS SELECTS
                 while (seadistPreparedResultSet.next()) {
-                    /*SeaDist tempSeadist = new Port(seadistPreparedResultSet.getString(3), //continent
-                            seadistPreparedResultSet.getString(4), //country
-                            seadistPreparedResultSet.getInt(1), //id
-                            seadistPreparedResultSet.getString(2), //port
-                            seadistPreparedResultSet.getFloat(6), //lat
-                            seadistPreparedResultSet.getFloat(7) //lon
-                    );
-                    tempArray.add(tempSeadist);
-*/
+                    String from_Country_id = seadistPreparedResultSet.getString(1);
+                    String from_Country_name = "";
+                    int from_port_id = seadistPreparedResultSet.getInt(2);
+                    String from_port_name = "";
+                    String to_Country_id = seadistPreparedResultSet.getString(3);
+                    String to_Country_name = "";
+                    int to_port_id = seadistPreparedResultSet.getInt(4);
+                    String to_port_name = "";
+                    sqlCommand = "Select \"capital\" from \"country\" WHERE \"alpha3code\"=?";
+                    try (PreparedStatement getseadistPreparedStatement = connection.prepareStatement(sqlCommand)){
+                        getseadistPreparedStatement.setString(1,from_Country_id);
+                        try (ResultSet countryPreparedResultSet = getSeadistPreparedStatement.executeQuery()){
+                            from_Country_name=countryPreparedResultSet.getString(1);
+                        }
+                    }
+                    try (PreparedStatement getcountryPreparedStatement = connection.prepareStatement(sqlCommand)){
+                        getcountryPreparedStatement.setString(1,from_Country_id);
+                        try (ResultSet countryPreparedResultSet = getcountryPreparedStatement.executeQuery()){
+                            to_Country_name=countryPreparedResultSet.getString(1);
+                        }
+                    }
+                    sqlCommand = "Select \"name\" from \"port_warehouse\" WHERE \"port_warehouse_id\"=?";
+                    try (PreparedStatement getseadistPreparedStatement = connection.prepareStatement(sqlCommand)){
+                        getseadistPreparedStatement.setInt(1,from_port_id);
+                        try (ResultSet countryPreparedResultSet = getSeadistPreparedStatement.executeQuery()){
+                            from_port_name=countryPreparedResultSet.getString(1);
+                        }
+                    }
+                    try (PreparedStatement getcountryPreparedStatement = connection.prepareStatement(sqlCommand)){
+                        getcountryPreparedStatement.setInt(1,to_port_id);
+                        try (ResultSet countryPreparedResultSet = getcountryPreparedStatement.executeQuery()){
+                            to_port_name=countryPreparedResultSet.getString(1);
+                        }
+                    }
+                    SeaDist tempSeadist = new SeaDist(from_Country_name,from_port_id,from_port_name,to_Country_name
+                            ,to_port_id,to_port_name,seadistPreparedResultSet.getFloat(5));
+
+
+                    seaDistArrayList.add(tempSeadist);
+
                 }
             }
         } catch (SQLException throwables) {
@@ -139,7 +179,6 @@ public class SeaDistStore {
             return returnValue;
         }
         returnValue = true;
-        //portTree.insertPorts(tempArray);
         return returnValue;
     }
     public boolean uploadSeadistToDatabase(DataBaseConnection databaseConnection){

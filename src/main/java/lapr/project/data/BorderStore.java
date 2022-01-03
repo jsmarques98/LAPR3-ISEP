@@ -1,17 +1,32 @@
 package lapr.project.data;
 
 import lapr.project.model.Border;
+import lapr.project.model.Country;
 import lapr.project.model.Port;
+import lapr.project.model.Position;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BorderStore {
+
+    private ArrayList<Border> borderArray;
+
+    public BorderStore(){
+        this.borderArray = new ArrayList<>();
+    }
+
+    public ArrayList<Border> getBorderArray(){
+        return this.borderArray;
+    }
 
     public boolean save(DataBaseConnection databaseConnection, Object object) {
         Border border = (Border) object;
@@ -87,7 +102,6 @@ public class BorderStore {
     public boolean loadBorderFromDatabase(DataBaseConnection databaseConnection) {
         boolean returnValue= false;
         Connection connection = databaseConnection.getConnection();
-        ArrayList<Border> tempArray = new ArrayList<>();
         String sqlCommand = "Select \"country1\",\"country2\" from \"border\"";
         try (PreparedStatement getBorderPreparedStatement = connection.prepareStatement(sqlCommand)) {
 
@@ -97,7 +111,7 @@ public class BorderStore {
                     Border tempBorder = new Border(borderPreparedResultSet.getString(1), //country1
                             borderPreparedResultSet.getString(2)//country2
                     );
-                    tempArray.add(tempBorder);
+                    borderArray.add(tempBorder);
 
                 }
             }
@@ -106,7 +120,6 @@ public class BorderStore {
             return returnValue;
         }
         returnValue = true;
-        //portTree.insertPorts(tempArray);
         return returnValue;
     }
 
@@ -157,6 +170,30 @@ public class BorderStore {
         }
 
         return returnValue;
+    }
+
+    public Map<Position, List<Position>> toMap(ArrayList<Border> borderArray, ArrayList<Country> countryArray){
+        Map<Position, List<Position>> mapBorder = new HashMap<>();
+        for (Border b : borderArray) {
+            for (Country c1 : countryArray) {
+                if(b.getCountry1().equals(c1.getCountry())) {
+                    for (Country c2 : countryArray) {
+                        if (b.getCountry2().equals(c2.getCountry())){
+                            for (Position p:mapBorder.keySet()) {
+                                if (p.equals(c1)){
+                                    mapBorder.get(p).add(c2);
+                                }else{
+                                    ArrayList<Position> temp = new ArrayList<>();
+                                    temp.add(c2);
+                                    mapBorder.put(c1,temp);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return mapBorder;
     }
 
 }

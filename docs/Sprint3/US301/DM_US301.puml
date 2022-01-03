@@ -1,0 +1,12 @@
+@startuml
+
+
+class ColorMap
+class PositionMatrixGraph
+class Country
+class Border
+
+ColorMap-->PositionMatrixGraph
+PositionMatrixGraph-->Country
+PositionMatrixGraph-->Border
+@enduml
