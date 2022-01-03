@@ -21,8 +21,6 @@ public class Position {
         this.countryName=countryName;
     }
 
-
-
     public double getLongitude() {
         return longitude;
     }

@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class ColorMap {
     private List<Position> vertices;
-    private List<Position> capitais;
+    private List<Position> capitals;
     private Map<String, String> graphColor;
     private Map<Position, List<Position>> bordersMap;
     private List<String> colors;
@@ -17,20 +17,20 @@ public class ColorMap {
     public ColorMap() {
         graphColor = new HashMap<>();
         colors = new ArrayList<>();
-        capitais = new ArrayList<>();
+        capitals = new ArrayList<>();
     }
 
 
     public String getColoredMap(Graph<Position, Double> G) {
         vertices = G.vertices();
 
-        getListOfCapitalVertices(vertices);
+        getCapitalVerticesList(vertices);   // Returns a list of the capitals of the map
 
 
-        bordersMap = getMapOfBordersFromMatrix(capitais, G);
+        bordersMap = getBordersFromMatrixMap(capitals, G); // Gets the map of every border from the matrix of capitals
 
 
-        for (Position v : capitais) {
+        for (Position v : capitals) {
             fillListColors();
             List<Position> borderCountries = bordersMap.get(v);
 
@@ -49,34 +49,34 @@ public class ColorMap {
         return toStringMapColors();
     }
 
-    public List<Position> getListOfCapitalVertices(List<Position> vertices) {
+    public List<Position> getCapitalVerticesList(List<Position> vertices) {
         for (Position p : vertices) {
             if (p.getClass().equals(Country.class)) {
-                capitais.add(p);
+                capitals.add(p);
             }
         }
-        return capitais;
+        return capitals;
     }
 
-    public Map<Position, List<Position>> getMapOfBordersFromMatrix(List<Position> capitais, Graph<Position, Double> G) {
+    public Map<Position, List<Position>> getBordersFromMatrixMap(List<Position> capitals, Graph<Position, Double> G) {
 
-        Map<Position, List<Position>> aux = new HashMap<Position, List<Position>>();
+        Map<Position, List<Position>> temp = new HashMap<Position, List<Position>>();
 
-        for (int i = 0; i < capitais.size(); i++) {
-            for (int j = i + 1; j < capitais.size(); j++) {
-                if (G.edge(capitais.get(i), capitais.get(j)) != null) {
-                    if (!aux.containsKey(capitais.get(i))) {
-                        aux.put(capitais.get(i), new ArrayList<>());
+        for (int i = 0; i < capitals.size(); i++) {
+            for (int j = i + 1; j < capitals.size(); j++) {
+                if (G.edge(capitals.get(i), capitals.get(j)) != null) {
+                    if (!temp.containsKey(capitals.get(i))) {
+                        temp.put(capitals.get(i), new ArrayList<>());
                     }
-                    if (!aux.containsKey(capitais.get(j))) {
-                        aux.put(capitais.get(j), new ArrayList<>());
+                    if (!temp.containsKey(capitals.get(j))) {
+                        temp.put(capitals.get(j), new ArrayList<>());
                     }
-                    aux.get(capitais.get(i)).add(capitais.get(j));
-                    aux.get(capitais.get(j)).add(capitais.get(i));
+                    temp.get(capitals.get(i)).add(capitals.get(j));
+                    temp.get(capitals.get(j)).add(capitals.get(i));
                 }
             }
         }
-        return aux;
+        return temp;
     }
 
     public void fillListColors() {
