@@ -454,3 +454,59 @@ BEGIN
     RETURN TRUE;
 END;
 /
+
+--[US305]As Client, I want to know the route of a specific container I am leasing
+CREATE OR REPLACE FUNCTION  "get_container_situation"(codeContainer "container"."container_id"%TYPE, codeClient "user"."user_id"%TYPE) RETURN BOOLEAN
+IS
+    AUX int;
+    AUX1 int;
+    CARGOMANIFESTID "cargo_manifest"."cargo_manifesto_id"%type;
+    CARGOMANIFESTID "cargo_manifest"."cargo_manifesto_id"%type;
+    SHIPID "vehicle"."vehicle_id"%type;
+    SHIPNAME "ship"."ship_name"%type;
+    PLATE "truck"."plate"%type;
+    RegistoID int;
+	TYPE WAREHOUSE_LIST IS TABLE OF "port_manager"."port_id"%TYPE;
+    Stops       WAREHOUSE_LIST;
+	NomePort VARCHAR(255);
+
+BEGIN
+
+    SELECT COUNT(*) INTO AUX FROM "container" WHERE "container"."container_id" = codeContainer;
+
+    IF AUX = 0 THEN
+        raise_application_error(-0305, 'Invalid Container ID');
+    end if;
+
+    SELECT COUNT(*) INTO AUX1 FROM "goods" WHERE "goods"."client_id" = codeClient AND "goods"."container_id" = codeContainer;
+
+    IF AUX1 = 0 THEN
+        raise_application_error(-03050, 'Container is not leased by client.');
+    end if;
+
+ SELECT "registo_id" INTO RegistoID FROM "registo_container" WHERE "registo_container"."container_id"= codeContainer AND rownum = (select MAX("registo_id") FROM "registo_container" WHERE "container_id"=codeContainer);
+ SELECT "cargo_manifest_id" INTO CargoManifestID FROM "Cargo_manifest_container" WHERE "registo_id"=RegistoID;
+ 
+ SELECT "port_warehouse_id" BULK COLLECT INTO Stops FROM "trip_stop" WHERE "cargo_manifest_id"=CargoManifestID;
+ for i in 1..Stops.COUNT LOOP
+ SELECT "name" INTO NomePort FROM "port_warehouse" WHERE "port_warehouse_id"=Stops;
+ dbms_output.put_line('NomePort: '  || NomePort);
+end loop;
+
+SELECT "vehicle_id" INTO VEHICLE_ID FROM "vehicle" WHERE "vehicle"."vehicle_id"=(
+SELECT "vehicle_id" FROM "cargo_manifest" WHERE "cargo_manifest"."cargo_manifest_id"=CARGO_MANIFEST_ID);
+ 
+IF SHIPID IS NOT NULL THEN
+                SELECT "ship_name" INTO SHIPNAME FROM "ship" WHERE "ship"."mmsi" = SHIPID;
+                DBMS_OUTPUT('ON BOARD OF THE SHIP CALLED' || SHIPNAME);
+            ELSE
+                SELECT "plate" INTO PLATE FROM "truck" WHERE "truck"."plate" = (
+                    SELECT "plate" FROM "vehicle" WHERE "vehicle"."vehicle_id" = (
+                        SELECT "vehicle_id" FROM "cargo_manifest" WHERE "cargo_manifest"."cargo_manifesto_id" = CARGOMANIFESTID));
+                DBMS_OUTPUT('ON BOARD OF THE TRUCK WITH THE PLATE' || PLATE);
+            end if;
+            
+            
+end;
+
+
