@@ -1,0 +1,34 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor "Traffic Manager" as traf
+
+
+participant ":UserUI" as userui
+participant ":CSVReader" as csv
+participant ":SeaDist" as seadist
+
+activate traf
+
+
+traf -> userui : Start to register seadist file
+activate userui
+
+
+userui -> csv : readCSV()
+
+activate csv
+
+csv -> seadist : newSeaDist(fromCountry, fromPortId, fromPort, toCountry, toPortId, toPort, seaDistance)
+activate seadist
+seadist --> csv : addSeaDist
+deactivate seadist
+
+
+csv --> userui : seaDistArray
+deactivate csv
+userui --> traf : success message
+deactivate userui
+deactivate traf
+@enduml

@@ -1,0 +1,34 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor "Traffic Manager" as traf
+
+
+participant ":UserUI" as userui
+participant ":CSVReader" as csv
+participant ":Country" as country
+
+activate traf
+
+
+traf -> userui : Start to register country file
+activate userui
+
+
+userui -> csv : readCSV()
+
+activate csv
+
+csv -> country : newCountry(country1, country2)
+activate country
+country --> csv : addCountry
+deactivate country
+deactivate csv
+
+csv --> userui : countryArray
+
+userui --> traf : success message
+deactivate userui
+deactivate traf
+@enduml

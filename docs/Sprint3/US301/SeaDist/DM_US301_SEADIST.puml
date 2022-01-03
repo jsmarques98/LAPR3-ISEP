@@ -1,0 +1,14 @@
+@startuml
+
+class RolesUI
+class SeaDist
+class Position
+
+
+RolesUI --> Position
+Position --> SeaDist
+
+
+
+
+@enduml

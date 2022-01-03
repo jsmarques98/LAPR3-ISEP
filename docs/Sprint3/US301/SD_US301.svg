@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="377px" preserveAspectRatio="none" style="width:619px;height:377px;background:#FFFFFF;" version="1.1" viewBox="0 0 619 377" width="619px" zoomAndPan="magnify"><defs><filter height="300%" id="fz014k3ldmja3" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><rect fill="#FFFFFF" filter="url(#fz014k3ldmja3)" height="174.1094" style="stroke:#A80036;stroke-width:1.0;" width="10" x="53" y="99.6094"/><rect fill="#FFFFFF" filter="url(#fz014k3ldmja3)" height="151.7578" style="stroke:#A80036;stroke-width:1.0;" width="10" x="243" y="121.9609"/><rect fill="#FFFFFF" filter="url(#fz014k3ldmja3)" height="91.0547" style="stroke:#A80036;stroke-width:1.0;" width="10" x="355" y="152.3125"/><rect fill="#FFFFFF" filter="url(#fz014k3ldmja3)" height="30.3516" style="stroke:#A80036;stroke-width:1.0;" width="10" x="572" y="182.6641"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="58" x2="58" y1="89.6094" y2="291.7188"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="247.5" x2="247.5" y1="89.6094" y2="291.7188"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="359.5" x2="359.5" y1="89.6094" y2="291.7188"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="576.5" x2="576.5" y1="89.6094" y2="291.7188"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="100" x="5" y="86.5332">Traffic Manager</text><ellipse cx="58" cy="15" fill="#FEFECE" filter="url(#fz014k3ldmja3)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M58,23 L58,50 M45,31 L71,31 M58,50 L45,65 M58,50 L71,65 " fill="none" filter="url(#fz014k3ldmja3)" style="stroke:#A80036;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="100" x="5" y="305.252">Traffic Manager</text><ellipse cx="58" cy="318.3281" fill="#FEFECE" filter="url(#fz014k3ldmja3)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M58,326.3281 L58,353.3281 M45,334.3281 L71,334.3281 M58,353.3281 L45,368.3281 M58,353.3281 L71,368.3281 " fill="none" filter="url(#fz014k3ldmja3)" style="stroke:#A80036;stroke-width:2.0;"/><rect fill="#FEFECE" filter="url(#fz014k3ldmja3)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="59" x="216.5" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="45" x="223.5" y="74.5332">:UserUI</text><rect fill="#FEFECE" filter="url(#fz014k3ldmja3)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="59" x="216.5" y="290.7188"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="45" x="223.5" y="312.252">:UserUI</text><rect fill="#FEFECE" filter="url(#fz014k3ldmja3)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="93" x="311.5" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="79" x="318.5" y="74.5332">:CSVReader</text><rect fill="#FEFECE" filter="url(#fz014k3ldmja3)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="93" x="311.5" y="290.7188"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="79" x="318.5" y="312.252">:CSVReader</text><rect fill="#FEFECE" filter="url(#fz014k3ldmja3)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="61" x="544.5" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="47" x="551.5" y="74.5332">:Border</text><rect fill="#FEFECE" filter="url(#fz014k3ldmja3)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="61" x="544.5" y="290.7188"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="47" x="551.5" y="312.252">:Border</text><rect fill="#FFFFFF" filter="url(#fz014k3ldmja3)" height="174.1094" style="stroke:#A80036;stroke-width:1.0;" width="10" x="53" y="99.6094"/><rect fill="#FFFFFF" filter="url(#fz014k3ldmja3)" height="151.7578" style="stroke:#A80036;stroke-width:1.0;" width="10" x="243" y="121.9609"/><rect fill="#FFFFFF" filter="url(#fz014k3ldmja3)" height="91.0547" style="stroke:#A80036;stroke-width:1.0;" width="10" x="355" y="152.3125"/><rect fill="#FFFFFF" filter="url(#fz014k3ldmja3)" height="30.3516" style="stroke:#A80036;stroke-width:1.0;" width="10" x="572" y="182.6641"/><polygon fill="#A80036" points="231,117.9609,241,121.9609,231,125.9609,235,121.9609" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="63" x2="237" y1="121.9609" y2="121.9609"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="70" y="117.1045">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="150" x="81" y="117.1045">Start to register border file</text><polygon fill="#A80036" points="343,148.3125,353,152.3125,343,156.3125,347,152.3125" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="253" x2="349" y1="152.3125" y2="152.3125"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="260" y="147.4561">2</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="60" x="271" y="147.4561">readCSV()</text><polygon fill="#A80036" points="560,178.6641,570,182.6641,560,186.6641,564,182.6641" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="365" x2="566" y1="182.6641" y2="182.6641"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="372" y="177.8076">3</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="177" x="383" y="177.8076">newBorder(country1, country2)</text><polygon fill="#A80036" points="376,209.0156,366,213.0156,376,217.0156,372,213.0156" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="370" x2="576" y1="213.0156" y2="213.0156"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="382" y="208.1592">4</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="59" x="393" y="208.1592">addBorder</text><polygon fill="#A80036" points="264,239.3672,254,243.3672,264,247.3672,260,243.3672" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="258" x2="359" y1="243.3672" y2="243.3672"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="270" y="238.5107">5</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="67" x="281" y="238.5107">borderArray</text><polygon fill="#A80036" points="69,269.7188,59,273.7188,69,277.7188,65,273.7188" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="63" x2="247" y1="273.7188" y2="273.7188"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="75" y="268.8623">6</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="106" x="86" y="268.8623">success message</text><!--MD5=[2d58e0a9fa9486d2b69e87cf47dd88b5]
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor "Traffic Manager" as traf
+
+
+participant ":UserUI" as userui
+participant ":CSVReader" as csv
+participant ":Border" as border
+
+activate traf
+
+
+traf -> userui : Start to register border file
+activate userui
+
+
+userui -> csv : readCSV()
+
+activate csv
+
+csv -> border : newBorder(country1, country2)
+activate border
+border - -> csv : addBorder
+deactivate border
+
+
+csv - -> userui : borderArray
+deactivate csv
+userui - -> traf : success message
+deactivate userui
+deactivate traf
+@enduml
+
+@startuml
+
+autonumber
+actor "Traffic Manager" as traf
+
+
+participant ":UserUI" as userui
+participant ":CSVReader" as csv
+participant ":Border" as border
+
+activate traf
+
+
+traf -> userui : Start to register border file
+activate userui
+
+
+userui -> csv : readCSV()
+
+activate csv
+
+csv -> border : newBorder(country1, country2)
+activate border
+border - -> csv : addBorder
+deactivate border
+
+
+csv - -> userui : borderArray
+deactivate csv
+userui - -> traf : success message
+deactivate userui
+deactivate traf
+@enduml
+
+PlantUML version 1.2021.16(Wed Dec 08 17:25:22 GMT 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: pt
+Country: PT
+--></g></svg>
