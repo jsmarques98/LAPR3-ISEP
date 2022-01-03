@@ -1,0 +1,34 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor "Traffic Manager" as traf
+
+
+participant ":UserUI" as userui
+participant ":CSVReader" as csv
+participant ":Border" as border
+
+activate traf
+
+
+traf -> userui : Start to register border file
+activate userui
+
+
+userui -> csv : readCSV()
+
+activate csv
+
+csv -> border : newBorder(country1, country2)
+activate border
+border --> csv : addBorder
+deactivate border
+
+
+csv --> userui : borderArray
+deactivate csv
+userui --> traf : success message
+deactivate userui
+deactivate traf
+@enduml

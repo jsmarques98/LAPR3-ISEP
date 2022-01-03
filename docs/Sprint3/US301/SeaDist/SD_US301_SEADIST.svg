@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="377px" preserveAspectRatio="none" style="width:639px;height:377px;background:#FFFFFF;" version="1.1" viewBox="0 0 639 377" width="639px" zoomAndPan="magnify"><defs><filter height="300%" id="f1ctbj43gtryqn" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><rect fill="#FFFFFF" filter="url(#f1ctbj43gtryqn)" height="174.1094" style="stroke:#A80036;stroke-width:1.0;" width="10" x="53" y="99.6094"/><rect fill="#FFFFFF" filter="url(#f1ctbj43gtryqn)" height="151.7578" style="stroke:#A80036;stroke-width:1.0;" width="10" x="250" y="121.9609"/><rect fill="#FFFFFF" filter="url(#f1ctbj43gtryqn)" height="60.7031" style="stroke:#A80036;stroke-width:1.0;" width="10" x="364" y="152.3125"/><rect fill="#FFFFFF" filter="url(#f1ctbj43gtryqn)" height="30.3516" style="stroke:#A80036;stroke-width:1.0;" width="10" x="588" y="182.6641"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="58" x2="58" y1="89.6094" y2="291.7188"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="254.5" x2="254.5" y1="89.6094" y2="291.7188"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="368.5" x2="368.5" y1="89.6094" y2="291.7188"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="593" x2="593" y1="89.6094" y2="291.7188"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="100" x="5" y="86.5332">Traffic Manager</text><ellipse cx="58" cy="15" fill="#FEFECE" filter="url(#f1ctbj43gtryqn)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M58,23 L58,50 M45,31 L71,31 M58,50 L45,65 M58,50 L71,65 " fill="none" filter="url(#f1ctbj43gtryqn)" style="stroke:#A80036;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="100" x="5" y="305.252">Traffic Manager</text><ellipse cx="58" cy="318.3281" fill="#FEFECE" filter="url(#f1ctbj43gtryqn)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M58,326.3281 L58,353.3281 M45,334.3281 L71,334.3281 M58,353.3281 L45,368.3281 M58,353.3281 L71,368.3281 " fill="none" filter="url(#f1ctbj43gtryqn)" style="stroke:#A80036;stroke-width:2.0;"/><rect fill="#FEFECE" filter="url(#f1ctbj43gtryqn)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="59" x="223.5" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="45" x="230.5" y="74.5332">:UserUI</text><rect fill="#FEFECE" filter="url(#f1ctbj43gtryqn)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="59" x="223.5" y="290.7188"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="45" x="230.5" y="312.252">:UserUI</text><rect fill="#FEFECE" filter="url(#f1ctbj43gtryqn)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="93" x="320.5" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="79" x="327.5" y="74.5332">:CSVReader</text><rect fill="#FEFECE" filter="url(#f1ctbj43gtryqn)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="93" x="320.5" y="290.7188"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="79" x="327.5" y="312.252">:CSVReader</text><rect fill="#FEFECE" filter="url(#f1ctbj43gtryqn)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="68" x="557" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="54" x="564" y="74.5332">:Country</text><rect fill="#FEFECE" filter="url(#f1ctbj43gtryqn)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="68" x="557" y="290.7188"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="54" x="564" y="312.252">:Country</text><rect fill="#FFFFFF" filter="url(#f1ctbj43gtryqn)" height="174.1094" style="stroke:#A80036;stroke-width:1.0;" width="10" x="53" y="99.6094"/><rect fill="#FFFFFF" filter="url(#f1ctbj43gtryqn)" height="151.7578" style="stroke:#A80036;stroke-width:1.0;" width="10" x="250" y="121.9609"/><rect fill="#FFFFFF" filter="url(#f1ctbj43gtryqn)" height="60.7031" style="stroke:#A80036;stroke-width:1.0;" width="10" x="364" y="152.3125"/><rect fill="#FFFFFF" filter="url(#f1ctbj43gtryqn)" height="30.3516" style="stroke:#A80036;stroke-width:1.0;" width="10" x="588" y="182.6641"/><polygon fill="#A80036" points="238,117.9609,248,121.9609,238,125.9609,242,121.9609" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="63" x2="244" y1="121.9609" y2="121.9609"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="70" y="117.1045">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="157" x="81" y="117.1045">Start to register country file</text><polygon fill="#A80036" points="352,148.3125,362,152.3125,352,156.3125,356,152.3125" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="260" x2="358" y1="152.3125" y2="152.3125"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="267" y="147.4561">2</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="60" x="278" y="147.4561">readCSV()</text><polygon fill="#A80036" points="576,178.6641,586,182.6641,576,186.6641,580,182.6641" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="374" x2="582" y1="182.6641" y2="182.6641"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="381" y="177.8076">3</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="184" x="392" y="177.8076">newCountry(country1, country2)</text><polygon fill="#A80036" points="380,209.0156,370,213.0156,380,217.0156,376,213.0156" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="374" x2="592" y1="213.0156" y2="213.0156"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="386" y="208.1592">4</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="66" x="397" y="208.1592">addCountry</text><polygon fill="#A80036" points="271,239.3672,261,243.3672,271,247.3672,267,243.3672" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="265" x2="368" y1="243.3672" y2="243.3672"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="277" y="238.5107">5</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="74" x="288" y="238.5107">countryArray</text><polygon fill="#A80036" points="69,269.7188,59,273.7188,69,277.7188,65,273.7188" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="63" x2="254" y1="273.7188" y2="273.7188"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="75" y="268.8623">6</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="106" x="86" y="268.8623">success message</text><!--MD5=[9be6f82b4e9469a6bd44b6d19b93a040]
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor "Traffic Manager" as traf
+
+
+participant ":UserUI" as userui
+participant ":CSVReader" as csv
+participant ":Country" as country
+
+activate traf
+
+
+traf -> userui : Start to register country file
+activate userui
+
+
+userui -> csv : readCSV()
+
+activate csv
+
+csv -> country : newCountry(country1, country2)
+activate country
+country - -> csv : addCountry
+deactivate country
+deactivate csv
+
+csv - -> userui : countryArray
+
+userui - -> traf : success message
+deactivate userui
+deactivate traf
+@enduml
+
+@startuml
+
+autonumber
+actor "Traffic Manager" as traf
+
+
+participant ":UserUI" as userui
+participant ":CSVReader" as csv
+participant ":Country" as country
+
+activate traf
+
+
+traf -> userui : Start to register country file
+activate userui
+
+
+userui -> csv : readCSV()
+
+activate csv
+
+csv -> country : newCountry(country1, country2)
+activate country
+country - -> csv : addCountry
+deactivate country
+deactivate csv
+
+csv - -> userui : countryArray
+
+userui - -> traf : success message
+deactivate userui
+deactivate traf
+@enduml
+
+PlantUML version 1.2021.16(Wed Dec 08 17:25:22 GMT 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: pt
+Country: PT
+--></g></svg>

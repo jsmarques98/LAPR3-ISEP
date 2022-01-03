@@ -3,18 +3,12 @@
 class RolesUI
 class Border
 class Position
-class SeaDist
-class Country
-class Port
 
 
 RolesUI --> Position
 
 
 Position --> Border
-Position --> Port
-Position --> SeaDist
-Position --> Country
 
 
 

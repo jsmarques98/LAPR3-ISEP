@@ -1,0 +1,16 @@
+@startuml
+
+class RolesUI
+class Country
+class Position
+
+
+RolesUI --> Position
+
+
+Position --> Country
+
+
+
+
+@enduml

@@ -4,7 +4,7 @@
 autonumber
 
 activate TraficManager
-TraficManager -> system: select the borders import function
+TraficManager -> system: select the country import function
 activate system
 
 system --> TraficManager: informs success
