@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+activate TraficManager
+TraficManager -> system: select the find color the map option
+activate system
+
+system --> TraficManager: informs success
+deactivate system
+
+deactivate TraficManager
+@enduml
