@@ -353,3 +353,37 @@ BEGIN
             end if;
             
 end;
+
+--[US310] As Port manager, I intend to have a map of the occupation of the existing resources in the port during a given month.
+CREATE OR REPLACE FUNCTION  "occupation_map"(port_manager_id "port_manager"."user_id"%TYPE, MONTH_GIVEN DATE) RETURN BOOLEAN
+    IS
+    TYPE WAREHOUSE_LIST IS TABLE OF "port_manager"."port_id"%TYPE;
+    portsList        WAREHOUSE_LIST;
+    RATE FLOAT;
+    CAPACITY_WAREHOUSE INT;
+    COUNT_CONT INT;
+    COUNT_REMOVE_CONT INT;
+BEGIN
+SELECT "port_id" BULK COLLECT INTO portsList FROM "port_manager" WHERE "user_id"=port_manager_id;
+for i in 1..portsList.COUNT LOOP
+
+            for j in 1..30 LOOP
+SELECT "capacity" INTO CAPACITY_WAREHOUSE FROM "port_warehouse" WHERE "port_warehouse_id"=i;
+SELECT COUNT("registo_id") INTO COUNT_CONT FROM "cargo_manifest_container" INNER JOIN "trip_stop" on "cargo_manifesto_id"="cargo_manifest_id"
+                                                                           INNER JOIN "cargo_manifest" cm on cm."cargo_manifesto_id" = "cargo_manifest_container"."cargo_manifesto_id"
+WHERE "trip_stop"."port_wharehouse_id"=i AND cm."operation_type"='load' OR cm."operation_type"='Load'
+    AND extract(month from "trip_stop"."estimate_date")=extract(month from MONTH_GIVEN) AND extract(day from "trip_stop"."estimate_date")=j;
+SELECT COUNT("registo_id") INTO COUNT_REMOVE_CONT FROM "cargo_manifest_container" INNER JOIN "trip_stop" on "cargo_manifesto_id"="cargo_manifest_id"
+                                                                                  INNER JOIN "cargo_manifest" cm on cm."cargo_manifesto_id" = "cargo_manifest_container"."cargo_manifesto_id"
+WHERE "trip_stop"."port_wharehouse_id"=i AND  cm."operation_type"='unload' OR cm."operation_type"='Unload'
+    AND extract(month from "trip_stop"."estimate_date")=extract(month from MONTH_GIVEN) AND extract(day from "trip_stop"."estimate_date")=j ;
+COUNT_CONT:=COUNT_CONT-COUNT_REMOVE_CONT;
+                    RATE := COUNT_CONT/CAPACITY_WAREHOUSE;
+                    dbms_output.put_line('Warehouse id: '  i  'occupancy rate: '  RATE  'day: ' || j);
+end loop;
+
+end loop;
+return true;
+end;
+
+
