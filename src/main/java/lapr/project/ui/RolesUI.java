@@ -8,10 +8,7 @@ import lapr.project.utils.ThermalResistance;
 
 import javax.xml.stream.Location;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -324,14 +321,28 @@ public class RolesUI {
             try (ResultSet portPreparedResultSet = getPortPreparedStatement.executeQuery()) {
 
                 while (portPreparedResultSet.next()) {
-                    String tempS = portPreparedResultSet.getInt(1) +
-                            portPreparedResultSet.getInt(2) +
-                            portPreparedResultSet.getInt(3) +
-                            portPreparedResultSet.getInt(4) +" ";
+                    String tempS = portPreparedResultSet.getInt(2) +"-"+
+                            portPreparedResultSet.getInt(3) +"-"+
+                            portPreparedResultSet.getInt(4) +":"+
+                            portPreparedResultSet.getInt(1) +"\n";
                     tempArray.add(tempS);
                 }
             }
         } catch (SQLException throwables) {
+        }
+        if(tempArray!=null){
+            try {
+                FileWriter myWriter = new FileWriter("file1.txt");
+                for (String s: tempArray) {
+                    myWriter.write(s);
+                }
+
+                myWriter.close();
+                System.out.println("Successfully wrote to the file.");
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
         }
 
     }
