@@ -1,4 +1,6 @@
-package lapr.project.utils;
+package lapr.project.data;
+
+import lapr.project.utils.Edge;
 
 import java.util.*;
 

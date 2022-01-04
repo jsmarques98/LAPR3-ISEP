@@ -1,6 +1,6 @@
 package lapr.project.ui;
 
-import lapr.project.model.MapStore;
+import lapr.project.data.MapStore;
 
 public class ColourMapUI implements Runnable {
 

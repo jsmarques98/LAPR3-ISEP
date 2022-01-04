@@ -1,7 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.model.Country;
-import lapr.project.model.MapStore;
+import lapr.project.data.MapStore;
 import lapr.project.utils.ShipSummary;
 
 

@@ -2,7 +2,6 @@ package lapr.project.ui;
 
 import lapr.project.data.*;
 import lapr.project.model.*;
-import lapr.project.model.PositionMatrixGraph;
 import lapr.project.store.MaterialStore;
 import lapr.project.utils.CsvReader;
 import lapr.project.utils.ThermalResistance;

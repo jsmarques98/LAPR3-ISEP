@@ -18,7 +18,7 @@ public class KDTreePortTest {
         port1 = new Port("America","Colombia",28261,"Buenaventura",3.916666667,-77.05);
         port2 = new Port("America","United States",25007,"New Jersey",40.66666667,-74.16666667);
     }
-/*
+
     @Test
     public void testInsertPorts(){
         KDTreePort portTree = new KDTreePort();
@@ -34,7 +34,7 @@ public class KDTreePortTest {
         node = portTree.nearestPort(40.66666667, -74.16666667);
         assertEquals(port2.toString(), node.toString());
     }
-*/
+
     @Test
     void insertPorts() {
         KDTreePort portTree = new KDTreePort();

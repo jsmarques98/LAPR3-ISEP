@@ -1,8 +1,7 @@
-package lapr.project.model;
+package lapr.project.data;
 
 import lapr.project.controller.ColourMapController;
 import lapr.project.model.Country;
-import lapr.project.utils.MapGraph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
