@@ -2,6 +2,7 @@ package lapr.project.ui;
 
 import lapr.project.data.*;
 import lapr.project.model.*;
+import lapr.project.model.PositionMatrixGraph;
 import lapr.project.store.MaterialStore;
 import lapr.project.utils.CsvReader;
 import lapr.project.utils.ThermalResistance;
@@ -31,7 +32,7 @@ public class RolesUI {
     ArrayList<Port> portList = new ArrayList<>();
     ArrayList<SeaDist> seaDistList = new ArrayList<>();
     ArrayList<Country> countryList = new ArrayList<>();
-    //PositionMatrixGraph pmg = new PositionMatrixGraph();
+    PositionMatrixGraph pmg = new PositionMatrixGraph();
     private static ColourMapUI colorMapUI = new ColourMapUI();
     public RolesUI(){
         bs = new BorderStore();
@@ -170,7 +171,7 @@ public class RolesUI {
                 case "2":
                     //[US302]
 
-                    //pmg.fillMatrixGraph(3,cs.getCountryList(),ps.getPortList(),sds.getSeaDistArrayList(),bs.toMap(bs.getBorderArray(),cs.getCountryArray()));
+                    pmg.fillMatrixGraph(3,cs.getCountryList(),ps.getPortList(),sds.getSeaDistArrayList(),bs.toMap(bs.getBorderArray(),cs.getCountryArray()));
                     colorMapUI.run();
                 break;
                 case "3":
