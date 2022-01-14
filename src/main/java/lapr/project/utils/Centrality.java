@@ -54,15 +54,10 @@ public class Centrality {
 
 
     private Map<Position, Integer> sortByComparator(Map<Position, Integer> unsortMap) {
-        List<Map.Entry<Position, Integer>> list = new LinkedList<Map.Entry<Position, Integer>>(unsortMap.entrySet());
+        List<Map.Entry<Position, Integer>> list = new LinkedList<>(unsortMap.entrySet());
         // Sorting the list based on values
-        Collections.sort(list, new Comparator<Map.Entry<Position, Integer>>() {
-            public int compare(Map.Entry<Position, Integer> o1,
-                               Map.Entry<Position, Integer> o2) {
-                return o2.getValue().compareTo(o1.getValue());
-            }
-        });
-        Map<Position, Integer> sortedMap = new LinkedHashMap<Position, Integer>();
+        list.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));
+        Map<Position, Integer> sortedMap = new LinkedHashMap<>();
         for (Map.Entry<Position, Integer> entry : list) {
             sortedMap.put(entry.getKey(), entry.getValue());
         }
