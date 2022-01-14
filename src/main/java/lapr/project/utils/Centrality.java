@@ -6,9 +6,13 @@ import lapr.project.model.Position;
 import java.util.*;
 
 public class Centrality {
+    Map<Position, Integer> centralityPort;
+
+    public Centrality() {
+        this.centralityPort = new HashMap<>();
+    }
 
     public String getNCentralPorts(Graph<Position, Double> g, int n) {
-        Map<Position, Integer> centralityPort = new HashMap<>();
         ArrayList<LinkedList<Position>> paths = new ArrayList<>();
         ArrayList<Double> dists = new ArrayList<>();
         List<Position> allPositions = g.vertices();
