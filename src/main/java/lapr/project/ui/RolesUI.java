@@ -86,6 +86,10 @@ public class RolesUI {
         while (!option.equals("0")){
             System.out.println("Please make your selection");
             System.out.println("1) I want to have access to audit trails for a given container of a given cargo manifest");
+            System.out.println("2) I intend to submit a summary document, with the following items.");
+            System.out.println("3) I want the determine the unladen center of mass for each vessel according to its characteristics.");
+            System.out.println("4) I want to know where to position, for example, one hundred containers on the vessel, such that the center of mass remains at xx and yy, determined in the previous point.");
+            System.out.println("5) I want to know for a specific vessel, how much did the vessel sink, assuming that each container has half a ton of mass");
             System.out.println("0) Leave");
             option = read.readLine();
             switch (option){
@@ -96,6 +100,19 @@ public class RolesUI {
                     String cargo_manifest = read.readLine();
                     audit_trails_log(container_id,cargo_manifest);
                     break;
+                case "2":
+                    //[417]
+                    break;
+                case "3":
+                    //[418]
+                    break;
+                case "4":
+                    //[419]
+                    break;
+                case "5":
+                    //[420]
+                    break;
+
             }
         }
     }
@@ -161,6 +178,9 @@ public class RolesUI {
             System.out.println("5) I do not allow a cargo manifest for a particular ship to be registered in the system on a date when the ship is already occupied. ");
             System.out.println("6) Insert containers in a cargo manifest");
             System.out.println("7) Delete containers in a cargo manifest");
+            System.out.println("8) [US401] I wish to know which ports are more critical in this freight network");
+            System.out.println("9) [US402] I wish to know the shortest path between two locals");
+            System.out.println("10) [US403] I wish to know the most efficient circuit that starts from a source location and visits the greatest number of other locations once, returning to the starting location and with the shortest total distance");
             System.out.println("0) Leave");
             option = read.readLine();
             switch (option){
@@ -201,6 +221,15 @@ public class RolesUI {
                     String cargo_manifest_ = read.readLine();
                     regist_audit_trail(user_id,Integer.parseInt(code_),Integer.parseInt(cargo_manifest_),"Delete");
                 break;
+                case "8":
+                    //[US401]
+                    break;
+                case "9":
+                    //[US402]
+                    break;
+                case "10":
+                    //[US403]
+                    break;
                 // 4 e 5 são triggers
             }
         }
@@ -254,8 +283,22 @@ public class RolesUI {
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
             System.out.println("Please make your selection");
+            System.out.println("1) [US404] I want to know the number of days each ship has been idle since the beginning of the current year");
+            System.out.println("2) [US405] I want to know the average occupancy rate per manifest of given ship during a given period.");
+            System.out.println("3) [US406] I want to know which ship voyages had an occupancy rate below a certain threshold");
             System.out.println("0) Leave");
             option = read.readLine();
+            switch (option){
+                case "1":
+                    //[US404]
+                    break;
+                case "2":
+                    //[US405]
+                    break;
+                case "3":
+                    //[US406]
+                    break;
+            }
         }
     }
     public void warehouse_staff(String user_id) throws IOException {
@@ -284,6 +327,7 @@ public class RolesUI {
             System.out.println("1) I wish to fill a statically reserved matrix in memory with each container's ID in its respective place");
             System.out.println("2) I wish to know the total number of free/occupied slots in the transport vehicle.");
             System.out.println("3) I wish to know if a container is there or not.");
+            System.out.println("4) [US409] I wish to fill a dynamically reserved array in memory with all the container's information in its respective place.");
             System.out.println("0) Leave");
             option = read.readLine();
             switch (option){
@@ -296,6 +340,9 @@ public class RolesUI {
                     break;
                 case "3":
                     //[US315]
+                    break;
+                case "4":
+                    //[US409]
                     break;
             }
         }
@@ -393,7 +440,40 @@ public class RolesUI {
     }
 
         public void ship_chief_electrical_engineer(String user_id) throws IOException {
-        physicsMenu();
+            String option = new String();
+            BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+            while (!option.equals("0")){
+                System.out.println("Please make your selection");
+                System.out.println("1) Sprint 1. ");
+                System.out.println("2) [412] we intend to know how much energy to supply, for each container, in a determined trip, with an exterior temperature of 20 ºC, and a travel time of 2h30");
+                System.out.println("3) [413] the objective is to know the total energy to be supplied to the set of containers in a certain established trip, assuming that all the containers have the same behaviour.");
+                System.out.println("4) [414] you want to know how much energy to supply to the container cargo, in a voyage (or route), depending on the position of the containers on the ship. Admitting that the interior containers.");
+                System.out.println("5) [415] I need to know how many auxiliary power equipment are needed for the voyage, knowing that each one supplies a maximum of 75 KW.");
+                System.out.println("6) [416] I intend to submit a summary document, with the following items.");
+                System.out.println("0) Leave");
+                option = read.readLine();
+                switch (option){
+                    case "1":
+                        physicsMenu();
+                        break;
+                    case "2":
+                        //[412]
+                        break;
+                    case "3":
+                        //[413]
+                        break;
+                    case "4":
+                        //[414]
+                        break;
+                    case "5":
+                        //[415]
+                        break;
+                    case "6":
+                        //[416]
+                        break;
+                }
+            }
+
     }
     private static void physicsMenu() throws IOException {
         String option = new String();
