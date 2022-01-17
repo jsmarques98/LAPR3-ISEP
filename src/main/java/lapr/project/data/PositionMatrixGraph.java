@@ -1,6 +1,7 @@
 package lapr.project.data;
 
 import lapr.project.model.Place;
+import lapr.project.model.Port;
 import lapr.project.model.Position;
 import lapr.project.model.SeaDist;
 import lapr.project.utils.Graph;
@@ -20,9 +21,8 @@ public class PositionMatrixGraph {
     }
 
     public void fillMatrixGraph(int n, List<Position> country, List<Position> ports, List<SeaDist> seadists, Map<Position, List<Position>> mapBorders) {
-
-        //createVertices(country);
-        //createVertices(ports);
+        createVertices(country);
+        createVertices(ports);
         addBordersConection(mapBorders);
         addPortsOfCountryConection(seadists);
         addCapitalCPortConection(country, ports);
@@ -31,7 +31,6 @@ public class PositionMatrixGraph {
 
 
     public void createVertices(List<Position> list) {
-
         for (Position p : list)
             completeMap.addVertex(p);
     }
@@ -104,6 +103,28 @@ public class PositionMatrixGraph {
     public Graph<Position, Double> getCompleteMap() {
         return completeMap;
 
+    }
+
+    public Graph<Position, Double> getLandMap(){
+        Graph<Position, Double> portMap = completeMap.clone();
+        for(Position p : portMap.vertices()){
+            for (Position p1 : portMap.adjVertices(p)){
+                if ((p.getClass().equals(Port.class) && p1.getClass().equals(Port.class)) || (p.getClass().equals(Place.class) && p1.getClass().equals(Place.class)))
+                    portMap.removeEdge(p,p1);
+            }
+        }
+        return portMap;
+    }
+
+    public Graph<Position, Double> getSeaMap(){
+        Graph<Position, Double> seaMap = completeMap.clone();
+        for(Position p : seaMap.vertices()){
+            for (Position p1 : seaMap.adjVertices(p)){
+                if (!((p.getClass().equals(Port.class) && p1.getClass().equals(Port.class)) || (p.getClass().equals(Place.class) && p1.getClass().equals(Place.class))))
+                    seaMap.removeEdge(p,p1);
+            }
+        }
+        return seaMap;
     }
 
 }

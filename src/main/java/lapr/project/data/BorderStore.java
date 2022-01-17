@@ -178,21 +178,17 @@ public class BorderStore {
 
     public Map<Position, List<Position>> toMap(ArrayList<Border> borderArray, ArrayList<Country> countryArray){
         Map<Position, List<Position>> mapBorder = new HashMap<>();
-
         for (Border b : borderArray) {
             for (Country c1 : countryArray) {
                 if(b.getCountry1().equals(c1.getCountry())) {
                     for (Country c2 : countryArray) {
                         if (b.getCountry2().equals(c2.getCountry())){
-                            for (Position p:mapBorder.keySet()) {
-
-                                if (p.equals(c1)){
-                                    mapBorder.get(p).add(c2);
-                                }else{
-                                    ArrayList<Position> temp = new ArrayList<>();
-                                    temp.add(c2);
-                                    mapBorder.put(c1,temp);
-                                }
+                            if(mapBorder.containsKey(c1)){
+                                mapBorder.get(c1).add(c2);
+                            }else{
+                                List<Position> l1 = new ArrayList<>();
+                                l1.add(c2);
+                                mapBorder.put(c1,l1);
                             }
                         }
                     }
