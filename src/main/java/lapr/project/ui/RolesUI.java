@@ -44,6 +44,7 @@ public class RolesUI {
 
 
     public  void client(String user) throws IOException {
+        System.out.println(user);
         String option = new String();
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
@@ -56,22 +57,23 @@ public class RolesUI {
                 case "1":
                     System.out.println("Insert container id:");
                     String container_id = read.readLine();
-                    leasing_container(container_id);
+
                     break;
                 case "2":
                     //mudar o x e y para ID
                     System.out.println("x to work");
                     System.out.println("y to break");
                     String container_id_ = read.readLine();
-                    leasing_container(container_id_);
+
+                    break;
+                default:
+                    System.out.println("The option doens't exist");
                     break;
             }
         }
     }
-    private void leasing_container(String container_id){
-
-    }
     public void ship_employe(String user_id) throws IOException {
+        System.out.println(user_id);
         String option = new String();
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
@@ -81,6 +83,7 @@ public class RolesUI {
         }
     }
     public void ship_capitan(String user_id) throws IOException {
+        System.out.println(user_id);
         String option = new String();
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
@@ -98,7 +101,7 @@ public class RolesUI {
                     String container_id = read.readLine();
                     System.out.println("Insert cargo manifest id:");
                     String cargo_manifest = read.readLine();
-                    audit_trails_log(container_id,cargo_manifest);
+                    auditTrailsLog(container_id,cargo_manifest);
                     break;
                 case "2":
                     //[417]
@@ -112,11 +115,13 @@ public class RolesUI {
                 case "5":
                     //[420]
                     break;
-
+                default:
+                    System.out.println("The option doens't exist");
+                    break;
             }
         }
     }
-    private void audit_trails_log(String container_id, String cargo_manifest_id){
+    private void auditTrailsLog(String container_id, String cargo_manifest_id){
         DataBaseConnection databaseConnection = null;
 
         try {
@@ -141,7 +146,7 @@ public class RolesUI {
             throwables.printStackTrace();
         }
     }
-    private void regist_audit_trail (String user, int container_id, int cargo_manifest_id, String operation_type){
+    private void registAuditTrail(String user, int container_id, int cargo_manifest_id, String operation_type){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         String date = LocalDateTime.now().format(formatter);
         DataBaseConnection databaseConnection = null;
@@ -167,6 +172,7 @@ public class RolesUI {
         }
     }
     public void traffic_manager(String user_id) throws IOException, SQLException{
+        System.out.println(user_id);
         String option = new String();
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
@@ -212,14 +218,14 @@ public class RolesUI {
                     String z = read.readLine();
                     System.out.println("Insert gross weigth:");
                     String weigth = read.readLine();
-                    regist_audit_trail(user_id,Integer.parseInt(code),Integer.parseInt(cargo_manifest),"Insert");
+                    registAuditTrail(user_id,Integer.parseInt(code),Integer.parseInt(cargo_manifest),"Insert");
                 break;
                 case "7":
                     System.out.println("Insert the container id:");
                     String code_ = read.readLine();
                     System.out.println("Insert the cargo manifest id:");
                     String cargo_manifest_ = read.readLine();
-                    regist_audit_trail(user_id,Integer.parseInt(code_),Integer.parseInt(cargo_manifest_),"Delete");
+                    registAuditTrail(user_id,Integer.parseInt(code_),Integer.parseInt(cargo_manifest_),"Delete");
                 break;
                 case "8":
                     //[US401]
@@ -230,12 +236,14 @@ public class RolesUI {
                 case "10":
                     //[US403]
                     break;
-                // 4 e 5 são triggers
+                default:
+                    System.out.println("The option doens't exist");
+                    break;
             }
         }
     }
-
-    private void delete_containers(String code,String cargo_manifest) throws SQLException {
+    /*
+    private void deleteContainers(String code, String cargo_manifest) throws SQLException {
         DataBaseConnection databaseConnection = null;
         try {
             databaseConnection = ConnectionFactory.getInstance()
@@ -254,7 +262,7 @@ public class RolesUI {
         savePortPreparedStatement.setInt(2, Integer.parseInt(cargo_manifest));
         savePortPreparedStatement.executeUpdate();
     }
-    private void insert_containers(String code,String cargo_manifest, String x,String y,String z,String weigth) throws SQLException {
+    private void insertContainers(String code,String cargo_manifest, String x,String y,String z,String weigth) throws SQLException {
         DataBaseConnection databaseConnection = null;
         try {
             databaseConnection = ConnectionFactory.getInstance()
@@ -277,8 +285,9 @@ public class RolesUI {
         savePortPreparedStatement.setInt(5, Integer.parseInt(z));
         savePortPreparedStatement.setFloat(6, Float.parseFloat(weigth));
         savePortPreparedStatement.executeUpdate();
-    }
+    }*/
     public void fleet_manager(String user_id) throws IOException {
+        System.out.println(user_id);
         String option = new String();
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
@@ -298,10 +307,14 @@ public class RolesUI {
                 case "3":
                     //[US406]
                     break;
+                default:
+                    System.out.println("The option doens't exist");
+                    break;
             }
         }
     }
     public void warehouse_staff(String user_id) throws IOException {
+        System.out.println(user_id);
         String option = new String();
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
@@ -311,6 +324,7 @@ public class RolesUI {
         }
     }
     public void warehouse_manager(String user_id) throws IOException {
+        System.out.println(user_id);
         String option = new String();
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
@@ -320,7 +334,8 @@ public class RolesUI {
         }
     }
     public void port_staff(String user_id) throws IOException {
-        String option = new String();
+        System.out.println(user_id);
+        String option= new String();
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
             System.out.println("Please make your selection");
@@ -343,6 +358,9 @@ public class RolesUI {
                     break;
                 case "4":
                     //[US409]
+                    break;
+                default:
+                    System.out.println("The option doens't exist");
                     break;
             }
         }
@@ -373,7 +391,6 @@ public class RolesUI {
             }
         } catch (SQLException throwables) {
         }
-        if(tempArray!=null){
             try {
                 FileWriter myWriter = new FileWriter("file1.txt");
                 for (String s: tempArray) {
@@ -386,11 +403,11 @@ public class RolesUI {
                 System.out.println("An error occurred.");
                 e.printStackTrace();
             }
-        }
 
     }
     public void port_manager(String user_id) throws IOException {
-        String option = new String();
+        System.out.println(user_id);
+        String option="";
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
             System.out.println("Please make your selection");
@@ -409,19 +426,19 @@ public class RolesUI {
                     }
                     break;
                 case "2":
-                    warehouse_capacity_limit();
+                    //warehouse_capacity_limit();
                     break;
                 case "3":
-                    occupation_map();
+                    //occupation_map();
+                    break;
+                default:
+                    System.out.println("The option doens't exist");
                     break;
             }
         }
     }
-    private void occupation_map(){}
-    private void warehouse_capacity_limit(){
-        //criar 2 bootstrap um de sucesso outro de insucesso
-    }
     private void occupancyRate(String user_id) throws SQLException {
+        System.out.println(user_id);
         DataBaseConnection databaseConnection = null;
         try {
             databaseConnection = ConnectionFactory.getInstance()
@@ -440,6 +457,7 @@ public class RolesUI {
     }
 
         public void ship_chief_electrical_engineer(String user_id) throws IOException {
+            System.out.println(user_id);
             String option = new String();
             BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
             while (!option.equals("0")){
@@ -470,6 +488,9 @@ public class RolesUI {
                         break;
                     case "6":
                         //[416]
+                        break;
+                    default:
+                        System.out.println("The option doens't exist");
                         break;
                 }
             }
@@ -533,9 +554,14 @@ public class RolesUI {
                 break;
             case "0":
                 break;
+            default:
+                System.out.println("The option doens't exist");
+                break;
         }
     }
     public void truck_driver(String user_id) throws IOException {
+        System.out.println(user_id);
+
         String option = new String();
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
@@ -585,9 +611,12 @@ public class RolesUI {
             case "0":
                 System.out.println("bye");
                 break;
+            default:
+                System.out.println("The option doens't exist");
+                break;
         }
     }
-
+    /*
     private void loadBD() throws SQLException {
         DataBaseConnection databaseConnection = null;
         try {
@@ -603,5 +632,5 @@ public class RolesUI {
         ps.loadPortFromDatabase(databaseConnection);
         ss.loadFromDatabase(databaseConnection,shipList);
     }
-
+*/
 }

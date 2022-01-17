@@ -27,7 +27,7 @@ INSERT INTO "container_certificate" VALUES (123453333,12);
 INSERT INTO "container_certificate" VALUES (123454444,12);
 
 --insert role (role_id, name) Atualizado
-INSERT INTO "role" VALUES (1, 'Ship employe');
+INSERT INTO "role" VALUES (1, 'Ship Employe');
 INSERT INTO "role" VALUES (2, 'Ship Capitan');
 INSERT INTO "role" VALUES (3, 'Traffic Manager');
 INSERT INTO "role" VALUES (4, 'Client');
@@ -36,8 +36,8 @@ INSERT INTO "role" VALUES (6, 'Warehouse Staff');
 INSERT INTO "role" VALUES (7, 'Warehouse Manager');
 INSERT INTO "role" VALUES (8, 'Port Staff');
 INSERT INTO "role" VALUES (9, 'Port Manager');
-INSERT INTO "role" VALUES (10, 'Ship chief electrical engineer');
-INSERT INTO "role" VALUES (11, 'Truck driver');
+INSERT INTO "role" VALUES (10, 'Ship Chief Electrical Engineer');
+INSERT INTO "role" VALUES (11, 'Truck Driver');
 
 --insert truck (plate, fuelCapacity) Atualizado
 INSERT INTO "truck" VALUES ('22:CP:66', 123);
