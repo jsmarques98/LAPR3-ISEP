@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 
@@ -76,7 +78,8 @@ public class CsvReader {
                 }
             }
         }catch (FileNotFoundException e){
-                System.out.println("File not found!");
+            Logger.getLogger(CsvReader.class.getName())
+                    .log(Level.SEVERE, null, e);
             }
             return sortByDate(shipArray);
         }
@@ -115,8 +118,9 @@ public class CsvReader {
             return portArray;
 
         }catch (FileNotFoundException e){
-            System.out.println("File not found!");
-            return null;
+            Logger.getLogger(CsvReader.class.getName())
+                    .log(Level.SEVERE, null, e);
+            return new ArrayList<>();
         }
 
     }
@@ -144,8 +148,9 @@ public class CsvReader {
             return countryArray;
 
         }catch (IOException e){
-            System.out.println("File not found!");
-            return null;
+            Logger.getLogger(CsvReader.class.getName())
+                    .log(Level.SEVERE, null, e);
+            return new ArrayList<>();
         }
     }
 
@@ -181,8 +186,9 @@ public class CsvReader {
             return seaDistArray;
 
         }catch (IOException e){
-            System.out.println("File not found!");
-            return null;
+            Logger.getLogger(CsvReader.class.getName())
+                    .log(Level.SEVERE, null, e);
+            return new ArrayList<>();
         }
     }
 
@@ -205,8 +211,9 @@ public class CsvReader {
             return borderArray;
 
         }catch (IOException e){
-            System.out.println("File not found!");
-            return null;
+            Logger.getLogger(CsvReader.class.getName())
+                    .log(Level.SEVERE, null, e);
+            return new ArrayList<>();
         }
     }
 
