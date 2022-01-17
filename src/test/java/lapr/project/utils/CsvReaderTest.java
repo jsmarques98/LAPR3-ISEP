@@ -95,7 +95,7 @@ class CsvReaderTest {
     @Test
     void readPortsExp() throws Exception {
         ArrayList<Port> ports = CsvReader.readPorts("src/data/1234.csv");
-        ArrayList<Port> expectRes = null;
+        ArrayList<Port> expectRes = new ArrayList<>();
         assertEquals(ports, expectRes);
     }
 
@@ -117,7 +117,7 @@ class CsvReaderTest {
     @Test
     void readCountryExp() throws Exception {
         ArrayList<Country> country = CsvReader.readCountry("src/data/1234.csv");
-        ArrayList<Country> expectRes = null;
+        ArrayList<Country> expectRes = new ArrayList<>();
         assertEquals(country, expectRes);
     }
 /*
@@ -154,7 +154,7 @@ class CsvReaderTest {
     @Test
     void readCBorderExp() throws Exception {
         ArrayList<Border> border = CsvReader.readBorder("src/data/1234.csv");
-        ArrayList<Border> expectRes = null;
+        ArrayList<Border> expectRes = new ArrayList<>();
         assertEquals(border, expectRes);
     }
 }

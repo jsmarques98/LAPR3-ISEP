@@ -118,8 +118,6 @@ public class CsvReader {
             return portArray;
 
         }catch (FileNotFoundException e){
-            Logger.getLogger(CsvReader.class.getName())
-                    .log(Level.SEVERE, null, e);
             return new ArrayList<>();
         }
 
@@ -148,8 +146,6 @@ public class CsvReader {
             return countryArray;
 
         }catch (IOException e){
-            Logger.getLogger(CsvReader.class.getName())
-                    .log(Level.SEVERE, null, e);
             return new ArrayList<>();
         }
     }
@@ -211,8 +207,6 @@ public class CsvReader {
             return borderArray;
 
         }catch (IOException e){
-            Logger.getLogger(CsvReader.class.getName())
-                    .log(Level.SEVERE, null, e);
             return new ArrayList<>();
         }
     }
