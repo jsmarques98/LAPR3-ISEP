@@ -1,4 +1,4 @@
-package lapr.project.utils;
+package lapr.project.data;
 
 import java.util.Objects;
 

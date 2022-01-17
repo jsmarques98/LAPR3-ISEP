@@ -1,13 +1,7 @@
 package lapr.project.utils;
 
-import lapr.project.model.DynamicShip;
-import lapr.project.model.Ship;
+import lapr.project.data.NodeKDTree;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

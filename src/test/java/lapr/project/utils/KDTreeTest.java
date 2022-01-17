@@ -1,5 +1,7 @@
 package lapr.project.utils;
 
+import lapr.project.data.KDTree;
+import lapr.project.data.NodeKDTree;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

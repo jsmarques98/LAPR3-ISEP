@@ -1,6 +1,6 @@
 package lapr.project.model;
 
-import org.junit.jupiter.api.Assertions;
+import lapr.project.data.Ship;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

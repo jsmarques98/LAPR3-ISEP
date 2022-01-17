@@ -1,8 +1,6 @@
 package lapr.project.ui;
 
-import lapr.project.data.ConnectionFactory;
-import lapr.project.data.DataBaseConnection;
-import lapr.project.data.ShipStore;
+import lapr.project.data.*;
 import lapr.project.model.*;
 
 import java.io.*;
@@ -50,63 +48,6 @@ class Main {
                     .log(Level.SEVERE, null, exception);
         }
         loginMenu(databaseConnection);
-        ShipStore st = new ShipStore();
-        KDTreePort portTree = new KDTreePort();
-        portTree.insertPorts();
-        String option = new String();
-        // TODO code application logic here
-        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-        while (!option.equals("0")) {
-            System.out.println("Please make your selection");
-            System.out.println("1) Import data to the Database");
-            System.out.println("2) Search ship");
-            System.out.println("3) Search ship summary");
-            System.out.println("4) Search nearest Port");
-            System.out.println("5) Container phisics");
-            System.out.println("0) Leave");
-            option = read.readLine();
-            String value;
-            switch (option){
-                case "1":
-
-                    break;
-                case "2":
-                    System.out.println("Insert the value: ");
-                    value = read.readLine();
-                    System.out.println(st.findShip(value));
-                    break;
-                case "3":
-                    System.out.println("Insert the value: ");
-                    value = read.readLine();
-                    System.out.println(st.shipSummary(value));
-                    break;
-                case "4":
-                    LocalDateTime date;
-                    Ship currentShip;
-                    ShipBST bst = new ShipBST();
-                    bst.insert();
-                    System.out.print("Insert the ship's CallSign:");
-                    String callSign = read.readLine();
-                    if (bst.findShip(callSign) != null) {
-                        currentShip = bst.findShip(callSign);
-                        date = DateReader.readDate(read, "Insert date: ");
-                        DynamicShip data = currentShip.getDataByDate(date);
-                        if (data != null) {
-                            Port nearestPort = portTree.nearestPort(data.getLat(), data.getLon());
-                            System.out.println("The nearest port is "+nearestPort.getPorto());
-                        }
-                    } else {
-                        System.out.println("Ship not found");
-                    }
-                    break;
-                case "5":
-
-                    break;
-                case "0":
-                    System.out.println("bye");
-                    break;
-            }
-        }
     }
     private static void loginMenu(DataBaseConnection databaseConnection) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, SQLException {
         RolesUI rolesUI = new RolesUI();

@@ -1,7 +1,6 @@
 package lapr.project.model;
 
-import lapr.project.model.KDTreePort;
-import lapr.project.model.Port;
+import lapr.project.data.KDTreePort;
 
 import org.junit.jupiter.api.Test;
 

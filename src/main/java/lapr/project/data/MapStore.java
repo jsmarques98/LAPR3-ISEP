@@ -1,6 +1,5 @@
 package lapr.project.data;
 
-import lapr.project.controller.ColourMapController;
 import lapr.project.model.Country;
 
 import java.util.ArrayList;

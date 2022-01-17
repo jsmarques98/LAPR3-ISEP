@@ -1,6 +1,5 @@
 package lapr.project.data;
 
-import lapr.project.utils.Edge;
 import lapr.project.utils.CommonGraph;
 import lapr.project.utils.Graph;
 

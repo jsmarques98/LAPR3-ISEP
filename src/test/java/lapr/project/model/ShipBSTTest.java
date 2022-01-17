@@ -1,7 +1,7 @@
 package lapr.project.model;
 
-import lapr.project.utils.BST;
-import lapr.project.utils.ShipSummary;
+import lapr.project.data.BST;
+import lapr.project.data.ShipBST;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

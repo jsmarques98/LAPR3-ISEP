@@ -1,8 +1,6 @@
 package lapr.project.data;
 
 import lapr.project.model.DynamicShip;
-import lapr.project.model.Ship;
-import lapr.project.model.ShipBST;
 import lapr.project.model.ShipMmsi;
 
 import java.sql.Connection;

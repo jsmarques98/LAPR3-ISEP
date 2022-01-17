@@ -1,4 +1,6 @@
-package lapr.project.model;
+package lapr.project.data;
+
+import lapr.project.model.DynamicShip;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

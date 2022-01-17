@@ -1,5 +1,7 @@
 package lapr.project.model;
 
+import lapr.project.data.Ship;
+
 public class ShipIMO extends Ship implements Comparable<ShipIMO>  {
     public ShipIMO(Ship ship) {
         super(ship.getMmsi(),

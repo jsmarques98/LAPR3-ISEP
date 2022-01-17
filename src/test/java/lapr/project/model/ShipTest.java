@@ -1,6 +1,6 @@
 package lapr.project.model;
 
-import org.junit.jupiter.api.BeforeAll;
+import lapr.project.data.Ship;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

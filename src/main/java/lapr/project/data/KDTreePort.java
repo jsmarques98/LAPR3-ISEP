@@ -1,9 +1,8 @@
-package lapr.project.model;
+package lapr.project.data;
 
 
-import lapr.project.utils.KDTree;
+import lapr.project.model.Port;
 import lapr.project.utils.CsvReader;
-import lapr.project.utils.NodeKDTree;
 
 import java.util.ArrayList;
 import java.util.List;

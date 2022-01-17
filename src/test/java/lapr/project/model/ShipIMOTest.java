@@ -1,5 +1,6 @@
 package lapr.project.model;
 
+import lapr.project.data.Ship;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

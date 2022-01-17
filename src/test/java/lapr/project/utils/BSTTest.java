@@ -1,5 +1,6 @@
 package lapr.project.utils;
 
+import lapr.project.data.BST;
 import lapr.project.data.ShipStore;
 import org.junit.jupiter.api.*;
 

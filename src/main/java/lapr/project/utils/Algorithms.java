@@ -1,5 +1,8 @@
 package lapr.project.utils;
 
+import lapr.project.data.Edge;
+import lapr.project.data.MatrixGraph;
+
 import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.BinaryOperator;
@@ -290,7 +293,7 @@ public class Algorithms {
      * @param sum sum two elements of type E
      * @return the minimum distance graph
      */
-    public static <V,E> MatrixGraph <V,E> minDistGraph(Graph <V,E> g, Comparator<E> ce, BinaryOperator<E> sum) {
+    public static <V,E> MatrixGraph<V,E> minDistGraph(Graph <V,E> g, Comparator<E> ce, BinaryOperator<E> sum) {
 
         int numVerts = g.numVertices();
         if (numVerts == 0) return null;

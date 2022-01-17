@@ -1,4 +1,4 @@
-package lapr.project.utils;
+package lapr.project.data;
 import java.awt.geom.Point2D;
 
 public class NodeKDTree<E> {

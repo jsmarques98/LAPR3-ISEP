@@ -1,4 +1,4 @@
-package lapr.project.controller;
+package lapr.project.data;
 
 import lapr.project.model.Country;
 import lapr.project.data.MapStore;

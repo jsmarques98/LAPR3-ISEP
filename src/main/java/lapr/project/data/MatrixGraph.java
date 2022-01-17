@@ -1,5 +1,7 @@
-package lapr.project.utils;
-import java.lang.reflect.Array;
+package lapr.project.data;
+import lapr.project.utils.CommonGraph;
+import lapr.project.utils.Graph;
+
 import java.util.*;
 
 public class MatrixGraph<V,E> extends CommonGraph<V,E> {
@@ -20,7 +22,7 @@ public class MatrixGraph<V,E> extends CommonGraph<V,E> {
         this(directed, INITIAL_CAPACITY);
     }
 
-    public MatrixGraph(Graph <V,E> g) {
+    public MatrixGraph(Graph<V,E> g) {
         this(g.isDirected(), g.numVertices());
         copy(g, this);
     }

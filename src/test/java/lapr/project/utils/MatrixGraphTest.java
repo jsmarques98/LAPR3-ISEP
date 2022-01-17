@@ -1,5 +1,7 @@
 package lapr.project.utils;
 
+import lapr.project.data.Edge;
+import lapr.project.data.MatrixGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,7 +1,7 @@
 package lapr.project.utils;
 
 import lapr.project.data.*;
-import lapr.project.model.KDTreePort;
+import lapr.project.data.KDTreePort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

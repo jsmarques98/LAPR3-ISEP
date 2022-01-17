@@ -1,7 +1,9 @@
-package lapr.project.model;
+package lapr.project.data;
 
 
-import lapr.project.utils.AVL;
+import lapr.project.model.ShipCallSign;
+import lapr.project.model.ShipIMO;
+import lapr.project.model.ShipMmsi;
 import lapr.project.utils.CsvReader;
 import lapr.project.utils.ShipSummary;
 

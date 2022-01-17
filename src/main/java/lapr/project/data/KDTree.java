@@ -1,4 +1,5 @@
-package lapr.project.utils;
+package lapr.project.data;
+
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;

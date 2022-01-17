@@ -1,5 +1,6 @@
 package lapr.project.utils;
 
+import lapr.project.data.Ship;
 import lapr.project.model.*;
 import org.junit.jupiter.api.Test;
 

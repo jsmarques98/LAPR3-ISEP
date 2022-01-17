@@ -1,7 +1,7 @@
 package lapr.project.utils;
 
 import lapr.project.model.DynamicShip;
-import lapr.project.model.Ship;
+import lapr.project.data.Ship;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

@@ -1,5 +1,7 @@
 package lapr.project.utils;
 
+import lapr.project.data.Edge;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Predicate;

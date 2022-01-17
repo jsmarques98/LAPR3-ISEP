@@ -1,5 +1,7 @@
 package lapr.project.model;
 
+import lapr.project.data.Ship;
+
 public class ShipMmsi extends Ship implements Comparable<ShipMmsi> {
     public ShipMmsi(Ship ship) {
         super(ship.getMmsi(),

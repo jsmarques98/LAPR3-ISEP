@@ -1,7 +1,7 @@
 package lapr.project.utils;
 
 import lapr.project.model.DynamicShip;
-import lapr.project.model.Ship;
+import lapr.project.data.Ship;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

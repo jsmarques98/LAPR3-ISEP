@@ -1,5 +1,7 @@
 package lapr.project.model;
 
+import lapr.project.data.Ship;
+
 public class ShipCallSign extends Ship implements Comparable<ShipCallSign>{
 
     public ShipCallSign(Ship ship) {
