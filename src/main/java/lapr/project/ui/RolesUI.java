@@ -3,6 +3,7 @@ package lapr.project.ui;
 import lapr.project.data.*;
 import lapr.project.model.*;
 import lapr.project.store.MaterialStore;
+import lapr.project.utils.Centrality;
 import lapr.project.utils.CsvReader;
 import lapr.project.utils.ThermalResistance;
 
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,6 +35,7 @@ public class RolesUI {
     ArrayList<SeaDist> seaDistList = new ArrayList<>();
     ArrayList<Country> countryList = new ArrayList<>();
     PositionMatrixGraph pmg = new PositionMatrixGraph();
+    Centrality cent;
     private static ColourMapUI colorMapUI = new ColourMapUI();
     public RolesUI(){
         bs = new BorderStore();
@@ -41,6 +44,7 @@ public class RolesUI {
         ps = new PortStore(portTree);
         sds = new SeaDistStore();
         ss = new ShipStore();
+        cent = new Centrality();
     }
 
 
@@ -172,7 +176,7 @@ public class RolesUI {
             throwables.printStackTrace();
         }
     }
-    public void trafficManager(String user_id) throws IOException, SQLException{
+    public void trafficManager(String user_id) throws IOException, SQLException, InterruptedException {
         System.out.println(user_id);
         String option = "";
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
@@ -221,7 +225,12 @@ public class RolesUI {
                     registAuditTrail(user_id,Integer.parseInt(code_),Integer.parseInt(cargo_manifest_),"Delete");
                 break;
                 case "8":
-                    //[US401]
+                    pmg.fillMatrixGraph(6,cs.getCountryList(),ps.getPortList(),sds.getSeaDistArrayList(),bs.toMap(bs.getBorderArray(),cs.getCountryArray()));
+                    System.out.println("Choose the number of the Critical Ports:");
+                    int critical = Integer.parseInt(read.readLine());
+                    System.out.println(critical);
+                    System.out.println(cent.getNCentralPorts(pmg.getCompleteMap(),critical));
+                    TimeUnit.SECONDS.sleep(10);
                     break;
                 case "9":
                     //[US402]
