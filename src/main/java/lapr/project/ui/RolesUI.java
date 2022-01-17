@@ -20,7 +20,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class RolesUI {
-
+    private String INITIALOPTIONPHRASE="Please make your selection";
+    private String FINALOPTIONPHRASE="0) Leave";
     BorderStore bs;
     CountryStore cs;
     PortStore ps;
@@ -45,13 +46,13 @@ public class RolesUI {
 
     public  void client(String user) throws IOException {
         System.out.println(user);
-        String option = new String();
+        String option = "";
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
-            System.out.println("Please make your selection");
+            System.out.println(INITIALOPTIONPHRASE);
             System.out.println("1) I want to know the route of a specific container I am leasing");
             System.out.println("2) I want to know the current situation of a specific container being used to transport my goods");
-            System.out.println("0) Leave");
+            System.out.println(FINALOPTIONPHRASE);
             option = read.readLine();
             switch (option){
                 case "1":
@@ -72,28 +73,28 @@ public class RolesUI {
             }
         }
     }
-    public void ship_employe(String user_id) throws IOException {
+    public void shipEmploye(String user_id) throws IOException {
         System.out.println(user_id);
-        String option = new String();
+        String option = "";
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
-            System.out.println("Please make your selection");
-            System.out.println("0) Leave");
+            System.out.println(INITIALOPTIONPHRASE);
+            System.out.println(FINALOPTIONPHRASE);
             option = read.readLine();
         }
     }
-    public void ship_capitan(String user_id) throws IOException {
-        System.out.println(user_id);
-        String option = new String();
+    public void shipCapitan(String userId) throws IOException {
+        System.out.println(userId);
+        String option = "";
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
-            System.out.println("Please make your selection");
+            System.out.println(INITIALOPTIONPHRASE);
             System.out.println("1) I want to have access to audit trails for a given container of a given cargo manifest");
             System.out.println("2) I intend to submit a summary document, with the following items.");
             System.out.println("3) I want the determine the unladen center of mass for each vessel according to its characteristics.");
             System.out.println("4) I want to know where to position, for example, one hundred containers on the vessel, such that the center of mass remains at xx and yy, determined in the previous point.");
             System.out.println("5) I want to know for a specific vessel, how much did the vessel sink, assuming that each container has half a ton of mass");
-            System.out.println("0) Leave");
+            System.out.println(FINALOPTIONPHRASE);
             option = read.readLine();
             switch (option){
                 case "1":
@@ -121,7 +122,7 @@ public class RolesUI {
             }
         }
     }
-    private void auditTrailsLog(String container_id, String cargo_manifest_id){
+    private void auditTrailsLog(String containerId, String cargoManifestId){
         DataBaseConnection databaseConnection = null;
 
         try {
@@ -135,8 +136,8 @@ public class RolesUI {
         String sqlCommand = "select \"user_id\",\"operation_type\",\"date\" from \"audit_trails\" WHERE \"container_id\" = ? AND \"cargo_manifest_id\" = ?";
         try (PreparedStatement getAuditPreparedStatement = connection.prepareStatement(sqlCommand)) {
 
-            getAuditPreparedStatement.setInt(1,Integer.parseInt(container_id));
-            getAuditPreparedStatement.setInt(2,Integer.parseInt(cargo_manifest_id));
+            getAuditPreparedStatement.setInt(1,Integer.parseInt(containerId));
+            getAuditPreparedStatement.setInt(2,Integer.parseInt(cargoManifestId));
             try (ResultSet auditPreparedResultSet = getAuditPreparedStatement.executeQuery()) {
                 while (auditPreparedResultSet.next()) {
                     System.out.println(auditPreparedResultSet.getInt(1)+" | "+auditPreparedResultSet.getString(2)+" | "+auditPreparedResultSet.getString(3));
@@ -146,7 +147,7 @@ public class RolesUI {
             throwables.printStackTrace();
         }
     }
-    private void registAuditTrail(String user, int container_id, int cargo_manifest_id, String operation_type){
+    private void registAuditTrail(String user, int containerId, int cargoManifestId, String operationType){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         String date = LocalDateTime.now().format(formatter);
         DataBaseConnection databaseConnection = null;
@@ -162,21 +163,21 @@ public class RolesUI {
         try (PreparedStatement getAuditPreparedStatement = connection.prepareStatement(sqlCommand)) {
 
             getAuditPreparedStatement.setInt(1,Integer.parseInt(user));
-            getAuditPreparedStatement.setInt(2,container_id);
-            getAuditPreparedStatement.setInt(3,cargo_manifest_id);
+            getAuditPreparedStatement.setInt(2,containerId);
+            getAuditPreparedStatement.setInt(3,cargoManifestId);
             getAuditPreparedStatement.setString(4,date);
-            getAuditPreparedStatement.setString(5,operation_type);
+            getAuditPreparedStatement.setString(5,operationType);
             getAuditPreparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
-    public void traffic_manager(String user_id) throws IOException, SQLException{
+    public void trafficManager(String user_id) throws IOException, SQLException{
         System.out.println(user_id);
-        String option = new String();
+        String option = "";
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
-            System.out.println("Please make your selection");
+            System.out.println(INITIALOPTIONPHRASE);
             System.out.println("1) Imports");
             System.out.println("2) I wish to colour the map using as few colours as possible");
             System.out.println("3) I wish to know which places (cities or ports) are closest to all other places (closeness places)");
@@ -187,7 +188,7 @@ public class RolesUI {
             System.out.println("8) [US401] I wish to know which ports are more critical in this freight network");
             System.out.println("9) [US402] I wish to know the shortest path between two locals");
             System.out.println("10) [US403] I wish to know the most efficient circuit that starts from a source location and visits the greatest number of other locations once, returning to the starting location and with the shortest total distance");
-            System.out.println("0) Leave");
+            System.out.println(FINALOPTIONPHRASE);
             option = read.readLine();
             switch (option){
                 case "1":
@@ -210,14 +211,6 @@ public class RolesUI {
                     String code = read.readLine();
                     System.out.println("Insert the cargo manifest id:");
                     String cargo_manifest = read.readLine();
-                    System.out.println("Insert the position x:");
-                    String x = read.readLine();
-                    System.out.println("Insert the position y:");
-                    String y = read.readLine();
-                    System.out.println("Insert the position z:");
-                    String z = read.readLine();
-                    System.out.println("Insert gross weigth:");
-                    String weigth = read.readLine();
                     registAuditTrail(user_id,Integer.parseInt(code),Integer.parseInt(cargo_manifest),"Insert");
                 break;
                 case "7":
@@ -286,16 +279,16 @@ public class RolesUI {
         savePortPreparedStatement.setFloat(6, Float.parseFloat(weigth));
         savePortPreparedStatement.executeUpdate();
     }*/
-    public void fleet_manager(String user_id) throws IOException {
+    public void fleetManager(String user_id) throws IOException {
         System.out.println(user_id);
-        String option = new String();
+        String option = "";
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
-            System.out.println("Please make your selection");
+            System.out.println(INITIALOPTIONPHRASE);
             System.out.println("1) [US404] I want to know the number of days each ship has been idle since the beginning of the current year");
             System.out.println("2) [US405] I want to know the average occupancy rate per manifest of given ship during a given period.");
             System.out.println("3) [US406] I want to know which ship voyages had an occupancy rate below a certain threshold");
-            System.out.println("0) Leave");
+            System.out.println(FINALOPTIONPHRASE);
             option = read.readLine();
             switch (option){
                 case "1":
@@ -313,42 +306,42 @@ public class RolesUI {
             }
         }
     }
-    public void warehouse_staff(String user_id) throws IOException {
+    public void warehouseMtaff(String user_id) throws IOException {
         System.out.println(user_id);
-        String option = new String();
+        String option = "";
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
-            System.out.println("Please make your selection");
-            System.out.println("0) Leave");
+            System.out.println(INITIALOPTIONPHRASE);
+            System.out.println(FINALOPTIONPHRASE);
             option = read.readLine();
         }
     }
-    public void warehouse_manager(String user_id) throws IOException {
+    public void warehouseManager(String user_id) throws IOException {
         System.out.println(user_id);
-        String option = new String();
+        String option = "";
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
-            System.out.println("Please make your selection");
-            System.out.println("0) Leave");
+            System.out.println(INITIALOPTIONPHRASE);
+            System.out.println(FINALOPTIONPHRASE);
             option = read.readLine();
         }
     }
-    public void port_staff(String user_id) throws IOException {
+    public void portStaff(String user_id) throws IOException {
         System.out.println(user_id);
-        String option= new String();
+        String option= "";
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
-            System.out.println("Please make your selection");
+            System.out.println(INITIALOPTIONPHRASE);
             System.out.println("1) I wish to fill a statically reserved matrix in memory with each container's ID in its respective place");
             System.out.println("2) I wish to know the total number of free/occupied slots in the transport vehicle.");
             System.out.println("3) I wish to know if a container is there or not.");
             System.out.println("4) [US409] I wish to fill a dynamically reserved array in memory with all the container's information in its respective place.");
-            System.out.println("0) Leave");
+            System.out.println(FINALOPTIONPHRASE);
             option = read.readLine();
             switch (option){
                 case "1":
                     String cargo_id= read.readLine();
-                    fill_matrix(Integer.parseInt(cargo_id));
+                    fillMatrix(Integer.parseInt(cargo_id));
                     break;
                 case "2":
                     //[US314]
@@ -365,7 +358,7 @@ public class RolesUI {
             }
         }
     }
-    private void fill_matrix(int cargo_id){
+    private void fillMatrix(int cargo_id){
         ArrayList<String> tempArray = new ArrayList<>();
         DataBaseConnection databaseConnection=null;
         try {
@@ -405,16 +398,16 @@ public class RolesUI {
             }
 
     }
-    public void port_manager(String user_id) throws IOException {
+    public void portManager(String user_id) throws IOException {
         System.out.println(user_id);
         String option="";
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
-            System.out.println("Please make your selection");
+            System.out.println(INITIALOPTIONPHRASE);
             System.out.println("1) I want to know the occupancy rate of each warehouse and an estimate of the containers leaving the warehouse during the next 30 days. ");
             System.out.println("2) I intend to get a warning whenever I issue a cargo manifest destined for a warehouse whose available capacity is insufficient to accommodate the new manifest");
             System.out.println("3) I intend to have a map of the occupation of the existing resources in the port during a given month. ");
-            System.out.println("0) Leave");
+            System.out.println(FINALOPTIONPHRASE);
             option = read.readLine();
             switch (option){
                 case "1":
@@ -456,19 +449,19 @@ public class RolesUI {
         preparedStatement.executeUpdate();
     }
 
-        public void ship_chief_electrical_engineer(String user_id) throws IOException {
+        public void shipChiefElectricalEngineer(String user_id) throws IOException {
             System.out.println(user_id);
-            String option = new String();
+            String option = "";
             BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
             while (!option.equals("0")){
-                System.out.println("Please make your selection");
+                System.out.println(INITIALOPTIONPHRASE);
                 System.out.println("1) Sprint 1. ");
                 System.out.println("2) [412] we intend to know how much energy to supply, for each container, in a determined trip, with an exterior temperature of 20 ºC, and a travel time of 2h30");
                 System.out.println("3) [413] the objective is to know the total energy to be supplied to the set of containers in a certain established trip, assuming that all the containers have the same behaviour.");
                 System.out.println("4) [414] you want to know how much energy to supply to the container cargo, in a voyage (or route), depending on the position of the containers on the ship. Admitting that the interior containers.");
                 System.out.println("5) [415] I need to know how many auxiliary power equipment are needed for the voyage, knowing that each one supplies a maximum of 75 KW.");
                 System.out.println("6) [416] I intend to submit a summary document, with the following items.");
-                System.out.println("0) Leave");
+                System.out.println(FINALOPTIONPHRASE);
                 option = read.readLine();
                 switch (option){
                     case "1":
@@ -497,7 +490,7 @@ public class RolesUI {
 
     }
     private static void physicsMenu() throws IOException {
-        String option = new String();
+        String option = "";
         MaterialStore ms = new MaterialStore();
         Material m1 = new Material("Aco",52.00,"OutsideLayer");
         Material m2 = new Material("Poliestireno Extrudido",0.035,"MiddleLayer");
@@ -559,21 +552,21 @@ public class RolesUI {
                 break;
         }
     }
-    public void truck_driver(String user_id) throws IOException {
+    public void truckDriver(String user_id) throws IOException {
         System.out.println(user_id);
 
-        String option = new String();
+        String option = "";
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
-            System.out.println("Please make your selection");
-            System.out.println("0) Leave");
+            System.out.println(INITIALOPTIONPHRASE);
+            System.out.println(FINALOPTIONPHRASE);
             option = read.readLine();
         }
     }
 
 
     public void importMenu() throws IOException, SQLException {
-        String option = new String();
+        String option = "";
         CsvReader csvReader;
         // TODO code application logic here
         DataBaseConnection databaseConnection = null;
@@ -590,7 +583,7 @@ public class RolesUI {
         System.out.println("3) Import Countries");
         System.out.println("4) Import Borders");
         System.out.println("5) Import SeaDist's");
-        System.out.println("0) Leave");
+        System.out.println(FINALOPTIONPHRASE);
         option = read.readLine();
         switch (option) {
             case "1":

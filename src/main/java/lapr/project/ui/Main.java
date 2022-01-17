@@ -123,7 +123,7 @@ class Main {
             loginMenu(databaseConnection);
         }
         role = role.toLowerCase(Locale.ROOT);
-        role =role.replace(" ","_");
+        role =role.replace(" ","");
         System.out.println(role);
         Method method = Class.forName("lapr.project.ui.RolesUI").getMethod(role,String.class);
         method.invoke(rolesUI,USER_SESSION);
