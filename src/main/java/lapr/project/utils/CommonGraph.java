@@ -49,13 +49,6 @@ public abstract class CommonGraph <V,E> implements Graph<V,E> {
         return vertices.get(key);
     }
 
-    @Override
-    public V vertex(Predicate<V> p) {
-        for (V v : vertices) {
-            if (p.test(v)) return v;
-        }
-        return null;
-    }
 
     @Override
     public int numEdges() {

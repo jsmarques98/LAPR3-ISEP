@@ -4,10 +4,12 @@ import lapr.project.data.Edge;
 import lapr.project.data.MatrixGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import sun.security.provider.certpath.Vertex;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -508,6 +510,19 @@ public class MatrixGraphTest {
             assertEquals(co.get(i), ecu.getVDest());
             assertEquals(cw.get(i), ecu.getWeight());
         }
+    }
+
+    @Test
+    void testHashCode() {
+        assertEquals(961683,instance.hashCode());
+    }
+
+    @Test
+    void testVextex(){
+        assertNull(instance.vertex(1));
+        instance.addVertex("A");
+        instance.addVertex("B");
+        assertEquals("B",instance.vertex(1));
     }
 
 }
