@@ -63,8 +63,10 @@ class Main {
             System.out.println("Username or password incorret");
             loginMenu(databaseConnection);
         }
-        role=role.substring(0,1).toLowerCase(Locale.ROOT);
-        System.out.println(role);
+
+        role=role.replaceFirst(role.substring(0,1),role.substring(0,1).toLowerCase(Locale.ROOT));
+        role=role.replace(" ","");
+
         Method method = Class.forName("lapr.project.ui.RolesUI").getMethod(role,String.class);
         method.invoke(rolesUI,USER_SESSION);
 

@@ -3,6 +3,7 @@ package lapr.project.ui;
 import lapr.project.data.*;
 import lapr.project.model.*;
 import lapr.project.store.MaterialStore;
+import lapr.project.utils.Calculus;
 import lapr.project.utils.Centrality;
 import lapr.project.utils.CsvReader;
 import lapr.project.utils.ThermalResistance;
@@ -88,6 +89,7 @@ public class RolesUI {
         }
     }
     public void shipCapitan(String userId) throws IOException {
+        List<Vessel> vessels = new ArrayList<>();
         System.out.println(userId);
         String option = "";
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
@@ -109,9 +111,81 @@ public class RolesUI {
                     auditTrailsLog(container_id,cargo_manifest);
                     break;
                 case "2":
+                    Calculus cal = new Calculus();
+                    vessels.add(new Vessel("Bulk Carrier",0,275,160000,40,cal.areaCalc(213.0,11.0,false),
+                            cal.areaCalc(17.13,11,false), cal.areaCalc(29,29,false) ));
+                    vessels.add(new Vessel("Panamax",5100,275,52500,57.91,cal.areaCalc(294.0,28,false),
+                            cal.areaCalc(29,29,false), cal.areaCalc(29,28,true)));
+                    vessels.add(new Vessel("ULCV",2000,275,52500,57.91,cal.areaCalc(366.46,29.0,false),
+                            cal.areaCalc(29,19,true), cal.areaCalc(20,10,false)));
+                    System.out.println("Bulk Carrier \n" +
+                            "\n" +
+                            "Capacity: 3000 to 300000 tonnes \n" +
+                            "Length: 180 to 275m \n" +
+                            "Tonnage: 33000 to 160000 DWT \n" +
+                            "Height: 40m \n" +
+                            "\n" +
+                            " \n" +
+                            "Panamax \n" +
+                            "\n" +
+                            "The size of a Panamax vessel is limited by the original Panama canal’s lock chambers (width and length), by the depth of the water in the canal and by the height of the Bridge of the Americas since that bridge’s construction. A Panamax cargo ship would typically have a 65,000–80,000tonnes, but its maximum cargo would be about 52,500 tonnes during a transit due to draft limitations in the canal \n" +
+                            "Capacity(TEU) : 3,001–5,100 \n" +
+                            "Length: 965ft (294.13m) \n" +
+                            "Beam: 106ft (32.31m) \n" +
+                            "Draft:  39.5ft (12.04m) \n" +
+                            "Tonnage: 52,500 DWT \n" +
+                            "Height: 190ft (57.91m) \n" +
+                            " \n" +
+                            "\n" +
+                            "DWT à The more heavily loaded a ship is, the lower it sits in the water. Maximum DWT is the amount of weight a ship can carry without riding dangerously low in the water. \n" +
+                            "\n" +
+                            " \n" +
+                            "Feeder \n" +
+                            "\n" +
+                            "Capacity: 1,001–2,000  \n" +
+                            "length: 160 m \n" +
+                            "beam: 26.80 m \n" +
+                            "\n" +
+                            "Feeder vessels or feeder ships are medium-size freight ships. In general, a feeder designates a seagoing vessel with an average capacity of 300 to 1000 twenty-foot equivalent units (TEU). Feeders collect shipping containers from different ports and transport them to central container terminals where they are loaded to bigger vessels, or for further transport into the hub port's hinterland. ");
+
                     //[417]
                     break;
                 case "3":
+                    double[] xCords;
+                    double[] yCords;
+                     cal = new Calculus();
+                    System.out.println("Please insert the Vessel you want to see");
+                    System.out.println("1-Bulk carrier");
+                    System.out.println("2-Panamax");
+                    System.out.println("3-ULCV");
+                    System.out.println("0-Leave");
+                    String optionVessel = read.readLine();
+                    switch (optionVessel){
+                        case "1":
+                            xCords = new double[]{213, 11, 9};
+                            yCords = new double[]{11, 17.13, 15};
+                            vessels.set(0,cal.centerOfMass(vessels.get(0),xCords,yCords ));
+                            System.out.println("Center of mass");
+                            System.out.println(vessels.get(0).getxCm()+" ; "+vessels.get(0).getyCm());
+                            break;
+                        case "2":
+                            xCords = new double[]{294, 29, 29};
+                            yCords = new double[]{28, 29, 28};
+                            vessels.set(1,cal.centerOfMass(vessels.get(1),xCords,yCords ));
+                            System.out.println("Center of mass");
+                            System.out.println(vessels.get(1).getxCm()+" ; "+vessels.get(1).getyCm());
+                            break;
+                        case "3":
+                            xCords = new double[]{366.46, 19, 10};
+                            yCords = new double[]{29, 29, 20};
+                            vessels.set(2,cal.centerOfMass(vessels.get(2),xCords,yCords ));
+                            System.out.println("Center of mass");
+                            System.out.println(vessels.get(2).getxCm()+" ; "+vessels.get(2).getyCm());
+                            break;
+                        case "0":
+                            break;
+
+                    }
                     //[418]
                     break;
                 case "4":
