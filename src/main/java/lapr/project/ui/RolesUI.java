@@ -3,10 +3,7 @@ package lapr.project.ui;
 import lapr.project.data.*;
 import lapr.project.model.*;
 import lapr.project.store.MaterialStore;
-import lapr.project.utils.Calculus;
-import lapr.project.utils.Centrality;
-import lapr.project.utils.CsvReader;
-import lapr.project.utils.ThermalResistance;
+import lapr.project.utils.*;
 
 import java.awt.*;
 import java.io.*;
@@ -17,6 +14,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -308,6 +306,7 @@ public class RolesUI {
                     break;
                 case "9":
                     //[US402]
+                    shortPathMenu();
                     break;
                 case "10":
                     //[US403]
@@ -692,6 +691,107 @@ public class RolesUI {
                 break;
         }
     }
+
+    public void shortPathMenu() throws IOException, InterruptedException {
+        String option = "";
+        LinkedList<Position> s = new LinkedList<>();
+        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+        pmg.fillMatrixGraph(6, cs.getCountryList(), ps.getPortList(), sds.getSeaDistArrayList(), bs.toMap(bs.getBorderArray(), cs.getCountryArray()));
+        System.out.println(INITIALOPTIONPHRASE);
+        System.out.println("1) Land path");
+        System.out.println("2) Maritime path");
+        System.out.println("3) Land or sea path");
+        option = read.readLine();
+            switch (option) {
+                case "1":
+                    Graph<Position, Double> land = pmg.getLandMap();
+                    System.out.println("First location:");
+                    String string = read.readLine();
+                    System.out.println("Secound location:");
+                    String string1 = read.readLine();
+                    int keyp1 = -1;
+                    int keyp2 = -1;
+                    for (Position p : land.vertices()) {
+                        if (p.getName().equalsIgnoreCase(string) || p.getCountryName().equalsIgnoreCase(string))
+                            keyp1 = land.key(p);
+                        if (p.getName().equalsIgnoreCase(string1) || p.getCountryName().equalsIgnoreCase(string1))
+                            keyp2 = land.key(p);
+                    }
+                    if (keyp1 == -1)
+                        System.out.println(string + " doesn't exist in the graph");
+                    if (keyp2 == -1)
+                        System.out.println(string1 + " doesn't exist in the graph");
+                    Algorithms.shortestPath(land, land.vertex(keyp1), land.vertex(keyp2), Double::compare, Double::sum, 0.0, s);
+                    if (s.size() == 0) {
+                        System.out.println("The two locations don't have a land connenction!");
+                    } else {
+                        System.out.println(s);
+                    }
+                    TimeUnit.SECONDS.sleep(10);
+                    break;
+                case "2":
+                    Graph<Position, Double> sea = pmg.getSeaMap();
+                    System.out.println(sea);
+                    System.out.println("First location:");
+                    string = read.readLine();
+                    System.out.println("Secound location:");
+                    string1 = read.readLine();
+                    keyp1 = -1;
+                    keyp2 = -1;
+                    for (Position p : sea.vertices()) {
+                        if (p.getName().equalsIgnoreCase(string) || p.getCountryName().equalsIgnoreCase(string))
+                            keyp1 = sea.key(p);
+                        if (p.getName().equalsIgnoreCase(string1) || p.getCountryName().equalsIgnoreCase(string1))
+                            keyp2 = sea.key(p);
+                    }
+                    if (keyp1 == -1)
+                        System.out.println(string + " doesn't exist in the graph");
+                    if (keyp2 == -1)
+                        System.out.println(string1 + " doesn't exist in the graph");
+                    Algorithms.shortestPath(sea, sea.vertex(keyp1), sea.vertex(keyp2), Double::compare, Double::sum, 0.0, s);
+                    if (s.size() == 0) {
+                        System.out.println("The two locations don't have a land connenction!");
+                    } else {
+                        System.out.println(s);
+                    }
+                    TimeUnit.SECONDS.sleep(10);
+                    break;
+                case "3":
+                    System.out.println("First location:");
+                    string = read.readLine();
+                    System.out.println("Secound location:");
+                    string1 = read.readLine();
+                    keyp1 = -1;
+                    keyp2 = -1;
+                    for (Position p : pmg.getCompleteMap().vertices()) {
+                        if (p.getName().equalsIgnoreCase(string) || p.getCountryName().equalsIgnoreCase(string))
+                            keyp1 = pmg.getCompleteMap().key(p);
+                        if (p.getName().equalsIgnoreCase(string1) || p.getCountryName().equalsIgnoreCase(string1))
+                            keyp2 = pmg.getCompleteMap().key(p);
+                    }
+                    if (keyp1 == -1)
+                        System.out.println(string + " doesn't exist in the graph");
+                    if (keyp2 == -1)
+                        System.out.println(string1 + " doesn't exist in the graph");
+                    Algorithms.shortestPath(pmg.getCompleteMap(), pmg.getCompleteMap().vertex(keyp1), pmg.getLandMap().vertex(keyp2), Double::compare, Double::sum, 0.0, s);
+                    if (s.size() == 0) {
+                        System.out.println("The two locations don't have a land connenction!");
+                    } else {
+                        System.out.println(s);
+                    }
+                    TimeUnit.SECONDS.sleep(10);
+                    break;
+                case "0":
+                    System.out.println("bye");
+                    break;
+                default:
+                    System.out.println("The option doens't exist");
+                    break;
+            }
+
+    }
+
+
     /*
     private void loadBD() throws SQLException {
         DataBaseConnection databaseConnection = null;
