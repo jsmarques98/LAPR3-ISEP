@@ -192,6 +192,31 @@ public class RolesUI {
                     //[419]
                     break;
                 case "5":
+                    cal = new Calculus();
+                    System.out.println("Area do container 10 m2");
+                    System.out.println("length do container 5m, heigth 2m");
+                    System.out.println("Please insert the Vessel you want to use");
+                    System.out.println("1-Bulk carrier");
+                    System.out.println("2-Panamax");
+                    System.out.println("3-ULCV");
+                    System.out.println("0-Leave");
+                    optionVessel = read.readLine();
+                    System.out.println("Insert how many containers you:");
+                    String optionContainers= read.readLine();
+                    int numCont = Integer.parseInt(optionContainers);
+                    switch (optionVessel) {
+                        case "1":
+                            System.out.println(cal.positionContainers(numCont, vessels.get(0)));
+                            break;
+                        case "2":
+                            System.out.println(cal.positionContainers(numCont, vessels.get(1)));
+                            break;
+                        case "3":
+                            System.out.println(cal.positionContainers(numCont, vessels.get(2)));
+                            break;
+                        case "0":
+                            break;
+                    }
                     //[420]
                     break;
                 default:

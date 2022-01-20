@@ -509,4 +509,32 @@ IF SHIPID IS NOT NULL THEN
             
 end;
 
+--[US407] As Port manager, I intend to generate, a week in advance, the loading and unloading map based on ships and trucks load manifests and corresponding travel plans
 
+
+CREATE OR REPLACE FUNCTION  "weakly_operation_map"(port_ID int) RETURN BOOLEAN
+AS
+	TYPE CARGOMANIFEST_LIST IS TABLE OF "cargo_manifest"."cargo_manifesto_id"%TYPE;
+    CARGOS       CARGOMANIFEST_LIST;
+    aux int;
+    NUMCONT int;
+    operation_type VARCHAR(255);
+    DATACARGO DATE;
+BEGIN
+--Verifica se existe o port e se é um porto
+    SELECT COUNT(*)INTO aux FROM "port_warehouse" WHERE "port_warehouse_id"=port_ID AND "type"='port';
+    if aux=0 then
+        raise_application_error(-2314,'This id doens´t exist');
+   end if;
+   --Vai buscar todos os cargos manifest que vai chegar nessa semana
+   SELECT "cargo_manifest_id" BULK COLLECT INTO CARGOS FROM "cargo_manifest" WHERE "destiny"=port_ID AND "entry_date"<(sysdate+7) AND "entry_date">sysdate;
+   for i in 1..CARGOS.COUNT LOOP
+   --Conta o numero de containers em cada cargo
+        SELECT COUNT("registo_id") INTO NUMCONT FROM "cargo_manifest_container" WHERE "cargo_manifesto_id"=i;
+   --Guarda o tipo de operação     
+        SELECT "operation_type" INTO operation_type FROM "cargo_manifest" WHERE "cargo_manifesto_id"=i;
+   --Guarda a data da operação
+        SELECT "entry_date" INTO DATACARGO FROM "cargo_manifest" WHERE "cargo_manifesto_id"=i;
+   end loop;
+            
+end;

@@ -24,4 +24,12 @@ public class Calculus {
        vessel.setyCm(yCm);
        return vessel;
     }
+    public String positionContainers(int numContainers, Vessel vessel){
+        double frontDistribution=(vessel.getxCm()/vessel.getLength());
+        double rearDistribution= 1-frontDistribution;
+        int frontContainers = (int)Math.ceil(numContainers*frontDistribution);
+        int rearContainers=numContainers-frontContainers;
+
+        return frontContainers+" at the front and "+rearContainers + "at the back";
+    }
 }
