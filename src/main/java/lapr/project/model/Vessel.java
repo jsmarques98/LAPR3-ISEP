@@ -14,7 +14,9 @@ public class Vessel {
     double totalArea;
     double xCm;
     double yCm;
-
+    double mass;
+    double volume;
+    double deeph;
     public Vessel(String name,int capacity, double length, double tonnage, double height, double areaOne, double areaTwo, double areaThree) {
         this.name=name;
         this.capacity = capacity;
@@ -131,5 +133,29 @@ public class Vessel {
 
     public void setyCm(double yCm) {
         this.yCm = yCm;
+    }
+
+    public double getMass() {
+        return mass;
+    }
+
+    public void setMass(double mass) {
+        this.mass = mass;
+    }
+
+    public double getVolume() {
+        return volume;
+    }
+
+    public void setVolume(double volume) {
+        this.volume = volume;
+    }
+
+    public double getDeeph() {
+        return deeph;
+    }
+
+    public void setDeeph(double deeph) {
+        this.deeph = deeph;
     }
 }

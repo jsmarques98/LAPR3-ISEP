@@ -3,6 +3,9 @@ package lapr.project.utils;
 import lapr.project.model.Vessel;
 
 public class Calculus {
+
+    final double WATERDENSITY=1030;
+    final double CONTAINERWEIGTH=500;
     public double areaCalc(double a, double b, boolean triangle){
         if (triangle)
         return (a*b)/2;
@@ -26,10 +29,36 @@ public class Calculus {
     }
     public String positionContainers(int numContainers, Vessel vessel){
         double frontDistribution=(vessel.getxCm()/vessel.getLength());
-        double rearDistribution= 1-frontDistribution;
         int frontContainers = (int)Math.ceil(numContainers*frontDistribution);
         int rearContainers=numContainers-frontContainers;
 
         return frontContainers+" at the front and "+rearContainers + "at the back";
+    }
+
+    public double volumeOfaShip(Vessel vessel,double width){
+        return (1.0/2.0)*vessel.getLength()*vessel.getDeeph()*width;
+    }
+
+    public double massOfaShip(double volume){
+
+        return volume*WATERDENSITY;
+    }
+    public double submergedVolume(Vessel vessel){
+        return vessel.getMass()*WATERDENSITY;
+    }
+
+
+    public double containerWeight(int nrContainers){
+        return (double)CONTAINERWEIGTH*nrContainers;
+    }
+    public double submergedHeigth(Vessel vessel, double mass){
+        double massTotal=mass+vessel.getMass();
+        double volume=massTotal/WATERDENSITY;
+        double upFraction=(volume*2* vessel.getDeeph());
+        double downFraction=(vessel.getLength()* vessel.getBeam());
+        return Math.sqrt(upFraction/downFraction);
+    }
+    public double submergedWidth(Vessel vessel){
+        return (vessel.getDraft()/vessel.getDeeph())*vessel.getBeam();
     }
 }

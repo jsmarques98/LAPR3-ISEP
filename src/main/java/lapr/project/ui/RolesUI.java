@@ -90,6 +90,13 @@ public class RolesUI {
         List<Vessel> vessels = new ArrayList<>();
         System.out.println(userId);
         String option = "";
+        Calculus cal = new Calculus();
+        vessels.add(new Vessel("Bulk Carrier",0,275,160000,40,cal.areaCalc(213.0,11.0,false),
+                cal.areaCalc(17.13,11,false), cal.areaCalc(29,29,false) ));
+        vessels.add(new Vessel("Panamax",5100,275,52500,57.91,cal.areaCalc(294.0,28,false),
+                cal.areaCalc(29,29,false), cal.areaCalc(29,28,true)));
+        vessels.add(new Vessel("ULCV",2000,275,52500,57.91,cal.areaCalc(366.46,29.0,false),
+                cal.areaCalc(29,19,true), cal.areaCalc(20,10,false)));
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
             System.out.println(INITIALOPTIONPHRASE);
@@ -109,13 +116,7 @@ public class RolesUI {
                     auditTrailsLog(container_id,cargo_manifest);
                     break;
                 case "2":
-                    Calculus cal = new Calculus();
-                    vessels.add(new Vessel("Bulk Carrier",0,275,160000,40,cal.areaCalc(213.0,11.0,false),
-                            cal.areaCalc(17.13,11,false), cal.areaCalc(29,29,false) ));
-                    vessels.add(new Vessel("Panamax",5100,275,52500,57.91,cal.areaCalc(294.0,28,false),
-                            cal.areaCalc(29,29,false), cal.areaCalc(29,28,true)));
-                    vessels.add(new Vessel("ULCV",2000,275,52500,57.91,cal.areaCalc(366.46,29.0,false),
-                            cal.areaCalc(29,19,true), cal.areaCalc(20,10,false)));
+
                     System.out.println("Bulk Carrier \n" +
                             "\n" +
                             "Capacity: 3000 to 300000 tonnes \n" +
@@ -186,10 +187,8 @@ public class RolesUI {
                     }
                     //[418]
                     break;
+
                 case "4":
-                    //[419]
-                    break;
-                case "5":
                     cal = new Calculus();
                     System.out.println("Area do container 10 m2");
                     System.out.println("length do container 5m, heigth 2m");
@@ -199,7 +198,7 @@ public class RolesUI {
                     System.out.println("3-ULCV");
                     System.out.println("0-Leave");
                     optionVessel = read.readLine();
-                    System.out.println("Insert how many containers you:");
+                    System.out.println("Insert number of containers:");
                     String optionContainers= read.readLine();
                     int numCont = Integer.parseInt(optionContainers);
                     switch (optionVessel) {
@@ -215,7 +214,58 @@ public class RolesUI {
                         case "0":
                             break;
                     }
-                    //[420]
+                    //[419]
+                    break;
+                case "5":
+                    cal= new Calculus();
+                    System.out.println("Area do container 10 m2");
+                    System.out.println("length do container 5m, heigth 2m");
+                    System.out.println("Please insert the Vessel you want to use");
+                    System.out.println("1-Bulk carrier");
+                    System.out.println("2-Panamax");
+                    System.out.println("3-ULCV");
+                    System.out.println("0-Leave");
+                    optionVessel = read.readLine();
+                    System.out.println("Insert number of containers:");
+                    optionContainers= read.readLine();
+                    numCont = Integer.parseInt(optionContainers);
+                    Vessel tempVessel= null;
+                    double peso=1.0;
+                    switch (optionVessel) {
+                        case "1":
+                            tempVessel = vessels.get(0);
+                            tempVessel.setBeam(21.0);
+                            tempVessel.setDeeph(12.5);
+                            tempVessel.setDraft(11.0);
+                            peso=numCont;
+                            break;
+                        case "2":
+                            tempVessel = vessels.get(1);
+                            tempVessel.setDraft(12.04);
+                            tempVessel.setBeam(32.3);
+                            tempVessel.setDeeph(28);
+                            peso=cal.containerWeight(numCont);
+                            break;
+                        case "3":
+                            tempVessel = vessels.get(2);
+                            tempVessel.setDraft(15.5);
+                            tempVessel.setDeeph(29.85);
+                            tempVessel.setBeam(48.2);
+                            peso=cal.containerWeight(numCont);
+                            break;
+                        case "0":
+                            break;
+                    }
+
+                    tempVessel.setVolume(cal.volumeOfaShip(tempVessel,tempVessel.getBeam()));
+
+                    double submergedValue=cal.submergedWidth(tempVessel);
+                    double submergedVolume = cal.volumeOfaShip(tempVessel,submergedValue);
+                    double mass = cal.massOfaShip(submergedVolume);
+                    tempVessel.setMass(mass);
+                    double submergedHeight= cal.submergedHeigth(tempVessel,peso);
+
+                    System.out.println("The vessel has submerged "+String.format("%.2f",(submergedHeight-tempVessel.getDraft()))+" meters");
                     break;
                 default:
                     System.out.println("The option doens't exist");
