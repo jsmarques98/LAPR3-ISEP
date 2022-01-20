@@ -521,20 +521,59 @@ AS
     operation_type VARCHAR(255);
     DATACARGO DATE;
 BEGIN
---Verifica se existe o port e se é um porto
+--Verifica se existe o port e se ï¿½ um porto
     SELECT COUNT(*)INTO aux FROM "port_warehouse" WHERE "port_warehouse_id"=port_ID AND "type"='port';
     if aux=0 then
-        raise_application_error(-2314,'This id doens´t exist');
+        raise_application_error(-2314,'This id doensï¿½t exist');
    end if;
    --Vai buscar todos os cargos manifest que vai chegar nessa semana
    SELECT "cargo_manifest_id" BULK COLLECT INTO CARGOS FROM "cargo_manifest" WHERE "destiny"=port_ID AND "entry_date"<(sysdate+7) AND "entry_date">sysdate;
    for i in 1..CARGOS.COUNT LOOP
    --Conta o numero de containers em cada cargo
         SELECT COUNT("registo_id") INTO NUMCONT FROM "cargo_manifest_container" WHERE "cargo_manifesto_id"=i;
-   --Guarda o tipo de operação     
+   --Guarda o tipo de operaï¿½ï¿½o     
         SELECT "operation_type" INTO operation_type FROM "cargo_manifest" WHERE "cargo_manifesto_id"=i;
-   --Guarda a data da operação
+   --Guarda a data da operaï¿½ï¿½o
         SELECT "entry_date" INTO DATACARGO FROM "cargo_manifest" WHERE "cargo_manifesto_id"=i;
    end loop;
-            
+    RETURN TRUE;
+end;
+
+
+--[US404] As Fleet Manager, I want to know the number of days each ship has been idle since the beginning of the current year.
+CREATE OR REPLACE FUNCTION  "idle_time_ship"(codeShip "ship"."mmsi"%TYPE) RETURN BOOLEAN
+    IS
+    NUMBERDAYS INT;
+    TYPE SHIP_LIST IS TABLE OF "ship"."mmsi"%TYPE;
+    shipList        SHIP_LIST;
+    TYPE TRIP_LIST IS TABLE OF "trip"."trip_id"%TYPE;
+    tripList        TRIP_LIST;
+    DAYUNTILTODAY INT;
+    SDATE "trip"."start_date"%TYPE;
+    EDATE "trip"."start_date"%TYPE;
+    YEARSYS DATE;
+BEGIN
+    SELECT trunc(SYSDATE , 'YEAR') INTO YEARSYS FROM DUAL;
+    -- GUARDAR LISTA DE TODOS OS SHIP'S
+    SELECT "vehile_id" BULK COLLECT INTO shipList FROM "trip" WHERE "trip"."vehicle_id" = (SELECT "vehicle_id" FROM "vehicle" WHERE "ship_id" NOT NULL);
+    for i in 1..shipList.COUNT LOOP
+            select extract(day from sysdate - to_date('2021-01-01', 'yyyy-mm-dd')) INTO DAYUNTILTODAY from dual;
+            -- GUARDAR TODAS AS TRIP ID'S ONDE SHIP E IGUAL AO DA LISTA E DATA DE FIM E DESTE ANO E E MENOR QUE A DATA ATUAL
+            SELECT "trip_id" BULK COLLECT INTO tripList FROM "trip" WHERE "vehicle"."vehicle_id" = i AND extract(Year from sysdate) = extract(year from "end_date") AND sysdate > "end_date";
+            FOR J IN 1..tripList.COUNT LOOP
+                    SELECT "start_date" INTO SDATE FROM "trip" WHERE "trip"."trip_id"=J;
+                    SELECT "end_date" INTO EDATE FROM "trip" WHERE "trip"."trip_id"=J;
+                    IF extract(year from SDATE) = extract(Year from sysdate) THEN
+                        -- CONTA O NUMERO DE DIAS E SOMA AO TOTAL
+                        select extract(day from EDATE - SDATE) INTO NUMBERDAYS from dual;
+                            DAYUNTILTODAY = DAYUNTILTODAY - NUMBERDAYS;
+                    END IF;
+                    IF extract(year from SDATE) = extract((Year from sysdate)-1) THEN
+                        select extract(day from EDATE - YEARSYS) INTO NUMBERDAYS from dual;
+                            DAYUNTILTODAY = DAYUNTILTODAY - NUMBERDAYS;
+                    END IF;
+                END LOOP;
+            dbms_output.put_line('The ship '||i||' has been idle '|| NUMBERDAYS ||' days');
+        end loop;
+    RETURN TRUE;
 end;
