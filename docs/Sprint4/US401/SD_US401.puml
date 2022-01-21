@@ -1,0 +1,36 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor "Traffic Manager" as traf
+
+
+participant ":UserUI" as userui
+participant ":Centrality" as c
+participant ":Algoritms" as al
+participant "g:PositionMatrixGraph" as g
+
+activate traf
+
+
+traf -> userui : Select the option of the critical ports
+activate userui
+userui --> traf : Ask for the number of the ports
+
+
+userui -> c : getNCentralPorts(g,critical)
+
+activate c
+
+c -> al : shortestPaths(g,p,compare,sum,zero,paths,dists)
+activate al
+c --> c : toString(n,centralityPort)
+deactivate al
+
+
+c --> userui : string the ports
+deactivate c
+userui --> traf : string the ports
+deactivate userui
+deactivate traf
+@enduml
