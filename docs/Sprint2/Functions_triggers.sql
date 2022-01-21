@@ -541,7 +541,7 @@ end;
 
 
 --[US404] As Fleet Manager, I want to know the number of days each ship has been idle since the beginning of the current year.
-CREATE OR REPLACE FUNCTION  "idle_time_ship"(codeShip "ship"."mmsi"%TYPE) RETURN BOOLEAN
+create or replace FUNCTION  "idle_time_ship" RETURN SYS_REFCURSOR
     IS
     NUMBERDAYS INT;
     TYPE SHIP_LIST IS TABLE OF "ship"."mmsi"%TYPE;
@@ -552,28 +552,33 @@ CREATE OR REPLACE FUNCTION  "idle_time_ship"(codeShip "ship"."mmsi"%TYPE) RETURN
     SDATE "trip"."start_date"%TYPE;
     EDATE "trip"."start_date"%TYPE;
     YEARSYS DATE;
+    SHIPIDLE SYS_REFCURSOR;
 BEGIN
     SELECT trunc(SYSDATE , 'YEAR') INTO YEARSYS FROM DUAL;
     -- GUARDAR LISTA DE TODOS OS SHIP'S
-    SELECT "vehile_id" BULK COLLECT INTO shipList FROM "trip" WHERE "trip"."vehicle_id" = (SELECT "vehicle_id" FROM "vehicle" WHERE "ship_id" NOT NULL);
+    SELECT "vehicle_id" BULK COLLECT INTO shipList FROM "trip" WHERE "trip"."vehicle_id" = (SELECT "vehicle_id" FROM "vehicle" WHERE "ship_id" IS NOT NULL);
     for i in 1..shipList.COUNT LOOP
-            select extract(day from sysdate - to_date('2021-01-01', 'yyyy-mm-dd')) INTO DAYUNTILTODAY from dual;
+            select trunc(sysdate) - YEARSYS INTO DAYUNTILTODAY  from dual;
+
             -- GUARDAR TODAS AS TRIP ID'S ONDE SHIP E IGUAL AO DA LISTA E DATA DE FIM E DESTE ANO E E MENOR QUE A DATA ATUAL
-            SELECT "trip_id" BULK COLLECT INTO tripList FROM "trip" WHERE "vehicle"."vehicle_id" = i AND extract(Year from sysdate) = extract(year from "end_date") AND sysdate > "end_date";
+            SELECT "trip_id" BULK COLLECT INTO tripList FROM "trip" WHERE "vehicle_id" = i AND extract(Year from sysdate) = extract(year from "end_date") AND sysdate > "end_date";
             FOR J IN 1..tripList.COUNT LOOP
                     SELECT "start_date" INTO SDATE FROM "trip" WHERE "trip"."trip_id"=J;
                     SELECT "end_date" INTO EDATE FROM "trip" WHERE "trip"."trip_id"=J;
                     IF extract(year from SDATE) = extract(Year from sysdate) THEN
                         -- CONTA O NUMERO DE DIAS E SOMA AO TOTAL
-                        select extract(day from EDATE - SDATE) INTO NUMBERDAYS from dual;
-                            DAYUNTILTODAY = DAYUNTILTODAY - NUMBERDAYS;
+                        select EDATE - SDATE INTO NUMBERDAYS from dual;
+                        DAYUNTILTODAY := DAYUNTILTODAY - NUMBERDAYS;
                     END IF;
-                    IF extract(year from SDATE) = extract((Year from sysdate)-1) THEN
-                        select extract(day from EDATE - YEARSYS) INTO NUMBERDAYS from dual;
-                            DAYUNTILTODAY = DAYUNTILTODAY - NUMBERDAYS;
+                    IF extract(year from SDATE) = (extract(Year from sysdate)-1) THEN
+                        select EDATE - YEARSYS INTO NUMBERDAYS from dual;
+                        DAYUNTILTODAY := DAYUNTILTODAY - NUMBERDAYS;
                     END IF;
                 END LOOP;
+            insert into "idle_ship" values (i,NUMBERDAYS);
             dbms_output.put_line('The ship '||i||' has been idle '|| NUMBERDAYS ||' days');
         end loop;
-    RETURN TRUE;
+    OPEN SHIPIDLE FOR
+        SELECT * FROM "idle_ship";
+    RETURN (SHIPIDLE);
 end;
