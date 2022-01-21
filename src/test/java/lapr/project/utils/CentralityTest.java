@@ -31,13 +31,13 @@ class CentralityTest {
 
     @Test
     void getNCentralPorts() {
-        assertEquals("Portugal, Ponta Delgada => with 156 detections in shostest paths. \n\n", cen.getNCentralPorts(pmg.getCompleteMap(),1));
+        assertEquals("Portugal, Ponta Delgada => with 156 detections in shortest paths. \n\n", cen.getNCentralPorts(pmg.getCompleteMap(),1));
     }
 
     @Test
     void testToString() {
         cen.getNCentralPorts(pmg.getCompleteMap(),1);
-        assertEquals("Portugal, Ponta Delgada => with 156 detections in shostest paths. \n\n", cen.toString(1,cen.centralityPort));
+        assertEquals("Portugal, Ponta Delgada => with 156 detections in shortest paths. \n\n", cen.toString(1,cen.centralityPort));
 
     }
 }
