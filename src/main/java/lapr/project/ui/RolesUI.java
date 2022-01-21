@@ -387,7 +387,7 @@ public class RolesUI {
                     //[US403]
                     break;
                 default:
-                    System.out.println("The option doens't exist");
+                    System.out.println("The option doesn't exist");
                     break;
             }
         }

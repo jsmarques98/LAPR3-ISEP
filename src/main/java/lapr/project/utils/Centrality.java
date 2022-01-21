@@ -43,7 +43,7 @@ public class Centrality {
         Map<Position, Integer> d = sortByComparator(portsCentrality);
         int i = 0;
         for (Position p : d.keySet()) {
-            output += p + " => with " + String.format("%d", d.get(p)) + " detections in shostest paths. \n\n";
+            output += p + " => with " + String.format("%d", d.get(p)) + " detections in shortest paths. \n\n";
             i++;
             if (i == n) {
                 break;
