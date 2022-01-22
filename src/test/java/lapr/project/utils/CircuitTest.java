@@ -61,15 +61,8 @@ class CircuitTest {
                 "Vilnius\n" +
                 "Riga\n" +
                 "Tallinn\n" +
-                "Moscow\n",circ.mostEfficientCircuit(pmg.getCompleteMap(),"funchal","funchal"));
+                "Moscow\n",circ.mostEfficientCircuit(pmg.getCompleteMap()));
 
     }
-
-    @Test
-    void mostEfficientCircuitFailed(){
-        assertEquals(" doesn't exist in the graph",circ.mostEfficientCircuit(pmg.getCompleteMap(),"abcd","abcd"));
-
-    }
-
 
 }

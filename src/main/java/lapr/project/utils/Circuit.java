@@ -9,24 +9,8 @@ import java.util.*;
 
 public class Circuit {
 
-    public static String mostEfficientCircuit(Graph<Position,Double> g, String string, String string1) {
+    public static String mostEfficientCircuit(Graph<Position,Double> g) {
 
-        int keyp1 = -1;
-        int keyp2 = -1;
-        for (Position p : g.vertices()) {
-            if (p.getName().equalsIgnoreCase(string)  || p.getCountryName().equalsIgnoreCase(string))
-                keyp1 = g.key(p);
-            if (p.getName().equalsIgnoreCase(string1)  || p.getCountryName().equalsIgnoreCase(string1))
-                keyp2 = g.key(p);
-        }
-        String erro = " doesn't exist in the graph";
-        if (keyp1 == -1)
-            System.out.println(string + " doesn't exist in the graph");
-        if (keyp2 == -1)
-            System.out.println(string + " doesn't exist in the graph");
-        if (keyp1 == -1 || keyp2 == -1){
-            return erro;
-        }
 
         List<LinkedList<Position>> paths = Algorithms.allCycles(g);
         int max=0;
