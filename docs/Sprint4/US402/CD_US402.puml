@@ -1,0 +1,34 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class RolesUI {
+    BorderStore bs;
+    CountryStore cs;
+    PortStore ps;
+    SeaDistStore sds;
+    ShipStore ss;
+    SupplyEnergy se;
+    PositionMatrixGraph;
+    Centrality cent;
+
+    + void traficManager(string user)
+}
+
+
+class PositionMatrixGraph{
+    - MatrixGraph<Position, Double> completeMap;
+    - ShipSummary ss;
+
+    + Graph<Position, Double> getLandMap()
+    + Graph<Position, Double> getSeaMap()
+}
+
+class Algoritms{
+    + boolean shortestPaths(Graph<V, E> g, V vOrig, Comparator<E> ce, BinaryOperator<E> sum, E zero, ArrayList<LinkedList<V>> paths, ArrayList<E> dists)
+}
+
+
+RolesUI -> PositionMatrixGraph
+PositionMatrixGraph -> Algoritms
+
+@enduml

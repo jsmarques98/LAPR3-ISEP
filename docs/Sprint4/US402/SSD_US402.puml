@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+activate TraficManager
+TraficManager -> system: Select the option of the shortest Path
+activate system
+system --> TraficManager : Ask for the type of path
+deactivate system
+
+TraficManager -> system : choose the type of path
+activate system
+
+system --> TraficManager: Ask for the first location
+deactivate system
+
+TraficManager -> system : choose the location
+activate system
+
+system --> TraficManager: Ask for the second location
+deactivate system
+
+TraficManager -> system : choose the location
+activate system
+
+system --> TraficManager: show the path
+deactivate system
+
+deactivate TraficManager
+@enduml

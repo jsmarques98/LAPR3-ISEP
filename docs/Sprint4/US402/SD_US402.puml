@@ -1,0 +1,59 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor "Traffic Manager" as traf
+
+
+participant ":UserUI" as userui
+participant "g:PositionMatrixGraph" as g
+participant ":Algoritms" as al
+participant "p:Positions" as p
+participant "land:PositionMatrixGraph" as l
+participant "sea:PositionMatrixGraph" as s
+
+activate traf
+
+
+traf -> userui : Select the option of the shortest path
+activate userui
+userui --> traf : Ask for the type of path
+
+traf -> userui : choses the type of path
+
+alt land path
+userui -> g :land=getLandMap()
+userui --> traf : Ask for the first location
+traf -> userui : choses the location
+
+userui --> traf : Ask for the second location
+traf -> userui : choses the location
+
+userui -> al : shortestPath(land,position1,postion2,compare,sum,zero,s)
+userui --> traf : show the shortest path
+
+else sea path
+userui -> g :sea=getLSeaMap()
+userui --> traf : Ask for the first location
+traf -> userui : choses the location
+
+userui --> traf : Ask for the second location
+traf -> userui : choses the location
+
+userui -> al : shortestPath(land,position1,postion2,compare,sum,zero,s)
+userui --> traf : show the shortest path
+
+else land and sea path
+userui --> traf : Ask for the first location
+traf -> userui : choses the location
+
+userui --> traf : Ask for the second location
+traf -> userui : choses the location
+
+userui -> al : shortestPath(land,position1,postion2,compare,sum,zero,s)
+userui --> traf : show the shortest path
+
+end
+deactivate userui
+deactivate traf
+@enduml
