@@ -657,6 +657,16 @@ public class RolesUI {
                         break;
                     case "3":
                         //[413]
+                        temp.clear();
+                        time.clear();
+                        temp.add(20.0);
+                        temp.add(15.0);
+                        time.add(0.836667);
+                        time.add(0.836667);
+                        System.out.println("The journey time is: " + se.journetTime(time) + " H");
+                        System.out.println("The temperature of the sections are: " + temp);
+                        System.out.println("The energy supllied to each container at 7 degrees is " + String.format("%.2f", se.calcContainersTripEnergy(temp, time, resistivityS, 7.0,100)) + " J");
+                        System.out.println("The energy supllied to each container at -5 degrees is " + String.format("%.2f", se.calcContainersTripEnergy(temp, time, resistivityC, -5.0,70)) + " J");
                         break;
                     case "4":
                         //[414]
