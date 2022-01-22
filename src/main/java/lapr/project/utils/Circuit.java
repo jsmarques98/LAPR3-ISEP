@@ -9,16 +9,8 @@ import java.util.*;
 
 public class Circuit {
 
-    public static void mostEfficientCircuit(Graph<Position,Double> g) throws IOException {
+    public static String mostEfficientCircuit(Graph<Position,Double> g, String string, String string1) {
 
-
-        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-        String string;
-        String string1;
-        System.out.println("First location:");
-        string = read.readLine();
-        System.out.println("Second location:");
-        string1 = read.readLine();
         int keyp1 = -1;
         int keyp2 = -1;
         for (Position p : g.vertices()) {
@@ -47,11 +39,9 @@ public class Circuit {
                 dist = pathDistance(p, g);
             }
         }
-        print(tempPos);
-
+        return print(tempPos);
     }
     public static double pathDistance (LinkedList<Position> p,Graph<Position,Double> g){
-        Algorithms alg = new Algorithms();
         double temp=0;
         Position tempP= p.pop();
 
@@ -63,10 +53,13 @@ public class Circuit {
         return temp;
     }
 
-    public static void print(LinkedList<Position> p) {
+    public static String print(LinkedList<Position> p) {
+        String output = "";
         for (Position port : p) {
             System.out.println(port.getCountryName());
+            output += port.getCountryName() + "\n";
         }
+        return output;
     }
 
 }

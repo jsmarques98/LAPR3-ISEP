@@ -387,8 +387,13 @@ public class RolesUI {
                 case "10":
                     //[US403]
                     pmg.fillMatrixGraph(6,cs.getCountryList(),ps.getPortList(),sds.getSeaDistArrayList(),bs.toMap(bs.getBorderArray(),cs.getCountryArray()));
-                    //System.out.println(pmg.getCompleteMap());
-                    Circuit.mostEfficientCircuit(pmg.getCompleteMap());
+                    String string;
+                    String string1;
+                    System.out.println("First location:");
+                    string = read.readLine();
+                    System.out.println("Second location:");
+                    string1 = read.readLine();
+                    Circuit.mostEfficientCircuit(pmg.getCompleteMap(), string, string1);
 
                     break;
                 default:
