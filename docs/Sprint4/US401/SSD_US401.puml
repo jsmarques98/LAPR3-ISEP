@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+activate TraficManager
+TraficManager -> system: Select the option of the critical ports
+activate system
+system --> TraficManager : Ask for the number of the ports
+deactivate system
+
+TraficManager -> system : choose the number of ports
+
+activate system
+
+system --> TraficManager: informs success
+deactivate system
+
+deactivate TraficManager
+@enduml

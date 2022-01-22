@@ -69,7 +69,7 @@ public class SeaDistStore {
             saveSeadDistPreparedStatement.setString(3, seadits.getToCountry());
             saveSeadDistPreparedStatement.setInt(4, seadits.getToPortId());
             saveSeadDistPreparedStatement.setFloat(5, (float) seadits.getSeaDistance());
-            System.out.println(seadits.getFromPortId());
+
             saveSeadDistPreparedStatement.executeUpdate();
         }
 

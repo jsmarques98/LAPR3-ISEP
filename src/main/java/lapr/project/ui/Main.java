@@ -64,7 +64,8 @@ class Main {
             loginMenu(databaseConnection);
         }
 
-        role=role.replaceFirst(role.substring(0,1),role.substring(0,1).toLowerCase(Locale.ROOT));
+        role=role.replaceFirst(role.substring(0,1), role.substring(0,1).toLowerCase(Locale.ROOT));
+        System.out.println(role.substring(0,1));
         role=role.replace(" ","");
 
         Method method = Class.forName("lapr.project.ui.RolesUI").getMethod(role,String.class);
