@@ -19,11 +19,14 @@ public class Circuit {
             if (p.getName().equalsIgnoreCase(string1)  || p.getCountryName().equalsIgnoreCase(string1))
                 keyp2 = g.key(p);
         }
-
+        String erro = " doesn't exist in the graph";
         if (keyp1 == -1)
             System.out.println(string + " doesn't exist in the graph");
         if (keyp2 == -1)
             System.out.println(string + " doesn't exist in the graph");
+        if (keyp1 == -1 || keyp2 == -1){
+            return erro;
+        }
 
         List<LinkedList<Position>> paths = Algorithms.allCycles(g);
         int max=0;
