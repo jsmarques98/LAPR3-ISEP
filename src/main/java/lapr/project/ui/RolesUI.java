@@ -436,7 +436,8 @@ public class RolesUI {
         savePortPreparedStatement.setFloat(6, Float.parseFloat(weigth));
         savePortPreparedStatement.executeUpdate();
     }*/
-    public void fleetManager(String user_id) throws IOException {
+    public void fleetManager(String user_id) throws IOException, SQLException {
+        Sprint4Store sp= new Sprint4Store();
         System.out.println(user_id);
         String option = "";
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
@@ -449,6 +450,7 @@ public class RolesUI {
             option = read.readLine();
             switch (option){
                 case "1":
+                    sp.idleTimeShip();
                     //[US404]
                     break;
                 case "2":
@@ -555,8 +557,9 @@ public class RolesUI {
             }
 
     }
-    public void portManager(String user_id) throws IOException {
+    public void portManager(String user_id) throws IOException, SQLException {
         System.out.println(user_id);
+        Sprint4Store sp= new Sprint4Store();
         String option="";
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
@@ -564,6 +567,7 @@ public class RolesUI {
             System.out.println("1) I want to know the occupancy rate of each warehouse and an estimate of the containers leaving the warehouse during the next 30 days. ");
             System.out.println("2) I intend to get a warning whenever I issue a cargo manifest destined for a warehouse whose available capacity is insufficient to accommodate the new manifest");
             System.out.println("3) I intend to have a map of the occupation of the existing resources in the port during a given month. ");
+            System.out.println("4) I intend to generate, a week in advance, the loading and unloading map. ");
             System.out.println(FINALOPTIONPHRASE);
             option = read.readLine();
             switch (option){
@@ -580,6 +584,9 @@ public class RolesUI {
                     break;
                 case "3":
                     //occupation_map();
+                    break;
+                    case "4":
+                    sp.weaklyOperationMap(17386);
                     break;
                 default:
                     System.out.println("The option doens't exist");

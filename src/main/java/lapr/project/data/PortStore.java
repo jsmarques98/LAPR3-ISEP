@@ -83,6 +83,7 @@ public class PortStore  implements Persistable {
         savePortPreparedStatement.setDouble(7,port.getLon());
         savePortPreparedStatement.setDouble(8,3);
         savePortPreparedStatement.executeUpdate();
+        savePortPreparedStatement.close();
     }
 
     private void executeUpdatePortStatementOnDatabase(
@@ -101,6 +102,7 @@ public class PortStore  implements Persistable {
         savePortPreparedStatement.setFloat(5,(float) port.getLon());
         //atualizar a classe para adicionar atributos
         savePortPreparedStatement.executeUpdate();
+        savePortPreparedStatement.close();
     }
 
     private boolean isPortOnDatabase(DataBaseConnection databaseConnection,
@@ -126,7 +128,7 @@ public class PortStore  implements Persistable {
                 isPortOnDatabase = false;
             }
         }
-
+        getPortPreparedStatement.close();
         return isPortOnDatabase;
     }
 

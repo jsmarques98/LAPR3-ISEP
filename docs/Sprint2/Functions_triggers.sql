@@ -508,38 +508,60 @@ IF SHIPID IS NOT NULL THEN
             
             
 end;
-
+/
 --[US407] As Port manager, I intend to generate, a week in advance, the loading and unloading map based on ships and trucks load manifests and corresponding travel plans
-
-
-CREATE OR REPLACE FUNCTION  "weakly_operation_map"(port_ID int) RETURN BOOLEAN
+create or replace FUNCTION  "weakly_operation_map"(port_ID "port_warehouse"."port_warehouse_id"%type) RETURN SYS_REFCURSOR
 AS
+    TABLECURSOR     SYS_REFCURSOR;
 	TYPE CARGOMANIFEST_LIST IS TABLE OF "cargo_manifest"."cargo_manifesto_id"%TYPE;
     CARGOS       CARGOMANIFEST_LIST;
+    TYPE CONTAINER_LIST IS TABLE OF "registo_container"."container_id"%TYPE;
+    CONTAINERS_l       CONTAINER_LIST;
     aux int;
     NUMCONT int;
     operation_type VARCHAR(255);
     DATACARGO DATE;
+    x number;
+    y number;
+    z number;
+    weigth float;
+    vehicle_id int;
 BEGIN
 --Verifica se existe o port e se ï¿½ um porto
     SELECT COUNT(*)INTO aux FROM "port_warehouse" WHERE "port_warehouse_id"=port_ID AND "type"='port';
     if aux=0 then
-        raise_application_error(-2314,'This id doensï¿½t exist');
+        raise_application_error(-2314,'This id does not exist');
    end if;
+  
    --Vai buscar todos os cargos manifest que vai chegar nessa semana
-   SELECT "cargo_manifest_id" BULK COLLECT INTO CARGOS FROM "cargo_manifest" WHERE "destiny"=port_ID AND "entry_date"<(sysdate+7) AND "entry_date">sysdate;
+   SELECT "cargo_manifesto_id" BULK COLLECT INTO CARGOS FROM "cargo_manifest" WHERE "destiny"=port_ID AND "entry_date"<(sysdate+7) AND "entry_date">sysdate;
+   dbms_output.put_line(sysdate+7);
    for i in 1..CARGOS.COUNT LOOP
    --Conta o numero de containers em cada cargo
-        SELECT COUNT("registo_id") INTO NUMCONT FROM "cargo_manifest_container" WHERE "cargo_manifesto_id"=i;
-   --Guarda o tipo de operaï¿½ï¿½o     
-        SELECT "operation_type" INTO operation_type FROM "cargo_manifest" WHERE "cargo_manifesto_id"=i;
-   --Guarda a data da operaï¿½ï¿½o
-        SELECT "entry_date" INTO DATACARGO FROM "cargo_manifest" WHERE "cargo_manifesto_id"=i;
+        SELECT COUNT("registo_id") INTO NUMCONT FROM "cargo_manifest_container" WHERE "cargo_manifesto_id"=CARGOS(i);
+   --Vai buscar o veiculo     
+        SELECT "vehicle_id" INTO vehicle_id FROM "cargo_manifest" WHERE "cargo_manifesto_id"=CARGOS(i);
+   --Guarda o tipo de operacao 
+        SELECT "operation_type" INTO operation_type FROM "cargo_manifest" WHERE "cargo_manifesto_id"=CARGOS(i);
+   --Guarda a data da operacao
+        SELECT "entry_date" INTO DATACARGO FROM "cargo_manifest" WHERE "cargo_manifesto_id"=CARGOS(i);
+   --Vai buscar informação individual de cada container     
+        SELECT "registo_id" BULK COLLECT INTO CONTAINERS_l FROM "cargo_manifest_container" WHERE "cargo_manifesto_id"=  CARGOS(i);
+        for j in 1..CONTAINERS_l.COUNT LOOP
+            SELECT "container_position_x" INTO x FROM "cargo_manifest_container" WHERE "registo_id"=CONTAINERS_l(j) AND "cargo_manifesto_id"=CARGOS(i);
+            SELECT "container_position_y" INTO y FROM "cargo_manifest_container" WHERE "registo_id"=CONTAINERS_l(j)  AND "cargo_manifesto_id"=CARGOS(i);
+            SELECT "container_position_z" INTO z FROM "cargo_manifest_container" WHERE "registo_id"=CONTAINERS_l(j)  AND "cargo_manifesto_id"=CARGOS(i);
+            SELECT "container_gross_weigth" INTO weigth FROM "cargo_manifest_container" WHERE "registo_id"=CONTAINERS_l(j)  AND "cargo_manifesto_id"=CARGOS(i);
+            INSERT INTO "weakly_operation_table" values(DATACARGO,operation_type,vehicle_id,NUMCONT,CONTAINERS_l(j) ,x,y,z,weigth);
+        end loop;
    end loop;
-    RETURN TRUE;
+    open tablecursor FOR
+    SELECT * FROM "weakly_operation_table";
+    RETURN (tablecursor);
 end;
 
 
+/
 --[US404] As Fleet Manager, I want to know the number of days each ship has been idle since the beginning of the current year.
 create or replace FUNCTION  "idle_time_ship" RETURN SYS_REFCURSOR
     IS
@@ -582,3 +604,30 @@ BEGIN
         SELECT * FROM "idle_ship";
     RETURN (SHIPIDLE);
 end;
+/
+--[405] As Fleet Manager, I want to know the average occupancy rate per manifest of a given ship during a given period.
+
+create or replace FUNCTION "func_avg_occu_rate"(start_date_  IN DATE, end_date_ IN DATE, ship_id_ IN INT)  RETURN SYS_REFCURSOR
+IS
+    result SYS_REFCURSOR;
+    avg_occu FLOAT;
+    ship_cap INT;
+    manif_cont INT;
+    ship_id int;
+    TYPE CARGOMANIFEST_LIST IS TABLE OF "cargo_manifest"."cargo_manifesto_id"%TYPE;
+    cargo_man_List       CARGOMANIFEST_LIST;
+BEGIN
+     SELECT "cargo_manifesto_id" BULK COLLECT INTO cargo_man_List FROM "cargo_manifest" INNER JOIN "vehicle" USING("vehicle_id")
+        WHERE "ship_id" = ship_id AND "entry_date" > start_date_ AND "entry_date" < end_date_ AND "operation_type" = 'LOAD' OR "operation_type" = 'load';
+        for i in 1..cargo_man_List.COUNT LOOP
+            SELECT "capacity" INTO ship_cap FROM "ship" where "mmsi"= ship_id;
+            SELECT COUNT("registo_id") INTO manif_cont FROM "cargo_manifest_container" WHERE "cargo_manifesto_id" = cargo_man_List(i);
+                avg_occu := manif_cont/ship_cap;
+                INSERT INTO "func_avg_occu_rate_table" VALUES(cargo_man_List(i),avg_occu);
+                dbms_output.put_line('cargo manifest id: ' || cargo_man_List(i) || 'occupancy rate: ' || avg_occu);
+        end loop;
+        open result for
+            select *from "func_avg_occu_rate_table";
+    RETURN result;
+END;
+/
