@@ -4,6 +4,8 @@ import lapr.project.model.Port;
 
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -72,7 +74,7 @@ public class Sprint4Store {
         idleTimePreparedResultSet.close();
         call.close();
     }
-    public void funcAvgOccuRate(int shipId) throws SQLException {
+    public void funcAvgOccuRate(LocalDate data, LocalDate data2, int ship_id) throws SQLException {
         DataBaseConnection databaseConnection = null;
         try {
             databaseConnection = ConnectionFactory.getInstance()
@@ -90,17 +92,56 @@ public class Sprint4Store {
         CallableStatement call = connection.prepareCall(sqlCommand);
 
         call.registerOutParameter(1,Types.REF_CURSOR);
-        call.setTimestamp(2,null);
-        call.setTimestamp(3,null);
-        call.setInt(4,shipId);
+        call.setDate(2,Date.valueOf(data));
+        call.setDate(3,Date.valueOf(data2));
+
+        call.setInt(4,ship_id);
         call.executeUpdate();
         ResultSet idleTimePreparedResultSet =(ResultSet) call.getObject(1);
-        System.out.println("    Cargo ID   | AVG");
+        System.out.println("Cargo ID   | AVG");
         while (idleTimePreparedResultSet.next()) {
 
-            System.out.println(idleTimePreparedResultSet.getInt(1) +"   " +idleTimePreparedResultSet.getFloat(2));
+            System.out.println(idleTimePreparedResultSet.getInt(1) +"      " +idleTimePreparedResultSet.getFloat(2));
         }
         idleTimePreparedResultSet.close();
+        call.close();
+    }
+    public void funcAvgOcupShipThreshold(int shipId) throws SQLException {
+        DataBaseConnection databaseConnection = null;
+        try {
+            databaseConnection = ConnectionFactory.getInstance()
+                    .getDatabaseConnection();
+        } catch (IOException exception) {
+            Logger.getLogger(ShipStore.class.getName())
+                    .log(Level.SEVERE, null, exception);
+        }
+        Connection connection = databaseConnection.getConnection();
+        Statement stmt = connection.createStatement();
+        String sql = "DELETE FROM \"func_avg_ocup_ship_threshold_table\"";
+
+        stmt.executeUpdate(sql);
+        sql = "DELETE FROM \"func_avg_occu_rate_table\"";
+
+        stmt.executeUpdate(sql);
+        stmt.close();
+        String sqlCommand = "{?=call \"func_avg_ocup_ship_threshold\"}";
+        CallableStatement call = connection.prepareCall(sqlCommand);
+
+        call.registerOutParameter(1,Types.REF_CURSOR);
+        call.executeUpdate();
+        ResultSet idleTimePreparedResultSet =(ResultSet) call.getObject(1);
+        try {
+            System.out.println(" Origem    |    Date start   |     Fim     |    Date end");
+            while (idleTimePreparedResultSet.next()) {
+
+                System.out.println(idleTimePreparedResultSet.getInt(1) + "   " + idleTimePreparedResultSet.getDate(2)
+                        + "   " + idleTimePreparedResultSet.getDate(4) + "   " + idleTimePreparedResultSet.getInt(3));
+            }
+            idleTimePreparedResultSet.close();
+        }catch (NullPointerException x){
+            System.out.println("No data");
+        }
+
         call.close();
     }
 }

@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -398,50 +399,6 @@ public class RolesUI {
             }
         }
     }
-    /*
-    private void deleteContainers(String code, String cargo_manifest) throws SQLException {
-        DataBaseConnection databaseConnection = null;
-        try {
-            databaseConnection = ConnectionFactory.getInstance()
-                    .getDatabaseConnection();
-        } catch (IOException exception) {
-            Logger.getLogger(ShipStore.class.getName())
-                    .log(Level.SEVERE, null, exception);
-        }
-        String sqlCommand =
-                "delete from \"cargo_manifest_container\" where \"registo_id\"=?   AND \"cargo_manifesto_id\"=?";
-        Connection connection = databaseConnection.getConnection();
-
-        PreparedStatement savePortPreparedStatement =
-                connection.prepareStatement(sqlCommand);
-        savePortPreparedStatement.setInt(1, Integer.parseInt(code));
-        savePortPreparedStatement.setInt(2, Integer.parseInt(cargo_manifest));
-        savePortPreparedStatement.executeUpdate();
-    }
-    private void insertContainers(String code,String cargo_manifest, String x,String y,String z,String weigth) throws SQLException {
-        DataBaseConnection databaseConnection = null;
-        try {
-            databaseConnection = ConnectionFactory.getInstance()
-                    .getDatabaseConnection();
-        } catch (IOException exception) {
-            Logger.getLogger(ShipStore.class.getName())
-                    .log(Level.SEVERE, null, exception);
-        }
-        String sqlCommand =
-                "insert into \"cargo_manifest_container\" (\"registo_id\",\"cargo_manifesto_id\",\"container_position_x\",\"container_position_y\",\"container_position_z\",\"container_gross_weigth\")" +
-                        " values (?, ?,?,?,?,?)";
-        Connection connection = databaseConnection.getConnection();
-
-        PreparedStatement savePortPreparedStatement =
-                connection.prepareStatement(sqlCommand);
-        savePortPreparedStatement.setInt(1, Integer.parseInt(code));
-        savePortPreparedStatement.setInt(2, Integer.parseInt(cargo_manifest));
-        savePortPreparedStatement.setInt(3, Integer.parseInt(x));
-        savePortPreparedStatement.setInt(4, Integer.parseInt(y));
-        savePortPreparedStatement.setInt(5, Integer.parseInt(z));
-        savePortPreparedStatement.setFloat(6, Float.parseFloat(weigth));
-        savePortPreparedStatement.executeUpdate();
-    }*/
     public void fleetManager(String user_id) throws IOException, SQLException {
         Sprint4Store sp= new Sprint4Store();
         System.out.println(user_id);
@@ -461,9 +418,37 @@ public class RolesUI {
                     break;
                 case "2":
                     //[US405]
+                    String ship_id;
+                    do {
+                        System.out.println("Insert first date:");
+                        String date1= read.readLine();
+                        System.out.println("Insert second date:");
+                        String date2= read.readLine();
+                        System.out.println("Insert ship id:");
+                         ship_id= read.readLine();
+                        try {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                            sp.funcAvgOccuRate(LocalDate.parse(date1, formatter),LocalDate.parse(date2, formatter),Integer.parseInt(ship_id));
+                        }catch (NumberFormatException ex){
+                            System.out.println("Invalid number");
+                            ship_id="no";
+                        }
+                    }while(ship_id.equals("no"));
+
                     break;
                 case "3":
-                    //[US406]
+                    String choice;
+                    do {
+                        System.out.println("Insert threshold");
+                        choice= read.readLine();
+                        try {
+                            sp.funcAvgOcupShipThreshold(Integer.parseInt(choice));
+                        }catch (NumberFormatException ex){
+                            System.out.println("Invalid number");
+                            choice="no";
+                        }
+                    }while(choice.equals("no"));
+
                     break;
                 default:
                     System.out.println("The option doens't exist");
@@ -573,7 +558,7 @@ public class RolesUI {
             System.out.println("1) I want to know the occupancy rate of each warehouse and an estimate of the containers leaving the warehouse during the next 30 days. ");
             System.out.println("2) I intend to get a warning whenever I issue a cargo manifest destined for a warehouse whose available capacity is insufficient to accommodate the new manifest");
             System.out.println("3) I intend to have a map of the occupation of the existing resources in the port during a given month. ");
-            System.out.println("4) I intend to generate, a week in advance, the loading and unloading map. ");
+            System.out.println("4)[US 407] I intend to generate, a week in advance, the loading and unloading map. ");
             System.out.println(FINALOPTIONPHRASE);
             option = read.readLine();
             switch (option){
@@ -592,7 +577,17 @@ public class RolesUI {
                     //occupation_map();
                     break;
                     case "4":
-                    sp.weaklyOperationMap(17386);
+                        String choice;
+                        do {
+                            System.out.println("Insert port:");
+                            choice= read.readLine();
+                            try {
+                                sp.weaklyOperationMap(Integer.parseInt(choice));
+                            }catch (NumberFormatException ex){
+                                System.out.println("Invalid number");
+                                choice="no";
+                            }
+                        }while(choice.equals("no"));
                     break;
                 default:
                     System.out.println("The option doens't exist");

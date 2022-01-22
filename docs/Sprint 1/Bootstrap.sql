@@ -123,6 +123,12 @@ INSERT INTO "cargo_manifest_container" VALUES (8,2,8,19,4,1776);
 INSERT INTO "cargo_manifest_container" VALUES (9,2,1,19,4,1712);
 INSERT INTO "cargo_manifest_container" VALUES (10,2,1,19,24,1763.8);
 INSERT INTO "cargo_manifest_container" VALUES (11,2,1,19,24,1718);
+INSERT INTO "cargo_manifest_container" VALUES (6,5,2,6,24,1398);
+INSERT INTO "cargo_manifest_container" VALUES (7,5,18,9,24,1328);
+INSERT INTO "cargo_manifest_container" VALUES (12,5,8,19,4,177);
+INSERT INTO "cargo_manifest_container" VALUES (13,5,1,19,4,1712);
+INSERT INTO "cargo_manifest_container" VALUES (14,5,1,19,24,1763.8);
+INSERT INTO "cargo_manifest_container" VALUES (15,5,1,19,24,1718);
 
 --insert audit_trails(audit_trails_id,user_id,container_id,cargo_manifest_id, date, operation_type)FRANCISCO
 INSERT INTO "audit_trails" VALUES (1,1,123456789,1,to_date('20.09.20','dd.mm.yy'),'insert');
