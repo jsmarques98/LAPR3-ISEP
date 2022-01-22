@@ -683,6 +683,15 @@ public class RolesUI {
                         break;
                     case "5":
                         //[415]
+                        temp.clear();
+                        time.clear();
+                        temp.add(20.0);
+                        temp.add(15.0);
+                        time.add(0.836667);
+                        time.add(0.836667);
+                        System.out.println("The journey time is: " + se.journetTime(time) + " H");
+                        System.out.println("The temperature of the sections are: " + temp);
+                        System.out.println("Necessery generatores: "+se.numOfGen(temp,time,areas2,2));
                         break;
                     case "6":
                         //[416]
