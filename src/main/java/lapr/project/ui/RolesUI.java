@@ -36,6 +36,7 @@ public class RolesUI {
     PositionMatrixGraph pmg = new PositionMatrixGraph();
     Centrality cent;
     Circuit circ;
+    SupplyEnergy se;
     private static ColourMapUI colorMapUI = new ColourMapUI();
     public RolesUI(){
         bs = new BorderStore();
@@ -45,6 +46,7 @@ public class RolesUI {
         sds = new SeaDistStore();
         ss = new ShipStore();
         cent = new Centrality();
+        se = new SupplyEnergy();
     }
 
 
@@ -621,6 +623,13 @@ public class RolesUI {
             System.out.println(user_id);
             String option = "";
             BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+            double[][] areas = new double[][]{{24.0, 20.0, 24.0}, {14.0, 10.0, 14.0}, {14.0, 10.0, 14.0}, {24.0, 20.0, 24.0}};
+            double[][] areas2 = new double[][]{{24.0, 20.0,20.0,20.0, 24.0}, {14.0, 10.0,10.0,10.0, 14.0},{14.0, 10.0,10.0,10.0, 14.0}, {24.0, 20.0,20.0,20.0, 24.0}};
+            List<Double> time = new ArrayList<>();
+            List<Double> temp = new ArrayList<>();
+            Double resistivityC = 1.38;
+            Double resistivityS = 0.96;
+            se = new SupplyEnergy();
             while (!option.equals("0")){
                 System.out.println(INITIALOPTIONPHRASE);
                 System.out.println("1) Sprint 1. ");
@@ -637,6 +646,14 @@ public class RolesUI {
                         break;
                     case "2":
                         //[412]
+                        temp.clear();
+                        time.clear();
+                        temp.add(20.0);
+                        temp.add(15.0);
+                        time.add(0.836667);
+                        time.add(0.836667);
+                        System.out.println("The energy supllied to each container at 7 degrees is " + String.format("%.2f", se.calcTripEnergy(temp, time, resistivityS, 7.0)) + " J");
+                        System.out.println("The energy supllied to each container at -5 degrees is " + String.format("%.2f", se.calcTripEnergy(temp, time, resistivityC, -5.0)) + " J");
                         break;
                     case "3":
                         //[413]
