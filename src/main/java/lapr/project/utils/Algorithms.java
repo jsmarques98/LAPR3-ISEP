@@ -2,6 +2,7 @@ package lapr.project.utils;
 
 import lapr.project.data.Edge;
 import lapr.project.data.MatrixGraph;
+import lapr.project.model.Position;
 
 import java.lang.reflect.Array;
 import java.util.*;
@@ -100,7 +101,7 @@ public class Algorithms {
      * @param path    stack with vertices of the current path (the path is in reverse order)
      * @param paths   ArrayList with all the paths (in correct order)
      */
-    private static <V, E> void allPaths(Graph<V, E> g, V vOrig, V vDest, boolean[] visited,
+    /*private static <V, E> void allPaths(Graph<V, E> g, V vOrig, V vDest, boolean[] visited,
                                         LinkedList<V> path, ArrayList<LinkedList<V>> paths) {
         int vKey = g.key(vOrig);
         if(visited[vKey]) return;
@@ -123,23 +124,56 @@ public class Algorithms {
         path.pop();
         visited[vKey] = false;
 
-    }
+    }*/
 
-    /** Returns all paths from vOrig to vDest
+   /* *//** Returns all paths from vOrig to vDest
      *
      * @param g     Graph instance
      * @param vOrig information of the Vertex origin
      * @param vDest information of the Vertex destination
      * @return paths ArrayList with all paths from vOrig to vDest
-     */
+     *//*
     public static <V, E> ArrayList<LinkedList<V>> allPaths(Graph<V, E> g, V vOrig, V vDest) {
         LinkedList<V> path = new LinkedList<>();
         boolean[] visited = new boolean[g.numVertices()];
         ArrayList<LinkedList<V>> paths = new ArrayList<>();
         allPaths(g,vOrig,vDest,visited,path,paths);
         return paths;
+    }*/
+
+    public static <V, E> List<LinkedList<V>> allCycles(Graph<V, E> g) {
+
+        ArrayList<LinkedList<V>> paths = new ArrayList<>();
+        LinkedList<V> path = new LinkedList<>();
+        for (V vOrig : g.vertices()) {
+            boolean[] visited = new boolean[g.numVertices()];
+            allPaths(g, vOrig, vOrig, visited, path, paths);
+
+        }
+        return paths;
     }
 
+    private static <V, E> void allPaths(Graph<V, E> g, V vOrig, V vDest, boolean[] visited,
+                                        LinkedList<V> path, ArrayList<LinkedList<V>> paths) {
+
+        path.push(vOrig);
+        visited[g.key(vOrig)] = true;
+        for (V vAdj : g.adjVertices(vOrig)) {
+            if (vAdj == vDest) {
+                path.push(vDest);
+                LinkedList<V> pathClone = (LinkedList<V>) path.clone();
+                Collections.reverse(pathClone);
+                paths.add(pathClone);
+
+                path.pop();
+            } else {
+                if (!visited[g.key(vAdj)]) {
+                    allPaths(g, vAdj, vDest, visited, path, paths);
+                }
+            }
+        }
+        path.pop();
+    }
 
     /**
      * Computes shortest-path distance from a source vertex to all reachable
@@ -322,4 +356,109 @@ public class Algorithms {
         }
         return new MatrixGraph<>(g.isDirected(), g.vertices(), s);
     }
+
+    /*final int V = 5;
+    int path[];
+
+    *//* A utility function to check if the vertex v can be
+       added at index 'pos'in the Hamiltonian Cycle
+       constructed so far (stored in 'path[]') *//*
+    boolean isSafe(int v, int graph[][], int path[], int pos)
+    {
+        *//* Check if this vertex is an adjacent vertex of
+           the previously added vertex. *//*
+        if (graph[path[pos - 1]][v] == 0)
+            return false;
+
+        *//* Check if the vertex has already been included.
+           This step can be optimized by creating an array
+           of size V *//*
+        for (int i = 0; i < pos; i++)
+            if (path[i] == v)
+                return false;
+
+        return true;
+    }
+
+    *//* A recursive utility function to solve hamiltonian
+       cycle problem *//*
+    boolean hamCycleUtil(Graph<Position, Double> g, int path[], int pos)
+    {
+        *//* base case: If all vertices are included in
+           Hamiltonian Cycle *//*
+        if (pos == V)
+        {
+            // And if there is an edge from the last included
+            // vertex to the first vertex
+            if (g[path[pos - 1]][path[0]] == 1)
+                return true;
+            else
+                return false;
+        }
+
+        // Try different vertices as a next candidate in
+        // Hamiltonian Cycle. We don't try for 0 as we
+        // included 0 as starting point in hamCycle()
+        for (int v = 1; v < V; v++)
+        {
+            *//* Check if this vertex can be added to Hamiltonian
+               Cycle *//*
+            if (isSafe(v, graph, path, pos))
+            {
+                path[pos] = v;
+
+                *//* recur to construct rest of the path *//*
+                if (hamCycleUtil(graph, path, pos + 1) == true)
+                    return true;
+
+                *//* If adding vertex v doesn't lead to a solution,
+                   then remove it *//*
+                path[pos] = -1;
+            }
+        }
+
+        *//* If no vertex can be added to Hamiltonian Cycle
+           constructed so far, then return false *//*
+        return false;
+    }
+
+    *//* This function solves the Hamiltonian Cycle problem using
+       Backtracking. It mainly uses hamCycleUtil() to solve the
+       problem. It returns false if there is no Hamiltonian Cycle
+       possible, otherwise return true and prints the path.
+       Please note that there may be more than one solutions,
+       this function prints one of the feasible solutions. *//*
+    int hamCycle(Graph<Position, Double> g)
+    {
+        path = new int[V];
+        for (int i = 0; i < V; i++)
+            path[i] = -1;
+
+        *//* Let us put vertex 0 as the first vertex in the path.
+           If there is a Hamiltonian Cycle, then the path can be
+           started from any point of the cycle as the graph is
+           undirected *//*
+        path[0] = 0;
+        if (hamCycleUtil(g, path, 1) == false)
+        {
+            System.out.println("\nSolution does not exist");
+            return 0;
+        }
+
+        printSolution(path);
+        return 1;
+    }
+
+    *//* A utility function to print solution *//*
+    void printSolution(int path[])
+    {
+        System.out.println("Solution Exists: Following" +
+                " is one Hamiltonian Cycle");
+        for (int i = 0; i < V; i++)
+            System.out.print(" " + path[i] + " ");
+
+        // Let us print the first vertex again to show the
+        // complete cycle
+        System.out.println(" " + path[0] + " ");
+    }*/
 }

@@ -35,6 +35,7 @@ public class RolesUI {
     ArrayList<Country> countryList = new ArrayList<>();
     PositionMatrixGraph pmg = new PositionMatrixGraph();
     Centrality cent;
+    Circuit circ;
     private static ColourMapUI colorMapUI = new ColourMapUI();
     public RolesUI(){
         bs = new BorderStore();
@@ -385,6 +386,10 @@ public class RolesUI {
                     break;
                 case "10":
                     //[US403]
+                    pmg.fillMatrixGraph(6,cs.getCountryList(),ps.getPortList(),sds.getSeaDistArrayList(),bs.toMap(bs.getBorderArray(),cs.getCountryArray()));
+                    //System.out.println(pmg.getCompleteMap());
+                    Circuit.mostEfficientCircuit(pmg.getCompleteMap());
+
                     break;
                 default:
                     System.out.println("The option doesn't exist");
