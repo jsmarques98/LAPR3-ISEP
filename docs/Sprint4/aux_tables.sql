@@ -16,3 +16,10 @@ CREATE TABLE "func_avg_occu_rate_table"(
                 "cargo_id" int,
                  avg_occu FLOAT
                 );
+
+create table "func_avg_ocup_ship_threshold_table"(
+origem int,
+data_origem DATE,
+data_fim DATE,
+fim int
+);

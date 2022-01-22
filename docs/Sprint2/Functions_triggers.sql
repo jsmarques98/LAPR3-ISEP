@@ -545,7 +545,7 @@ BEGIN
         SELECT "operation_type" INTO operation_type FROM "cargo_manifest" WHERE "cargo_manifesto_id"=CARGOS(i);
    --Guarda a data da operacao
         SELECT "entry_date" INTO DATACARGO FROM "cargo_manifest" WHERE "cargo_manifesto_id"=CARGOS(i);
-   --Vai buscar informação individual de cada container     
+   --Vai buscar informaï¿½ï¿½o individual de cada container     
         SELECT "registo_id" BULK COLLECT INTO CONTAINERS_l FROM "cargo_manifest_container" WHERE "cargo_manifesto_id"=  CARGOS(i);
         for j in 1..CONTAINERS_l.COUNT LOOP
             SELECT "container_position_x" INTO x FROM "cargo_manifest_container" WHERE "registo_id"=CONTAINERS_l(j) AND "cargo_manifesto_id"=CARGOS(i);
@@ -629,5 +629,45 @@ BEGIN
         open result for
             select *from "func_avg_occu_rate_table";
     RETURN result;
+END;
+/
+
+
+
+--[US406] As Fleet Manager, I want to know which ship voyages â€“ place and date of origin and destination â€“ had an occupancy rate below a certain threshold; by default, consider an occupancy rate threshold of 66%. Only the trips already concluded are to be considered.
+
+create or replace FUNCTION "func_avg_ocup_ship_threshold" RETURN SYS_REFCURSOR
+IS
+    result SYS_REFCURSOR;
+    avgcons SYS_REFCURSOR;
+    avg_occu FLOAT;
+    cargomanifestid int;
+    ocupacit_rate float;
+    tripid int;
+    TYPE SHIP_LIST IS TABLE OF "vehicle"."ship_id"%TYPE;
+    SHIP_ID_LIST       SHIP_LIST;
+BEGIN
+        SELECT "ship_id" BULK COLLECT INTO SHIP_ID_LIST FROM "vehicle" inner join "trip" using ("vehicle_id") WHERE "end_date"< sysdate;
+        for i in 1..SHIP_ID_LIST.COUNT LOOP
+        avg_occu := 0;
+        dbms_output.put_line('HERE');
+        avgcons :="func_avg_occu_rate" (to_date('2021-01-01', 'yyyy-mm-dd'), to_date(sysdate, 'yyyy-mm-dd'), SHIP_ID_LIST(i));
+        loop 
+        fetch avgcons into cargomanifestid, ocupacit_rate;
+        SELECT "trip_id"  into tripid from "trip_stop" inner join "trip" using ("trip_id") where "cargo_manifest_id"=cargomanifestid and "trip"."end_date"< sysdate;
+        if tripid != 0 then 
+        avg_occu:= avg_occu + ocupacit_rate;
+        end if;
+        end loop;
+        if avg_occu < 66 then
+        insert into "func_avg_ocup_ship_threshold_table" select "source", "start_date","end_date","destiny"  from "trip" where "trip_id" = tripid;
+
+        open result for
+            select *from "func_avg_ocup_ship_threshold_table";
+            end if;
+        END LOOP;
+
+        RETURN result;
+
 END;
 /
