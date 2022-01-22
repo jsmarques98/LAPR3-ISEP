@@ -695,6 +695,11 @@ public class RolesUI {
                         break;
                     case "6":
                         //[416]
+                        File file = new File("Procedimento2_grupo1_2DI.pdf");
+                        Desktop desk= Desktop.getDesktop();
+                        if(file.exists()){
+                            desk.open(file);
+                        }
                         break;
                     default:
                         System.out.println("The option doens't exist");
