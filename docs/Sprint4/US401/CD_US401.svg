@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="193px" preserveAspectRatio="none" style="width:1385px;height:193px;background:#FFFFFF;" version="1.1" viewBox="0 0 1385 193" width="1385px" zoomAndPan="magnify"><defs><filter height="300%" id="fiw1ut87m4wei" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[3b31b93e6348312c3f196e025a82695a]
+class RolesUI--><rect codeLine="3" fill="#FEFECE" filter="url(#fiw1ut87m4wei)" height="172.5234" id="RolesUI" style="stroke:#A80036;stroke-width:1.5;" width="162" x="7" y="7"/><ellipse cx="61.25" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M63.25,19.5 Q63.4531,19 63.6875,18.75 Q63.9219,18.5 64.1875,18.5 Q64.6563,18.5 64.9531,18.7813 Q65.25,19.0625 65.25,19.7188 L65.25,21.2813 Q65.25,21.9375 64.9688,22.2188 Q64.6875,22.5 64.25,22.5 Q63.8594,22.5 63.6094,22.3281 Q63.3594,22.1563 63.25,21.7031 Q63.2031,21.3906 63.0313,21.2188 Q62.7188,20.8906 62.1563,20.7031 Q61.5938,20.5 61.0313,20.5 Q60.3281,20.5 59.7344,20.7813 Q59.1563,21.0625 58.7031,21.6875 Q58.25,22.3125 58.25,23.1719 L58.25,24.0938 Q58.25,25.125 59.0938,25.8125 Q59.9375,26.5 61.4375,26.5 Q62.3281,26.5 62.9531,26.2969 Q63.3125,26.1875 63.7188,25.8281 Q63.9844,25.625 64.125,25.5625 Q64.2656,25.5 64.4375,25.5 Q64.7656,25.5 65,25.7656 Q65.25,26.0156 65.25,26.375 Q65.25,26.7188 64.9063,27.125 Q64.4063,27.7188 63.6094,28.0469 Q62.5625,28.5 61.2813,28.5 Q59.7813,28.5 58.5781,27.9063 Q57.6094,27.4375 56.9219,26.4219 Q56.25,25.4063 56.25,24.2031 L56.25,23.1094 Q56.25,21.8594 56.8438,20.7656 Q57.4531,19.6719 58.5,19.0938 Q59.5625,18.5 60.75,18.5 Q61.4688,18.5 62.0938,18.75 Q62.7188,19 63.25,19.5 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="45" x="81.75" y="27.9102">RolesUI</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="168" y1="39" y2="39"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="77" x="13" y="54.4189">BorderStore bs;</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="82" x="13" y="68.2549">CountryStore cs;</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="63" x="13" y="82.0908">PortStore ps;</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="87" x="13" y="95.9268">SeaDistStore sds;</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="65" x="13" y="109.7627">ShipStore ss;</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="85" x="13" y="123.5986">SupplyEnergy se;</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="99" x="13" y="137.4346">PositionMatrixGraph;</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="72" x="13" y="151.2705">Centrality cent;</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="168" y1="157.6875" y2="157.6875"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="150" x="13" y="173.1064">void traficManager(string user)</text><!--MD5=[049fccd53021a652332fee9a0f41d617]
+class Centrality--><rect codeLine="17" fill="#FEFECE" filter="url(#fiw1ut87m4wei)" height="103.3438" id="Centrality" style="stroke:#A80036;stroke-width:1.5;" width="381" x="204.5" y="42"/><ellipse cx="365.25" cy="58" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M367.25,54.5 Q367.4531,54 367.6875,53.75 Q367.9219,53.5 368.1875,53.5 Q368.6563,53.5 368.9531,53.7813 Q369.25,54.0625 369.25,54.7188 L369.25,56.2813 Q369.25,56.9375 368.9688,57.2188 Q368.6875,57.5 368.25,57.5 Q367.8594,57.5 367.6094,57.3281 Q367.3594,57.1563 367.25,56.7031 Q367.2031,56.3906 367.0313,56.2188 Q366.7188,55.8906 366.1563,55.7031 Q365.5938,55.5 365.0313,55.5 Q364.3281,55.5 363.7344,55.7813 Q363.1563,56.0625 362.7031,56.6875 Q362.25,57.3125 362.25,58.1719 L362.25,59.0938 Q362.25,60.125 363.0938,60.8125 Q363.9375,61.5 365.4375,61.5 Q366.3281,61.5 366.9531,61.2969 Q367.3125,61.1875 367.7188,60.8281 Q367.9844,60.625 368.125,60.5625 Q368.2656,60.5 368.4375,60.5 Q368.7656,60.5 369,60.7656 Q369.25,61.0156 369.25,61.375 Q369.25,61.7188 368.9063,62.125 Q368.4063,62.7188 367.6094,63.0469 Q366.5625,63.5 365.2813,63.5 Q363.7813,63.5 362.5781,62.9063 Q361.6094,62.4375 360.9219,61.4219 Q360.25,60.4063 360.25,59.2031 L360.25,58.1094 Q360.25,56.8594 360.8438,55.7656 Q361.4531,54.6719 362.5,54.0938 Q363.5625,53.5 364.75,53.5 Q365.4688,53.5 366.0938,53.75 Q366.7188,54 367.25,54.5 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="51" x="385.75" y="62.9102">Centrality</text><line style="stroke:#A80036;stroke-width:1.5;" x1="205.5" x2="584.5" y1="74" y2="74"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="177" x="210.5" y="89.4189">Map&lt;Position, Integer&gt; centralityPort;</text><line style="stroke:#A80036;stroke-width:1.5;" x1="205.5" x2="584.5" y1="95.8359" y2="95.8359"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="273" x="210.5" y="111.2549">String getNCentralPorts(Graph&lt;Position, Double&gt; g, int n)</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="283" x="210.5" y="125.0908">String toString(int n, Map&lt;Position, Integer&gt; portsCentrality)</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="369" x="210.5" y="138.9268">Map&lt;Position, Integer&gt; sortByComparator(Map&lt;Position, Integer&gt; unsortMap)</text><!--MD5=[afe26e3be9910fed37601ec9e12252ab]
+class Algoritms--><rect codeLine="25" fill="#FEFECE" filter="url(#fiw1ut87m4wei)" height="61.8359" id="Algoritms" style="stroke:#A80036;stroke-width:1.5;" width="751" x="620.5" y="62.5"/><ellipse cx="965.75" cy="78.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M967.75,75 Q967.9531,74.5 968.1875,74.25 Q968.4219,74 968.6875,74 Q969.1563,74 969.4531,74.2813 Q969.75,74.5625 969.75,75.2188 L969.75,76.7813 Q969.75,77.4375 969.4688,77.7188 Q969.1875,78 968.75,78 Q968.3594,78 968.1094,77.8281 Q967.8594,77.6563 967.75,77.2031 Q967.7031,76.8906 967.5313,76.7188 Q967.2188,76.3906 966.6563,76.2031 Q966.0938,76 965.5313,76 Q964.8281,76 964.2344,76.2813 Q963.6563,76.5625 963.2031,77.1875 Q962.75,77.8125 962.75,78.6719 L962.75,79.5938 Q962.75,80.625 963.5938,81.3125 Q964.4375,82 965.9375,82 Q966.8281,82 967.4531,81.7969 Q967.8125,81.6875 968.2188,81.3281 Q968.4844,81.125 968.625,81.0625 Q968.7656,81 968.9375,81 Q969.2656,81 969.5,81.2656 Q969.75,81.5156 969.75,81.875 Q969.75,82.2188 969.4063,82.625 Q968.9063,83.2188 968.1094,83.5469 Q967.0625,84 965.7813,84 Q964.2813,84 963.0781,83.4063 Q962.1094,82.9375 961.4219,81.9219 Q960.75,80.9063 960.75,79.7031 L960.75,78.6094 Q960.75,77.3594 961.3438,76.2656 Q961.9531,75.1719 963,74.5938 Q964.0625,74 965.25,74 Q965.9688,74 966.5938,74.25 Q967.2188,74.5 967.75,75 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="52" x="986.25" y="83.4102">Algoritms</text><line style="stroke:#A80036;stroke-width:1.5;" x1="621.5" x2="1370.5" y1="94.5" y2="94.5"/><line style="stroke:#A80036;stroke-width:1.5;" x1="621.5" x2="1370.5" y1="102.5" y2="102.5"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="739" x="626.5" y="117.9189">boolean shortestPaths(Graph&lt;V, E&gt; g, V vOrig, Comparator&lt;E&gt; ce, BinaryOperator&lt;E&gt; sum, E zero, ArrayList&lt;LinkedList&lt;V&gt;&gt; paths, ArrayList&lt;E&gt; dists)</text><!--MD5=[ab438868b3fc19421529ad53c10a860f]
+link RolesUI to Centrality--><path codeLine="29" d="M169.25,93.5 C179.13,93.5 189.02,93.5 198.91,93.5 " fill="none" id="RolesUI-to-Centrality" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="204.08,93.5,195.08,89.5,199.08,93.5,195.08,97.5,204.08,93.5" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[66cfc91ad1ce2e5f701a3d65ffbcec0b]
+link Centrality to Algoritms--><path codeLine="30" d="M585.75,93.5 C595.53,93.5 605.31,93.5 615.09,93.5 " fill="none" id="Centrality-to-Algoritms" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="620.2,93.5,611.2,89.5,615.2,93.5,611.2,97.5,620.2,93.5" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[8a88dc26d98eb0e0be871c7912238ca8]
+@startuml
+'https://plantuml.com/class-diagram
+
+class RolesUI {
+    BorderStore bs;
+    CountryStore cs;
+    PortStore ps;
+    SeaDistStore sds;
+    ShipStore ss;
+    SupplyEnergy se;
+    PositionMatrixGraph;
+    Centrality cent;
+
+    void traficManager(string user)
+}
+
+
+class Centrality {
+   Map<Position, Integer> centralityPort;
+
+   String getNCentralPorts(Graph<Position, Double> g, int n)
+   String toString(int n, Map<Position, Integer> portsCentrality)
+   Map<Position, Integer> sortByComparator(Map<Position, Integer> unsortMap)
+}
+
+class Algoritms{
+    boolean shortestPaths(Graph<V, E> g, V vOrig, Comparator<E> ce, BinaryOperator<E> sum, E zero, ArrayList<LinkedList<V>> paths, ArrayList<E> dists)
+}
+
+RolesUI -> Centrality
+Centrality -> Algoritms
+
+@enduml
+
+@startuml
+
+class RolesUI {
+    BorderStore bs;
+    CountryStore cs;
+    PortStore ps;
+    SeaDistStore sds;
+    ShipStore ss;
+    SupplyEnergy se;
+    PositionMatrixGraph;
+    Centrality cent;
+
+    void traficManager(string user)
+}
+
+
+class Centrality {
+   Map<Position, Integer> centralityPort;
+
+   String getNCentralPorts(Graph<Position, Double> g, int n)
+   String toString(int n, Map<Position, Integer> portsCentrality)
+   Map<Position, Integer> sortByComparator(Map<Position, Integer> unsortMap)
+}
+
+class Algoritms{
+    boolean shortestPaths(Graph<V, E> g, V vOrig, Comparator<E> ce, BinaryOperator<E> sum, E zero, ArrayList<LinkedList<V>> paths, ArrayList<E> dists)
+}
+
+RolesUI -> Centrality
+Centrality -> Algoritms
+
+@enduml
+
+PlantUML version 1.2022.0(Tue Jan 11 16:16:42 GMT 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: pt
+Country: PT
+--></g></svg>

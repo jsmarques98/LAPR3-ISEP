@@ -1,0 +1,33 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class RolesUI {
+    BorderStore bs;
+    CountryStore cs;
+    PortStore ps;
+    SeaDistStore sds;
+    ShipStore ss;
+    SupplyEnergy se;
+    PositionMatrixGraph;
+    Centrality cent;
+
+    void traficManager(string user)
+}
+
+
+class Centrality {
+   Map<Position, Integer> centralityPort;
+
+   String getNCentralPorts(Graph<Position, Double> g, int n)
+   String toString(int n, Map<Position, Integer> portsCentrality)
+   Map<Position, Integer> sortByComparator(Map<Position, Integer> unsortMap)
+}
+
+class Algoritms{
+    boolean shortestPaths(Graph<V, E> g, V vOrig, Comparator<E> ce, BinaryOperator<E> sum, E zero, ArrayList<LinkedList<V>> paths, ArrayList<E> dists)
+}
+
+RolesUI -> Centrality
+Centrality -> Algoritms
+
+@enduml
