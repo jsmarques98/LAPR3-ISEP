@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor "Traffic Manager" as traf
+
+
+participant ":UserUI" as us
+participant ":Circuit" as c
+participant ":Algorithms" as al
+participant "g:PositionMatrixGraph" as g
+
+activate traf
+
+
+traf -> us : Select the option of the most efficient circuit
+activate us
+
+us -> c : mostEfficientCircuit(g)
+
+activate c
+
+
+c -> al : allCycles(g)
+activate al
+al --> al : allPaths(g, vOrig, vOrig, visited, path, paths)
+deactivate al
+
+
+c --> us : shows the ports
+deactivate c
+us --> traf : shows the ports
+deactivate us
+deactivate traf
+@enduml

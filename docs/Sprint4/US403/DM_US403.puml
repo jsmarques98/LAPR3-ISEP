@@ -1,0 +1,11 @@
+@startuml
+
+class RolesUI
+class Algorithms
+class Circuit
+
+RolesUI --> Circuit
+
+Circuit --> Algorithms
+
+@enduml

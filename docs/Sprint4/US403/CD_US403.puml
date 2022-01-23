@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class RolesUI {
+    BorderStore bs;
+    CountryStore cs;
+    PortStore ps;
+    SeaDistStore sds;
+    ShipStore ss;
+    SupplyEnergy se;
+    PositionMatrixGraph;
+    Centrality cent;
+    Circuit circ;
+
+    void traficManager(string user)
+}
+
+
+class Circuit {
+
+   String mostEfficientCircuit(Graph<Position,Double> g)
+   double pathDistance (LinkedList<Position> p,Graph<Position,Double> g)
+   String print(LinkedList<Position> p)
+}
+
+class Algorithms{
+    <V, E> List<LinkedList<V>> allCycles(Graph<V, E> g)
+    <V, E> void allPaths(Graph<V, E> g, V vOrig, V vDest, boolean[] visited,
+                                            LinkedList<V> path, ArrayList<LinkedList<V>> paths)
+}
+
+RolesUI -> Circuit
+Circuit -> Algorithms
+
+@enduml

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="197px" preserveAspectRatio="none" style="width:1129px;height:197px;background:#FFFFFF;" version="1.1" viewBox="0 0 1129 197" width="1129px" zoomAndPan="magnify"><defs><filter height="300%" id="f10erzjwvk6rno" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[3b31b93e6348312c3f196e025a82695a]
+class RolesUI--><rect codeLine="3" fill="#FEFECE" filter="url(#f10erzjwvk6rno)" height="176.0469" id="RolesUI" style="stroke:#A80036;stroke-width:1.5;" width="188" x="7" y="7"/><ellipse cx="73.75" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M76.7188,28.6406 Q76.1406,28.9375 75.5,29.0781 Q74.8594,29.2344 74.1563,29.2344 Q71.6563,29.2344 70.3281,27.5938 Q69.0156,25.9375 69.0156,22.8125 Q69.0156,19.6875 70.3281,18.0313 Q71.6563,16.375 74.1563,16.375 Q74.8594,16.375 75.5,16.5313 Q76.1563,16.6875 76.7188,16.9844 L76.7188,19.7031 Q76.0938,19.125 75.5,18.8594 Q74.9063,18.5781 74.2813,18.5781 Q72.9375,18.5781 72.25,19.6563 Q71.5625,20.7188 71.5625,22.8125 Q71.5625,24.9063 72.25,25.9844 Q72.9375,27.0469 74.2813,27.0469 Q74.9063,27.0469 75.5,26.7813 Q76.0938,26.5 76.7188,25.9219 L76.7188,28.6406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="46" x="94.25" y="27.1543">RolesUI</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="194" y1="39" y2="39"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="92" x="13" y="53.2104">BorderStore bs;</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="96" x="13" y="66.0151">CountryStore cs;</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="76" x="13" y="78.8198">PortStore ps;</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="104" x="13" y="91.6245">SeaDistStore sds;</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="78" x="13" y="104.4292">ShipStore ss;</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="99" x="13" y="117.2339">SupplyEnergy se;</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="118" x="13" y="130.0386">PositionMatrixGraph;</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="86" x="13" y="142.8433">Centrality cent;</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="64" x="13" y="155.6479">Circuit circ;</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="194" y1="162.2422" y2="162.2422"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="176" x="13" y="176.4526">void traficManager(string user)</text><!--MD5=[ec764fd255517cf4e1e73b5288bf6dc7]
+class Circuit--><rect codeLine="18" fill="#FEFECE" filter="url(#f10erzjwvk6rno)" height="86.4141" id="Circuit" style="stroke:#A80036;stroke-width:1.5;" width="426" x="230" y="52"/><ellipse cx="419.25" cy="68" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M422.2188,73.6406 Q421.6406,73.9375 421,74.0781 Q420.3594,74.2344 419.6563,74.2344 Q417.1563,74.2344 415.8281,72.5938 Q414.5156,70.9375 414.5156,67.8125 Q414.5156,64.6875 415.8281,63.0313 Q417.1563,61.375 419.6563,61.375 Q420.3594,61.375 421,61.5313 Q421.6563,61.6875 422.2188,61.9844 L422.2188,64.7031 Q421.5938,64.125 421,63.8594 Q420.4063,63.5781 419.7813,63.5781 Q418.4375,63.5781 417.75,64.6563 Q417.0625,65.7188 417.0625,67.8125 Q417.0625,69.9063 417.75,70.9844 Q418.4375,72.0469 419.7813,72.0469 Q420.4063,72.0469 421,71.7813 Q421.5938,71.5 422.2188,70.9219 L422.2188,73.6406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="39" x="439.75" y="72.1543">Circuit</text><line style="stroke:#A80036;stroke-width:1.5;" x1="231" x2="655" y1="84" y2="84"/><line style="stroke:#A80036;stroke-width:1.5;" x1="231" x2="655" y1="92" y2="92"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="308" x="236" y="106.2104">String mostEfficientCircuit(Graph&lt;Position,Double&gt; g)</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="414" x="236" y="119.0151">double pathDistance (LinkedList&lt;Position&gt; p,Graph&lt;Position,Double&gt; g)</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="202" x="236" y="131.8198">String print(LinkedList&lt;Position&gt; p)</text><!--MD5=[4533588fb66c6fa31a6e04bf29ae6161]
+class Algorithms--><rect codeLine="25" fill="#FEFECE" filter="url(#f10erzjwvk6rno)" height="86.4141" id="Algorithms" style="stroke:#A80036;stroke-width:1.5;" width="424" x="691" y="52"/><ellipse cx="865.75" cy="68" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M868.7188,73.6406 Q868.1406,73.9375 867.5,74.0781 Q866.8594,74.2344 866.1563,74.2344 Q863.6563,74.2344 862.3281,72.5938 Q861.0156,70.9375 861.0156,67.8125 Q861.0156,64.6875 862.3281,63.0313 Q863.6563,61.375 866.1563,61.375 Q866.8594,61.375 867.5,61.5313 Q868.1563,61.6875 868.7188,61.9844 L868.7188,64.7031 Q868.0938,64.125 867.5,63.8594 Q866.9063,63.5781 866.2813,63.5781 Q864.9375,63.5781 864.25,64.6563 Q863.5625,65.7188 863.5625,67.8125 Q863.5625,69.9063 864.25,70.9844 Q864.9375,72.0469 866.2813,72.0469 Q866.9063,72.0469 867.5,71.7813 Q868.0938,71.5 868.7188,70.9219 L868.7188,73.6406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="66" x="886.25" y="72.1543">Algorithms</text><line style="stroke:#A80036;stroke-width:1.5;" x1="692" x2="1114" y1="84" y2="84"/><line style="stroke:#A80036;stroke-width:1.5;" x1="692" x2="1114" y1="92" y2="92"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="311" x="697" y="106.2104">&lt;V, E&gt; List&lt;LinkedList&lt;V&gt;&gt; allCycles(Graph&lt;V, E&gt; g)</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="412" x="697" y="119.0151">&lt;V, E&gt; void allPaths(Graph&lt;V, E&gt; g, V vOrig, V vDest, boolean[] visited,</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="307" x="697" y="131.8198">LinkedList&lt;V&gt; path, ArrayList&lt;LinkedList&lt;V&gt;&gt; paths)</text><!--MD5=[fd2d145c0dd3eabbcf19f803bc5bf8de]
+link RolesUI to Circuit--><path codeLine="31" d="M195.18,95 C204.94,95 214.69,95 224.45,95 " fill="none" id="RolesUI-to-Circuit" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="229.55,95,220.55,91,224.55,95,220.55,99,229.55,95" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[6fcd6c6451232c9d4a5fd0ce22d8cff9]
+link Circuit to Algorithms--><path codeLine="32" d="M656.38,95 C666.09,95 675.79,95 685.5,95 " fill="none" id="Circuit-to-Algorithms" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="690.58,95,681.58,91,685.58,95,681.58,99,690.58,95" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[c3612eae447005aac006e63de3babb40]
+@startuml
+'https://plantuml.com/class-diagram
+
+class RolesUI {
+    BorderStore bs;
+    CountryStore cs;
+    PortStore ps;
+    SeaDistStore sds;
+    ShipStore ss;
+    SupplyEnergy se;
+    PositionMatrixGraph;
+    Centrality cent;
+    Circuit circ;
+
+    void traficManager(string user)
+}
+
+
+class Circuit {
+
+   String mostEfficientCircuit(Graph<Position,Double> g)
+   double pathDistance (LinkedList<Position> p,Graph<Position,Double> g)
+   String print(LinkedList<Position> p)
+}
+
+class Algorithms{
+    <V, E> List<LinkedList<V>> allCycles(Graph<V, E> g)
+    <V, E> void allPaths(Graph<V, E> g, V vOrig, V vDest, boolean[] visited,
+                                            LinkedList<V> path, ArrayList<LinkedList<V>> paths)
+}
+
+RolesUI -> Circuit
+Circuit -> Algorithms
+@enduml
+
+@startuml
+
+class RolesUI {
+    BorderStore bs;
+    CountryStore cs;
+    PortStore ps;
+    SeaDistStore sds;
+    ShipStore ss;
+    SupplyEnergy se;
+    PositionMatrixGraph;
+    Centrality cent;
+    Circuit circ;
+
+    void traficManager(string user)
+}
+
+
+class Circuit {
+
+   String mostEfficientCircuit(Graph<Position,Double> g)
+   double pathDistance (LinkedList<Position> p,Graph<Position,Double> g)
+   String print(LinkedList<Position> p)
+}
+
+class Algorithms{
+    <V, E> List<LinkedList<V>> allCycles(Graph<V, E> g)
+    <V, E> void allPaths(Graph<V, E> g, V vOrig, V vDest, boolean[] visited,
+                                            LinkedList<V> path, ArrayList<LinkedList<V>> paths)
+}
+
+RolesUI -> Circuit
+Circuit -> Algorithms
+@enduml
+
+PlantUML version 1.2021.16(Wed Dec 08 17:25:22 UTC 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
