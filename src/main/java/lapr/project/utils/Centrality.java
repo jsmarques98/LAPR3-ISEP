@@ -1,6 +1,7 @@
 package lapr.project.utils;
 
 import lapr.project.model.Place;
+import lapr.project.model.Port;
 import lapr.project.model.Position;
 
 import java.util.*;
@@ -24,7 +25,7 @@ public class Centrality {
                 LinkedList<Position> positionPath = paths.get(i);
                 for (int j = 1; j < positionPath.size() - 1; j++) {
                     Position position = positionPath.get(j);
-                    if (position.getClass().equals(Place.class)) {
+                    if (position.getClass().equals(Place.class) || position.getClass().equals(Port.class)) {
                         if (centralityPort.containsKey(positionPath.get(j)))
                             centralityPort.put(position, centralityPort.get(position) + 1);
                         else {
