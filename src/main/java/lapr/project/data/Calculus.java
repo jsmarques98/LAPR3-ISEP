@@ -1,11 +1,11 @@
-package lapr.project.utils;
+package lapr.project.data;
 
 import lapr.project.model.Vessel;
 
 public class Calculus {
 
-    final static double waterDensity=1030;
-    final static double containerDensity =500;
+    private final static double WATER_DENSITY =1030;
+    private final static double CONTAINER_DENSITY =500;
     public double areaCalc(double a, double b, boolean triangle){
         if (triangle)
         return (a*b)/2;
@@ -41,19 +41,19 @@ public class Calculus {
 
     public double massOfaShip(double volume){
 
-        return volume* waterDensity;
+        return volume* WATER_DENSITY;
     }
     public double submergedVolume(Vessel vessel){
-        return vessel.getMass()* waterDensity;
+        return vessel.getMass()* WATER_DENSITY;
     }
 
 
     public double containerWeight(int nrContainers){
-        return (double) containerDensity *nrContainers;
+        return CONTAINER_DENSITY *nrContainers;
     }
     public double submergedHeigth(Vessel vessel, double mass){
         double massTotal=mass+vessel.getMass();
-        double volume=massTotal/ waterDensity;
+        double volume=massTotal/ WATER_DENSITY;
         double upFraction=(volume*2* vessel.getDeeph());
         double downFraction=(vessel.getLength()* vessel.getBeam());
         return Math.sqrt(upFraction/downFraction);

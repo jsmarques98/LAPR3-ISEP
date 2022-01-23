@@ -5,9 +5,9 @@ import java.util.List;
 
 public class SupplyEnergy {
 
-    private final double CONSTANT_STEFAN_BOLZTMANN = 5.67504*Math.pow(10.0,-8.0);
-    private final double EMISSIVITY = 1;
-    private final double MAX_POWER_GE = 75000;
+    private final static  double CONSTANT_STEFAN_BOLZTMANN = 5.67504*Math.pow(10.0,-8.0);
+    private final static  double EMISSIVITY = 1;
+    private final static  double MAX_POWER_GE = 75000;
 
 
     public Double calcPowerEmittedSun(double area, double temp){
@@ -62,10 +62,10 @@ public class SupplyEnergy {
         energyC += energyC*containerC;
 
         for (int i = 0 ; i < time.size() ; i++){
-            energyS += (calcEnergy(1.38,temp.get(i),7.0,time.get(i))) ;
+            energyS += (calcEnergy(0.96,temp.get(i),7.0,time.get(i))) ;
         }
 
-        for (int i = 0 ; i < time.size() ; i++){
+        for (int i = 0 ; i < time.size() ; i++) {
             energySun += calcPowerEmittedSun(areaT,temp.get(i))*(time.get(i)*3600);
         }
 

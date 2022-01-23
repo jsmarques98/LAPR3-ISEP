@@ -41,6 +41,7 @@ class SupplyEnergyTest {
     @Test
     void calcEnergy() {
         assertEquals(54565.23913043479,se.calcEnergy(resistivityC,temp.get(0),-5.0,time.get(0)));
+        assertEquals(0.0,se.calcEnergy(0.0,temp.get(0),-5.0,time.get(0)));
     }
 
     @Test
