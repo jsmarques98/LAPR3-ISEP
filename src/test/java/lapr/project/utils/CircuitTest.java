@@ -1,12 +1,8 @@
 package lapr.project.utils;
 
 import lapr.project.data.*;
-import lapr.project.model.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 

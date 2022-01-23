@@ -1,9 +1,6 @@
 package lapr.project.utils;
 
 import lapr.project.model.Position;
-
-import java.io.*;
-
 import java.util.*;
 
 
