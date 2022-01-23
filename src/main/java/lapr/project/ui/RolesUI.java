@@ -863,7 +863,6 @@ public class RolesUI {
                     break;
                 case "2":
                     Graph<Position, Double> sea = pmg.getSeaMap();
-                    System.out.println(sea);
                     System.out.println("First location:");
                     string = read.readLine();
                     System.out.println("Secound location:");

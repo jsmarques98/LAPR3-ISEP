@@ -4,13 +4,13 @@ import java.time.LocalDateTime;
 
 public class DynamicShip {
 
-    private LocalDateTime baseDateTime;
-    private double lat;
-    private double lon;
-    private double sog;
-    private double cog;
-    private double heading;
-    private char transcrieverClass;
+    private final LocalDateTime baseDateTime;
+    private final double lat;
+    private final double lon;
+    private final double sog;
+    private final double cog;
+    private final double heading;
+    private final char transcrieverClass;
     private double cargo;
 
     public DynamicShip(LocalDateTime baseDateTime, double lat, double lon, double sog, double cog, double heading,double cargo, char transcrieverClass) {
