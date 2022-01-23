@@ -84,11 +84,11 @@ INSERT INTO "trip"("trip_id","vehicle_id","source","destiny","start_date","end_d
 INSERT INTO "trip"("trip_id","vehicle_id","source","destiny","start_date","end_date","estimated_date") VALUES (2,4, 28261, 18476, to_date('01.08.20','dd.mm.yy'), null, to_date('14.10.20','dd.mm.yy'));--nao parou
 
 -- insert trip_stops(trip_id,port_wharehouse_id,cargo_manifest_id,data,estimate_date) Atualizado
-INSERT INTO "trip_stop" VALUES (1,28261,to_date('20.01.22','dd.mm.yy'),to_date('20.01.22','dd.mm.yy'),6);
+INSERT INTO "trip_stop" VALUES (1,28261,to_date('20.01.22','dd.mm.yy'),to_date('20.01.22','dd.mm.yy'),3);
 INSERT INTO "trip_stop" VALUES (1,18476,null,to_date('26.01.22','dd.mm.yy'),5);
-INSERT INTO "trip_stop" VALUES (1,17386,to_date('15.01.22','dd.mm.yy'),to_date('15.01.22','dd.mm.yy'),2);
-INSERT INTO "trip_stop" VALUES (2,18476,to_date('22.08.20','dd.mm.yy'),to_date('20.10.20','dd.mm.yy'),2);
-INSERT INTO "trip_stop" VALUES (2,17386,to_date('22.08.20','dd.mm.yy'),to_date('30.10.20','dd.mm.yy'),3);
+INSERT INTO "trip_stop" VALUES (1,17386,to_date('15.01.22','dd.mm.yy'),to_date('15.01.22','dd.mm.yy'),1);
+INSERT INTO "trip_stop" VALUES (2,18476,to_date('22.08.20','dd.mm.yy'),to_date('20.10.20','dd.mm.yy'),4);
+INSERT INTO "trip_stop" VALUES (2,17386,to_date('22.08.20','dd.mm.yy'),to_date('30.10.20','dd.mm.yy'),6);
 
 --insert registo_container (reisto_id,container_id,user_id,date,register_date,source,destiny,delivered) Atualizado
 INSERT INTO "registo_container"("container_id","user_id","date","register_date","source","destiny","delivered") VALUES (1,6,to_date('17.11.20 12:30','yyyy.mm.dd hh24:mi'),to_date('15.11.20 12:30','yyyy.mm.dd hh24:mi'),29002,18476,'no');
@@ -130,22 +130,3 @@ INSERT INTO "cargo_manifest_container" VALUES (13,5,1,19,4,1712);
 INSERT INTO "cargo_manifest_container" VALUES (14,5,1,19,24,1763.8);
 INSERT INTO "cargo_manifest_container" VALUES (15,5,1,19,24,1718);
 
---insert audit_trails(audit_trails_id,user_id,container_id,cargo_manifest_id, date, operation_type)FRANCISCO
-INSERT INTO "audit_trails" VALUES (1,1,123456789,1,to_date('20.09.20','dd.mm.yy'),'insert');
-INSERT INTO "audit_trails" VALUES (2,1,123333789,3,to_date('23.09.20','dd.mm.yy'),'insert');
-INSERT INTO "audit_trails" VALUES (3,1,187654789,4,to_date('21.09.20','dd.mm.yy'),'delete');
-INSERT INTO "audit_trails" VALUES (4,1,234444789,5,to_date('20.10.20','dd.mm.yy'),'insert');
-
---Insert employe_shedule(employe_id,port_warehoue_id,day_of_the_week,hour)
-INSERT INTO "employe_schedule" VALUES (8,29003,'Monday','12h30');
-INSERT INTO "employe_schedule" VALUES (8,29003,'Friday','16h30');
-INSERT INTO "employe_schedule" VALUES (8,29003,'Tuesday','12h30');
-
---Insert goods(client_id,container_id,cargo_manifest,weigth)
-INSERT INTO "goods" VALUES (4,123456789,1,13.5);
-
---Insert client(user_id,credit_card,adress)
-INSERT INTO "client" VALUES (4,123123,"adress");
-
---Insert port_manager(user_id,port_id)
-INSERT INTO "port_manager" VALUES (9,28261);
