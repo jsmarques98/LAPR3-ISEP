@@ -1,1 +1,0 @@
-nr_refrigerated_containers:1000
