@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+activate TraficManager
+TraficManager -> system: Select the option of the most efficient circuit
+activate system
+
+
+system --> TraficManager: shows the information and informs success
+deactivate system
+
+deactivate TraficManager
+@enduml
