@@ -161,35 +161,9 @@ public class MapGraph<V, E> extends CommonGraph<V, E> {
 
     @Override
     public boolean addEdge(V vOrig, V vDest, E weight) {
-
-        if (vOrig == null || vDest == null) throw new RuntimeException("Vertices cannot be null!");
-        if (edge(vOrig, vDest) != null)
-            return false;
-
-        if (!validVertex(vOrig))
-            addVertex(vOrig);
-
-        if (!validVertex(vDest))
-            addVertex(vDest);
-
-        MapVertex<V, E> mvo = mapVertices.get(vOrig);
-        MapVertex<V, E> mvd = mapVertices.get(vDest);
-
-        Edge<V, E> newEdge = new Edge<>(mvo.getElement(), mvd.getElement(), weight);
-        mvo.addAdjVert(mvd.getElement(), newEdge);
-        numEdges++;
-
-        //if graph is not direct insert other edge in the opposite direction
-        if (!isDirected)
-            // if vDest different vOrig
-            if (edge(vDest, vOrig) == null) {
-                Edge<V, E> otherEdge = new Edge<>(mvd.getElement(), mvo.getElement(), weight);
-                mvd.addAdjVert(mvo.getElement(), otherEdge);
-                numEdges++;
-            }
-
-        return true;
+        return false;
     }
+
 
     @Override
     public boolean removeVertex(V vert) {

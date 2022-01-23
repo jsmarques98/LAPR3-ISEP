@@ -21,7 +21,7 @@ class ColourMapControllerTest {
         System.out.println("\nTest countryReader\n");
         String fileName = "borderReaderTest";
         MapStore m = new MapStore();
-        m.reader.PaisReader(fileName);
+        m.reader.paisReader(fileName);
 
         int numEsperado = 0;                         //número de países no ficheiro .csv
         int paisesNoFicheiro = m.grafo.numVertices(); //depois da leitura, quantidade de países no grafo
@@ -40,8 +40,8 @@ class ColourMapControllerTest {
         System.out.println("\nTest bordersReader\n--------------------------------------------");
         String fileName = "borderReaderTest";
         MapStore m = new MapStore();
-        m.reader.PaisReader("countryReaderTest");
-        m.reader.FronteirasReader(fileName);
+        m.reader.paisReader("countryReaderTest");
+        m.reader.fronteirasReader(fileName);
 
         int esperado = 0;             //número de ramos no ficheiro .csv
         int n = m.grafo.numEdges();     //depois da leitura, a quantidade de ramos que está em numEdges

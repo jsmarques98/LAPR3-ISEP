@@ -100,7 +100,6 @@ public class BorderStore {
         getPortPreparedStatement.close();
         return isBorderOnDatabase;
     }
-    //TODO INSERIR NO GRAPH
     public boolean loadBorderFromDatabase(DataBaseConnection databaseConnection) {
         boolean returnValue= false;
         Connection connection = databaseConnection.getConnection();
@@ -127,7 +126,6 @@ public class BorderStore {
         return returnValue;
     }
 
-    //TODO CARREGAR DO GRAPH
     public boolean uploadBorderstoDatabase(DataBaseConnection databaseConnection){
         boolean returnValue = false;
 

@@ -73,7 +73,7 @@ public class ShipStore implements Persistable {
         }
         return returnValue;
     }
-    //TODO criar o mesmo metodo para o ship data
+
     private void saveShiptoDatabase(DataBaseConnection dataBaseConnection, Ship ship) throws SQLException {
 
         if (isShipOnDatabase(dataBaseConnection, ship)) {

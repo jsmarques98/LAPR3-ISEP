@@ -1,7 +1,6 @@
 package lapr.project.data;
 
 import lapr.project.model.Country;
-import lapr.project.data.MapStore;
 import lapr.project.utils.ShipSummary;
 
 
@@ -14,7 +13,7 @@ import static java.lang.System.exit;
 
 public class ColourMapController {
 
-    private MapStore mapa;
+    private final MapStore mapa;
 
     public ColourMapController(MapStore mapa) {
         this.mapa = mapa;
@@ -25,7 +24,7 @@ public class ColourMapController {
      *
      * @param fileName nome do ficheiro .csv
      */
-    public void PaisReader(String fileName) {
+    public void paisReader(String fileName) {
         try {
             Country p = null;
             String line;
@@ -67,7 +66,7 @@ public class ColourMapController {
      *
      * @param fileName nome do ficheiro .csv
      */
-    public void FronteirasReader(String fileName) {
+    public void fronteirasReader(String fileName) {
         try {
             ShipSummary ss = new ShipSummary();
             String line;

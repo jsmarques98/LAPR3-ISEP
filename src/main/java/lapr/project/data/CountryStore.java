@@ -196,7 +196,6 @@ public class CountryStore {
         Country country = (Country) object;
 
         try {
-            //TODO VER ISTO
 
             String sqlCommand = "delete from \"country\" where \"alpha3code\" = ?";
             try (PreparedStatement deleteCountryPreparedStatement = connection.prepareStatement(

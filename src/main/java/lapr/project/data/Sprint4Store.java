@@ -1,17 +1,17 @@
 package lapr.project.data;
 
-import lapr.project.model.Port;
 
 import java.io.IOException;
 import java.sql.*;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Sprint4Store {
 
-    public Sprint4Store(){}
+    public Sprint4Store(){
+    }
 
     public void idleTimeShip() throws SQLException {
         DataBaseConnection databaseConnection = null;

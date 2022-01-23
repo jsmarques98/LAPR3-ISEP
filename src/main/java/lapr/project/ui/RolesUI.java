@@ -22,8 +22,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class RolesUI {
-    private String INITIALOPTIONPHRASE="Please make your selection";
-    private String FINALOPTIONPHRASE="0) Leave";
+    private final String INITIALOPTIONPHRASE="Please make your selection";
+    private final String FINALOPTIONPHRASE="0) Leave";
     BorderStore bs;
     CountryStore cs;
     PortStore ps;
@@ -63,16 +63,8 @@ public class RolesUI {
             option = read.readLine();
             switch (option){
                 case "1":
-                    System.out.println("Insert container id:");
-                    String container_id = read.readLine();
-
                     break;
                 case "2":
-                    //mudar o x e y para ID
-                    System.out.println("x to work");
-                    System.out.println("y to break");
-                    String container_id_ = read.readLine();
-
                     break;
                 default:
                     System.out.println("The option doens't exist");
@@ -80,15 +72,9 @@ public class RolesUI {
             }
         }
     }
-    public void shipEmploye(String user_id) throws IOException {
-        System.out.println(user_id);
-        String option = "";
-        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-        while (!option.equals("0")){
-            System.out.println(INITIALOPTIONPHRASE);
-            System.out.println(FINALOPTIONPHRASE);
-            option = read.readLine();
-        }
+    public void shipEmploye(String userId) throws IOException {
+        System.out.println(userId);
+        noOptionMenu();
     }
     public void shipCapitan(String userId) throws IOException {
         List<Vessel> vessels = new ArrayList<>();
@@ -114,10 +100,10 @@ public class RolesUI {
             switch (option){
                 case "1":
                     System.out.println("Insert container id:");
-                    String container_id = read.readLine();
+                    String containerId = read.readLine();
                     System.out.println("Insert cargo manifest id:");
-                    String cargo_manifest = read.readLine();
-                    auditTrailsLog(container_id,cargo_manifest);
+                    String cargoManifest = read.readLine();
+                    auditTrailsLog(containerId,cargoManifest);
                     break;
                 case "2":
 
@@ -187,6 +173,8 @@ public class RolesUI {
                             break;
                         case "0":
                             break;
+                        default:
+                            break;
 
                     }
                     //[418]
@@ -216,6 +204,8 @@ public class RolesUI {
                             System.out.println(cal.positionContainers(numCont, vessels.get(2)));
                             break;
                         case "0":
+                            break;
+                        default:
                             break;
                     }
                     //[419]
@@ -258,6 +248,8 @@ public class RolesUI {
                             peso=cal.containerWeight(numCont);
                             break;
                         case "0":
+                            break;
+                        default:
                             break;
                     }
 
@@ -327,8 +319,8 @@ public class RolesUI {
             throwables.printStackTrace();
         }
     }
-    public void trafficManager(String user_id) throws IOException, SQLException, InterruptedException {
-        System.out.println(user_id);
+    public void trafficManager(String userId) throws IOException, SQLException, InterruptedException {
+        System.out.println(userId);
         String option = "";
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
@@ -365,15 +357,15 @@ public class RolesUI {
                     System.out.println("Insert the container id:");
                     String code = read.readLine();
                     System.out.println("Insert the cargo manifest id:");
-                    String cargo_manifest = read.readLine();
-                    registAuditTrail(user_id,Integer.parseInt(code),Integer.parseInt(cargo_manifest),"Insert");
+                    String cargoManifest = read.readLine();
+                    registAuditTrail(userId,Integer.parseInt(code),Integer.parseInt(cargoManifest),"Insert");
                 break;
                 case "7":
                     System.out.println("Insert the container id:");
-                    String code_ = read.readLine();
+                    String codec = read.readLine();
                     System.out.println("Insert the cargo manifest id:");
-                    String cargo_manifest_ = read.readLine();
-                    registAuditTrail(user_id,Integer.parseInt(code_),Integer.parseInt(cargo_manifest_),"Delete");
+                    String cargoManifestC = read.readLine();
+                    registAuditTrail(userId,Integer.parseInt(codec),Integer.parseInt(cargoManifestC),"Delete");
                 break;
                 case "8":
                     pmg.fillMatrixGraph(6,cs.getCountryList(),ps.getPortList(),sds.getSeaDistArrayList(),bs.toMap(bs.getBorderArray(),cs.getCountryArray()));
@@ -399,9 +391,9 @@ public class RolesUI {
             }
         }
     }
-    public void fleetManager(String user_id) throws IOException, SQLException {
+    public void fleetManager(String userId) throws IOException, SQLException {
         Sprint4Store sp= new Sprint4Store();
-        System.out.println(user_id);
+        System.out.println(userId);
         String option = "";
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
@@ -418,22 +410,22 @@ public class RolesUI {
                     break;
                 case "2":
                     //[US405]
-                    String ship_id;
+                    String shipId;
                     do {
                         System.out.println("Insert first date:");
                         String date1= read.readLine();
                         System.out.println("Insert second date:");
                         String date2= read.readLine();
                         System.out.println("Insert ship id:");
-                         ship_id= read.readLine();
+                         shipId= read.readLine();
                         try {
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                            sp.funcAvgOccuRate(LocalDate.parse(date1, formatter),LocalDate.parse(date2, formatter),Integer.parseInt(ship_id));
+                            sp.funcAvgOccuRate(LocalDate.parse(date1, formatter),LocalDate.parse(date2, formatter),Integer.parseInt(shipId));
                         }catch (NumberFormatException ex){
                             System.out.println("Invalid number");
-                            ship_id="no";
+                            shipId="no";
                         }
-                    }while(ship_id.equals("no"));
+                    }while(shipId.equals("no"));
 
                     break;
                 case "3":
@@ -456,28 +448,16 @@ public class RolesUI {
             }
         }
     }
-    public void warehouseMtaff(String user_id) throws IOException {
-        System.out.println(user_id);
-        String option = "";
-        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-        while (!option.equals("0")){
-            System.out.println(INITIALOPTIONPHRASE);
-            System.out.println(FINALOPTIONPHRASE);
-            option = read.readLine();
-        }
+    public void warehouseMtaff(String userId) throws IOException {
+        System.out.println(userId);
+        noOptionMenu();
     }
-    public void warehouseManager(String user_id) throws IOException {
-        System.out.println(user_id);
-        String option = "";
-        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-        while (!option.equals("0")){
-            System.out.println(INITIALOPTIONPHRASE);
-            System.out.println(FINALOPTIONPHRASE);
-            option = read.readLine();
-        }
+    public void warehouseManager(String userId) throws IOException {
+        System.out.println(userId);
+        noOptionMenu();
     }
-    public void portStaff(String user_id) throws IOException {
-        System.out.println(user_id);
+    public void portStaff(String userId) throws IOException {
+        System.out.println(userId);
         String option= "";
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         while (!option.equals("0")){
@@ -490,8 +470,8 @@ public class RolesUI {
             option = read.readLine();
             switch (option){
                 case "1":
-                    String cargo_id= read.readLine();
-                    fillMatrix(Integer.parseInt(cargo_id));
+                    String cargoId= read.readLine();
+                    fillMatrix(Integer.parseInt(cargoId));
                     break;
                 case "2":
                     //[US314]
@@ -508,7 +488,7 @@ public class RolesUI {
             }
         }
     }
-    private void fillMatrix(int cargo_id){
+    private void fillMatrix(int cargoId){
         ArrayList<String> tempArray = new ArrayList<>();
         DataBaseConnection databaseConnection=null;
         try {
@@ -521,7 +501,7 @@ public class RolesUI {
         Connection connection = databaseConnection.getConnection();
         String sqlCommand = "Select \"container_id\",\"container_position_x\",\"container_position_y\",\"container_position_z\" from \"cargo_manifest_container\" INNER JOIN \"registo_container\" using (\"registo_id\") WHERE \"cargo_manifesto_id\"=?";
         try (PreparedStatement getPortPreparedStatement = connection.prepareStatement(sqlCommand)) {
-            getPortPreparedStatement.setInt(1,cargo_id);
+            getPortPreparedStatement.setInt(1,cargoId);
             try (ResultSet portPreparedResultSet = getPortPreparedStatement.executeQuery()) {
 
                 while (portPreparedResultSet.next()) {
@@ -548,8 +528,8 @@ public class RolesUI {
             }
 
     }
-    public void portManager(String user_id) throws IOException, SQLException {
-        System.out.println(user_id);
+    public void portManager(String userId) throws IOException, SQLException {
+        System.out.println(userId);
         Sprint4Store sp= new Sprint4Store();
         String option="";
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
@@ -565,16 +545,16 @@ public class RolesUI {
                 case "1":
                     //[US306]
                     try{
-                        occupancyRate(user_id);
+                        occupancyRate(userId);
                     } catch (SQLException throwables) {
                         System.out.println("erro");
                     }
                     break;
                 case "2":
-                    //warehouse_capacity_limit();
+
                     break;
                 case "3":
-                    //occupation_map();
+
                     break;
                     case "4":
                         String choice;
@@ -595,8 +575,8 @@ public class RolesUI {
             }
         }
     }
-    private void occupancyRate(String user_id) throws SQLException {
-        System.out.println(user_id);
+    private void occupancyRate(String userId) throws SQLException {
+        System.out.println(userId);
         DataBaseConnection databaseConnection = null;
         try {
             databaseConnection = ConnectionFactory.getInstance()
@@ -610,12 +590,12 @@ public class RolesUI {
 
         PreparedStatement preparedStatement =
                 connection.prepareStatement(sqlCommand);
-        preparedStatement.setInt(1,Integer.parseInt(user_id));
+        preparedStatement.setInt(1,Integer.parseInt(userId));
         preparedStatement.executeUpdate();
     }
 
-        public void shipChiefElectricalEngineer(String user_id) throws IOException {
-            System.out.println(user_id);
+        public void shipChiefElectricalEngineer(String userId) throws IOException {
+            System.out.println(userId);
             String option = "";
             BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
             double[][] areas = new double[][]{{24.0, 20.0, 24.0}, {14.0, 10.0, 14.0}, {14.0, 10.0, 14.0}, {24.0, 20.0, 24.0}};
@@ -766,23 +746,15 @@ public class RolesUI {
                 break;
         }
     }
-    public void truckDriver(String user_id) throws IOException {
-        System.out.println(user_id);
+    public void truckDriver(String userId) throws IOException {
+        System.out.println(userId);
 
-        String option = "";
-        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-        while (!option.equals("0")){
-            System.out.println(INITIALOPTIONPHRASE);
-            System.out.println(FINALOPTIONPHRASE);
-            option = read.readLine();
-        }
+        noOptionMenu();
     }
 
 
     public void importMenu() throws IOException, SQLException {
         String option = "";
-        CsvReader csvReader;
-        // TODO code application logic here
         DataBaseConnection databaseConnection = null;
         try {
             databaseConnection = ConnectionFactory.getInstance()
@@ -922,22 +894,14 @@ public class RolesUI {
 
     }
 
+    private void noOptionMenu() throws IOException {
 
-    /*
-    private void loadBD() throws SQLException {
-        DataBaseConnection databaseConnection = null;
-        try {
-            databaseConnection = ConnectionFactory.getInstance()
-                    .getDatabaseConnection();
-        } catch (IOException exception) {
-            Logger.getLogger(ShipStore.class.getName())
-                    .log(Level.SEVERE, null, exception);
+        String option = "";
+        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+        while (!option.equals("0")){
+            System.out.println(INITIALOPTIONPHRASE);
+            System.out.println(FINALOPTIONPHRASE);
+            option = read.readLine();
         }
-        sds.loadSeadistFromDatabase(databaseConnection);
-        bs.loadBorderFromDatabase(databaseConnection);
-        cs.loadCountryFromDatabase(databaseConnection);
-        ps.loadPortFromDatabase(databaseConnection);
-        ss.loadFromDatabase(databaseConnection,shipList);
     }
-*/
 }

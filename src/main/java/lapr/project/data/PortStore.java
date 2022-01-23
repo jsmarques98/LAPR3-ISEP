@@ -188,7 +188,7 @@ public class PortStore  implements Persistable {
         Port port = (Port) object;
 
         try {
-            //TODO VER ISTO
+
             String sqlCommand = "delete from \"port_warehouse\" where \"port_warehouse_id\" = ?";
 
             //eliminar as outras ocurrencias do port_warehouse
